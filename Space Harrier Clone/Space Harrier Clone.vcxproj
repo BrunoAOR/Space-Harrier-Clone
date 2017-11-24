@@ -18,6 +18,75 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Engine\API.cpp" />
+    <ClCompile Include="Engine\Behaviour.cpp" />
+    <ClCompile Include="Engine\BehavioursManager.cpp" />
+    <ClCompile Include="Engine\CircleCollider.cpp" />
+    <ClCompile Include="Engine\Collider.cpp" />
+    <ClCompile Include="Engine\CollidersManager.cpp" />
+    <ClCompile Include="Engine\Component.cpp" />
+    <ClCompile Include="Engine\ComponentManager.cpp" />
+    <ClCompile Include="Engine\ComponentsManager.cpp" />
+    <ClCompile Include="Engine\Engine.cpp" />
+    <ClCompile Include="Engine\engineUtils.cpp" />
+    <ClCompile Include="Engine\gameConfig.cpp" />
+    <ClCompile Include="Engine\GameObject.cpp" />
+    <ClCompile Include="Engine\GameObjectsManager.cpp" />
+    <ClCompile Include="Engine\globals.cpp" />
+    <ClCompile Include="Engine\InputController.cpp" />
+    <ClCompile Include="Engine\main.cpp" />
+    <ClCompile Include="Engine\RectangleCollider.cpp" />
+    <ClCompile Include="Engine\ReferenceBase.cpp" />
+    <ClCompile Include="Engine\Renderer.cpp" />
+    <ClCompile Include="Engine\RenderersManager.cpp" />
+    <ClCompile Include="Engine\SceneManager.cpp" />
+    <ClCompile Include="Engine\Sprite.cpp" />
+    <ClCompile Include="Engine\SpriteRenderer.cpp" />
+    <ClCompile Include="Engine\SpriteSheet.cpp" />
+    <ClCompile Include="Engine\TimeController.cpp" />
+    <ClCompile Include="Engine\Transform.cpp" />
+    <ClCompile Include="Engine\TriggerCollisionCache.cpp" />
+    <ClCompile Include="Engine\Vector2.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Engine\API.h" />
+    <ClInclude Include="Engine\Behaviour.h" />
+    <ClInclude Include="Engine\BehavioursManager.h" />
+    <ClInclude Include="Engine\CircleCollider.h" />
+    <ClInclude Include="Engine\Collider.h" />
+    <ClInclude Include="Engine\CollidersManager.h" />
+    <ClInclude Include="Engine\ColliderType.h" />
+    <ClInclude Include="Engine\CollisionInfo.h" />
+    <ClInclude Include="Engine\Component.h" />
+    <ClInclude Include="Engine\ComponentManager.h" />
+    <ClInclude Include="Engine\ComponentsManager.h" />
+    <ClInclude Include="Engine\ComponentType.h" />
+    <ClInclude Include="Engine\Engine.h" />
+    <ClInclude Include="Engine\engineUtils.h" />
+    <ClInclude Include="Engine\gameConfig.h" />
+    <ClInclude Include="Engine\GameObject.h" />
+    <ClInclude Include="Engine\GameObjectsManager.h" />
+    <ClInclude Include="Engine\globals.h" />
+    <ClInclude Include="Engine\InputController.h" />
+    <ClInclude Include="Engine\Prefab.h" />
+    <ClInclude Include="Engine\PrefabsFactory.h" />
+    <ClInclude Include="Engine\RectangleCollider.h" />
+    <ClInclude Include="Engine\Reference.h" />
+    <ClInclude Include="Engine\ReferenceBase.h" />
+    <ClInclude Include="Engine\ReferenceOwner.h" />
+    <ClInclude Include="Engine\Renderer.h" />
+    <ClInclude Include="Engine\RenderersManager.h" />
+    <ClInclude Include="Engine\Scene.h" />
+    <ClInclude Include="Engine\SceneManager.h" />
+    <ClInclude Include="Engine\Sprite.h" />
+    <ClInclude Include="Engine\SpriteRenderer.h" />
+    <ClInclude Include="Engine\SpriteSheet.h" />
+    <ClInclude Include="Engine\TimeController.h" />
+    <ClInclude Include="Engine\Transform.h" />
+    <ClInclude Include="Engine\TriggerCollisionCache.h" />
+    <ClInclude Include="Engine\Vector2.h" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
     <ProjectGuid>{60B1976C-F4E3-44BD-A175-A7E2BCC020AC}</ProjectGuid>
@@ -76,6 +145,9 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
     </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+    </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -110,8 +182,6 @@
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
   </ItemDefinitionGroup>
-  <ItemGroup>
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

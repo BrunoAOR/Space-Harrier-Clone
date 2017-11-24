@@ -1,0 +1,15 @@
+#ifndef H_COMPONENT_TYPE
+#define H_COMPONENT_TYPE
+
+
+enum class ComponentType
+{
+	UNDEFINED,
+	TRANSFORM,
+	RENDERER,
+	BEHAVIOUR,
+	COLLIDER
+};
+
+
+#endif // !H_COMPONENT_TYPE

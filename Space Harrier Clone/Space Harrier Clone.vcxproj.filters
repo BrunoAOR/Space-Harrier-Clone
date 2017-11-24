@@ -13,5 +13,207 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Potato Engine">
+      <UniqueIdentifier>{c9d53d50-fd93-40b5-963f-3044418129fb}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Engine\API.cpp">
+      <Filter>Potato Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Behaviour.cpp">
+      <Filter>Potato Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\BehavioursManager.cpp">
+      <Filter>Potato Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\CircleCollider.cpp">
+      <Filter>Potato Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Collider.cpp">
+      <Filter>Potato Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\CollidersManager.cpp">
+      <Filter>Potato Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Component.cpp">
+      <Filter>Potato Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\ComponentManager.cpp">
+      <Filter>Potato Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\ComponentsManager.cpp">
+      <Filter>Potato Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Engine.cpp">
+      <Filter>Potato Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\engineUtils.cpp">
+      <Filter>Potato Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\GameObject.cpp">
+      <Filter>Potato Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\GameObjectsManager.cpp">
+      <Filter>Potato Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\globals.cpp">
+      <Filter>Potato Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\InputController.cpp">
+      <Filter>Potato Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\main.cpp">
+      <Filter>Potato Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\RectangleCollider.cpp">
+      <Filter>Potato Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\ReferenceBase.cpp">
+      <Filter>Potato Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Renderer.cpp">
+      <Filter>Potato Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\RenderersManager.cpp">
+      <Filter>Potato Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\SceneManager.cpp">
+      <Filter>Potato Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Sprite.cpp">
+      <Filter>Potato Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\SpriteRenderer.cpp">
+      <Filter>Potato Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\SpriteSheet.cpp">
+      <Filter>Potato Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\TimeController.cpp">
+      <Filter>Potato Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Transform.cpp">
+      <Filter>Potato Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\TriggerCollisionCache.cpp">
+      <Filter>Potato Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Vector2.cpp">
+      <Filter>Potato Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\gameConfig.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Engine\API.h">
+      <Filter>Potato Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Behaviour.h">
+      <Filter>Potato Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\BehavioursManager.h">
+      <Filter>Potato Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\CircleCollider.h">
+      <Filter>Potato Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Collider.h">
+      <Filter>Potato Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\CollidersManager.h">
+      <Filter>Potato Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\ColliderType.h">
+      <Filter>Potato Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\CollisionInfo.h">
+      <Filter>Potato Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Component.h">
+      <Filter>Potato Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\ComponentManager.h">
+      <Filter>Potato Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\ComponentsManager.h">
+      <Filter>Potato Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\ComponentType.h">
+      <Filter>Potato Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Engine.h">
+      <Filter>Potato Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\engineUtils.h">
+      <Filter>Potato Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\gameConfig.h">
+      <Filter>Potato Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\GameObject.h">
+      <Filter>Potato Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\GameObjectsManager.h">
+      <Filter>Potato Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\globals.h">
+      <Filter>Potato Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\InputController.h">
+      <Filter>Potato Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Prefab.h">
+      <Filter>Potato Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\PrefabsFactory.h">
+      <Filter>Potato Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\RectangleCollider.h">
+      <Filter>Potato Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Reference.h">
+      <Filter>Potato Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\ReferenceBase.h">
+      <Filter>Potato Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\ReferenceOwner.h">
+      <Filter>Potato Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Renderer.h">
+      <Filter>Potato Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\RenderersManager.h">
+      <Filter>Potato Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Scene.h">
+      <Filter>Potato Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\SceneManager.h">
+      <Filter>Potato Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Sprite.h">
+      <Filter>Potato Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\SpriteRenderer.h">
+      <Filter>Potato Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\SpriteSheet.h">
+      <Filter>Potato Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\TimeController.h">
+      <Filter>Potato Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Transform.h">
+      <Filter>Potato Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\TriggerCollisionCache.h">
+      <Filter>Potato Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Vector2.h">
+      <Filter>Potato Engine</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
