@@ -1,20 +1,20 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Source Files">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
-    <Filter Include="Header Files">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
-    </Filter>
-    <Filter Include="Resource Files">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
-    </Filter>
     <Filter Include="Potato Engine">
       <UniqueIdentifier>{c9d53d50-fd93-40b5-963f-3044418129fb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scenes">
+      <UniqueIdentifier>{0fc9f6a5-b10d-49e6-9b76-b5a5ed2c115f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Behaviours">
+      <UniqueIdentifier>{d1d0666c-5246-4ecc-be8c-f7f877f7da87}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="EngineExt">
+      <UniqueIdentifier>{3fedbb46-ca8c-4b0b-919b-70e8c84d84cf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scripts">
+      <UniqueIdentifier>{2c682c19-2ad8-459f-bbd2-1d65cd6bcadf}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -102,8 +102,24 @@
     <ClCompile Include="Engine\Vector2.cpp">
       <Filter>Potato Engine</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\gameConfig.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="Engine\gameConfig.cpp" />
+    <ClCompile Include="GameScene.cpp">
+      <Filter>Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="FloorManager.cpp">
+      <Filter>Behaviours</Filter>
+    </ClCompile>
+    <ClCompile Include="TimeLogger.cpp">
+      <Filter>Behaviours</Filter>
+    </ClCompile>
+    <ClCompile Include="EngineExt\RectangleRenderer.cpp">
+      <Filter>EngineExt</Filter>
+    </ClCompile>
+    <ClCompile Include="DarkLinesController.cpp">
+      <Filter>Scripts</Filter>
+    </ClCompile>
+    <ClCompile Include="FloorWarpController.cpp">
+      <Filter>Scripts</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -214,6 +230,27 @@
     </ClInclude>
     <ClInclude Include="Engine\Vector2.h">
       <Filter>Potato Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="GameScene.h">
+      <Filter>Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="FloorManager.h">
+      <Filter>Behaviours</Filter>
+    </ClInclude>
+    <ClInclude Include="TimeLogger.h">
+      <Filter>Behaviours</Filter>
+    </ClInclude>
+    <ClInclude Include="EngineExt\RectangleRenderer.h">
+      <Filter>EngineExt</Filter>
+    </ClInclude>
+    <ClInclude Include="DarkLinesController.h">
+      <Filter>Scripts</Filter>
+    </ClInclude>
+    <ClInclude Include="DarkLineInfo.h">
+      <Filter>Scripts</Filter>
+    </ClInclude>
+    <ClInclude Include="FloorWarpController.h">
+      <Filter>Scripts</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

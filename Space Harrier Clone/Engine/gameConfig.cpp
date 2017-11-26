@@ -4,19 +4,22 @@
 #include "SceneManager.h"
 
 
-const int SCREEN_WIDTH = 320;
-const int SCREEN_HEIGHT = 224;
 const int SCREEN_SIZE = 2;
+const int SCREEN_WIDTH = 320;
+const int SCREEN_HEIGHT = 224 + 32 / SCREEN_SIZE;
 
 
+#include "../GameScene.h"
 bool scenesConfig()
 {
 	// Success flag
 	bool success = true;
 
-	// Usage: import and add everyScene as shown in the following line (where SomeScene is a class that inherits from Scene):
-	
-	engine->sceneManager->loadScene(0);
+	success &= engine->sceneManager->addScene<GameScene>();
+	if (success)
+	{
+		engine->sceneManager->loadScene(0);
+	}
 	return success;
 }
 

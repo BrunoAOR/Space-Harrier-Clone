@@ -19,6 +19,8 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="DarkLinesController.cpp" />
+    <ClCompile Include="EngineExt\RectangleRenderer.cpp" />
     <ClCompile Include="Engine\API.cpp" />
     <ClCompile Include="Engine\Behaviour.cpp" />
     <ClCompile Include="Engine\BehavioursManager.cpp" />
@@ -48,8 +50,15 @@
     <ClCompile Include="Engine\Transform.cpp" />
     <ClCompile Include="Engine\TriggerCollisionCache.cpp" />
     <ClCompile Include="Engine\Vector2.cpp" />
+    <ClCompile Include="FloorManager.cpp" />
+    <ClCompile Include="FloorWarpController.cpp" />
+    <ClCompile Include="GameScene.cpp" />
+    <ClCompile Include="TimeLogger.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="DarkLineInfo.h" />
+    <ClInclude Include="DarkLinesController.h" />
+    <ClInclude Include="EngineExt\RectangleRenderer.h" />
     <ClInclude Include="Engine\API.h" />
     <ClInclude Include="Engine\Behaviour.h" />
     <ClInclude Include="Engine\BehavioursManager.h" />
@@ -86,6 +95,10 @@
     <ClInclude Include="Engine\Transform.h" />
     <ClInclude Include="Engine\TriggerCollisionCache.h" />
     <ClInclude Include="Engine\Vector2.h" />
+    <ClInclude Include="FloorManager.h" />
+    <ClInclude Include="FloorWarpController.h" />
+    <ClInclude Include="GameScene.h" />
+    <ClInclude Include="TimeLogger.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
