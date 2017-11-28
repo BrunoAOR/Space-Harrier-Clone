@@ -14,13 +14,13 @@ public:
 	FloorWarpController();
 	~FloorWarpController();
 
-	void start(FloorManager* floorManager, const std::string& texturePath, int floorLinesCount, float horScrollSpeed, int horScrollWrapLimit);
+	void init(FloorManager* floorManager, const std::string& texturePath, int floorLinesCount, float horScrollSpeed, int horScrollWrapLimit);
 	void scrollFloorHorizontal(float normalizedSpeed);
 	void scaleFloorVertical(int targetFloorHeight);
 
 private:
 	std::vector<Reference<Sprite>> m_spriteLines;
-	FloorManager* floorManager = nullptr;
+	FloorManager* m_floorManager = nullptr;
 
 	// Start state
 	int m_pixelWidth = 0;

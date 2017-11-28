@@ -8,9 +8,9 @@
 
 
 Transform::Transform()
-	: m_localPosition(Vector2(0,0))
+	: m_localPosition(Vector2(0, 0))
 	, m_localRotation(0)
-	, m_localScale(Vector2(1,1))
+	, m_localScale(Vector2(1, 1))
 	, m_worldPosition(Vector2(0, 0))
 	, m_worldRotation(0)
 	, m_worldScale(Vector2(1, 1))
@@ -179,7 +179,7 @@ Vector2 Transform::worldToLocalPosition(const Vector2 & worldPosition) const
 		{
 			return worldPosition;
 		}
-		
+
 		Vector2 localPosition = Vector2();
 
 		//	1. Solve position
@@ -282,7 +282,7 @@ Reference<Transform> Transform::getParent() const
 }
 
 
-bool Transform::setParent(Reference<Transform> parent)
+bool Transform::setParent(Reference<Transform> parent, bool keepWorldPosition)
 {
 	if (!parent)
 	{
@@ -315,12 +315,26 @@ bool Transform::setParent(Reference<Transform> parent)
 		// And then set the m_parent variable
 		m_parentTransform = newParentTransform;
 		m_parentRef = parent;
-		updateLocalFields();
+		if (keepWorldPosition)
+		{
+			updateLocalFields();
+		}
+		else
+		{
+			updateWorldFields();
+		}
 		return true;
 	}
 	else
 	{
-		updateLocalFields();
+		if (keepWorldPosition)
+		{
+			updateLocalFields();
+		}
+		else
+		{
+			updateWorldFields();
+		}
 		return false;
 	}
 
@@ -388,18 +402,9 @@ void Transform::updateLocalFields()
 void Transform::updateWorldFields()
 {
 	m_worldPosition = localToWorldPosition(m_localPosition);
-	m_worldRotation = localToWorldRotation(m_localRotation); 
+	m_worldRotation = localToWorldRotation(m_localRotation);
 	m_worldScale = localToWorldScale(m_localScale);
-}
-
-
-void Transform::updateChildrenLocalFields() const
-{
-	for (Transform* childTransform : m_children)
-	{
-		childTransform->updateLocalFields();
-		childTransform->updateChildrenLocalFields();
-	}
+	updateChildrenWorldFields();
 }
 
 
@@ -408,7 +413,6 @@ void Transform::updateChildrenWorldFields() const
 	for (Transform* childTransform : m_children)
 	{
 		childTransform->updateWorldFields();
-		childTransform->updateChildrenWorldFields();
 	}
 }
 

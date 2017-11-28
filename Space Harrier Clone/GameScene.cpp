@@ -7,41 +7,53 @@
 #include "Engine/Sprite.h"
 #include "Engine/Vector2.h"
 #include "Engine/gameConfig.h"
+#include "Engine/PrefabsFactory.h"
 
 #include "FloorManager.h"
 #include "FloorObjectsFactory.h"
-#include "TreePrefab.h"
+#include "PlayerPrefab.h"
 #include "TimeLogger.h"
 
 
 bool GameScene::load()
 {
-	auto floorManagerGo = GameObject::createNew();
-	if (floorManagerGo)
+	auto worldGO = GameObject::createNew();
+	if (worldGO)
 	{
-		//floorManagerGo->addComponent<TimeLogger>();
-		floorManagerGo->transform->setLocalPosition(Vector2(SCREEN_WIDTH / 2.0f, 0));
+		worldGO->transform->setWorldPosition(Vector2(SCREEN_WIDTH / 2.0f, 0));
 
-		auto floorManager = floorManagerGo->addComponent<FloorManager>();
 
-		if (floorManager)
+		auto floorManagerGo = GameObject::createNew();
+		if (floorManagerGo)
 		{
-			floorManager->texturePath = "assets/FloorGreen.png";
-		}
+			//floorManagerGo->addComponent<TimeLogger>();
+			floorManagerGo->transform->setParent(worldGO->transform, false);
 
-		auto objectsFactoryGo = GameObject::createNew();
-		if (objectsFactoryGo)
-		{
-			objectsFactoryGo->transform->setLocalPosition(Vector2(SCREEN_WIDTH / 2.0f, 0));
-			auto floorObjectsFactory = objectsFactoryGo->addComponent<FloorObjectsFactory>();
-			if (floorObjectsFactory)
+			auto floorManager = floorManagerGo->addComponent<FloorManager>();
+
+			if (floorManager)
 			{
-				floorObjectsFactory->floorManager = floorManager;
+				floorManager->texturePath = "assets/FloorGreen.png";
+			}
+
+			auto objectsFactoryGo = GameObject::createNew();
+			if (objectsFactoryGo)
+			{
+				objectsFactoryGo->transform->setParent(worldGO->transform, false);
+				auto floorObjectsFactory = objectsFactoryGo->addComponent<FloorObjectsFactory>();
+				if (floorObjectsFactory)
+				{
+					floorObjectsFactory->floorManager = floorManager;
+				}
 			}
 		}
-	}
+		auto playerGo = PrefabsFactory::instantiate<PlayerPrefab>();
+		if (playerGo)
+		{
+			playerGo->transform->setParent(worldGO->transform, false);
+		}
 
-	
+	}
 
 	return true;
 }

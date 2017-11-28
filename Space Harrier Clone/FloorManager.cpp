@@ -24,7 +24,7 @@ void FloorManager::start()
 	int horScrollWrapLimit = 65;	// Pixels after which each rect returns to its original position
 	int floorLinesCount = 128;		// The number of rects into which the floor is split for the warping effect
 	
-	floorWarpController.start(this, texturePath, floorLinesCount, m_horScrollSpeed, horScrollWrapLimit);
+	floorWarpController.init(this, texturePath, floorLinesCount, m_horScrollSpeed, horScrollWrapLimit);
 
 	int darkLinesCount = 10;	// Amount of dark lines on the screen
 	float cycleDuration = m_darkLinesFullCycleDuration / 10.0f;	// Where a cycle is the time for one dark line to get to the size and position of the next one (in milliseconds)
@@ -40,23 +40,23 @@ void FloorManager::update()
 	// Manage input
 	float horRequestedNormalizedSpeed = 0;
 	m_targetHeight = m_midHeight;
-	if (Input::getKey(SDL_SCANCODE_A))
+	if (Input::getKey(SDL_SCANCODE_LEFT))
 	{
 		// Rightwards
 		horRequestedNormalizedSpeed = 1;
 	}
-	if (Input::getKey(SDL_SCANCODE_D))
+	if (Input::getKey(SDL_SCANCODE_RIGHT))
 	{
 		// Leftwards
 		horRequestedNormalizedSpeed = -1;
 	}
 
-	if (Input::getKey(SDL_SCANCODE_W))
+	if (Input::getKey(SDL_SCANCODE_UP))
 	{
 		// Scale up
 		m_targetHeight = m_maxHeight;
 	}
-	if (Input::getKey(SDL_SCANCODE_S))
+	if (Input::getKey(SDL_SCANCODE_DOWN))
 	{
 		// Scale down
 		m_targetHeight = m_minHeight;

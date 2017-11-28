@@ -55,8 +55,11 @@
     <ClCompile Include="FloorObjectsFactory.cpp" />
     <ClCompile Include="FloorWarpController.cpp" />
     <ClCompile Include="GameScene.cpp" />
+    <ClCompile Include="Player.cpp" />
+    <ClCompile Include="PlayerPrefab.cpp" />
     <ClCompile Include="TimeLogger.cpp" />
     <ClCompile Include="TreePrefab.cpp" />
+    <ClCompile Include="Utils.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DarkLineInfo.h" />
@@ -103,8 +106,11 @@
     <ClInclude Include="FloorObjectsFactory.h" />
     <ClInclude Include="FloorWarpController.h" />
     <ClInclude Include="GameScene.h" />
+    <ClInclude Include="Player.h" />
+    <ClInclude Include="PlayerPrefab.h" />
     <ClInclude Include="TimeLogger.h" />
     <ClInclude Include="TreePrefab.h" />
+    <ClInclude Include="Utils.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>

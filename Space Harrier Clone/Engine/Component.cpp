@@ -14,7 +14,7 @@ Component::Component()
 {
 	// TESTING START
 	m_id = s_nextId++;
-	OutputLog("DEBUG: Component constructed -id: %i  ||  Alive: %i", m_id, ++s_alive);
+	//OutputLog("DEBUG: Component constructed -id: %i  ||  Alive: %i", m_id, ++s_alive);
 	// TESTING END
 }
 
@@ -22,7 +22,7 @@ Component::Component()
 Component::~Component()
 {
 	// TESTING START
-	OutputLog("DEBUG: Component  destructed -id: %i  ||  Alive: %i", m_id, --s_alive);
+	//OutputLog("DEBUG: Component  destructed -id: %i  ||  Alive: %i", m_id, --s_alive);
 	// TESTING END
 }
 

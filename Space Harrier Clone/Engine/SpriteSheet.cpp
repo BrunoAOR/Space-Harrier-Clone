@@ -214,7 +214,6 @@ bool SpriteSheet::stopAnimation()
 	{
 		m_isPlaying = false;
 		m_elapsedTime = 0;
-		m_timeLimit = 0;
 		m_direction = 0;
 		return true;
 	}

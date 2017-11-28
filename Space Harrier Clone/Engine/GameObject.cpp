@@ -17,7 +17,7 @@ GameObject::GameObject()
 {
 	// TESTING START
 	m_id = s_nextId++;
-	OutputLog("GO constructed -id: %i  ||  Alive: %i", m_id, ++s_alive);
+	//OutputLog("GO constructed -id: %i  ||  Alive: %i", m_id, ++s_alive);
 	// TESTING END
 
 	m_isActive = true;
@@ -30,7 +30,7 @@ GameObject::~GameObject()
 	refreshComponents();
 
 	// TESTING START
-	OutputLog("GO  destructed -id: %i  ||  Alive: %i", m_id, --s_alive);
+	//OutputLog("GO  destructed -id: %i  ||  Alive: %i", m_id, --s_alive);
 	// TESTING END
 }
 

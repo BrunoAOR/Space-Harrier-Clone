@@ -19,6 +19,12 @@
     <Filter Include="_EngineExt">
       <UniqueIdentifier>{3fedbb46-ca8c-4b0b-919b-70e8c84d84cf}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Behaviours\Floor">
+      <UniqueIdentifier>{06bf0433-1994-4f91-a2ed-192ec0b5faf7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Behaviours\Player">
+      <UniqueIdentifier>{5589c8e6-e9fb-427c-a785-76a94784ddf0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine\API.cpp">
@@ -109,9 +115,6 @@
     <ClCompile Include="GameScene.cpp">
       <Filter>Scenes</Filter>
     </ClCompile>
-    <ClCompile Include="FloorManager.cpp">
-      <Filter>Behaviours</Filter>
-    </ClCompile>
     <ClCompile Include="TimeLogger.cpp">
       <Filter>Behaviours</Filter>
     </ClCompile>
@@ -127,12 +130,22 @@
     <ClCompile Include="TreePrefab.cpp">
       <Filter>Prefabs</Filter>
     </ClCompile>
-    <ClCompile Include="FloorObjectsFactory.cpp">
-      <Filter>Behaviours</Filter>
+    <ClCompile Include="FloorManager.cpp">
+      <Filter>Behaviours\Floor</Filter>
     </ClCompile>
     <ClCompile Include="FloorObjectMover.cpp">
-      <Filter>Behaviours</Filter>
+      <Filter>Behaviours\Floor</Filter>
     </ClCompile>
+    <ClCompile Include="FloorObjectsFactory.cpp">
+      <Filter>Behaviours\Floor</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>Behaviours\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerPrefab.cpp">
+      <Filter>Prefabs</Filter>
+    </ClCompile>
+    <ClCompile Include="Utils.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\API.h">
@@ -246,9 +259,6 @@
     <ClInclude Include="GameScene.h">
       <Filter>Scenes</Filter>
     </ClInclude>
-    <ClInclude Include="FloorManager.h">
-      <Filter>Behaviours</Filter>
-    </ClInclude>
     <ClInclude Include="TimeLogger.h">
       <Filter>Behaviours</Filter>
     </ClInclude>
@@ -268,10 +278,20 @@
       <Filter>Prefabs</Filter>
     </ClInclude>
     <ClInclude Include="FloorObjectsFactory.h">
-      <Filter>Behaviours</Filter>
+      <Filter>Behaviours\Floor</Filter>
+    </ClInclude>
+    <ClInclude Include="FloorManager.h">
+      <Filter>Behaviours\Floor</Filter>
     </ClInclude>
     <ClInclude Include="FloorObjectMover.h">
-      <Filter>Behaviours</Filter>
+      <Filter>Behaviours\Floor</Filter>
     </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>Behaviours\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerPrefab.h">
+      <Filter>Prefabs</Filter>
+    </ClInclude>
+    <ClInclude Include="Utils.h" />
   </ItemGroup>
 </Project>

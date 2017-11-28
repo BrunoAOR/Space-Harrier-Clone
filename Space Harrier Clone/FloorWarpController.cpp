@@ -16,19 +16,20 @@ FloorWarpController::~FloorWarpController()
 {
 }
 
-
-void FloorWarpController::start(FloorManager* floorManager, const std::string& texturePath, int floorLinesCount, float horScrollSpeed, int horScrollWrapLimit)
+#include "Engine/Transform.h"
+void FloorWarpController::init(FloorManager* floorManager, const std::string& texturePath, int floorLinesCount, float horScrollSpeed, int horScrollWrapLimit)
 {
-	floorManager = floorManager;
+	m_floorManager = floorManager;
 	m_floorLinesCount = floorLinesCount;
 	m_horizontalScrollSpeed = horScrollSpeed;
 	m_scrollLimit = horScrollWrapLimit;
-	assert(floorManager && !texturePath.empty() && m_floorLinesCount > 0 && m_scrollLimit > 0);
+	assert(m_floorManager && !texturePath.empty() && m_floorLinesCount > 0 && m_scrollLimit > 0);
 
 	m_spriteLines.reserve(floorLinesCount);
+	OutputLog("floor position %f, %f", m_floorManager->gameObject()->transform->getWorldPosition().x, m_floorManager->gameObject()->transform->getWorldPosition().y);
 	for (int i = 0; i < floorLinesCount; ++i)
 	{
-		auto sprite = floorManager->gameObject()->addComponent<Sprite>();
+		auto sprite = m_floorManager->gameObject()->addComponent<Sprite>();
 
 		if (sprite)
 		{
@@ -37,7 +38,6 @@ void FloorWarpController::start(FloorManager* floorManager, const std::string& t
 			sprite->setZIndex(2);
 			float y = (float)(sprite->getHeight()) / floorLinesCount;
 			sprite->setAllPivots(Vector2(0.5f, 0));
-			sprite->setRotationPivot(Vector2(0.5f, 1));
 			sprite->setPositionPivot(Vector2(0.5f, -(float)(floorLinesCount - (i + 1))));
 			sprite->setClipRect(SDL_Rect{ m_scrollLimit,(int)(y * i), sprite->getWidth() - 2 * m_scrollLimit, (int)y });
 			m_spriteLines.push_back(sprite);

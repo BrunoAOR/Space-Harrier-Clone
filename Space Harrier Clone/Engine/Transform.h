@@ -12,7 +12,7 @@ class Transform final :
 {
 	friend class GameObjectsManager;
 
-public:	
+public:
 	Transform();
 
 	// Position
@@ -43,7 +43,7 @@ public:
 
 	// Hierarchy related
 	Reference<Transform> getParent() const;
-	bool setParent(Reference<Transform> parent);
+	bool setParent(Reference<Transform> parent, bool keepWorldPosition = true);
 	void removeParent();
 
 private:
@@ -53,7 +53,6 @@ private:
 
 	void updateLocalFields();
 	void updateWorldFields();
-	void updateChildrenLocalFields() const;
 	void updateChildrenWorldFields() const;
 
 	// Hiding inherited members from Component
@@ -63,7 +62,7 @@ private:
 	Vector2 m_localPosition;
 	float m_localRotation;
 	Vector2 m_localScale;
-	
+
 	Vector2 m_worldPosition;
 	float m_worldRotation;
 	Vector2 m_worldScale;
