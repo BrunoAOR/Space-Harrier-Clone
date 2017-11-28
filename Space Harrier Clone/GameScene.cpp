@@ -9,24 +9,39 @@
 #include "Engine/gameConfig.h"
 
 #include "FloorManager.h"
+#include "FloorObjectsFactory.h"
+#include "TreePrefab.h"
 #include "TimeLogger.h"
 
 
 bool GameScene::load()
 {
-	auto floor = GameObject::createNew();
-	if (floor)
+	auto floorManagerGo = GameObject::createNew();
+	if (floorManagerGo)
 	{
-		floor->addComponent<TimeLogger>();
-		floor->transform->setLocalPosition(Vector2(SCREEN_WIDTH / 2.0f, 0));
+		//floorManagerGo->addComponent<TimeLogger>();
+		floorManagerGo->transform->setLocalPosition(Vector2(SCREEN_WIDTH / 2.0f, 0));
 
-		auto floorManager = floor->addComponent<FloorManager>();
+		auto floorManager = floorManagerGo->addComponent<FloorManager>();
 
 		if (floorManager)
 		{
 			floorManager->texturePath = "assets/FloorGreen.png";
 		}
+
+		auto objectsFactoryGo = GameObject::createNew();
+		if (objectsFactoryGo)
+		{
+			objectsFactoryGo->transform->setLocalPosition(Vector2(SCREEN_WIDTH / 2.0f, 0));
+			auto floorObjectsFactory = objectsFactoryGo->addComponent<FloorObjectsFactory>();
+			if (floorObjectsFactory)
+			{
+				floorObjectsFactory->floorManager = floorManager;
+			}
+		}
 	}
+
+	
 
 	return true;
 }

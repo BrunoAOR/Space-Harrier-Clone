@@ -9,6 +9,7 @@
 #include "FloorWarpController.h"
 #include "DarkLinesController.h"
 
+
 class FloorManager :
 	public Behaviour
 {
@@ -16,6 +17,13 @@ public:
 	virtual void start() override;
 	virtual void update() override;
 	
+	int getCurrentFloorHeight() const;
+	float getCurrentHorizontalSpeed() const;
+	int getFullMotionDuration() const;
+	float getNormalizedYPos(float normalizedMotionProgress) const;
+	float getXCoordinateForYPos(float startingXPos, float normalizedStartingYPos, float normalizedCurrentYPos) const;
+	float getXSpeedForYPos(float interpolatedCurrentYPos) const;
+
 	std::string texturePath;
 
 private:
@@ -26,20 +34,22 @@ private:
 
 	float m_currentPixelHeight = 0;
 	float m_pixelScaleSpeed = 0;
+	int m_darkLinesFullCycleDuration = 0;
+	float m_horScrollSpeed = 0;
 	int m_maxHeight = 0;
 	int m_midHeight = 0;
 	int m_minHeight = 0;
 
 	// Interpolation related
-	float m_horInterpolationTime = 0;
-	float m_horInterpolationStartTime = 0;
+	int m_horInterpolationTime = 0;
+	int m_horInterpolationStartTime = 0;
 	float m_horSpeedStartingValue = 0;
 	float m_horSpeedCurrentValue = 0;
 	float m_horSpeedTargetValue = 0;
 
 	int m_targetHeight = 0;
-	float m_vertInterpolationTime = 0;
-	float m_vertInterpolationStartTime = 0;
+	int m_vertInterpolationTime = 0;
+	int m_vertInterpolationStartTime = 0;
 	float m_vertSpeedStartingValue = 0;
 	float m_vertSpeedCurrentValue = 0;
 	float m_vertSpeedTargetValue = 0;

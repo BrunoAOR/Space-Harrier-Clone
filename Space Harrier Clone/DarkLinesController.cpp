@@ -20,10 +20,10 @@ DarkLinesController::~DarkLinesController()
 
 void DarkLinesController::start(FloorManager* floorManager, int darkLinesCount, float cycleDuration)
 {
-	m_floorManager = floorManager;
+	floorManager = floorManager;
 	m_darkLinesCount = darkLinesCount;
 	m_cycleDuration = cycleDuration;
-	assert(m_floorManager && m_darkLinesCount > 0 &&  m_cycleDuration > 0);
+	assert(floorManager && m_darkLinesCount > 0 &&  m_cycleDuration > 0);
 
 	m_rectangleRenderers.reserve(m_darkLinesCount);
 	
@@ -35,7 +35,7 @@ void DarkLinesController::start(FloorManager* floorManager, int darkLinesCount, 
 
 	for (int i = 0; i < m_darkLinesCount; ++i)
 	{
-		auto rectangleRenderer = m_floorManager->gameObject()->addComponent<RectangleRenderer>();
+		auto rectangleRenderer = floorManager->gameObject()->addComponent<RectangleRenderer>();
 		if (rectangleRenderer)
 		{
 			rectangleRenderer->setRenderLayer("Background");
@@ -74,8 +74,8 @@ void DarkLinesController::scrollDarkLinesVertical(int targetFloorHeight)
 		// u is the proportional advance in the timeCycle
 		float u = m_currentCycleTime / m_cycleDuration;
 		// Interpolate withint the DarkLine's limits to obtain its current position and height and round down to int
-		float yPos = targetFloorHeight * (info.startY + u * (info.endY - info.startY));
-		float height = targetFloorHeight * (info.startHeight + u * (info.endHeight - info.startHeight));
+		float yPos = targetFloorHeight * ((1 - u) * info.startY + u * info.endY);
+		float height = targetFloorHeight * ((1 - u) * info.startHeight + u * info.endHeight);
 		// Modify the rect according to calculations
 		rectRenderer->rect.y = (int)(yPos + 1 -FLT_EPSILON);
 		rectRenderer->rect.h = (int)(height + 1 - FLT_EPSILON);
@@ -83,7 +83,16 @@ void DarkLinesController::scrollDarkLinesVertical(int targetFloorHeight)
 }
 
 
-int DarkLinesController::getLineHeight(int yPos, int targetFloorHeight)
+float DarkLinesController::getNormalizedYPos(float normalizedMotionProgress) const
 {
-	return 0;
+	float result = -1;
+	int darkLineIndex = (int)(normalizedMotionProgress * m_darkLinesCount);
+	if (darkLineIndex >= 0 && darkLineIndex < m_darkLinesCount)
+	{
+		const DarkLineInfo& info = m_darkLineInfos[darkLineIndex];
+		// FLT_EPSILON is deducted from a normalized cycle duration (1/ m_darkLinesCount) to correct a precision error
+		float cycleMotionProgress = fmodf(normalizedMotionProgress, (1.0f / m_darkLinesCount) - FLT_EPSILON) * m_darkLinesCount;
+		result = ((1 - cycleMotionProgress) * info.startY + cycleMotionProgress * info.endY);
+	}
+	return result;
 }

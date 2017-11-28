@@ -16,10 +16,9 @@ public:
 	void start(FloorManager* floorManager, int darkLinesCount, float cycleDuration);
 
 	void scrollDarkLinesVertical(int targetFloorHeight);
-	
-private:
-	int getLineHeight(int yPos, int targetFloorHeight);
+	float getNormalizedYPos(float normalizedMotionProgress) const;
 
+private:
 	int m_darkLinesCount = 0;
 	float m_cycleDuration = 0;
 	float m_currentCycleTime = 0;
@@ -27,7 +26,7 @@ private:
 	std::vector<DarkLineInfo> m_darkLineInfos;
 	std::vector<Reference<RectangleRenderer>> m_rectangleRenderers;
 	int m_darkLinesCurrentPixelOffset = 0;
-	FloorManager* m_floorManager = nullptr;
+	FloorManager* floorManager = nullptr;
 };
 
 

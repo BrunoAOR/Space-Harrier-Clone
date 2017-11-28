@@ -9,24 +9,25 @@
 
 void FloorManager::start()
 {
-	m_horInterpolationTime = 0.5f;
-	m_vertInterpolationTime = 0.5f;
+	m_horInterpolationTime = 500;
+	m_vertInterpolationTime = 500;
 	m_pixelScaleSpeed = 64;
+	m_darkLinesFullCycleDuration = 2000;	// Refers to the time required for a full cycle of dark lines scrolling
 	// Following 3 values (in pixels) obtained by comparing with the Arcade (MAME) version of the origial game
 	m_maxHeight = 159;	
 	m_midHeight = 70;
 	m_minHeight = 26;
+
 	m_targetHeight = m_midHeight;
 
-	
-	float horScrollSpeed = SCREEN_WIDTH / 0.6f; // Horizontal speed of the bottom-most line meassured in pixels per second
+	m_horScrollSpeed = SCREEN_WIDTH / 0.6f; // Horizontal speed of the bottom-most line meassured in pixels per second
 	int horScrollWrapLimit = 65;	// Pixels after which each rect returns to its original position
 	int floorLinesCount = 128;		// The number of rects into which the floor is split for the warping effect
 	
-	floorWarpController.start(this, texturePath, floorLinesCount, horScrollSpeed, horScrollWrapLimit);
+	floorWarpController.start(this, texturePath, floorLinesCount, m_horScrollSpeed, horScrollWrapLimit);
 
 	int darkLinesCount = 10;	// Amount of dark lines on the screen
-	float cycleDuration = 175;	// Where a cycle is the time for one dark line to get to the size and position of the next one (in milliseconds)
+	float cycleDuration = m_darkLinesFullCycleDuration / 10.0f;	// Where a cycle is the time for one dark line to get to the size and position of the next one (in milliseconds)
 	darkLinesController.start(this, darkLinesCount, cycleDuration);
 
 	m_currentPixelHeight = (float)m_minHeight;
@@ -66,12 +67,12 @@ void FloorManager::update()
 	{
 		m_horSpeedStartingValue = m_horSpeedCurrentValue;
 		m_horSpeedTargetValue = horRequestedNormalizedSpeed;
-		m_horInterpolationStartTime = Time::time() * 0.001f;
+		m_horInterpolationStartTime = Time::time();
 	}
 
 	if (m_horSpeedCurrentValue != m_horSpeedTargetValue)
 	{
-		float horU = (Time::time() * 0.001f - m_horInterpolationStartTime) / m_horInterpolationTime;
+		float horU = (Time::time() - m_horInterpolationStartTime) / (float)m_horInterpolationTime;
 		if (horU > 1) {
 			horU = 1;
 		}
@@ -97,12 +98,12 @@ void FloorManager::update()
 		{
 			m_vertSpeedStartingValue = m_vertSpeedCurrentValue;
 			m_vertSpeedTargetValue = vertRequestedNormalizedSpeed;
-			m_vertInterpolationStartTime = Time::time() * 0.001f;
+			m_vertInterpolationStartTime = Time::time();
 		}
 
 		if (m_vertSpeedCurrentValue != m_vertSpeedTargetValue)
 		{
-			float vertU = (Time::time() * 0.001f - m_vertInterpolationStartTime) / m_vertInterpolationTime;
+			float vertU = (Time::time() - m_vertInterpolationStartTime) / (float)m_vertInterpolationTime;
 			if (vertU > 1) {
 				vertU = 1;
 			}
@@ -124,6 +125,56 @@ void FloorManager::update()
 	darkLinesController.scrollDarkLinesVertical(roundedPixelHeigth);
 }
 
+
+int FloorManager::getCurrentFloorHeight() const
+{
+	return (int)m_currentPixelHeight;
+}
+
+
+float FloorManager::getCurrentHorizontalSpeed() const
+{
+	return m_horSpeedCurrentValue * m_horScrollSpeed;
+}
+
+
+int FloorManager::getFullMotionDuration() const
+{
+	return m_darkLinesFullCycleDuration;
+}
+
+
+float FloorManager::getNormalizedYPos(float normalizedMotionProgress) const
+{
+	return darkLinesController.getNormalizedYPos(normalizedMotionProgress);
+}
+
+
+float FloorManager::getXCoordinateForYPos(float startingXPos, float normalizedStartingYPos, float normalizedCurrentYPos) const
+{
+	// Points have an absolute value for X but a normalized value for Y
+	// vanishing point calculated through image inspection in image edition software
+	Vector2 vanishingPoint(0, 1 + (float)8/256);
+	Vector2 objectPoint(startingXPos, normalizedStartingYPos);
+
+	// Calculate the line equation y = mx + b to later extract x through: x = (y - b)/m;
+	float m = (vanishingPoint.y - objectPoint.y) / (vanishingPoint.x - objectPoint.x);
+	float b = vanishingPoint.y - m * vanishingPoint.x;
+
+	// Now calculate the required x for the input normalizedCurrentYPos;
+	float x = (normalizedCurrentYPos - b) / m;
+
+	return x;
+}
+
+
+float FloorManager::getXSpeedForYPos(float interpolatedCurrentYPos) const
+{
+	// The normalizedCurrentYPos goes from 1 to 0 (top to bottom), but for the speed calculations a value ranging from 0 to 1 is prefered
+	float correctedYPos = 1 - interpolatedCurrentYPos;
+	float xSpeed = correctedYPos * m_horSpeedCurrentValue * m_horScrollSpeed;
+	return xSpeed;
+}
 
 void FloorManager::updateCurrentFloorHeight(float normalizedSpeed)
 {

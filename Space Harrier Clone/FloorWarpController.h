@@ -20,7 +20,7 @@ public:
 
 private:
 	std::vector<Reference<Sprite>> m_spriteLines;
-	FloorManager* m_floorManager = nullptr;
+	FloorManager* floorManager = nullptr;
 
 	// Start state
 	int m_pixelWidth = 0;

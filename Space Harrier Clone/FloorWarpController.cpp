@@ -19,16 +19,16 @@ FloorWarpController::~FloorWarpController()
 
 void FloorWarpController::start(FloorManager* floorManager, const std::string& texturePath, int floorLinesCount, float horScrollSpeed, int horScrollWrapLimit)
 {
-	m_floorManager = floorManager;
+	floorManager = floorManager;
 	m_floorLinesCount = floorLinesCount;
 	m_horizontalScrollSpeed = horScrollSpeed;
 	m_scrollLimit = horScrollWrapLimit;
-	assert(m_floorManager && !texturePath.empty() && m_floorLinesCount > 0 && m_scrollLimit > 0);
+	assert(floorManager && !texturePath.empty() && m_floorLinesCount > 0 && m_scrollLimit > 0);
 
 	m_spriteLines.reserve(floorLinesCount);
 	for (int i = 0; i < floorLinesCount; ++i)
 	{
-		auto sprite = m_floorManager->gameObject()->addComponent<Sprite>();
+		auto sprite = floorManager->gameObject()->addComponent<Sprite>();
 
 		if (sprite)
 		{
@@ -53,9 +53,9 @@ void FloorWarpController::start(FloorManager* floorManager, const std::string& t
 
 void FloorWarpController::scrollFloorHorizontal(float normalizedSpeed)
 {
-	float speed = m_horizontalScrollSpeed * normalizedSpeed * Time::deltaTime() * 0.001f;
+	float distance = m_horizontalScrollSpeed * normalizedSpeed * Time::deltaTime() * 0.001f;
 
-	m_currentpixelOffset += speed;
+	m_currentpixelOffset += distance;
 	if (m_currentpixelOffset >= m_scrollLimit)
 	{
 		m_currentpixelOffset -= m_scrollLimit;
@@ -65,7 +65,6 @@ void FloorWarpController::scrollFloorHorizontal(float normalizedSpeed)
 		m_currentpixelOffset += m_scrollLimit;
 	}
 
-	float normalizedOffset = m_currentpixelOffset / m_pixelWidth;
 	int floorLinesCount = m_spriteLines.size();
 	int index = 0;
 	for (auto& sprite : m_spriteLines)

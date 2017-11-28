@@ -86,6 +86,8 @@ void GameObjectsManager::doDestroyGameObject(Reference<GameObject>& gameObject)
 		int index = EngineUtils::indexOf(m_gameObjects, gameObject);
 		if (index != -1) {
 			// So, the gameObject is in the gameObjects vector
+			// Remove from parent
+			gameObject->transform->removeParent();
 			// Destroy children first
 			doDestroyChildren(gameObject->transform.get());
 			// Now find the updated index, since destroying the children has modified the actual index

@@ -19,8 +19,8 @@ void RectangleRenderer::render()
 	SDL_Color oldColor;
 	SDL_Rect drawRect;
 	Vector2 posPivot = getPositionPivot();
-	drawRect.x = (rect.x - posPivot.x * rect.w) * SCREEN_SIZE;
-	drawRect.y = (SCREEN_HEIGHT - (rect.y - posPivot.y * rect.h) - rect.h) * SCREEN_SIZE;
+	drawRect.x = (int)((rect.x - posPivot.x * rect.w) * SCREEN_SIZE);
+	drawRect.y = (int)((SCREEN_HEIGHT - (rect.y - posPivot.y * rect.h) - rect.h) * SCREEN_SIZE);
 	drawRect.w = rect.w * SCREEN_SIZE;
 	drawRect.h = rect.h * SCREEN_SIZE;
 

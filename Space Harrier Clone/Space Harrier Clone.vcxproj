@@ -51,9 +51,12 @@
     <ClCompile Include="Engine\TriggerCollisionCache.cpp" />
     <ClCompile Include="Engine\Vector2.cpp" />
     <ClCompile Include="FloorManager.cpp" />
+    <ClCompile Include="FloorObjectMover.cpp" />
+    <ClCompile Include="FloorObjectsFactory.cpp" />
     <ClCompile Include="FloorWarpController.cpp" />
     <ClCompile Include="GameScene.cpp" />
     <ClCompile Include="TimeLogger.cpp" />
+    <ClCompile Include="TreePrefab.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DarkLineInfo.h" />
@@ -96,9 +99,12 @@
     <ClInclude Include="Engine\TriggerCollisionCache.h" />
     <ClInclude Include="Engine\Vector2.h" />
     <ClInclude Include="FloorManager.h" />
+    <ClInclude Include="FloorObjectMover.h" />
+    <ClInclude Include="FloorObjectsFactory.h" />
     <ClInclude Include="FloorWarpController.h" />
     <ClInclude Include="GameScene.h" />
     <ClInclude Include="TimeLogger.h" />
+    <ClInclude Include="TreePrefab.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
