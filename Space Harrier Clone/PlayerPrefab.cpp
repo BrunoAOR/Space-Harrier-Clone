@@ -39,28 +39,28 @@ Reference<GameObject> PlayerPrefab::configureGameObject()
 					// Animation: flyCenter
 					spriteSheet->addAnimation("flyCenter");
 					spriteSheet->addRectForAnimation("flyCenter", Vector2(109, 2), 23, 49);
-					spriteSheet->addRectForAnimation("flyCenter", Vector2(109, 2), 23, 51);
+					spriteSheet->addRectForAnimation("flyCenter", Vector2(109, 2), 23, 50);
 					
 
 					// Animation: flyLeft
 					spriteSheet->addAnimation("flyLeft");
 					spriteSheet->addRectForAnimation("flyLeft", Vector2(143, 2), 19, 49);
-					spriteSheet->addRectForAnimation("flyLeft", Vector2(143, 2), 19, 51);
+					spriteSheet->addRectForAnimation("flyLeft", Vector2(143, 2), 19, 50);
 
 					// Animation: flyCenterLeft
 					spriteSheet->addAnimation("flyCenterLeft");
 					spriteSheet->addRectForAnimation("flyCenterLeft", Vector2(171, 2), 16, 49);
-					spriteSheet->addRectForAnimation("flyCenterLeft", Vector2(171, 2), 16, 51);
+					spriteSheet->addRectForAnimation("flyCenterLeft", Vector2(171, 2), 16, 50);
 
 					// Animation: flyCenterRight
 					spriteSheet->addAnimation("flyCenterRight");
 					spriteSheet->addRectForAnimation("flyCenterRight", Vector2(198, 2), 16, 49);
-					spriteSheet->addRectForAnimation("flyCenterRight", Vector2(198, 2), 16, 51);
+					spriteSheet->addRectForAnimation("flyCenterRight", Vector2(198, 2), 16, 50);
 
 					// Animation: flyRight
 					spriteSheet->addAnimation("flyRight");
 					spriteSheet->addRectForAnimation("flyRight", Vector2(222, 2), 19, 49);
-					spriteSheet->addRectForAnimation("flyRight", Vector2(222, 2), 19, 51);
+					spriteSheet->addRectForAnimation("flyRight", Vector2(222, 2), 19, 50);
 				}
 			}
 			

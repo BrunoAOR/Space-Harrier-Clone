@@ -134,11 +134,6 @@ bool Engine::initSDL() const
 	}
 	else
 	{
-		// Set texture filtering to linear
-		if (!SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "1"))
-		{
-			OutputLog("WARNING: Linear texture filtering not enabled!");
-		}
 		// Initialize PNG loading
 		int imgFlags = IMG_INIT_PNG | IMG_INIT_JPG;
 		if ((IMG_Init(imgFlags) & imgFlags) != imgFlags)

@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="BackgroundScroller.cpp" />
     <ClCompile Include="DarkLinesController.cpp" />
     <ClCompile Include="EngineExt\RectangleRenderer.cpp" />
     <ClCompile Include="Engine\API.cpp" />
@@ -62,6 +63,7 @@
     <ClCompile Include="Utils.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="BackgroundScroller.h" />
     <ClInclude Include="DarkLineInfo.h" />
     <ClInclude Include="DarkLinesController.h" />
     <ClInclude Include="EngineExt\RectangleRenderer.h" />

@@ -13,7 +13,7 @@ public:
 	DarkLinesController();
 	~DarkLinesController();
 
-	void start(FloorManager* floorManager, int darkLinesCount, float cycleDuration);
+	void init(FloorManager* floorManager, int darkLinesCount, float cycleDuration);
 
 	void scrollDarkLinesVertical(int targetFloorHeight);
 	float getNormalizedYPos(float normalizedMotionProgress) const;

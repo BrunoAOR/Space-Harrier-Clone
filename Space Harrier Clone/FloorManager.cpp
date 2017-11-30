@@ -28,7 +28,7 @@ void FloorManager::start()
 
 	int darkLinesCount = 10;	// Amount of dark lines on the screen
 	float cycleDuration = m_darkLinesFullCycleDuration / 10.0f;	// Where a cycle is the time for one dark line to get to the size and position of the next one (in milliseconds)
-	darkLinesController.start(this, darkLinesCount, cycleDuration);
+	darkLinesController.init(this, darkLinesCount, cycleDuration);
 
 	m_currentPixelHeight = (float)m_minHeight;
 	floorWarpController.scaleFloorVertical((int)m_currentPixelHeight);
@@ -122,7 +122,7 @@ void FloorManager::update()
 	}
 
 	floorWarpController.scrollFloorHorizontal(m_horSpeedCurrentValue);
-	darkLinesController.scrollDarkLinesVertical(roundedPixelHeigth);
+	darkLinesController.scrollDarkLinesVertical(roundedPixelHeigth);	
 }
 
 

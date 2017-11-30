@@ -35,7 +35,7 @@ void FloorWarpController::init(FloorManager* floorManager, const std::string& te
 		{
 			sprite->loadImage(texturePath);
 			sprite->setRenderLayer("Background");
-			sprite->setZIndex(2);
+			sprite->setZIndex(1);
 			float y = (float)(sprite->getHeight()) / floorLinesCount;
 			sprite->setAllPivots(Vector2(0.5f, 0));
 			sprite->setPositionPivot(Vector2(0.5f, -(float)(floorLinesCount - (i + 1))));

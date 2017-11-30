@@ -19,11 +19,11 @@
     <Filter Include="_EngineExt">
       <UniqueIdentifier>{3fedbb46-ca8c-4b0b-919b-70e8c84d84cf}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Behaviours\Floor">
-      <UniqueIdentifier>{06bf0433-1994-4f91-a2ed-192ec0b5faf7}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Behaviours\Player">
       <UniqueIdentifier>{5589c8e6-e9fb-427c-a785-76a94784ddf0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Behaviours\Scenario">
+      <UniqueIdentifier>{06bf0433-1994-4f91-a2ed-192ec0b5faf7}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -131,13 +131,13 @@
       <Filter>Prefabs</Filter>
     </ClCompile>
     <ClCompile Include="FloorManager.cpp">
-      <Filter>Behaviours\Floor</Filter>
+      <Filter>Behaviours\Scenario</Filter>
     </ClCompile>
     <ClCompile Include="FloorObjectMover.cpp">
-      <Filter>Behaviours\Floor</Filter>
+      <Filter>Behaviours\Scenario</Filter>
     </ClCompile>
     <ClCompile Include="FloorObjectsFactory.cpp">
-      <Filter>Behaviours\Floor</Filter>
+      <Filter>Behaviours\Scenario</Filter>
     </ClCompile>
     <ClCompile Include="Player.cpp">
       <Filter>Behaviours\Player</Filter>
@@ -145,7 +145,12 @@
     <ClCompile Include="PlayerPrefab.cpp">
       <Filter>Prefabs</Filter>
     </ClCompile>
-    <ClCompile Include="Utils.cpp" />
+    <ClCompile Include="Utils.cpp">
+      <Filter>Scripts</Filter>
+    </ClCompile>
+    <ClCompile Include="BackgroundScroller.cpp">
+      <Filter>Behaviours\Scenario</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\API.h">
@@ -278,13 +283,13 @@
       <Filter>Prefabs</Filter>
     </ClInclude>
     <ClInclude Include="FloorObjectsFactory.h">
-      <Filter>Behaviours\Floor</Filter>
+      <Filter>Behaviours\Scenario</Filter>
     </ClInclude>
     <ClInclude Include="FloorManager.h">
-      <Filter>Behaviours\Floor</Filter>
+      <Filter>Behaviours\Scenario</Filter>
     </ClInclude>
     <ClInclude Include="FloorObjectMover.h">
-      <Filter>Behaviours\Floor</Filter>
+      <Filter>Behaviours\Scenario</Filter>
     </ClInclude>
     <ClInclude Include="Player.h">
       <Filter>Behaviours\Player</Filter>
@@ -292,6 +297,11 @@
     <ClInclude Include="PlayerPrefab.h">
       <Filter>Prefabs</Filter>
     </ClInclude>
-    <ClInclude Include="Utils.h" />
+    <ClInclude Include="Utils.h">
+      <Filter>Scripts</Filter>
+    </ClInclude>
+    <ClInclude Include="BackgroundScroller.h">
+      <Filter>Behaviours\Scenario</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

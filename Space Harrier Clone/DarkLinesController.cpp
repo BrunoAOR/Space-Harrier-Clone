@@ -18,7 +18,7 @@ DarkLinesController::~DarkLinesController()
 }
 
 
-void DarkLinesController::start(FloorManager* floorManager, int darkLinesCount, float cycleDuration)
+void DarkLinesController::init(FloorManager* floorManager, int darkLinesCount, float cycleDuration)
 {
 	floorManager = floorManager;
 	m_darkLinesCount = darkLinesCount;
@@ -39,7 +39,7 @@ void DarkLinesController::start(FloorManager* floorManager, int darkLinesCount, 
 		if (rectangleRenderer)
 		{
 			rectangleRenderer->setRenderLayer("Background");
-			rectangleRenderer->setZIndex(3);
+			rectangleRenderer->setZIndex(2);
 			rectangleRenderer->setAllPivots(Vector2{ 0, 1 });
 			// Dark line color calculated assuming that SDL_BLENDMODE_BLEND will be used.
 			rectangleRenderer->color = SDL_Color{ 140, 220, 140, 171 };
@@ -73,7 +73,7 @@ void DarkLinesController::scrollDarkLinesVertical(int targetFloorHeight)
 		Reference<RectangleRenderer>& rectRenderer = m_rectangleRenderers[i];
 		// u is the proportional advance in the timeCycle
 		float u = m_currentCycleTime / m_cycleDuration;
-		// Interpolate withint the DarkLine's limits to obtain its current position and height and round down to int
+		// Interpolate within the DarkLine's limits to obtain its current position and height and round down to int
 		float yPos = targetFloorHeight * ((1 - u) * info.startY + u * info.endY);
 		float height = targetFloorHeight * ((1 - u) * info.startHeight + u * info.endHeight);
 		// Modify the rect according to calculations
