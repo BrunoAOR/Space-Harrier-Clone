@@ -10,6 +10,7 @@
 #include "gameConfig.h"
 #include "TimeController.h"
 #include "InputController.h"
+#include "AudioController.h"
 #include "SceneManager.h"
 #include "GameObjectsManager.h"
 #include "ComponentsManager.h"
@@ -22,6 +23,7 @@ Engine::Engine()
 {
 	time = new TimeController();
 	input = new InputController();
+	audio = new AudioController();
 	sceneManager = new SceneManager();
 	gameObjectsManager = new GameObjectsManager();
 	componentsManager = new ComponentsManager();
@@ -36,6 +38,8 @@ Engine::~Engine()
 	gameObjectsManager = nullptr;
 	delete sceneManager;
 	sceneManager = nullptr;	
+	delete audio;
+	audio = nullptr;
 	delete input;
 	input = nullptr;
 	delete time;

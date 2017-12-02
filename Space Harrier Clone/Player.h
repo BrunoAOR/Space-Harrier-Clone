@@ -4,6 +4,8 @@
 #include "Engine/Behaviour.h"
 #include "Engine/Reference.h"
 #include "Engine/Vector2.h"
+#include "Engine/SFX.h"
+#include "Engine/Music.h"
 class GameObject;
 class SpriteSheet;
 
@@ -39,6 +41,10 @@ private:
 	float m_midY = 0;
 	float m_maxY = 0;
 	float m_yTarget = 0;
+
+	SFX m_sfxOuch;
+	Music m_m1;
+	Music m_m2;
 };
 
 

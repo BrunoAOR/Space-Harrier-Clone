@@ -6,6 +6,7 @@
 #include "Transform.h"
 #include "SceneManager.h"
 #include "GameObjectsManager.h"
+#include "Transform.h"
 
 
 // TESTING START
@@ -89,8 +90,13 @@ void GameObject::setActive(bool activeState)
 }
 
 
-bool GameObject::isActive()
+bool GameObject::isActive() const
 {
+	const Reference<Transform>& parent = transform->getParent();
+	if (parent)
+	{
+		return m_isActive && parent->gameObject()->isActive();
+	}
 	return m_isActive;
 }
 

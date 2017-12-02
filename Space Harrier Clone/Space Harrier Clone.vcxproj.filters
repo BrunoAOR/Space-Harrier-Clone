@@ -151,6 +151,9 @@
     <ClCompile Include="BackgroundScroller.cpp">
       <Filter>Behaviours\Scenario</Filter>
     </ClCompile>
+    <ClCompile Include="Engine\AudioController.cpp">
+      <Filter>__Potato Engine</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\API.h">
@@ -302,6 +305,15 @@
     </ClInclude>
     <ClInclude Include="BackgroundScroller.h">
       <Filter>Behaviours\Scenario</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\SFX.h">
+      <Filter>__Potato Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Music.h">
+      <Filter>__Potato Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\AudioController.h">
+      <Filter>__Potato Engine</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

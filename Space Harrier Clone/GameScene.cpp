@@ -22,12 +22,11 @@ bool GameScene::load()
 	if (worldGO)
 	{
 		worldGO->transform->setWorldPosition(Vector2(SCREEN_WIDTH / 2.0f, 0));
-
+		worldGO->addComponent<TimeLogger>();
 
 		auto floorManagerGo = GameObject::createNew();
 		if (floorManagerGo)
 		{
-			floorManagerGo->addComponent<TimeLogger>();
 			floorManagerGo->transform->setParent(worldGO->transform, false);
 
 			auto floorManager = floorManagerGo->addComponent<FloorManager>();
@@ -82,6 +81,7 @@ bool GameScene::load()
 			}
 
 		}
+		
 		auto playerGo = PrefabsFactory::instantiate<PlayerPrefab>();
 		if (playerGo)
 		{

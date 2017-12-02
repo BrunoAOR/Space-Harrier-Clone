@@ -42,6 +42,9 @@ void Player::start()
 	m_spriteSheet->setAnimationSpeed(16);
 	m_spriteSheet->playAnimation("run");
 	m_currentAnimation = "run";
+	m_sfxOuch = Audio::LoadSFX("assets/audio/SFX - Voice - Aaaaargh.wav");
+	m_m1 = Audio::LoadMusic("assets/audio/S1 MOOT Boss (Skyra).wav");
+	m_m2 = Audio::LoadMusic("assets/audio/Theme.wav");
 }
 
 
@@ -57,6 +60,19 @@ void Player::update()
 
 void Player::handleInput(float & normalizedRequestedX, float & normalizedRequestedY) const
 {
+	if (Input::getKeyDown(SDL_SCANCODE_LCTRL))
+	{
+		Audio::PlaySFX(m_sfxOuch);
+	}
+	if (Input::getKeyDown(SDL_SCANCODE_1))
+	{
+		Audio::PlayMusic(m_m1);
+	}
+	if (Input::getKeyDown(SDL_SCANCODE_2))
+	{
+		Audio::PlayMusic(m_m2);
+	}
+
 	normalizedRequestedX = m_midX;
 	if (Input::getKey(SDL_SCANCODE_LEFT))
 	{

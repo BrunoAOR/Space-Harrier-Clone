@@ -2,6 +2,7 @@
 
 #include "globals.h"
 #include "ComponentType.h"
+#include "GameObject.h"
 
 
 // TESTING START
@@ -47,5 +48,5 @@ void Component::setActive(bool activeState)
 
 bool Component::isActive() const
 {
-	return m_isActive;
+	return m_isActive && gameObject()->isActive();
 }

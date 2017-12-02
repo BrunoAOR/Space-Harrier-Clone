@@ -42,7 +42,8 @@ public:
 	Vector2 worldToLocalScale(const Vector2& worldScale) const;
 
 	// Hierarchy related
-	Reference<Transform> getParent() const;
+	const Reference<Transform>& getParent() const;
+	Reference<Transform>& getParent();
 	bool setParent(Reference<Transform> parent, bool keepWorldPosition = true);
 	void removeParent();
 

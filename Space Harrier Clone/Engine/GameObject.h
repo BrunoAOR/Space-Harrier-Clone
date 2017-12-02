@@ -30,7 +30,7 @@ public:
 
 	// On/Off switch
 	void setActive(bool activeState);
-	bool isActive();
+	bool isActive() const;
 
 	// Creation and destruction related
 	static Reference<GameObject> createNew();

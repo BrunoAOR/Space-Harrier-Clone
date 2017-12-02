@@ -3,6 +3,7 @@
 
 class TimeController;
 class InputController;
+class AudioController;
 class SceneManager;
 class GameObjectsManager;
 class ComponentsManager;
@@ -21,6 +22,7 @@ public:
 
 	TimeController* time = nullptr;
 	InputController* input = nullptr;
+	AudioController* audio = nullptr;
 	SceneManager* sceneManager = nullptr;
 	GameObjectsManager* gameObjectsManager = nullptr;
 	ComponentsManager* componentsManager = nullptr;

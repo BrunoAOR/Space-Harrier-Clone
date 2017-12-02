@@ -23,6 +23,7 @@
     <ClCompile Include="DarkLinesController.cpp" />
     <ClCompile Include="EngineExt\RectangleRenderer.cpp" />
     <ClCompile Include="Engine\API.cpp" />
+    <ClCompile Include="Engine\AudioController.cpp" />
     <ClCompile Include="Engine\Behaviour.cpp" />
     <ClCompile Include="Engine\BehavioursManager.cpp" />
     <ClCompile Include="Engine\CircleCollider.cpp" />
@@ -68,6 +69,7 @@
     <ClInclude Include="DarkLinesController.h" />
     <ClInclude Include="EngineExt\RectangleRenderer.h" />
     <ClInclude Include="Engine\API.h" />
+    <ClInclude Include="Engine\AudioController.h" />
     <ClInclude Include="Engine\Behaviour.h" />
     <ClInclude Include="Engine\BehavioursManager.h" />
     <ClInclude Include="Engine\CircleCollider.h" />
@@ -86,6 +88,7 @@
     <ClInclude Include="Engine\GameObjectsManager.h" />
     <ClInclude Include="Engine\globals.h" />
     <ClInclude Include="Engine\InputController.h" />
+    <ClInclude Include="Engine\Music.h" />
     <ClInclude Include="Engine\Prefab.h" />
     <ClInclude Include="Engine\PrefabsFactory.h" />
     <ClInclude Include="Engine\RectangleCollider.h" />
@@ -96,6 +99,7 @@
     <ClInclude Include="Engine\RenderersManager.h" />
     <ClInclude Include="Engine\Scene.h" />
     <ClInclude Include="Engine\SceneManager.h" />
+    <ClInclude Include="Engine\SFX.h" />
     <ClInclude Include="Engine\Sprite.h" />
     <ClInclude Include="Engine\SpriteRenderer.h" />
     <ClInclude Include="Engine\SpriteSheet.h" />

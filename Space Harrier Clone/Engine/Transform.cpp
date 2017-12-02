@@ -276,7 +276,13 @@ Vector2 Transform::worldToLocalScale(const Vector2 & worldScale) const
 }
 
 
-Reference<Transform> Transform::getParent() const
+const Reference<Transform>& Transform::getParent() const
+{
+	return m_parentRef;
+}
+
+
+Reference<Transform>& Transform::getParent()
 {
 	return m_parentRef;
 }
