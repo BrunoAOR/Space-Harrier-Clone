@@ -2,11 +2,18 @@
 
 #include "Engine.h"
 #include "SceneManager.h"
+#include "PrefabsFactory.h"
 
 
 const int SCREEN_SIZE = 2;
 const int SCREEN_WIDTH = 320;
 const int SCREEN_HEIGHT = 224 + 32 / SCREEN_SIZE;
+
+
+std::vector<std::string> renderLayersConfig()
+{
+	return std::vector<std::string>{"Background", "Main", "Foreground" };
+}
 
 
 #include "../GameScene.h"
@@ -24,7 +31,15 @@ bool scenesConfig()
 }
 
 
-std::vector<std::string> renderLayersConfig()
+#include "../PlayerPrefab.h"
+#include "../TreePrefab.h"
+bool prefabsConfig()
 {
-	return std::vector<std::string>{"Background", "Main", "Foreground" };
+	// Success flag
+	bool success = true;
+
+	success &= engine->prefabsFactory->addPrefab<PlayerPrefab>("PlayerPrefab");
+	success &= engine->prefabsFactory->addPrefab<TreePrefab>("TreePrefab");
+
+	return success;
 }

@@ -141,7 +141,6 @@ bool CollidersManager::checkAndResolveCollision(CircleCollider* circColl1, Circl
 
 	if (penetrationDistance > m_minPenetration)
 	{
-		//printf("Circ on Circ: contact: %f\n", penetrationDistance);
 		if (shouldResolve)
 		{
 			resolveCollision(circColl1, pos1, circColl2, pos2, penetrationDistance);
@@ -238,7 +237,6 @@ bool CollidersManager::checkAndResolveCollision(RectangleCollider* rectColl1, Re
 	}
 
 	// If we got here, we have a minOverlapLength and Direction that can be used to resolve the collision
-	//printf("Rect on Rect: contanct: %f\n", minOverlapLength);
 	if (shouldResolve)
 	{
 		resolveCollision(rectColl1, rectColl2, minOverlapLength * minOverlapDirection);
@@ -289,7 +287,6 @@ bool CollidersManager::checkAndResolveCollision(CircleCollider* circColl, Rectan
 
 	if (penetrationDistance > m_minPenetration)
 	{
-		//printf("Circ on Rect: contact: %f\n", penetrationDistance);
 		if (shouldResolve)
 		{
 			resolveCollision(circColl, rectColl, penetrationVector);

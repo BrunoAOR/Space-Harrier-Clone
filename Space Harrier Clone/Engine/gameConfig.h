@@ -10,6 +10,7 @@ extern const int SCREEN_SIZE;
 
 std::vector<std::string> renderLayersConfig();
 bool scenesConfig();
+bool prefabsConfig();
 
 
 #endif // !H_GAME_CONFIG

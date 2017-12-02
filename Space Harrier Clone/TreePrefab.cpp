@@ -6,20 +6,15 @@
 #include "FloorObjectMover.h"
 
 
-Reference<GameObject> TreePrefab::configureGameObject()
+void TreePrefab::configureGameObject(Reference<GameObject>& gameObject) const
 {
-	auto go = GameObject::createNew();
-	if (go)
+	auto sprite = gameObject->addComponent<Sprite>();
+	if (sprite)
 	{
-		auto sprite = go->addComponent<Sprite>();
-		if (sprite)
-		{
-			sprite->setActive(false);
-			sprite->loadImage("assets/Tree.png");
-			sprite->setAllPivots(Vector2(0.5f, 0));
-			sprite->setRenderLayer("Main");
-		}
-		go->addComponent<FloorObjectMover>();
+		sprite->setActive(false);
+		sprite->loadImage("assets/Tree.png");
+		sprite->setAllPivots(Vector2(0.5f, 0));
+		sprite->setRenderLayer("Main");
 	}
-	return go;
+	gameObject->addComponent<FloorObjectMover>();
 }

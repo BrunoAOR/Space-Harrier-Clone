@@ -43,7 +43,7 @@ bool SceneManager::addScene()
 	else
 	{
 		success = false;
-		OutputLog("ERROR: Can't attach selected class of type %s as a scene!", typeid(T).name());
+		OutputLog("ERROR: Can't add selected class of type %s as a scene!", typeid(T).name());
 	}
 
 	return success;

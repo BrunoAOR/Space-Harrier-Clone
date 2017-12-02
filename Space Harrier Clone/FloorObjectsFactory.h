@@ -5,12 +5,16 @@
 #include "Engine/Reference.h"
 #include "Engine/Behaviour.h"
 class FloorManager;
+class GameObjectPool;
+class Prefab;
 
 
 class FloorObjectsFactory :
 	public Behaviour
 {
 public:
+	~FloorObjectsFactory();
+	
 	virtual void start() override;
 	virtual void update() override;
 
@@ -18,6 +22,9 @@ public:
 
 private:
 	void spawnObject();
+
+	Reference<Prefab> m_prefabTree;
+	GameObjectPool* m_treePool = nullptr;
 	
 	int m_timeStart = 0;
 	int m_spawnWaitTime = 0;

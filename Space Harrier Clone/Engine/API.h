@@ -3,6 +3,9 @@
 
 #include <string>
 #include "SDL2/include/SDL_scancode.h"
+#include "Reference.h"
+class Prefab;
+class GameObject;
 struct Music;
 struct SFX;
 
@@ -39,6 +42,13 @@ namespace Audio
 	void StopMusic();
 	bool isMusicPaused();
 	bool isMusicPlaying();
+}
+
+
+namespace Prefabs
+{
+	Reference<Prefab> getPrefab(const std::string& id);
+	Reference<GameObject> instantiate(const Reference<Prefab>& prefab);
 }
 
 

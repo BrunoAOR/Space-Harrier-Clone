@@ -15,6 +15,7 @@ public:
 
 	Music LoadMusic(const std::string& path);
 	SFX LoadSFX(const std::string& path);
+
 	void PlayMusic(const Music& music, int repetitions = -1) const;
 	void PauseMusic() const;
 	void UnpauseMusic() const;

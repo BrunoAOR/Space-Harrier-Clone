@@ -9,7 +9,7 @@ class PlayerPrefab :
 {
 public:
 	// Inherited via Prefab
-	virtual Reference<GameObject> configureGameObject() override;
+	virtual void configureGameObject(Reference<GameObject>& gameObject) const override;
 };
 
 

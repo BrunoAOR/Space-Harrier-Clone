@@ -4,6 +4,7 @@
 #include "Engine/Behaviour.h"
 #include "Engine/Reference.h"
 #include "FloorManager.h"
+class PooledGameObject;
 
 
 class FloorObjectMover :
@@ -11,7 +12,7 @@ class FloorObjectMover :
 {
 public:
 	void init(const Reference<FloorManager>& floorManager, float startXPos, float normalizedStartProgress, float normalizedEndProgress, float startScale, float endScale);
-	virtual void start() override;
+	void restart();
 	virtual void update() override;
 	
 	
@@ -21,6 +22,7 @@ private:
 	void adjustPosition(float normalizedCurrentProgress);
 	
 	Reference<FloorManager> m_floorManager;
+	Reference<PooledGameObject> m_poolHandler;
 	float m_startXPos = 0;
 	float m_normalizedStartProgress = 0;
 	float m_normalizedEndProgress = 0;

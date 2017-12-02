@@ -1,34 +1,55 @@
 #ifndef H_PREFABS_FACTORY
 #define H_PREFABS_FACTORY
 
-template<typename T>
-class Reference;
+#include <map>
+#include <string>
+#include "globals.h"
+#include "ReferenceOwner.h"
 class GameObject;
 class Prefab;
+
 
 class PrefabsFactory final
 {
 public:
-	template<typename T>
-	static Reference<GameObject> instantiate();
+	PrefabsFactory();
+	~PrefabsFactory();
+
+	template <typename T>
+	bool addPrefab(const std::string& id);
+	Reference<Prefab> getPrefab(const std::string& id) const;
+	Reference<GameObject> instantiate(const Reference<Prefab>& prefab);
 
 private:
-	PrefabsFactory() {};
-	~PrefabsFactory() {};
+	std::map<std::string, ReferenceOwner<Prefab>> m_prefabs;
 };
 
 
 template<typename T>
-Reference<GameObject> PrefabsFactory::instantiate()
+bool PrefabsFactory::addPrefab(const std::string& id)
 {
-	if (!std::is_base_of<Prefab, T>::value || std::is_abstract<T>::value)
+	// Success flag
+	bool success = true;
+
+	if (!std::is_base_of<Prefab, T>::value || std::is_same<Prefab, T>::value)
 	{
-		return Reference<GameObject>();
+		success = false;
+		OutputLog("ERROR: Can't add selected class of type %s as a prefab!", typeid(T).name());
 	}
 	else
 	{
-		return T().configureGameObject();
+		if (m_prefabs.count(id) == 1)
+		{
+			success = false;
+			OutputLog("ERROR: The selected id (%s) is already in use!", id.c_str());
+		}
+		else
+		{
+			m_prefabs[id] = ReferenceOwner<Prefab>(new T());
+		}
 	}
+
+	return success;
 }
 
 

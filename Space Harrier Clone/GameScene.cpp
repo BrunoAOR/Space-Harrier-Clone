@@ -7,13 +7,12 @@
 #include "Engine/Sprite.h"
 #include "Engine/Vector2.h"
 #include "Engine/gameConfig.h"
-#include "Engine/PrefabsFactory.h"
 
 #include "FloorManager.h"
 #include "FloorObjectsFactory.h"
-#include "PlayerPrefab.h"
 #include "BackgroundScroller.h"
 #include "TimeLogger.h"
+#include "PlayerPrefab.h"
 
 
 bool GameScene::load()
@@ -82,7 +81,7 @@ bool GameScene::load()
 
 		}
 		
-		auto playerGo = PrefabsFactory::instantiate<PlayerPrefab>();
+		auto playerGo = Prefabs::instantiate(Prefabs::getPrefab("PlayerPrefab"));
 		if (playerGo)
 		{
 			playerGo->transform->setParent(worldGO->transform, false);

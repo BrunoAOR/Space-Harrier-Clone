@@ -1,6 +1,7 @@
 #include "SpriteRenderer.h"
 
 #include "SDL2_image/include/SDL_image.h"
+#include "globals.h"
 
 
 SpriteRenderer::SpriteRenderer()
@@ -62,7 +63,7 @@ bool SpriteRenderer::loadImage(const std::string& path, bool shouldColorKey, Uin
 	SDL_Surface* loadedSurface = IMG_Load(path.c_str());
 	if (loadedSurface == nullptr)
 	{
-		printf("Error: Unable to load image at path %s! SDL_image Error: %s\n", path.c_str(), IMG_GetError());
+		OutputLog("Error: Unable to load image at path %s! SDL_image Error: %s", path.c_str(), IMG_GetError());
 	}
 	else
 	{
@@ -71,7 +72,7 @@ bool SpriteRenderer::loadImage(const std::string& path, bool shouldColorKey, Uin
 		{
 			if (SDL_SetColorKey(loadedSurface, SDL_TRUE, colorKey) != 0)
 			{
-				printf("Warning: Unable to color key the loaded image at path %s! SDL Error: %s\n", path.c_str(), SDL_GetError());
+				OutputLog("Warning: Unable to color key the loaded image at path %s! SDL Error: %s", path.c_str(), SDL_GetError());
 			}
 		}
 
@@ -79,7 +80,7 @@ bool SpriteRenderer::loadImage(const std::string& path, bool shouldColorKey, Uin
 		m_texture = SDL_CreateTextureFromSurface(m_renderer, loadedSurface);
 		if (m_texture == nullptr)
 		{
-			printf("Error: Unable to create texture for image at path %s! SDL Error: %s\n", path.c_str(), SDL_GetError());
+			OutputLog("Error: Unable to create texture for image at path %s! SDL Error: %s", path.c_str(), SDL_GetError());
 		}
 		else
 		{

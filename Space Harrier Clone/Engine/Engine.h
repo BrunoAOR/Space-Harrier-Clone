@@ -5,6 +5,7 @@ class TimeController;
 class InputController;
 class AudioController;
 class SceneManager;
+class PrefabsFactory;
 class GameObjectsManager;
 class ComponentsManager;
 
@@ -24,6 +25,7 @@ public:
 	InputController* input = nullptr;
 	AudioController* audio = nullptr;
 	SceneManager* sceneManager = nullptr;
+	PrefabsFactory* prefabsFactory = nullptr;
 	GameObjectsManager* gameObjectsManager = nullptr;
 	ComponentsManager* componentsManager = nullptr;
 

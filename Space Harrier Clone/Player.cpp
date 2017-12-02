@@ -137,17 +137,17 @@ void Player::updateAnimation()
 		{
 			requestedAnimation = "flyRight";
 		}
-		else if (normalizedXPos < (m_minX - m_midX) / 2.0f)
+		else if (normalizedXPos < (m_midX + m_minX) / 2.0f)
 		{
 			requestedAnimation = "flyCenterLeft";
 		}
-		else if (normalizedXPos > (m_midX - m_maxX) / 2.0f)
+		else if (normalizedXPos > (m_maxX + m_midX) / 2.0f)
 		{
 			requestedAnimation = "flyCenterRight";
 		}
 		else
 		{
-			requestedAnimation = "flyMid";
+			requestedAnimation = "flyCenter";
 		}
 	}
 

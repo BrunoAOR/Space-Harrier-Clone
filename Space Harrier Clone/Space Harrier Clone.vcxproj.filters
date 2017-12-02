@@ -25,6 +25,12 @@
     <Filter Include="Behaviours\Scenario">
       <UniqueIdentifier>{06bf0433-1994-4f91-a2ed-192ec0b5faf7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Scripts\GameObjectPooling">
+      <UniqueIdentifier>{f55016ec-4249-470c-a86e-ac1eb9cc6fb6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scripts\Scenario">
+      <UniqueIdentifier>{dee91ba8-d15a-4dc4-b36c-b4d2cab37160}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine\API.cpp">
@@ -121,12 +127,6 @@
     <ClCompile Include="EngineExt\RectangleRenderer.cpp">
       <Filter>_EngineExt</Filter>
     </ClCompile>
-    <ClCompile Include="DarkLinesController.cpp">
-      <Filter>Scripts</Filter>
-    </ClCompile>
-    <ClCompile Include="FloorWarpController.cpp">
-      <Filter>Scripts</Filter>
-    </ClCompile>
     <ClCompile Include="TreePrefab.cpp">
       <Filter>Prefabs</Filter>
     </ClCompile>
@@ -153,6 +153,21 @@
     </ClCompile>
     <ClCompile Include="Engine\AudioController.cpp">
       <Filter>__Potato Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\PrefabsFactory.cpp">
+      <Filter>__Potato Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObjectPool.cpp">
+      <Filter>Scripts\GameObjectPooling</Filter>
+    </ClCompile>
+    <ClCompile Include="PooledGameObject.cpp">
+      <Filter>Behaviours</Filter>
+    </ClCompile>
+    <ClCompile Include="DarkLinesController.cpp">
+      <Filter>Scripts\Scenario</Filter>
+    </ClCompile>
+    <ClCompile Include="FloorWarpController.cpp">
+      <Filter>Scripts\Scenario</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -273,15 +288,6 @@
     <ClInclude Include="EngineExt\RectangleRenderer.h">
       <Filter>_EngineExt</Filter>
     </ClInclude>
-    <ClInclude Include="DarkLinesController.h">
-      <Filter>Scripts</Filter>
-    </ClInclude>
-    <ClInclude Include="DarkLineInfo.h">
-      <Filter>Scripts</Filter>
-    </ClInclude>
-    <ClInclude Include="FloorWarpController.h">
-      <Filter>Scripts</Filter>
-    </ClInclude>
     <ClInclude Include="TreePrefab.h">
       <Filter>Prefabs</Filter>
     </ClInclude>
@@ -314,6 +320,21 @@
     </ClInclude>
     <ClInclude Include="Engine\AudioController.h">
       <Filter>__Potato Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObjectPool.h">
+      <Filter>Scripts\GameObjectPooling</Filter>
+    </ClInclude>
+    <ClInclude Include="PooledGameObject.h">
+      <Filter>Behaviours</Filter>
+    </ClInclude>
+    <ClInclude Include="FloorWarpController.h">
+      <Filter>Scripts\Scenario</Filter>
+    </ClInclude>
+    <ClInclude Include="DarkLineInfo.h">
+      <Filter>Scripts\Scenario</Filter>
+    </ClInclude>
+    <ClInclude Include="DarkLinesController.h">
+      <Filter>Scripts\Scenario</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

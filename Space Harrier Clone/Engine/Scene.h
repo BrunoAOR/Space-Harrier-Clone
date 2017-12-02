@@ -5,6 +5,7 @@
 class Scene
 {
 	friend class SceneManager;
+
 public:
 	virtual ~Scene() {};
 	virtual bool load() = 0;

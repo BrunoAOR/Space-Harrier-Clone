@@ -5,13 +5,17 @@ template<typename T>
 class Reference;
 class GameObject;
 
+
 class Prefab
 {
+	friend class PrefabFactory;
+
 public:
 	virtual ~Prefab() = 0 {};
+	virtual void configureGameObject(Reference<GameObject>& gameObject) const = 0;
 
 protected:
-	virtual Reference<GameObject> configureGameObject() = 0;
+	Prefab() {}
 };
 
 

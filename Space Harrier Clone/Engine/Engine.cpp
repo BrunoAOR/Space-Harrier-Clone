@@ -12,6 +12,7 @@
 #include "InputController.h"
 #include "AudioController.h"
 #include "SceneManager.h"
+#include "PrefabsFactory.h"
 #include "GameObjectsManager.h"
 #include "ComponentsManager.h"
 
@@ -25,6 +26,7 @@ Engine::Engine()
 	input = new InputController();
 	audio = new AudioController();
 	sceneManager = new SceneManager();
+	prefabsFactory = new PrefabsFactory();
 	gameObjectsManager = new GameObjectsManager();
 	componentsManager = new ComponentsManager();
 }
@@ -36,6 +38,8 @@ Engine::~Engine()
 	componentsManager = nullptr;
 	delete gameObjectsManager;
 	gameObjectsManager = nullptr;
+	delete prefabsFactory;
+	prefabsFactory = nullptr;
 	delete sceneManager;
 	sceneManager = nullptr;	
 	delete audio;
@@ -170,10 +174,16 @@ bool Engine::initEngine() const
 	}
 	else
 	{
-		
-
-		// Initialize the ComponentsManager
-		success &= componentsManager->init();
+		if (!prefabsConfig())
+		{
+			OutputLog("ERROR: Failed to setup prefabs!");
+			success = false;
+		}
+		else
+		{
+			// Initialize the ComponentsManager
+			success &= componentsManager->init();
+		}
 	}
 
 	return success;

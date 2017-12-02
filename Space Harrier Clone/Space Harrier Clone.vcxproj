@@ -40,6 +40,7 @@
     <ClCompile Include="Engine\globals.cpp" />
     <ClCompile Include="Engine\InputController.cpp" />
     <ClCompile Include="Engine\main.cpp" />
+    <ClCompile Include="Engine\PrefabsFactory.cpp" />
     <ClCompile Include="Engine\RectangleCollider.cpp" />
     <ClCompile Include="Engine\ReferenceBase.cpp" />
     <ClCompile Include="Engine\Renderer.cpp" />
@@ -56,9 +57,11 @@
     <ClCompile Include="FloorObjectMover.cpp" />
     <ClCompile Include="FloorObjectsFactory.cpp" />
     <ClCompile Include="FloorWarpController.cpp" />
+    <ClCompile Include="GameObjectPool.cpp" />
     <ClCompile Include="GameScene.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PlayerPrefab.cpp" />
+    <ClCompile Include="PooledGameObject.cpp" />
     <ClCompile Include="TimeLogger.cpp" />
     <ClCompile Include="TreePrefab.cpp" />
     <ClCompile Include="Utils.cpp" />
@@ -111,9 +114,11 @@
     <ClInclude Include="FloorObjectMover.h" />
     <ClInclude Include="FloorObjectsFactory.h" />
     <ClInclude Include="FloorWarpController.h" />
+    <ClInclude Include="GameObjectPool.h" />
     <ClInclude Include="GameScene.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="PlayerPrefab.h" />
+    <ClInclude Include="PooledGameObject.h" />
     <ClInclude Include="TimeLogger.h" />
     <ClInclude Include="TreePrefab.h" />
     <ClInclude Include="Utils.h" />

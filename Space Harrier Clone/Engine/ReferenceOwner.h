@@ -90,8 +90,8 @@ ReferenceOwner<T>& ReferenceOwner<T>::operator=(ReferenceOwner && source)
 
 	this->m_referencesList = source.m_referencesList;
 	this->m_dataPtr = source.m_dataPtr;
-	source.reset();
 	this->addReference();
+	source.reset();
 
 	return *this;
 }

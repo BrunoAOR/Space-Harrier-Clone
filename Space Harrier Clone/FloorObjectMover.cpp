@@ -4,12 +4,14 @@
 #include "Engine/API.h"
 #include "Engine/GameObject.h"
 #include "Engine/Transform.h"
+#include "PooledGameObject.h"
 
 
 void FloorObjectMover::init(const Reference<FloorManager>& floorManager, float startXPos, float normalizedStartProgress, float normalizedEndProgress, float startScale, float endScale)
 {
 	m_floorManager = floorManager;
-	assert(m_floorManager);
+	m_poolHandler = gameObject()->getComponent<PooledGameObject>();
+	assert(m_floorManager && m_poolHandler);
 	m_startXPos = startXPos;
 	m_normalizedStartProgress = normalizedStartProgress;
 	m_normalizedEndProgress = normalizedEndProgress;
@@ -18,7 +20,7 @@ void FloorObjectMover::init(const Reference<FloorManager>& floorManager, float s
 	m_normalizedStartYPos = m_floorManager->getNormalizedYPos(m_normalizedStartProgress);
 }
 
-void FloorObjectMover::start()
+void FloorObjectMover::restart()
 {
 	assert(m_floorManager);
 	m_fullMotionDuration = m_floorManager->getFullMotionDuration();
@@ -38,8 +40,7 @@ void FloorObjectMover::update()
 	// Destroy gameObject if motion is finished
 	if (normalizedCurrentProgress > m_normalizedEndProgress)
 	{
-		GameObject::destroy(gameObject());
-		return;
+		m_poolHandler->returnToPool();
 	}
 
 	adjustScale(normalizedCurrentProgress);
