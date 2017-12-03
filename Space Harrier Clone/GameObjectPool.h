@@ -15,7 +15,7 @@ public:
 	~GameObjectPool();
 
 	Reference<GameObject> getGameObject();
-	bool returnGameObject(Reference<GameObject> gameObjectToReturn);
+	bool returnGameObject(Reference<GameObject>& gameObjectToReturn);
 
 private:
 	void createGameObject();

@@ -11,6 +11,9 @@ public:
 	CircleCollider();
 	~CircleCollider();
 
+	float getLocalScaledRadius() const;
+	float getWorldScaledRadius() const;
+
 	float radius;
 };
 

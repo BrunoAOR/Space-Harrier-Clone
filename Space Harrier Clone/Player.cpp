@@ -7,7 +7,9 @@
 #include "Engine/Transform.h"
 #include "Engine/Sprite.h"
 #include "Engine/SpriteSheet.h"
+#include "Engine/Collider.h"
 #include "Utils.h"
+#include "FloorObjectMover.h"
 
 
 void Player::init(const Reference<GameObject>& characterGo, const Reference<GameObject> shadowGo)
@@ -55,6 +57,14 @@ void Player::update()
 	handleInput(normalizedRequestedX, normalizedRequestedY);
 	move(normalizedRequestedX, normalizedRequestedY);
 	updateAnimation();
+}
+
+void Player::onTriggerEnter(Reference<Collider>& other)
+{
+	if (other->gameObject()->getComponent<FloorObjectMover>())
+	{
+		OutputLog("Tree hit!");
+	}
 }
 
 

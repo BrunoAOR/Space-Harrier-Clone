@@ -60,6 +60,7 @@
     <ClCompile Include="GameObjectPool.cpp" />
     <ClCompile Include="GameScene.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="PlayerCollisionController.cpp" />
     <ClCompile Include="PlayerPrefab.cpp" />
     <ClCompile Include="PooledGameObject.cpp" />
     <ClCompile Include="TimeLogger.cpp" />
@@ -117,6 +118,7 @@
     <ClInclude Include="GameObjectPool.h" />
     <ClInclude Include="GameScene.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="PlayerCollisionController.h" />
     <ClInclude Include="PlayerPrefab.h" />
     <ClInclude Include="PooledGameObject.h" />
     <ClInclude Include="TimeLogger.h" />

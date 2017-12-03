@@ -1,6 +1,7 @@
 #include "CollidersManager.h"
 
 #include <cmath>
+#include "gameConfig.h"
 #include "ComponentType.h"
 #include "EngineUtils.h"
 #include "Vector2.h"
@@ -41,33 +42,75 @@ void CollidersManager::update()
 	{
 		Reference<Component>& componentRef1 = m_components[i];
 		Collider* collider1 = static_cast<Collider*>(componentRef1.get());
-		for (unsigned int j = i + 1; j < m_components.size(); ++j)
+		if (collider1->isActive())
 		{
-			Reference<Component>& componentRef2 = m_components[j];
-			Collider* collider2 = static_cast<Collider*>(componentRef2.get());
-
-			if (collider1 != collider2)
+			for (unsigned int j = i + 1; j < m_components.size(); ++j)
 			{
-				// Actual collider on collider check
-				bool shouldResolve = shouldResolveCollision(collider1, collider2);
-				if (checkAndResolveCollision(collider1, collider2, shouldResolve))
+				Reference<Component>& componentRef2 = m_components[j];
+				Collider* collider2 = static_cast<Collider*>(componentRef2.get());
+
+				if (collider2->isActive() && collider1 != collider2 && shouldCalculateCollision(collider1, collider2))
 				{
-					informCollision(componentRef1.static_reference_cast<Collider>(), componentRef2.static_reference_cast<Collider>());
+					// Actual collider on collider check
+					bool shouldResolve = shouldResolveCollision(collider1, collider2);
+					if (checkAndResolveCollision(collider1, collider2, shouldResolve))
+					{
+						informCollision(componentRef1.static_reference_cast<Collider>(), componentRef2.static_reference_cast<Collider>());
+					}
 				}
 			}
-
 		}
-
 	}
 
 	// Refresh the triggerCollisionCache to call any onTriggerExit methods required
-	triggerCollisionCache.refresh();
+	m_triggerCollisionCache.refresh();
 }
 
 
 bool CollidersManager::init()
 {
-	return true;
+	// Success flag
+	bool success = true;
+
+	m_collisionSystemSetup = collisionSystemSetup();
+	if (m_collisionSystemSetup.zIndexCollisionRange < 0)
+	{
+		m_collisionSystemSetup.zIndexCollisionRange = 0;
+		OutputLog("WARNING: The zIndexCollisionRange was set to a negative number. The value has been set to zero!");
+	}
+
+	int layersCount = m_collisionSystemSetup.layersNames.size();
+	// Add the "default" layer to the list
+	m_collisionSystemSetup.layersNames.push_back("default");
+
+	if (m_collisionSystemSetup.collisionMatrix.size() != layersCount)
+	{
+		OutputLog("ERROR: The amount of lines collision matr ix is not the same as the amount of names defined in the layersNames vector!");
+		success = false;
+	}
+
+	for (unsigned int i = 0; i < m_collisionSystemSetup.collisionMatrix.size(); ++i)
+	{
+		std::vector<bool>& matrixLine = m_collisionSystemSetup.collisionMatrix.at(i);
+		if (matrixLine.size() != layersCount)
+		{
+			OutputLog("ERROR: The amount of bool values in the collision matrix for line %i is not the same as the amount of names defined in the layersNames vector!", i);
+			success = false;
+		}
+
+		// Add one "true" value at the end for the collision with the default layer
+		matrixLine.push_back(true);
+
+		// Populate the namesToIndexMap
+		std::string layerName = m_collisionSystemSetup.layersNames[i];
+		m_collisionSystemSetup.namesToIndexMap[layerName] = i;
+	}
+
+	// Add one extra matrixLine for the default layer (all values set to true). The amount of values is layersCount + 1, because layersCount didn't include the "default" layer
+	m_collisionSystemSetup.collisionMatrix.push_back(std::vector<bool>(layersCount + 1, true));
+	m_collisionSystemSetup.namesToIndexMap["default"] = layersCount;
+
+	return success;
 }
 
 
@@ -78,7 +121,54 @@ void CollidersManager::close()
 
 bool CollidersManager::initializeComponent(Reference<Component>& component)
 {
+	Collider* collider = static_cast<Collider*>(component.get());
+	collider->m_collidersManager = this;
 	return true;
+}
+
+
+bool CollidersManager::shouldCalculateCollision(const Collider* coll1, const Collider* coll2) const
+{
+	int coll1Index = getCollisionLayerIndex(coll1->m_collisionLayer);
+	int coll2Index = getCollisionLayerIndex(coll2->m_collisionLayer);
+	int zIndexDifference = abs(coll1->zIndex - coll2->zIndex);
+
+	// Both indexes should be different from -1 since any layerName change is verified before being executed so there's no need for checks
+	if (m_collisionSystemSetup.collisionMatrix[coll1Index][coll2Index])
+	{
+		// Same layer
+		if (coll1Index == coll2Index)
+		{
+			if (m_collisionSystemSetup.useZIndexWithinLayer)
+			{
+				if (zIndexDifference <= m_collisionSystemSetup.zIndexCollisionRange)
+				{
+					return true;
+				}
+			}
+			else
+			{
+				return true;
+			}
+		}
+		// Different layers
+		else
+		{
+			if (m_collisionSystemSetup.useZIndexAmongLayers)
+			{
+				if (zIndexDifference <= m_collisionSystemSetup.zIndexCollisionRange)
+				{
+					return true;
+				}
+			}
+			else
+			{
+				return true;
+			}
+		}
+	}
+
+	return false;
 }
 
 
@@ -137,7 +227,7 @@ bool CollidersManager::checkAndResolveCollision(CircleCollider* circColl1, Circl
 
 	Vector2 pos2 = circColl2->getWorldPosition();
 
-	float penetrationDistance = circColl1->radius + circColl2->radius - Vector2::distance(pos1, pos2);
+	float penetrationDistance = circColl1->getWorldScaledRadius() + circColl2->getWorldScaledRadius() - Vector2::distance(pos1, pos2);
 
 	if (penetrationDistance > m_minPenetration)
 	{
@@ -252,29 +342,30 @@ bool CollidersManager::checkAndResolveCollision(CircleCollider* circColl, Rectan
 	// So locally, the rectangle would be possitioned at its offset and the circle would be positioned at its localPoisiton + offset
 
 	// Store the circ's previous parent and then change to the rect
-	auto circTransform = circColl->gameObject()->transform;
+	Transform* circTransform = circColl->gameObject()->transform.get();
 	auto originalCircParent = circTransform->getParent();
 	circTransform->setParent(rectColl->gameObject()->transform);
 
-	// circColl
+	// circColl (Note that getLocalPosition takes into consideration the circle collider's offset
 	Vector2 localCircPos = circColl->getLocalPosition();
 
-	// rectColl
+	// rectColl: Get the unscaledoffset because the calculations are being performed in the rectGO coordinate space
 	Vector2 localRectPos = rectColl->offset;
 
 	Vector2 closestPointFromPointToRect = EngineUtils::closestPointOnOrientedRectFromPoint(localRectPos, rectColl->size, localCircPos);
 
 	float penetrationDistance = 0;
 	Vector2 penetrationVector;
+	// Use the unscaled rectGO size  and the localScaled circColl radius because the calculations are being performed in the rectGO coordinate space
 	if (EngineUtils::isPointInRect(localRectPos, rectColl->size, localCircPos))
 	{
 		penetrationVector = closestPointFromPointToRect - localCircPos;
-		penetrationDistance = circColl->radius + penetrationVector.getLength();
+		penetrationDistance = circColl->getLocalScaledRadius() + penetrationVector.getLength();
 	}
 	else
 	{
 		penetrationVector = localCircPos - closestPointFromPointToRect;
-		penetrationDistance = circColl->radius - penetrationVector.getLength();
+		penetrationDistance = circColl->getLocalScaledRadius() - penetrationVector.getLength();
 	}
 	penetrationVector.normalize();
 	penetrationVector *= penetrationDistance;
@@ -418,9 +509,9 @@ void CollidersManager::informCollision(Reference<Collider>& coll1, Reference<Col
 	// If non of the colliders are triggers, then the onCollision method should be called
 	if (!coll1->isTrigger && !coll2->isTrigger)
 	{
-		auto go1 = coll1->gameObject();
-		auto go2 = coll2->gameObject();
-		// Info about cool2 that will be sent to coll1
+		Reference<GameObject>& go1 = coll1->gameObject();
+		Reference<GameObject>& go2 = coll2->gameObject();
+		// Info about coll2 that will be sent to coll1
 		{
 			CollisionInfo infoForColl1;
 			infoForColl1.otherCollider = coll2;
@@ -439,7 +530,7 @@ void CollidersManager::informCollision(Reference<Collider>& coll1, Reference<Col
 	else
 	{
 		CollidersPair pair = std::make_pair(coll1, coll2);
-		if (triggerCollisionCache.cache(pair))
+		if (m_triggerCollisionCache.cache(pair))
 		{
 			// If the pair is new, call OnTriggerEnter
 			coll1->onTriggerEnter(coll2);
@@ -453,4 +544,17 @@ void CollidersManager::informCollision(Reference<Collider>& coll1, Reference<Col
 		}
 	}
 	
+}
+
+
+int CollidersManager::getCollisionLayerIndex(const std::string & layerName) const
+{
+	if (m_collisionSystemSetup.namesToIndexMap.count(layerName) == 0)
+	{
+		return -1;
+	}
+	else
+	{
+		return m_collisionSystemSetup.namesToIndexMap.at(layerName);
+	}
 }

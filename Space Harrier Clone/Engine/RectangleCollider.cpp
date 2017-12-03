@@ -18,6 +18,26 @@ RectangleCollider::~RectangleCollider()
 }
 
 
+Vector2 RectangleCollider::getLocalScaledSize() const
+{
+	Vector2 localScale = gameObject()->transform->getLocalScale();
+	Vector2 scaledSize = size;
+	scaledSize.x *= localScale.x;
+	scaledSize.y *= localScale.y;
+	return scaledSize;
+}
+
+
+Vector2 RectangleCollider::getWorldScaledSize() const
+{
+	Vector2 worldScale = gameObject()->transform->getWorldScale();
+	Vector2 scaledSize = size;
+	scaledSize.x *= worldScale.x;
+	scaledSize.y *= worldScale.y;
+	return scaledSize;
+}
+
+
 std::vector<Vector2> RectangleCollider::getWorldCorners()
 {
 	// Check if the previously cached values are still valid
@@ -33,22 +53,25 @@ std::vector<Vector2> RectangleCollider::getWorldCorners()
 
 	// If it was empty, we recalculate the m_worldCorners
 
+	// Scale the size
+	Vector2 scaledSize = getWorldScaledSize();
+
 	// Now we create a std::vector to hold the unrotated centerToCorner vectors
 	std::vector<Vector2> centerToCornerVectors =
 	{
-		Vector2(-size.x / 2, -size.y / 2),
-		Vector2(-size.x / 2, +size.y / 2),
-		Vector2(+size.x / 2, +size.y / 2),
-		Vector2(+size.x / 2, -size.y / 2)
+		Vector2(-scaledSize.x / 2, -scaledSize.y / 2),
+		Vector2(-scaledSize.x / 2, +scaledSize.y / 2),
+		Vector2(+scaledSize.x / 2, +scaledSize.y / 2),
+		Vector2(+scaledSize.x / 2, -scaledSize.y / 2)
 	};
 
 	// Next, we iterate throught these centerToCorner vectors
 	for (Vector2 centerToCornerVector : centerToCornerVectors)
 	{
 		// First, rotate it
-		centerToCornerVector.rotateCCWDegrees(m_cachedRotation);
-		// Next calculate the cornerVector and add to the cache std::vector
-		m_worldCorners.push_back(m_cachedWorldPosition + centerToCornerVector);
+		centerToCornerVector.rotateCCWDegrees(m_cachedWorldRotation);
+		// Next calculate the cornerVector using the scaled offset and add to the cache std::vector
+		m_worldCorners.push_back(m_cachedWorldPosition + getWorldScaledOffset() + centerToCornerVector);
 	}
 
 	return m_worldCorners;
@@ -95,13 +118,15 @@ std::vector<Vector2> RectangleCollider::getOuterNormals()
 
 void RectangleCollider::checkCacheValidity()
 {
-	auto transform = gameObject()->transform;
+	Reference<Transform>& transform = gameObject()->transform;
 	Vector2 newPosition = transform->getWorldPosition();
 	float newRotation = transform->getWorldRotation();
-	if (m_cachedWorldPosition != newPosition || m_cachedRotation != newRotation)
+	Vector2 newScale = transform->getWorldScale();
+	if (m_cachedWorldPosition != newPosition || m_cachedWorldRotation != newRotation || m_cachedWorldScale != newScale)
 	{
 		m_cachedWorldPosition = newPosition;
-		m_cachedRotation = newRotation;
+		m_cachedWorldRotation = newRotation;
+		m_cachedWorldScale = newScale;
 		m_worldCorners.clear();
 		m_outerNormals.clear();
 	}

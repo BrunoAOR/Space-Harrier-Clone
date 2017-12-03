@@ -5,7 +5,9 @@
 #include "Engine/Transform.h"
 #include "Engine/SpriteSheet.h"
 #include "Engine/Sprite.h"
+#include "Engine/RectangleCollider.h"
 #include "Player.h"
+#include "PlayerCollisionController.h"
 
 
 void PlayerPrefab::configureGameObject(Reference<GameObject>& gameObject) const
@@ -17,6 +19,20 @@ void PlayerPrefab::configureGameObject(Reference<GameObject>& gameObject) const
 		if (characterGo)
 		{
 			characterGo->transform->setParent(gameObject->transform, false);
+
+			characterGo->addComponent<PlayerCollisionController>();
+
+			auto rectColl = characterGo->addComponent<RectangleCollider>();
+			if (rectColl)
+			{
+				rectColl->isTrigger = true;
+				// The player collider size is intentionally smaller to lower the difficulty of the game
+				rectColl->size = Vector2(14, 40);
+				// Offset added to center the collider in the sprite
+				rectColl->offset.y += 25;
+				rectColl->setCollisionLayer("Player");
+				rectColl->zIndex = 95;
+			}
 
 			auto spriteSheet = characterGo->addComponent<SpriteSheet>();
 			if (spriteSheet)

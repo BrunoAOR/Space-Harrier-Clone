@@ -40,7 +40,7 @@ Reference<GameObject> GameObjectPool::getGameObject()
 }
 
 
-bool GameObjectPool::returnGameObject(Reference<GameObject> gameObjectToReturn)
+bool GameObjectPool::returnGameObject(Reference<GameObject>& gameObjectToReturn)
 {
 	gameObjectToReturn->setActive(false);
 	for (Reference<GameObject>& goRef : m_gameObjects)

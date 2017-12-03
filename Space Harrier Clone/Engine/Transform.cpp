@@ -288,7 +288,7 @@ Reference<Transform>& Transform::getParent()
 }
 
 
-bool Transform::setParent(Reference<Transform> parent, bool keepWorldPosition)
+bool Transform::setParent(Reference<Transform>& parent, bool keepWorldPosition)
 {
 	if (!parent)
 	{

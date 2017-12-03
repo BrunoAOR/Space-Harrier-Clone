@@ -22,10 +22,10 @@ public:
 	virtual void start();
 	virtual void update();
 	// Collisions related
-	virtual void onCollision(CollisionInfo info);
-	virtual void onTriggerEnter(Reference<Collider> other);
-	virtual void onTriggerStay(Reference<Collider> other);
-	virtual void onTriggerExit(Reference<Collider> other);
+	virtual void onCollision(CollisionInfo& info);
+	virtual void onTriggerEnter(Reference<Collider>& other);
+	virtual void onTriggerStay(Reference<Collider>& other);
+	virtual void onTriggerExit(Reference<Collider>& other);
 
 private:
 	bool m_isAwake;

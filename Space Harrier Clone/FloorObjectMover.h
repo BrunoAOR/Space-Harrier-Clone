@@ -3,8 +3,10 @@
 
 #include "Engine/Behaviour.h"
 #include "Engine/Reference.h"
-#include "FloorManager.h"
+class FloorManager;
 class PooledGameObject;
+class Sprite;
+class Collider;
 
 
 class FloorObjectMover :
@@ -15,14 +17,15 @@ public:
 	void restart();
 	virtual void update() override;
 	
-	
-	
 private:
 	void adjustScale(float normalizedCurrentProgress);
 	void adjustPosition(float normalizedCurrentProgress);
 	
 	Reference<FloorManager> m_floorManager;
 	Reference<PooledGameObject> m_poolHandler;
+	Reference<Sprite> m_sprite;
+	Reference<Collider> m_collider;
+
 	float m_startXPos = 0;
 	float m_normalizedStartProgress = 0;
 	float m_normalizedEndProgress = 0;

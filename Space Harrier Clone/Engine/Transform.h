@@ -44,7 +44,7 @@ public:
 	// Hierarchy related
 	const Reference<Transform>& getParent() const;
 	Reference<Transform>& getParent();
-	bool setParent(Reference<Transform> parent, bool keepWorldPosition = true);
+	bool setParent(Reference<Transform>& parent, bool keepWorldPosition = true);
 	void removeParent();
 
 private:

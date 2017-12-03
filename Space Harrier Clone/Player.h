@@ -8,6 +8,8 @@
 #include "Engine/Music.h"
 class GameObject;
 class SpriteSheet;
+class Collider;
+
 
 class Player :
 	public Behaviour
@@ -16,6 +18,7 @@ public:
 	void init(const Reference<GameObject>& characterGo, const Reference<GameObject> shadowGo);
 	virtual void start() override;
 	virtual void update() override;
+	virtual void onTriggerEnter(Reference<Collider>& other) override;
 
 private:
 	void handleInput(float& normalizedRequestedX, float& normalizedRequestedY) const;

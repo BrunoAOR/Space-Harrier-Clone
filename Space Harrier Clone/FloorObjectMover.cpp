@@ -4,30 +4,44 @@
 #include "Engine/API.h"
 #include "Engine/GameObject.h"
 #include "Engine/Transform.h"
+#include "Engine/Collider.h"
 #include "PooledGameObject.h"
+#include "FloorManager.h"
 
 
 void FloorObjectMover::init(const Reference<FloorManager>& floorManager, float startXPos, float normalizedStartProgress, float normalizedEndProgress, float startScale, float endScale)
 {
 	m_floorManager = floorManager;
-	m_poolHandler = gameObject()->getComponent<PooledGameObject>();
-	assert(m_floorManager && m_poolHandler);
+	if (!m_poolHandler)
+	{
+		m_poolHandler = gameObject()->getComponent<PooledGameObject>();
+	}
+	if (!m_collider)
+	{
+		m_collider = gameObject()->getComponent<Collider>();
+	}
+	if (!m_sprite)
+	{
+		m_sprite = gameObject()->getComponent<Sprite>();
+	}
+	assert(m_floorManager && m_poolHandler && m_collider && m_sprite);
 	m_startXPos = startXPos;
 	m_normalizedStartProgress = normalizedStartProgress;
 	m_normalizedEndProgress = normalizedEndProgress;
 	m_startScale = startScale;
 	m_endScale = endScale;
 	m_normalizedStartYPos = m_floorManager->getNormalizedYPos(m_normalizedStartProgress);
+	m_collider->zIndex = 0;
 }
 
 void FloorObjectMover::restart()
 {
-	assert(m_floorManager);
+	assert(m_floorManager && m_poolHandler && m_collider && m_sprite);
 	m_fullMotionDuration = m_floorManager->getFullMotionDuration();
 	m_startTime = Time::time();
 	adjustScale(m_normalizedStartProgress);
 	adjustPosition(m_normalizedStartProgress);
-	gameObject()->getComponent<Sprite>()->setActive(true);
+	m_sprite->setActive(true);
 }
 
 
@@ -40,9 +54,11 @@ void FloorObjectMover::update()
 	// Destroy gameObject if motion is finished
 	if (normalizedCurrentProgress > m_normalizedEndProgress)
 	{
+		Collider* coll = m_collider.get();
 		m_poolHandler->returnToPool();
 	}
 
+	m_collider->zIndex = (int)(normalizedCurrentProgress * 100);
 	adjustScale(normalizedCurrentProgress);
 	adjustPosition(normalizedCurrentProgress);
 }

@@ -33,21 +33,21 @@ void Behaviour::update()
 }
 
 
-void Behaviour::onCollision(CollisionInfo info)
+void Behaviour::onCollision(CollisionInfo& info)
 {
 }
 
 
-void Behaviour::onTriggerEnter(Reference<Collider> other)
+void Behaviour::onTriggerEnter(Reference<Collider>& other)
 {
 }
 
 
-void Behaviour::onTriggerStay(Reference<Collider> other)
+void Behaviour::onTriggerStay(Reference<Collider>& other)
 {
 }
 
 
-void Behaviour::onTriggerExit(Reference<Collider> other)
+void Behaviour::onTriggerExit(Reference<Collider>& other)
 {
 }

@@ -169,6 +169,9 @@
     <ClCompile Include="FloorWarpController.cpp">
       <Filter>Scripts\Scenario</Filter>
     </ClCompile>
+    <ClCompile Include="PlayerCollisionController.cpp">
+      <Filter>Behaviours\Player</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\API.h">
@@ -335,6 +338,9 @@
     </ClInclude>
     <ClInclude Include="DarkLinesController.h">
       <Filter>Scripts\Scenario</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerCollisionController.h">
+      <Filter>Behaviours\Player</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

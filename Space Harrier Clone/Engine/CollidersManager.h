@@ -1,9 +1,11 @@
 #ifndef H_COLLIDERS_MANAGER
 #define H_COLLIDERS_MANAGER
 
+#include <string>
 #include "ComponentManager.h"
 #include "TriggerCollisionCache.h"
 #include "Reference.h"
+#include "CollisionSystemSetup.h"
 class Vector2;
 class CircleCollider;
 class RectangleCollider;
@@ -17,6 +19,8 @@ class CollidersManager final :
 public:
 	~CollidersManager();
 
+	int getCollisionLayerIndex(const std::string& layerName) const;
+
 private:
 	CollidersManager();
 
@@ -27,6 +31,7 @@ private:
 	virtual void close() override;
 	virtual bool initializeComponent(Reference<Component>& component) override;
 
+	bool shouldCalculateCollision(const Collider* coll1, const Collider* coll2) const;
 	bool shouldResolveCollision(const Collider* coll1, const Collider* coll2) const;
 
 	bool checkAndResolveCollision(Collider* coll1, Collider* coll2, bool shouldResolve) const;
@@ -43,7 +48,8 @@ private:
 
 	const float m_minPenetration = 0.01f;
 
-	TriggerCollisionCache triggerCollisionCache;
+	TriggerCollisionCache m_triggerCollisionCache;
+	CollisionSystemSetup m_collisionSystemSetup;
 };
 
 

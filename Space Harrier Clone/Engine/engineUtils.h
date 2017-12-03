@@ -15,8 +15,8 @@ namespace EngineUtils
 	bool isPointInRect(const Vector2& rectCenter, const Vector2& rectSize, const Vector2& point);
 	Vector2 closestPointOnOrientedRectFromPoint(const Vector2& rectCenter, const Vector2& rectSize, const Vector2& point);
 
-	
-	template<typename T>
+
+	template <typename T>
 	int indexOf(const std::vector<T>& vector, const T& element)
 	{
 		auto iterator = std::find(vector.begin(), vector.end(), element);
@@ -32,7 +32,7 @@ namespace EngineUtils
 	}
 
 
-	template<typename T, typename U>
+	template <typename T, typename U>
 	int indexOf(const std::vector<ReferenceOwner<T>>& vector, const Reference<U>& element)
 	{
 		auto iterator = vector.begin();

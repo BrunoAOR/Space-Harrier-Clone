@@ -2,8 +2,8 @@ TO DO list:
 
 * Modify the Renderer so the SDL_Texture instances are managed by the RenderersManager to avoid duplications.
 
-* Add a TextRenderer: Renderer and a FontManager to provide the Fonts (Texture-containing classes)
-
 * Add a TextureManager for the SpriteRenderer-related textures
+
+* Add a TextRenderer: Renderer and a FontManager to provide the Fonts (Texture-containing classes)
 
 * Review all engine classes and implement (or delete) copy constructors/assignments and move constructors/assignments
