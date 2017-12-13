@@ -65,3 +65,21 @@ CollisionSystemSetup collisionSystemSetup()
 	css.zIndexCollisionRange = 2;
 	return css;
 }
+
+
+#include "../AnimationSection.h"
+std::vector<AnimationSection> getDieAnimationInfo()
+{
+	std::vector<AnimationSection> animationSections;
+	animationSections.push_back(AnimationSection{ 0, 0.3125f, 3, 42, false, false });
+	animationSections.push_back(AnimationSection{ 1, 0.25f, 45, 63, false, false });
+	animationSections.push_back(AnimationSection{ 1, 0.0833f, 63, 63, false, false });
+	animationSections.push_back(AnimationSection{ 2, 0.0833f, 63, 63, false, false });
+	animationSections.push_back(AnimationSection{ 2, 0.25f, 63, 47, false, false });
+	animationSections.push_back(AnimationSection{ 3, 0.2f, 45, 0, false, true });
+	animationSections.push_back(AnimationSection{ 3, 1.0f, 0, 0, true, true });
+	animationSections.push_back(AnimationSection{ 4, 0.125f, 0, 0, true, true });
+	animationSections.push_back(AnimationSection{ 5, 0.125f, 0, 0, true, true });
+	animationSections.push_back(AnimationSection{ 6, 0.125f, 0, 0, true, true });
+	return animationSections;
+}

@@ -32,7 +32,7 @@ bool GameScene::load()
 
 			if (floorManager)
 			{
-				floorManager->texturePath = "assets/FloorGreen.png";
+				floorManager->texturePath = "assets/sprites/FloorGreen.png";
 			}
 
 			auto objectsFactoryGo = GameObject::createNew();
@@ -53,7 +53,7 @@ bool GameScene::load()
 				auto backgroundScroller = backgroundScrollerGo->addComponent<BackgroundScroller>();
 				if (backgroundScroller)
 				{
-					backgroundScroller->init(floorManager, "assets/Background.png", 0.2f, -3);
+					backgroundScroller->init(floorManager, "assets/sprites/Background.png", 0.2f, -3);
 				}
 			}
 
@@ -64,7 +64,7 @@ bool GameScene::load()
 				auto backgroundScroller = backgroundScrollerGoMountains->addComponent<BackgroundScroller>();
 				if (backgroundScroller)
 				{
-					backgroundScroller->init(floorManager, "assets/Background_lvl1_mountains.png", 0.3f, -2);
+					backgroundScroller->init(floorManager, "assets/sprites/Background_lvl1_mountains.png", 0.3f, -2);
 				}
 			}
 
@@ -75,7 +75,7 @@ bool GameScene::load()
 				auto backgroundScroller = backgroundScrollerGoTrees->addComponent<BackgroundScroller>();
 				if (backgroundScroller)
 				{
-					backgroundScroller->init(floorManager, "assets/Background_lvl1_trees.png", 0.6f, -1);
+					backgroundScroller->init(floorManager, "assets/sprites/Background_lvl1_trees.png", 0.6f, -1);
 				}
 			}
 

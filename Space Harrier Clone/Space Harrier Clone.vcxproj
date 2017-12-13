@@ -63,11 +63,13 @@
     <ClCompile Include="PlayerCollisionController.cpp" />
     <ClCompile Include="PlayerPrefab.cpp" />
     <ClCompile Include="PooledGameObject.cpp" />
+    <ClCompile Include="TimedAnimation.cpp" />
     <ClCompile Include="TimeLogger.cpp" />
     <ClCompile Include="TreePrefab.cpp" />
     <ClCompile Include="Utils.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AnimationSection.h" />
     <ClInclude Include="BackgroundScroller.h" />
     <ClInclude Include="DarkLineInfo.h" />
     <ClInclude Include="DarkLinesController.h" />
@@ -114,6 +116,7 @@
     <ClInclude Include="FloorManager.h" />
     <ClInclude Include="FloorObjectMover.h" />
     <ClInclude Include="FloorObjectsFactory.h" />
+    <ClInclude Include="FloorObjectType.h" />
     <ClInclude Include="FloorWarpController.h" />
     <ClInclude Include="GameObjectPool.h" />
     <ClInclude Include="GameScene.h" />
@@ -121,6 +124,7 @@
     <ClInclude Include="PlayerCollisionController.h" />
     <ClInclude Include="PlayerPrefab.h" />
     <ClInclude Include="PooledGameObject.h" />
+    <ClInclude Include="TimedAnimation.h" />
     <ClInclude Include="TimeLogger.h" />
     <ClInclude Include="TreePrefab.h" />
     <ClInclude Include="Utils.h" />

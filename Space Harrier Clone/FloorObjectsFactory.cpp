@@ -9,6 +9,7 @@
 #include "FloorManager.h"
 #include "TreePrefab.h"
 #include "FloorObjectMover.h"
+#include "FloorObjectType.h"
 #include "GameObjectPool.h"
 
 
@@ -61,7 +62,7 @@ void FloorObjectsFactory::spawnObject()
 		auto mover = go->getComponent<FloorObjectMover>();
 		if (mover)
 		{
-			mover->init(floorManager, spawnX, 1 - m_normalizedSpawnY, 1 - m_normalizedDespawnY, 0, 1);
+			mover->init(floorManager, FloorObjectType::DIE, spawnX, 1 - m_normalizedSpawnY, 1 - m_normalizedDespawnY, 0, 1);
 			mover->restart();
 		}
 		go->setActive(true);

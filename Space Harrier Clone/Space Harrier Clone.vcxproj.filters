@@ -31,6 +31,9 @@
     <Filter Include="Scripts\Scenario">
       <UniqueIdentifier>{dee91ba8-d15a-4dc4-b36c-b4d2cab37160}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Scripts\Animations">
+      <UniqueIdentifier>{e6e815c8-945f-48a3-9b1c-6f704943b1ea}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine\API.cpp">
@@ -171,6 +174,9 @@
     </ClCompile>
     <ClCompile Include="PlayerCollisionController.cpp">
       <Filter>Behaviours\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="TimedAnimation.cpp">
+      <Filter>Scripts\Animations</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -341,6 +347,15 @@
     </ClInclude>
     <ClInclude Include="PlayerCollisionController.h">
       <Filter>Behaviours\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="FloorObjectType.h">
+      <Filter>Behaviours\Scenario</Filter>
+    </ClInclude>
+    <ClInclude Include="AnimationSection.h">
+      <Filter>Scripts\Animations</Filter>
+    </ClInclude>
+    <ClInclude Include="TimedAnimation.h">
+      <Filter>Scripts\Animations</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

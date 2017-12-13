@@ -10,6 +10,14 @@
 #include "Engine/Collider.h"
 #include "Utils.h"
 #include "FloorObjectMover.h"
+#include "FloorObjectType.h"
+
+
+Player::~Player()
+{
+	delete m_dieAnimation;
+	m_dieAnimation = nullptr;
+}
 
 
 void Player::init(const Reference<GameObject>& characterGo, const Reference<GameObject> shadowGo)
@@ -19,7 +27,9 @@ void Player::init(const Reference<GameObject>& characterGo, const Reference<Game
 	m_spriteSheet = characterGo->getComponent<SpriteSheet>();
 	assert(m_characterGo && m_shadowGo && m_spriteSheet);
 
-	m_motionSpeed = 1.0f / 900; // One normalized screen dimension (could be height or width) in 900 milliseconds
+	m_state = PlayerState::MOVE;
+
+	m_motionSpeed = 1.0f / 1300; // One normalized screen dimension (could be height or width) divided by the time taken to go over it
 	// x-coordinates-related fields
 	m_minX = -0.42f;
 	m_midX = 0;
@@ -29,8 +39,11 @@ void Player::init(const Reference<GameObject>& characterGo, const Reference<Game
 	// y-coordinates-related fields
 	m_minY = 0;
 	m_midY = 0.35f;
-	m_maxY = 0.76f;
+	m_maxY = 0.71f;
 	m_yTarget = m_midY;
+
+	// Die Animation
+	m_dieAnimation = new TimedAnimation(getDieAnimationInfo(), m_spriteSheet);
 }
 
 
@@ -52,18 +65,56 @@ void Player::start()
 
 void Player::update()
 {
-	float normalizedRequestedX;
-	float normalizedRequestedY;
-	handleInput(normalizedRequestedX, normalizedRequestedY);
-	move(normalizedRequestedX, normalizedRequestedY);
-	updateAnimation();
+	switch (m_state)
+	{
+	case PlayerState::STOP:
+		break;
+	case PlayerState::MOVE:
+		float normalizedRequestedX;
+		float normalizedRequestedY;
+		handleInput(normalizedRequestedX, normalizedRequestedY);
+		move(normalizedRequestedX, normalizedRequestedY);
+		moveAnimationUpdate();
+		break;
+	case PlayerState::SHORT_TRIP:
+	case PlayerState::LONG_TRIP:
+		tripUpdate();
+		break;
+	case PlayerState::DIE:
+		dieUpdate();
+		break;
+	case PlayerState::POST_DIE:
+		postDieUpdate();
+		break;
+	default:
+		break;
+	}
 }
 
 void Player::onTriggerEnter(Reference<Collider>& other)
 {
-	if (other->gameObject()->getComponent<FloorObjectMover>())
+	Reference<FloorObjectMover> fom = other->gameObject()->getComponent<FloorObjectMover>();
+	if (fom)
 	{
-		OutputLog("Tree hit!");
+		switch (fom->getType())
+		{
+		case FloorObjectType::SHORT_TRIP:
+			m_state = PlayerState::SHORT_TRIP;
+			break;
+		case FloorObjectType::LONG_TRIP:
+			m_state = PlayerState::LONG_TRIP;
+			break;
+		case FloorObjectType::DIE:
+			m_currentNormalizedPosition.y = m_minY;
+			m_spriteSheet->selectAnimation("die", 0);
+			m_dieAnimation->start(m_characterGo->transform->getLocalPosition().y);
+			m_state = PlayerState::DIE;
+			break;
+		case FloorObjectType::UNDEFINED:
+		default:
+			assert(false);
+			break;
+		}
 	}
 }
 
@@ -127,7 +178,7 @@ void Player::move(float normalizedRequestedX, float normalizedRequestedY)
 }
 
 
-void Player::updateAnimation()
+void Player::moveAnimationUpdate()
 {
 	std::string requestedAnimation = "";
 	// Decide between run of a version of fly
@@ -139,11 +190,11 @@ void Player::updateAnimation()
 	{
 		// Decide between flying animations
 		float normalizedXPos = m_currentNormalizedPosition.x;
-		if (normalizedXPos == m_minX)
+		if (normalizedXPos < m_minX * 0.9f)
 		{
 			requestedAnimation = "flyLeft";
 		}
-		else if (normalizedXPos == m_maxX)
+		else if (normalizedXPos > m_maxX * 0.9f)
 		{
 			requestedAnimation = "flyRight";
 		}
@@ -165,6 +216,46 @@ void Player::updateAnimation()
 	if (requestedAnimation != m_currentAnimation)
 	{
 		m_currentAnimation = requestedAnimation;
-		m_spriteSheet->playAnimation(m_currentAnimation);
+		m_spriteSheet->playAnimation(m_currentAnimation, 16.0f);
 	}
+}
+
+
+void Player::tripUpdate()
+{
+	// Start animations
+	if (m_state == PlayerState::SHORT_TRIP && m_currentAnimation != "shortTrip")
+	{
+		m_currentAnimation = "shortTrip";
+		m_spriteSheet->playAnimation(m_currentAnimation, 8.0f);
+	}
+	else if (m_state == PlayerState::SHORT_TRIP && m_currentAnimation != "longTrip")
+	{
+		m_currentAnimation = "longTrip";
+		m_spriteSheet->playAnimation(m_currentAnimation, 8);
+	}
+
+	int currentFrame = m_spriteSheet->getCurrentAnimationFrameIndex();
+	int framesCount = m_spriteSheet->getCurrentAnimationFrameCount();
+
+	//CONTINUE;
+}
+
+
+void Player::dieUpdate()
+{
+	if (m_dieAnimation->isFinished())
+	{
+		m_state = PlayerState::POST_DIE;
+		return;
+	}
+	Vector2 currentCharPos = m_characterGo->transform->getLocalPosition();
+	m_dieAnimation->update(currentCharPos.y);
+	m_characterGo->transform->setLocalPosition(currentCharPos);
+}
+
+void Player::postDieUpdate()
+{
+	m_spriteSheet->selectAnimation("flyCenter", 0);
+	m_state = PlayerState::MOVE;
 }

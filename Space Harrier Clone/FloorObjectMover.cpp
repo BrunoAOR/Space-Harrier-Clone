@@ -7,11 +7,13 @@
 #include "Engine/Collider.h"
 #include "PooledGameObject.h"
 #include "FloorManager.h"
+#include "FloorObjectType.h"
 
 
-void FloorObjectMover::init(const Reference<FloorManager>& floorManager, float startXPos, float normalizedStartProgress, float normalizedEndProgress, float startScale, float endScale)
+void FloorObjectMover::init(const Reference<FloorManager>& floorManager, FloorObjectType type, float startXPos, float normalizedStartProgress, float normalizedEndProgress, float startScale, float endScale)
 {
 	m_floorManager = floorManager;
+	m_floorObjectType = type;
 	if (!m_poolHandler)
 	{
 		m_poolHandler = gameObject()->getComponent<PooledGameObject>();
@@ -24,7 +26,7 @@ void FloorObjectMover::init(const Reference<FloorManager>& floorManager, float s
 	{
 		m_sprite = gameObject()->getComponent<Sprite>();
 	}
-	assert(m_floorManager && m_poolHandler && m_collider && m_sprite);
+	assert(m_floorManager && m_floorObjectType != FloorObjectType::UNDEFINED && m_poolHandler && m_collider && m_sprite);
 	m_startXPos = startXPos;
 	m_normalizedStartProgress = normalizedStartProgress;
 	m_normalizedEndProgress = normalizedEndProgress;
@@ -45,17 +47,22 @@ void FloorObjectMover::restart()
 }
 
 
+FloorObjectType FloorObjectMover::getType()
+{
+	return m_floorObjectType;
+}
+
+
 void FloorObjectMover::update()
 {
-	auto t = gameObject()->transform.get();
 	// Calculate start time correcting for the normalizedStartProgress
 	float elapsedTime = Time::time() - m_startTime + m_fullMotionDuration * m_normalizedStartProgress;
 	float normalizedCurrentProgress = elapsedTime / m_fullMotionDuration;
 	// Destroy gameObject if motion is finished
 	if (normalizedCurrentProgress > m_normalizedEndProgress)
 	{
-		Collider* coll = m_collider.get();
 		m_poolHandler->returnToPool();
+		return;
 	}
 
 	m_collider->zIndex = (int)(normalizedCurrentProgress * 100);

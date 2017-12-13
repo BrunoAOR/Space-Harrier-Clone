@@ -2,7 +2,7 @@
 #define H_GAME_OBJECT_POOL
 
 #include <stack>
-#include <vector>
+#include <list>
 #include "Engine/Reference.h"
 class Prefab;
 class GameObject;
@@ -22,7 +22,7 @@ private:
 
 	int m_initialPoolSize = 0;
 	Reference<Prefab> m_prefab;
-	std::vector<Reference<GameObject>> m_gameObjects;
+	std::list<Reference<GameObject>> m_gameObjects;
 	std::stack<Reference<GameObject>*> m_availableGameObjects;
 };
 

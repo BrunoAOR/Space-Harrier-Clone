@@ -7,14 +7,17 @@ class FloorManager;
 class PooledGameObject;
 class Sprite;
 class Collider;
+enum class FloorObjectType;
 
 
 class FloorObjectMover :
 	public Behaviour
 {
 public:
-	void init(const Reference<FloorManager>& floorManager, float startXPos, float normalizedStartProgress, float normalizedEndProgress, float startScale, float endScale);
+	void init(const Reference<FloorManager>& floorManager, FloorObjectType type, float startXPos, float normalizedStartProgress, float normalizedEndProgress, float startScale, float endScale);
 	void restart();
+	FloorObjectType getType();
+
 	virtual void update() override;
 	
 private:
@@ -25,6 +28,8 @@ private:
 	Reference<PooledGameObject> m_poolHandler;
 	Reference<Sprite> m_sprite;
 	Reference<Collider> m_collider;
+
+	FloorObjectType m_floorObjectType;
 
 	float m_startXPos = 0;
 	float m_normalizedStartProgress = 0;

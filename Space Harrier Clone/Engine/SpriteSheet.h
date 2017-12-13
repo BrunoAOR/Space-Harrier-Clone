@@ -26,13 +26,19 @@ public:
 	void clearAllAnimations();
 
 	// Manually select animations and their frames
-	bool selectAnimation(const std::string& animationName);
+	bool selectAnimation(const std::string& animationName, int startingFrame);
 	bool previousAnimationFrame();
 	bool nextAnimationFrame();
+	bool selectFrame(int frameIndex);
+
+	// Get animation info
+	int getAnimationFrameCount(const std::string& animationName) const;
+	int getCurrentAnimationFrameCount() const;
+	int getCurrentAnimationFrameIndex() const;
 
 	// Play animations
-	bool playAnimation(const std::string& animationName);
-	bool playAnimation(const std::string& animationName, float fps);
+	bool playAnimation(const std::string& animationName, int startingFrame = 0);
+	bool playAnimation(const std::string& animationName, float fps, int startingFrame = 0);
 	void setAnimationSpeed(float fps);
 	bool stopAnimation();
 

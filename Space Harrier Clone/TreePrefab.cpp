@@ -23,7 +23,7 @@ void TreePrefab::configureGameObject(Reference<GameObject>& gameObject) const
 	{
 		sprite->setActive(false);
 		// Tree is 40x158 pixels
-		sprite->loadImage("assets/Tree.png");
+		sprite->loadImage("assets/sprites/Tree.png");
 		sprite->setAllPivots(Vector2(0.5f, 0));
 		sprite->setRenderLayer("Main");
 	}

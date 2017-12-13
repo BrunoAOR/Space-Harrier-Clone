@@ -1,5 +1,6 @@
 #include "SpriteSheet.h"
 
+#include "globals.h"
 #include "Engine.h"
 #include "TimeController.h"
 
@@ -104,13 +105,22 @@ void SpriteSheet::clearAllAnimations()
 }
 
 
-bool SpriteSheet::selectAnimation(const std::string& animationName)
+bool SpriteSheet::selectAnimation(const std::string& animationName, int startingFrame)
 {
 	if (m_animations.count(animationName) == 1)
 	{
 		m_currentAnimation = &m_animations[animationName];
-		m_currentClipRectIndex = 0;
+		if (startingFrame >= 0 && startingFrame < (int)m_currentAnimation->size())
+		{
+			m_currentClipRectIndex = startingFrame;
+		}
+		else
+		{
+			OutputLog("WARNING: Parameter startingFrame in the selectAnimation method has an invalid value of %i which falls outside of the range of the selected animation (%i frames)!", startingFrame, m_currentAnimation->size());
+			m_currentClipRectIndex = 0;
+		}
 		m_currentClipRect = &(m_currentAnimation->at(m_currentClipRectIndex));
+		m_isPlaying = false;
 		return true;
 	}
 	return false;
@@ -161,10 +171,59 @@ bool SpriteSheet::nextAnimationFrame()
 }
 
 
-bool SpriteSheet::playAnimation(const std::string& animationName)
+bool SpriteSheet::selectFrame(int frameIndex)
+{
+	if (m_currentAnimation != nullptr)
+	{
+		int size = m_currentAnimation->size();
+		if (size == 0)
+		{
+			resetCachedFields();
+			return false;
+		}
+		// Return false if frameIndex is out of bounds
+		if (frameIndex >= 0 && frameIndex < size)
+		{
+			m_currentClipRectIndex = frameIndex;
+			m_currentClipRect = &(m_currentAnimation->at(m_currentClipRectIndex));
+			return true;
+		}
+		return false;
+	}
+	return false;
+}
+
+
+int SpriteSheet::getAnimationFrameCount(const std::string & animationName) const
+{
+	if (m_animations.count(animationName) == 1)
+	{
+		m_animations.at(animationName).size();
+	}
+	return -1;
+}
+
+
+int SpriteSheet::getCurrentAnimationFrameCount() const
+{
+	if (m_currentAnimation == nullptr)
+	{
+		return -1;
+	}
+	return m_currentAnimation->size();
+}
+
+
+int SpriteSheet::getCurrentAnimationFrameIndex() const
+{
+	return m_currentClipRectIndex;
+}
+
+
+bool SpriteSheet::playAnimation(const std::string& animationName, int startingFrame)
 {
 	stopAnimation();
-	if (selectAnimation(animationName)) {
+	if (selectAnimation(animationName, startingFrame)) {
 		m_elapsedTime = 0;
 		m_isPlaying = true;
 		return true;
@@ -174,10 +233,10 @@ bool SpriteSheet::playAnimation(const std::string& animationName)
 }
 
 
-bool SpriteSheet::playAnimation(const std::string& animationName, float fps)
+bool SpriteSheet::playAnimation(const std::string& animationName, float fps, int startingFrame)
 {
 	stopAnimation();
-	if (selectAnimation(animationName) && fps != 0) {
+	if (selectAnimation(animationName, startingFrame) && fps != 0) {
 		setAnimationSpeed(fps);
 		m_elapsedTime = 0;
 		m_isPlaying = true;

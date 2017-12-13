@@ -39,41 +39,110 @@ void PlayerPrefab::configureGameObject(Reference<GameObject>& gameObject) const
 			{
 				spriteSheet->setRenderLayer("Foreground");
 				spriteSheet->setZIndex(2);
-				spriteSheet->loadImage("assets/Character.png");
+				spriteSheet->loadImage("assets/sprites/Character.png");
 				spriteSheet->setAllPivots(Vector2(0.5f, 0));
 
 				// Animation: run
 				spriteSheet->addAnimation("run");
-				spriteSheet->addRectForAnimation("run", Vector2(3, 2), 18, 49);
-				spriteSheet->addRectForAnimation("run", Vector2(27, 2), 18, 49);
-				spriteSheet->addRectForAnimation("run", Vector2(51, 2), 21, 49);
-				spriteSheet->addRectForAnimation("run", Vector2(77, 2), 17, 49);
-
-				// Animation: flyCenter
-				spriteSheet->addAnimation("flyCenter");
-				spriteSheet->addRectForAnimation("flyCenter", Vector2(109, 2), 23, 49);
-				spriteSheet->addRectForAnimation("flyCenter", Vector2(109, 2), 23, 50);
-
-
+				spriteSheet->addRectForAnimation("run", Vector2(5, 5), 33, 62);
+				spriteSheet->addRectForAnimation("run", Vector2(40, 5), 33, 62);
+				spriteSheet->addRectForAnimation("run", Vector2(75, 5), 33, 62);
+				spriteSheet->addRectForAnimation("run", Vector2(110, 5), 33, 62);
+				spriteSheet->addRectForAnimation("run", Vector2(145, 5), 33, 62);
+				spriteSheet->addRectForAnimation("run", Vector2(180, 5), 33, 62);
+				spriteSheet->addRectForAnimation("run", Vector2(215, 5), 33, 62);
+				spriteSheet->addRectForAnimation("run", Vector2(250, 5), 33, 62);
+				
 				// Animation: flyLeft
 				spriteSheet->addAnimation("flyLeft");
-				spriteSheet->addRectForAnimation("flyLeft", Vector2(143, 2), 19, 49);
-				spriteSheet->addRectForAnimation("flyLeft", Vector2(143, 2), 19, 50);
+				spriteSheet->addRectForAnimation("flyLeft", Vector2(5, 70), 36, 60);
+				spriteSheet->addRectForAnimation("flyLeft", Vector2(5, 135), 36, 60);
+				spriteSheet->addRectForAnimation("flyLeft", Vector2(5, 200), 36, 60);
+				spriteSheet->addRectForAnimation("flyLeft", Vector2(5, 265), 36, 60);
+				spriteSheet->addRectForAnimation("flyLeft", Vector2(5, 265), 36, 60);
+				spriteSheet->addRectForAnimation("flyLeft", Vector2(5, 200), 36, 60);
+				spriteSheet->addRectForAnimation("flyLeft", Vector2(5, 135), 36, 60);
+				spriteSheet->addRectForAnimation("flyLeft", Vector2(5, 70), 36, 60);
+
 
 				// Animation: flyCenterLeft
 				spriteSheet->addAnimation("flyCenterLeft");
-				spriteSheet->addRectForAnimation("flyCenterLeft", Vector2(171, 2), 16, 49);
-				spriteSheet->addRectForAnimation("flyCenterLeft", Vector2(171, 2), 16, 50);
+				spriteSheet->addRectForAnimation("flyCenterLeft", Vector2(45, 70), 36, 60);
+				spriteSheet->addRectForAnimation("flyCenterLeft", Vector2(45, 135), 36, 60);
+				spriteSheet->addRectForAnimation("flyCenterLeft", Vector2(45, 200), 36, 60);
+				spriteSheet->addRectForAnimation("flyCenterLeft", Vector2(45, 265), 36, 60);
+				spriteSheet->addRectForAnimation("flyCenterLeft", Vector2(45, 265), 36, 60);
+				spriteSheet->addRectForAnimation("flyCenterLeft", Vector2(45, 200), 36, 60);
+				spriteSheet->addRectForAnimation("flyCenterLeft", Vector2(45, 135), 36, 60);
+				spriteSheet->addRectForAnimation("flyCenterLeft", Vector2(45, 70), 36, 60);
+
+				// Animation: flyCenter
+				spriteSheet->addAnimation("flyCenter");
+				spriteSheet->addRectForAnimation("flyCenter", Vector2(85, 70), 36, 60);
+				spriteSheet->addRectForAnimation("flyCenter", Vector2(85, 135), 36, 60);
+				spriteSheet->addRectForAnimation("flyCenter", Vector2(85, 200), 36, 60);
+				spriteSheet->addRectForAnimation("flyCenter", Vector2(85, 265), 36, 60);
+				spriteSheet->addRectForAnimation("flyCenter", Vector2(85, 265), 36, 60);
+				spriteSheet->addRectForAnimation("flyCenter", Vector2(85, 200), 36, 60);
+				spriteSheet->addRectForAnimation("flyCenter", Vector2(85, 135), 36, 60);
+				spriteSheet->addRectForAnimation("flyCenter", Vector2(85, 70), 36, 60);
 
 				// Animation: flyCenterRight
 				spriteSheet->addAnimation("flyCenterRight");
-				spriteSheet->addRectForAnimation("flyCenterRight", Vector2(198, 2), 16, 49);
-				spriteSheet->addRectForAnimation("flyCenterRight", Vector2(198, 2), 16, 50);
+				spriteSheet->addRectForAnimation("flyCenterRight", Vector2(125, 70), 36, 60);
+				spriteSheet->addRectForAnimation("flyCenterRight", Vector2(125, 135), 36, 60);
+				spriteSheet->addRectForAnimation("flyCenterRight", Vector2(125, 200), 36, 60);
+				spriteSheet->addRectForAnimation("flyCenterRight", Vector2(125, 265), 36, 60);
+				spriteSheet->addRectForAnimation("flyCenterRight", Vector2(125, 265), 36, 60);
+				spriteSheet->addRectForAnimation("flyCenterRight", Vector2(125, 200), 36, 60);
+				spriteSheet->addRectForAnimation("flyCenterRight", Vector2(125, 135), 36, 60);
+				spriteSheet->addRectForAnimation("flyCenterRight", Vector2(125, 70), 36, 60);
 
 				// Animation: flyRight
 				spriteSheet->addAnimation("flyRight");
-				spriteSheet->addRectForAnimation("flyRight", Vector2(222, 2), 19, 49);
-				spriteSheet->addRectForAnimation("flyRight", Vector2(222, 2), 19, 50);
+				spriteSheet->addRectForAnimation("flyRight", Vector2(165, 70), 36, 60);
+				spriteSheet->addRectForAnimation("flyRight", Vector2(165, 135), 36, 60);
+				spriteSheet->addRectForAnimation("flyRight", Vector2(165, 200), 36, 60);
+				spriteSheet->addRectForAnimation("flyRight", Vector2(165, 265), 36, 60);
+				spriteSheet->addRectForAnimation("flyRight", Vector2(165, 265), 36, 60);
+				spriteSheet->addRectForAnimation("flyRight", Vector2(165, 200), 36, 60);
+				spriteSheet->addRectForAnimation("flyRight", Vector2(165, 135), 36, 60);
+				spriteSheet->addRectForAnimation("flyRight", Vector2(165, 70), 36, 60);
+
+				// Animation: die
+				spriteSheet->addAnimation("die");
+				spriteSheet->addRectForAnimation("die", Vector2(205, 200), 54, 56);
+				spriteSheet->addRectForAnimation("die", Vector2(260, 200), 54, 56);
+				spriteSheet->addRectForAnimation("die", Vector2(315, 200), 54, 56);
+				spriteSheet->addRectForAnimation("die", Vector2(370, 200), 54, 56);
+				spriteSheet->addRectForAnimation("die", Vector2(205, 265), 54, 56);
+				spriteSheet->addRectForAnimation("die", Vector2(260, 265), 54, 56);
+				spriteSheet->addRectForAnimation("die", Vector2(315, 265), 54, 56);
+				spriteSheet->addRectForAnimation("die", Vector2(370, 265), 54, 56);
+
+				// Animation: shortTrip
+				spriteSheet->addAnimation("shortTrip");
+				spriteSheet->addRectForAnimation("shortTrip", Vector2(205, 70), 41, 60);
+				spriteSheet->addRectForAnimation("shortTrip", Vector2(250, 70), 41, 60);
+				spriteSheet->addRectForAnimation("shortTrip", Vector2(295, 70), 41, 60);
+				spriteSheet->addRectForAnimation("shortTrip", Vector2(340, 70), 41, 60);
+				spriteSheet->addRectForAnimation("shortTrip", Vector2(295, 70), 41, 60);
+				spriteSheet->addRectForAnimation("shortTrip", Vector2(250, 70), 41, 60);
+				spriteSheet->addRectForAnimation("shortTrip", Vector2(205, 70), 41, 60);
+
+				// Animation: longTrip
+				spriteSheet->addAnimation("longTrip");
+				spriteSheet->addRectForAnimation("longTrip", Vector2(205, 70), 41, 60);
+				spriteSheet->addRectForAnimation("longTrip", Vector2(250, 70), 41, 60);
+				spriteSheet->addRectForAnimation("longTrip", Vector2(295, 70), 41, 60);
+				spriteSheet->addRectForAnimation("longTrip", Vector2(340, 70), 41, 60);
+				spriteSheet->addRectForAnimation("longTrip", Vector2(205, 135), 41, 60);
+				spriteSheet->addRectForAnimation("longTrip", Vector2(250, 135), 41, 60);
+				spriteSheet->addRectForAnimation("longTrip", Vector2(295, 135), 41, 60);
+				spriteSheet->addRectForAnimation("longTrip", Vector2(340, 135), 41, 60);
+				spriteSheet->addRectForAnimation("longTrip", Vector2(295, 70), 41, 60);
+				spriteSheet->addRectForAnimation("longTrip", Vector2(250, 70), 41, 60);
+				spriteSheet->addRectForAnimation("longTrip", Vector2(205, 70), 41, 60);
 			}
 		}
 
@@ -88,8 +157,8 @@ void PlayerPrefab::configureGameObject(Reference<GameObject>& gameObject) const
 				shadow->setRenderLayer("Foreground");
 				shadow->setZIndex(1);
 
-				shadow->loadImage("assets/Character.png");
-				shadow->setClipRect(SDL_Rect{ 197, 76, 43, 20 });
+				shadow->loadImage("assets/sprites/Character.png");
+				shadow->setClipRect(SDL_Rect{ 300, 50, 62, 18 });
 				shadow->setAllPivots(Vector2(0.5f, 0));
 			}
 		}
