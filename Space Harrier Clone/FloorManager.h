@@ -14,6 +14,7 @@ class FloorManager :
 	public Behaviour
 {
 public:
+	void init(const std::string& texturePath);
 	virtual void start() override;
 	virtual void update() override;
 	
@@ -24,7 +25,7 @@ public:
 	float getXCoordinateForYPos(float startingXPos, float normalizedStartingYPos, float normalizedCurrentYPos) const;
 	float getXSpeedForYPos(float interpolatedCurrentYPos) const;
 
-	std::string texturePath;
+	bool freezeAtBottom = false;
 
 private:
 	void updateCurrentFloorHeight(float normalizedSpeed);
@@ -32,6 +33,7 @@ private:
 	FloorWarpController floorWarpController;
 	DarkLinesController darkLinesController;
 
+	std::string m_texturePath;
 	float m_currentPixelHeight = 0;
 	float m_pixelScaleSpeed = 0;
 	int m_darkLinesFullCycleDuration = 0;
@@ -41,15 +43,15 @@ private:
 	int m_minHeight = 0;
 
 	// Interpolation related
-	int m_horInterpolationTime = 0;
-	int m_horInterpolationStartTime = 0;
+	int m_horInterpolationDuration = 0;
+	float m_horInterpolationElapsedTime = 0;
 	float m_horSpeedStartingValue = 0;
 	float m_horSpeedCurrentValue = 0;
 	float m_horSpeedTargetValue = 0;
 
 	int m_targetHeight = 0;
-	int m_vertInterpolationTime = 0;
-	int m_vertInterpolationStartTime = 0;
+	int m_vertInterpolationDuration = 0;
+	float m_vertInterpolationElapsedTime = 0;
 	float m_vertSpeedStartingValue = 0;
 	float m_vertSpeedCurrentValue = 0;
 	float m_vertSpeedTargetValue = 0;

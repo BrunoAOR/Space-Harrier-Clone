@@ -13,6 +13,7 @@
 #include "BackgroundScroller.h"
 #include "TimeLogger.h"
 #include "PlayerPrefab.h"
+#include "Player.h"
 
 
 bool GameScene::load()
@@ -32,7 +33,7 @@ bool GameScene::load()
 
 			if (floorManager)
 			{
-				floorManager->texturePath = "assets/sprites/FloorGreen.png";
+				floorManager->init("assets/sprites/FloorGreen.png");
 			}
 
 			auto objectsFactoryGo = GameObject::createNew();
@@ -42,7 +43,7 @@ bool GameScene::load()
 				auto floorObjectsFactory = objectsFactoryGo->addComponent<FloorObjectsFactory>();
 				if (floorObjectsFactory)
 				{
-					floorObjectsFactory->floorManager = floorManager;
+					floorObjectsFactory->init(floorManager);
 				}
 			}
 
@@ -53,7 +54,7 @@ bool GameScene::load()
 				auto backgroundScroller = backgroundScrollerGo->addComponent<BackgroundScroller>();
 				if (backgroundScroller)
 				{
-					backgroundScroller->init(floorManager, "assets/sprites/Background.png", 0.2f, -3);
+					backgroundScroller->init(floorManager, "assets/sprites/Background_lvl1.png", 0, -3);
 				}
 			}
 
@@ -78,15 +79,17 @@ bool GameScene::load()
 					backgroundScroller->init(floorManager, "assets/sprites/Background_lvl1_trees.png", 0.6f, -1);
 				}
 			}
-
+			auto playerGo = Prefabs::instantiate(Prefabs::getPrefab("PlayerPrefab"));
+			if (playerGo)
+			{
+				playerGo->transform->setParent(worldGO->transform, false);
+				Reference<Player>& player = playerGo->getComponent<Player>();
+				if (player)
+				{
+					player->floorManager = floorManager;
+				}
+			}
 		}
-		
-		auto playerGo = Prefabs::instantiate(Prefabs::getPrefab("PlayerPrefab"));
-		if (playerGo)
-		{
-			playerGo->transform->setParent(worldGO->transform, false);
-		}
-
 	}
 
 	return true;

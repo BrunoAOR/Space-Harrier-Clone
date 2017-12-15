@@ -18,7 +18,7 @@ public:
 	bool isFinished() const;
 
 private:
-	float getSectionAdjustedDurationSeconds(const AnimationSection& animationSection, float baseY);
+	float getSectionAdjustedDurationMS(const AnimationSection& animationSection, float baseY);
 
 	std::vector<AnimationSection> m_animationSections;
 	Reference<SpriteSheet> m_spriteSheet;

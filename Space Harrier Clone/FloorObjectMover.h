@@ -16,7 +16,7 @@ class FloorObjectMover :
 public:
 	void init(const Reference<FloorManager>& floorManager, FloorObjectType type, float startXPos, float normalizedStartProgress, float normalizedEndProgress, float startScale, float endScale);
 	void restart();
-	FloorObjectType getType();
+	FloorObjectType getType() const;
 
 	virtual void update() override;
 	
@@ -39,7 +39,7 @@ private:
 	float m_endScale = 0;
 
 	int m_fullMotionDuration = 0;
-	int m_startTime = 0;
+	float m_elapsedTime = 0;
 	float m_xPosSpeedOffset = 0;
 };
 

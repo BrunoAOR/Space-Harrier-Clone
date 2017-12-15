@@ -13,7 +13,7 @@ void TreePrefab::configureGameObject(Reference<GameObject>& gameObject) const
 	if (rectColl)
 	{
 		rectColl->isTrigger = true;
-		rectColl->size = Vector2(40, 158);
+		rectColl->size = Vector2(86, 178);
 		rectColl->offset.y += rectColl->size.y / 2;
 		rectColl->setCollisionLayer("Obstacle");
 	}

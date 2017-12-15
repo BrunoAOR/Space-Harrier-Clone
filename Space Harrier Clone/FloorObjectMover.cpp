@@ -40,14 +40,14 @@ void FloorObjectMover::restart()
 {
 	assert(m_floorManager && m_poolHandler && m_collider && m_sprite);
 	m_fullMotionDuration = m_floorManager->getFullMotionDuration();
-	m_startTime = Time::time();
+	m_elapsedTime = m_fullMotionDuration * m_normalizedStartProgress;
 	adjustScale(m_normalizedStartProgress);
 	adjustPosition(m_normalizedStartProgress);
 	m_sprite->setActive(true);
 }
 
 
-FloorObjectType FloorObjectMover::getType()
+FloorObjectType FloorObjectMover::getType() const
 {
 	return m_floorObjectType;
 }
@@ -55,9 +55,13 @@ FloorObjectType FloorObjectMover::getType()
 
 void FloorObjectMover::update()
 {
+	if (m_floorManager->freezeAtBottom)
+	{
+		return;
+	}
 	// Calculate start time correcting for the normalizedStartProgress
-	float elapsedTime = Time::time() - m_startTime + m_fullMotionDuration * m_normalizedStartProgress;
-	float normalizedCurrentProgress = elapsedTime / m_fullMotionDuration;
+	m_elapsedTime += Time::deltaTime();
+	float normalizedCurrentProgress = m_elapsedTime / m_fullMotionDuration;
 	// Destroy gameObject if motion is finished
 	if (normalizedCurrentProgress > m_normalizedEndProgress)
 	{

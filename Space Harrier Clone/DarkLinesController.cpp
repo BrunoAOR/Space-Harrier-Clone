@@ -59,12 +59,16 @@ void DarkLinesController::init(FloorManager* floorManager, int darkLinesCount, f
 }
 
 
-void DarkLinesController::scrollDarkLinesVertical(int targetFloorHeight)
+void DarkLinesController::scrollDarkLinesVertical(int targetFloorHeight, bool scaleOnly)
 {
-	m_currentCycleTime += Time::deltaTime();
-	if (m_currentCycleTime >= m_cycleDuration)
+	if (!scaleOnly)
 	{
-		m_currentCycleTime -= m_cycleDuration;
+		m_currentCycleTime += Time::deltaTime();
+
+		if (m_currentCycleTime >= m_cycleDuration)
+		{
+			m_currentCycleTime -= m_cycleDuration;
+		}
 	}
 
 	for (int i = 0; i < m_darkLinesCount; ++i)

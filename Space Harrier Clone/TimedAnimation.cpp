@@ -42,10 +42,10 @@ void TimedAnimation::update(float& yMovablePosition)
 		m_sectionElapsedTime += Time::deltaTime();
 	}
 	
-	float adjustedDuration = getSectionAdjustedDurationSeconds(currentAnimationSection, m_baseY);
-	if (m_sectionElapsedTime >= adjustedDuration * 1000)
+	float adjustedDuration = getSectionAdjustedDurationMS(currentAnimationSection, m_baseY);
+	if (m_sectionElapsedTime >= adjustedDuration)
 	{
-		m_sectionElapsedTime -= adjustedDuration * 1000;
+		m_sectionElapsedTime -= adjustedDuration;
 		++m_animationSectionIndex;
 		
 		if (m_animationSectionIndex > (int)m_animationSections.size() - 1)
@@ -69,7 +69,7 @@ void TimedAnimation::update(float& yMovablePosition)
 	{
 		endY += m_baseY;
 	}
-	float duration = getSectionAdjustedDurationSeconds(currentAnimationSection, m_baseY) * 1000;
+	float duration = getSectionAdjustedDurationMS(currentAnimationSection, m_baseY);
 	float u = m_sectionElapsedTime / duration;
 	u = u > 1 ? 1 : u;
 	
@@ -83,7 +83,7 @@ bool TimedAnimation::isFinished() const
 	return m_isFinished;
 }
 
-float TimedAnimation::getSectionAdjustedDurationSeconds(const AnimationSection & animationSection, float baseY)
+float TimedAnimation::getSectionAdjustedDurationMS(const AnimationSection & animationSection, float baseY)
 {
 	float startY = animationSection.startY;
 	if (!animationSection.startAbsoluteY)
@@ -95,7 +95,7 @@ float TimedAnimation::getSectionAdjustedDurationSeconds(const AnimationSection &
 	{
 		endY += m_baseY;
 	}
-	float duration = animationSection.durationSeconds;
+	float duration = (float)animationSection.durationMS;
 	if (animationSection.startAbsoluteY && !animationSection.endAbsoluteY || !animationSection.startAbsoluteY && animationSection.endAbsoluteY)
 	{
 		float yOriginalDifference = animationSection.endY - animationSection.startY;

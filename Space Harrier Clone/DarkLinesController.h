@@ -15,7 +15,7 @@ public:
 
 	void init(FloorManager* floorManager, int darkLinesCount, float cycleDuration);
 
-	void scrollDarkLinesVertical(int targetFloorHeight);
+	void scrollDarkLinesVertical(int targetFloorHeight, bool scaleOnly = false);
 	float getNormalizedYPos(float normalizedMotionProgress) const;
 
 private:

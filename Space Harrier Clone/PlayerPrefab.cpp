@@ -120,6 +120,11 @@ void PlayerPrefab::configureGameObject(Reference<GameObject>& gameObject) const
 				spriteSheet->addRectForAnimation("die", Vector2(315, 265), 54, 56);
 				spriteSheet->addRectForAnimation("die", Vector2(370, 265), 54, 56);
 
+				// Animation: postDie
+				spriteSheet->addAnimation("postDie");
+				spriteSheet->addRectForAnimation("postDie", Vector2(0, 0), 1, 1);
+				spriteSheet->addRectForAnimation("postDie", Vector2(85, 265), 36, 60);
+
 				// Animation: shortTrip
 				spriteSheet->addAnimation("shortTrip");
 				spriteSheet->addRectForAnimation("shortTrip", Vector2(205, 70), 41, 60);

@@ -10,6 +10,9 @@ const int SCREEN_SIZE = 2;
 const int SCREEN_WIDTH = 320;
 const int SCREEN_HEIGHT = 224;
 
+const int POST_DIE_BLINK_CYCLE_DURATION = 150;
+const int POST_DIE_BLINK_FLOOR_CYCLE_COUNT = 7;
+const int POST_DIE_BLINK_FREE_CYCLE_COUNT = 15;
 
 #include "../GameScene.h"
 bool scenesConfig()
@@ -71,15 +74,15 @@ CollisionSystemSetup collisionSystemSetup()
 std::vector<AnimationSection> getDieAnimationInfo()
 {
 	std::vector<AnimationSection> animationSections;
-	animationSections.push_back(AnimationSection{ 0, 0.3125f, 3, 42, false, false });
-	animationSections.push_back(AnimationSection{ 1, 0.25f, 45, 63, false, false });
-	animationSections.push_back(AnimationSection{ 1, 0.0833f, 63, 63, false, false });
-	animationSections.push_back(AnimationSection{ 2, 0.0833f, 63, 63, false, false });
-	animationSections.push_back(AnimationSection{ 2, 0.25f, 63, 47, false, false });
-	animationSections.push_back(AnimationSection{ 3, 0.2f, 45, 0, false, true });
-	animationSections.push_back(AnimationSection{ 3, 1.0f, 0, 0, true, true });
-	animationSections.push_back(AnimationSection{ 4, 0.125f, 0, 0, true, true });
-	animationSections.push_back(AnimationSection{ 5, 0.125f, 0, 0, true, true });
-	animationSections.push_back(AnimationSection{ 6, 0.125f, 0, 0, true, true });
+	animationSections.push_back(AnimationSection{ 0,  312, 3, 42, false, false });
+	animationSections.push_back(AnimationSection{ 1,  250, 45, 63, false, false });
+	animationSections.push_back(AnimationSection{ 1,   83, 63, 63, false, false });
+	animationSections.push_back(AnimationSection{ 2,   83, 63, 63, false, false });
+	animationSections.push_back(AnimationSection{ 2,  250, 63, 47, false, false });
+	animationSections.push_back(AnimationSection{ 3,  200, 45, 0, false, true });
+	animationSections.push_back(AnimationSection{ 3, 1000, 0, 0, true, true });
+	animationSections.push_back(AnimationSection{ 4,  125, 0, 0, true, true });
+	animationSections.push_back(AnimationSection{ 5,  125, 0, 0, true, true });
+	animationSections.push_back(AnimationSection{ 6,  125, 0, 0, true, true });
 	return animationSections;
 }

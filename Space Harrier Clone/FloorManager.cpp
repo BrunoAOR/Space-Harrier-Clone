@@ -7,10 +7,18 @@
 #include "Engine/Transform.h"
 #include "Engine/Sprite.h"
 
+
+void FloorManager::init(const std::string & texturePath)
+{
+	m_texturePath = texturePath;
+}
+
+
 void FloorManager::start()
 {
-	m_horInterpolationTime = 500;
-	m_vertInterpolationTime = 500;
+	assert(!m_texturePath.empty());
+	m_horInterpolationDuration = 500;
+	m_vertInterpolationDuration = 500;
 	m_pixelScaleSpeed = 64;
 	m_darkLinesFullCycleDuration = 2000;	// Refers to the time required for a full cycle of dark lines scrolling
 	// Following 3 values (in pixels) obtained by comparing with the Arcade (MAME) version of the origial game
@@ -24,7 +32,7 @@ void FloorManager::start()
 	int horScrollWrapLimit = 65;	// Pixels after which each rect returns to its original position
 	int floorLinesCount = 128;		// The number of rects into which the floor is split for the warping effect
 	
-	floorWarpController.init(this, texturePath, floorLinesCount, m_horScrollSpeed, horScrollWrapLimit);
+	floorWarpController.init(this, m_texturePath, floorLinesCount, m_horScrollSpeed, horScrollWrapLimit);
 
 	int darkLinesCount = 10;	// Amount of dark lines on the screen
 	float cycleDuration = m_darkLinesFullCycleDuration / 10.0f;	// Where a cycle is the time for one dark line to get to the size and position of the next one (in milliseconds)
@@ -35,31 +43,41 @@ void FloorManager::start()
 	darkLinesController.scrollDarkLinesVertical((int)m_currentPixelHeight);
 }
 
+
 void FloorManager::update()
 {
-	// Manage input
 	float horRequestedNormalizedSpeed = 0;
 	m_targetHeight = m_midHeight;
-	if (Input::getKey(SDL_SCANCODE_LEFT))
+	if (freezeAtBottom)
 	{
-		// Rightwards
-		horRequestedNormalizedSpeed = 1;
-	}
-	if (Input::getKey(SDL_SCANCODE_RIGHT))
-	{
-		// Leftwards
-		horRequestedNormalizedSpeed = -1;
-	}
-
-	if (Input::getKey(SDL_SCANCODE_UP))
-	{
-		// Scale up
-		m_targetHeight = m_maxHeight;
-	}
-	if (Input::getKey(SDL_SCANCODE_DOWN))
-	{
-		// Scale down
+		m_horSpeedCurrentValue = 0;
+		m_horSpeedCurrentValue = 0;
 		m_targetHeight = m_minHeight;
+	}
+	else
+	{
+		// Manage input
+		if (Input::getKey(SDL_SCANCODE_LEFT))
+		{
+			// Rightwards
+			horRequestedNormalizedSpeed = 1;
+		}
+		if (Input::getKey(SDL_SCANCODE_RIGHT))
+		{
+			// Leftwards
+			horRequestedNormalizedSpeed = -1;
+		}
+
+		if (Input::getKey(SDL_SCANCODE_UP))
+		{
+			// Scale up
+			m_targetHeight = m_maxHeight;
+		}
+		if (Input::getKey(SDL_SCANCODE_DOWN))
+		{
+			// Scale down
+			m_targetHeight = m_minHeight;
+		}
 	}
 
 	// Interpolate horizontal values if required
@@ -67,12 +85,13 @@ void FloorManager::update()
 	{
 		m_horSpeedStartingValue = m_horSpeedCurrentValue;
 		m_horSpeedTargetValue = horRequestedNormalizedSpeed;
-		m_horInterpolationStartTime = Time::time();
+		m_horInterpolationElapsedTime = 0;
 	}
 
 	if (m_horSpeedCurrentValue != m_horSpeedTargetValue)
 	{
-		float horU = (Time::time() - m_horInterpolationStartTime) / (float)m_horInterpolationTime;
+		m_horInterpolationElapsedTime += Time::deltaTime();
+		float horU = m_horInterpolationElapsedTime / (float)m_horInterpolationDuration;
 		if (horU > 1) {
 			horU = 1;
 		}
@@ -98,12 +117,13 @@ void FloorManager::update()
 		{
 			m_vertSpeedStartingValue = m_vertSpeedCurrentValue;
 			m_vertSpeedTargetValue = vertRequestedNormalizedSpeed;
-			m_vertInterpolationStartTime = Time::time();
+			m_vertInterpolationElapsedTime = 0;
 		}
 
 		if (m_vertSpeedCurrentValue != m_vertSpeedTargetValue)
 		{
-			float vertU = (Time::time() - m_vertInterpolationStartTime) / (float)m_vertInterpolationTime;
+			m_vertInterpolationElapsedTime += Time::deltaTime();
+			float vertU = m_vertInterpolationElapsedTime / (float)m_vertInterpolationDuration;
 			if (vertU > 1) {
 				vertU = 1;
 			}
@@ -122,7 +142,8 @@ void FloorManager::update()
 	}
 
 	floorWarpController.scrollFloorHorizontal(m_horSpeedCurrentValue);
-	darkLinesController.scrollDarkLinesVertical(roundedPixelHeigth);	
+	
+	darkLinesController.scrollDarkLinesVertical(roundedPixelHeigth, freezeAtBottom);
 }
 
 
@@ -134,7 +155,12 @@ int FloorManager::getCurrentFloorHeight() const
 
 float FloorManager::getCurrentHorizontalSpeed() const
 {
+	if (freezeAtBottom)
+	{
+		return 0;
+	}
 	return m_horSpeedCurrentValue * m_horScrollSpeed;
+
 }
 
 

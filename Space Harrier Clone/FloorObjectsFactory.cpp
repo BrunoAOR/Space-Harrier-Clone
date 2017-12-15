@@ -20,15 +20,21 @@ FloorObjectsFactory::~FloorObjectsFactory()
 }
 
 
+void FloorObjectsFactory::init(const Reference<FloorManager>& floorManager)
+{
+	m_floorManager = floorManager;
+	assert(m_floorManager);
+}
+
 void FloorObjectsFactory::start()
 {
 	m_prefabTree = Prefabs::getPrefab("TreePrefab");
-	assert(floorManager && m_prefabTree);
+	assert(m_floorManager && m_prefabTree);
 
 	m_treePool = new GameObjectPool(m_prefabTree, 4);
 
 	m_spawnWaitTime = 2500;
-	m_timeStart = Time::time();
+	m_elapsedTime = 0;
 
 	m_normalizedSpawnY = 0.8f;
 	m_normalizedDespawnY = 0.05f;
@@ -40,10 +46,14 @@ void FloorObjectsFactory::start()
 
 void FloorObjectsFactory::update()
 {
-	int elapsedTime = Time::time() - m_timeStart;
-	if (elapsedTime > m_spawnWaitTime)
+	if (m_floorManager->freezeAtBottom)
 	{
-		m_timeStart += m_spawnWaitTime;
+		return;
+	}
+	m_elapsedTime += Time::deltaTime();
+	if (m_elapsedTime > m_spawnWaitTime)
+	{
+		m_elapsedTime -= m_spawnWaitTime;
 		spawnObject();
 	}
 
@@ -51,10 +61,9 @@ void FloorObjectsFactory::update()
 
 void FloorObjectsFactory::spawnObject()
 {
-	int currentFloorHeight = floorManager->getCurrentFloorHeight();
+	int currentFloorHeight = m_floorManager->getCurrentFloorHeight();
 	float spawnX = (float)m_distribution(m_generator);
 
-	//auto go = Prefabs::instantiate(m_prefabTree);
 	auto go = m_treePool->getGameObject();
 	if (go)
 	{
@@ -62,7 +71,7 @@ void FloorObjectsFactory::spawnObject()
 		auto mover = go->getComponent<FloorObjectMover>();
 		if (mover)
 		{
-			mover->init(floorManager, FloorObjectType::DIE, spawnX, 1 - m_normalizedSpawnY, 1 - m_normalizedDespawnY, 0, 1);
+			mover->init(m_floorManager, FloorObjectType::DIE, spawnX, 1 - m_normalizedSpawnY, 1 - m_normalizedDespawnY, 0, 1);
 			mover->restart();
 		}
 		go->setActive(true);

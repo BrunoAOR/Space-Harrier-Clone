@@ -6,7 +6,7 @@ struct AnimationSection
 {
 public:
 	int spriteIndex;
-	float durationSeconds;
+	int durationMS;
 	float startY;
 	float endY;
 	bool startAbsoluteY;

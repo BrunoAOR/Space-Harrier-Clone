@@ -9,8 +9,10 @@
 #include "Engine/SpriteSheet.h"
 #include "Engine/Collider.h"
 #include "Utils.h"
+#include "FloorManager.h"
 #include "FloorObjectMover.h"
 #include "FloorObjectType.h"
+#include "AnimationSection.h"
 
 
 Player::~Player()
@@ -20,7 +22,7 @@ Player::~Player()
 }
 
 
-void Player::init(const Reference<GameObject>& characterGo, const Reference<GameObject> shadowGo)
+void Player::init(const Reference<GameObject>& characterGo, const Reference<GameObject>& shadowGo)
 {
 	m_shadowGo = shadowGo;
 	m_characterGo = characterGo;
@@ -91,30 +93,13 @@ void Player::update()
 	}
 }
 
+
 void Player::onTriggerEnter(Reference<Collider>& other)
 {
 	Reference<FloorObjectMover> fom = other->gameObject()->getComponent<FloorObjectMover>();
 	if (fom)
 	{
-		switch (fom->getType())
-		{
-		case FloorObjectType::SHORT_TRIP:
-			m_state = PlayerState::SHORT_TRIP;
-			break;
-		case FloorObjectType::LONG_TRIP:
-			m_state = PlayerState::LONG_TRIP;
-			break;
-		case FloorObjectType::DIE:
-			m_currentNormalizedPosition.y = m_minY;
-			m_spriteSheet->selectAnimation("die", 0);
-			m_dieAnimation->start(m_characterGo->transform->getLocalPosition().y);
-			m_state = PlayerState::DIE;
-			break;
-		case FloorObjectType::UNDEFINED:
-		default:
-			assert(false);
-			break;
-		}
+		handleFOMCollision(fom);
 	}
 }
 
@@ -155,26 +140,36 @@ void Player::handleInput(float & normalizedRequestedX, float & normalizedRequest
 	}
 }
 
-void Player::move(float normalizedRequestedX, float normalizedRequestedY)
+
+void Player::move(float normalizedRequestedX, float normalizedRequestedY, bool horizontalOnly, bool verticalOnly)
 {
-	// Get motion directions
-	int xDirection = normalizedRequestedX - m_currentNormalizedPosition.x > 0 ? 1 : (normalizedRequestedX - m_currentNormalizedPosition.x < 0 ? -1 : 0);
-	int yDirection = normalizedRequestedY - m_currentNormalizedPosition.y > 0 ? 1 : (normalizedRequestedY - m_currentNormalizedPosition.y < 0 ? -1 : 0);
+	if (!verticalOnly)
+	{
+		// Get motion direction
+		int xDirection = normalizedRequestedX - m_currentNormalizedPosition.x > 0 ? 1 : (normalizedRequestedX - m_currentNormalizedPosition.x < 0 ? -1 : 0);
+		// Modify currentPosition (clamp so we don't overshoot the requested position)
+		m_currentNormalizedPosition.x = clamp(m_currentNormalizedPosition.x + xDirection * m_motionSpeed * Time::deltaTime(), m_currentNormalizedPosition.x, normalizedRequestedX);
+		float xPos = m_currentNormalizedPosition.x * SCREEN_WIDTH;
 
-	// Modify currentPosition (clamp so we don't overshoot the requested position)
-	m_currentNormalizedPosition.x = clamp(m_currentNormalizedPosition.x + xDirection * m_motionSpeed * Time::deltaTime(), m_currentNormalizedPosition.x, normalizedRequestedX);
-	m_currentNormalizedPosition.y = clamp(m_currentNormalizedPosition.y + yDirection * m_motionSpeed * Time::deltaTime(), m_currentNormalizedPosition.y, normalizedRequestedY);
+		// Apply the modified position to the corresponding transform (x moves this GO while y moves the characterGp)
+		Vector2 goPos = gameObject()->transform->getLocalPosition();
+		goPos.x = xPos;
+		gameObject()->transform->setLocalPosition(goPos);
+	}
 
-	// Apply the modified position to the corresponding transform (x moves this GO while y moves the characterGp
-	Vector2 pos(m_currentNormalizedPosition.x * SCREEN_WIDTH, m_currentNormalizedPosition.y * SCREEN_HEIGHT);
+	if (!horizontalOnly)
+	{
+		// Get motion direction
+		int yDirection = normalizedRequestedY - m_currentNormalizedPosition.y > 0 ? 1 : (normalizedRequestedY - m_currentNormalizedPosition.y < 0 ? -1 : 0);
+		// Modify currentPosition (clamp so we don't overshoot the requested position)
+		m_currentNormalizedPosition.y = clamp(m_currentNormalizedPosition.y + yDirection * m_motionSpeed * Time::deltaTime(), m_currentNormalizedPosition.y, normalizedRequestedY);
+		float yPos = m_currentNormalizedPosition.y * SCREEN_HEIGHT;
 
-	Vector2 goPos = gameObject()->transform->getLocalPosition();
-	goPos.x = pos.x;
-	gameObject()->transform->setLocalPosition(goPos);
-
-	Vector2 charPos = m_characterGo->transform->getLocalPosition();
-	charPos.y = pos.y;
-	m_characterGo->transform->setLocalPosition(charPos);
+		// Apply the modified position to the corresponding transform (x moves this GO while y moves the characterGp)
+		Vector2 charPos = m_characterGo->transform->getLocalPosition();
+		charPos.y = yPos;
+		m_characterGo->transform->setLocalPosition(charPos);
+	}
 }
 
 
@@ -254,8 +249,105 @@ void Player::dieUpdate()
 	m_characterGo->transform->setLocalPosition(currentCharPos);
 }
 
+
 void Player::postDieUpdate()
 {
-	m_spriteSheet->selectAnimation("flyCenter", 0);
-	m_state = PlayerState::MOVE;
+	if (m_postDieElapsedTime == INT_MIN)
+	{
+		m_postDieElapsedTime = -(int)Time::deltaTime();
+		m_spriteSheet->playAnimation("flyCenter", 16.0f);
+		if (floorManager)
+		{
+			floorManager->freezeAtBottom = true;
+		}
+		// LOSE LIFE HERE
+	}
+	
+	// Limited motion
+	float normalizedRequestedX;
+	float normalizedRequestedY;
+	handleInput(normalizedRequestedX, normalizedRequestedY);
+	
+
+	m_postDieElapsedTime += Time::deltaTime();
+	float pastCyclesTime = 0;
+
+	// Blinking and limited motion (horizontal only) starts
+	for (int i = 0; i < POST_DIE_BLINK_FLOOR_CYCLE_COUNT; ++i)
+	{
+		if (m_postDieElapsedTime - pastCyclesTime < POST_DIE_BLINK_CYCLE_DURATION)
+		{
+			if (m_postDieElapsedTime - pastCyclesTime < POST_DIE_BLINK_CYCLE_DURATION / 2)
+			{
+				m_spriteSheet->gameObject()->transform->setLocalScale(Vector2(0, 0));
+			}
+			else
+			{
+				m_spriteSheet->gameObject()->transform->setLocalScale(Vector2(1, 1));
+			}
+			move(normalizedRequestedX, normalizedRequestedY, true);
+			return;
+		}
+		pastCyclesTime += POST_DIE_BLINK_CYCLE_DURATION;
+	}
+	
+	// Blinking and free motion starts (free motion)
+	if (floorManager)
+	{
+		floorManager->freezeAtBottom = false;
+	}
+
+	move(normalizedRequestedX, normalizedRequestedY);
+	moveAnimationUpdate();
+	for (int i = 0; i < POST_DIE_BLINK_FREE_CYCLE_COUNT; ++i)
+	{
+		// Off-part of the blink
+		if (m_postDieElapsedTime - pastCyclesTime < POST_DIE_BLINK_CYCLE_DURATION / 2)
+		{
+			m_spriteSheet->gameObject()->transform->setLocalScale(Vector2(0, 0));
+			return;
+		}
+		// On-part of the blink
+		else if (m_postDieElapsedTime - pastCyclesTime < POST_DIE_BLINK_CYCLE_DURATION)
+		{
+			m_spriteSheet->gameObject()->transform->setLocalScale(Vector2(1, 1));
+			return;
+		}
+		pastCyclesTime += POST_DIE_BLINK_CYCLE_DURATION;
+	}
+
+	// postDie is finished
+	m_spriteSheet->gameObject()->transform->setLocalScale(Vector2(1, 1));
+	m_postDieElapsedTime = INT_MIN;
+	m_state = PlayerState::MOVE;	
+}
+
+
+void Player::handleFOMCollision(const Reference<FloorObjectMover>& fom)
+{
+	switch (fom->getType())
+	{
+	case FloorObjectType::SHORT_TRIP:
+		m_state = PlayerState::SHORT_TRIP;
+		break;
+	case FloorObjectType::LONG_TRIP:
+		m_state = PlayerState::LONG_TRIP;
+		break;
+	case FloorObjectType::DIE:
+		if (m_state != PlayerState::DIE && m_state != PlayerState::POST_DIE) {
+			m_currentNormalizedPosition.y = m_minY;
+			m_spriteSheet->selectAnimation("die", 0);
+			m_dieAnimation->start(m_characterGo->transform->getLocalPosition().y);
+			if (floorManager)
+			{
+				floorManager->freezeAtBottom = true;
+			}
+			m_state = PlayerState::DIE;
+		}
+		break;
+	case FloorObjectType::UNDEFINED:
+	default:
+		assert(false);
+		break;
+	}
 }

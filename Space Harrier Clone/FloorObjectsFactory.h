@@ -15,18 +15,19 @@ class FloorObjectsFactory :
 public:
 	~FloorObjectsFactory();
 	
+	void init(const Reference<FloorManager>& floorManager);
 	virtual void start() override;
 	virtual void update() override;
 
-	Reference<FloorManager> floorManager;
 
 private:
 	void spawnObject();
-
+	
+	Reference<FloorManager> m_floorManager;
 	Reference<Prefab> m_prefabTree;
 	GameObjectPool* m_treePool = nullptr;
 	
-	int m_timeStart = 0;
+	int m_elapsedTime = 0;
 	int m_spawnWaitTime = 0;
 
 	float m_normalizedSpawnY = 0;

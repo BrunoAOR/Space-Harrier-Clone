@@ -1,6 +1,7 @@
 #ifndef H_PLAYER
 #define H_PLAYER
 
+#include <vector>
 #include "Engine/Behaviour.h"
 #include "Engine/Reference.h"
 #include "Engine/Vector2.h"
@@ -9,7 +10,10 @@
 #include "TimedAnimation.h"
 class GameObject;
 class SpriteSheet;
+class FloorManager;
+class FloorObjectMover;
 class Collider;
+struct AnimationSection;
 
 
 class Player :
@@ -18,10 +22,12 @@ class Player :
 public:
 	~Player();
 
-	void init(const Reference<GameObject>& characterGo, const Reference<GameObject> shadowGo);
+	void init(const Reference<GameObject>& characterGo, const Reference<GameObject>& shadowGo);
 	virtual void start() override;
 	virtual void update() override;
 	virtual void onTriggerEnter(Reference<Collider>& other) override;
+
+	Reference<FloorManager> floorManager;
 
 private:
 	enum class PlayerState
@@ -36,7 +42,7 @@ private:
 
 	// MOVE related functions
 	void handleInput(float& normalizedRequestedX, float& normalizedRequestedY) const;
-	void move(float normalizedRequestedX, float normalizedRequestedY);
+	void move(float normalizedRequestedX, float normalizedRequestedY, bool horizontalOnly = false, bool verticalOnly = false);
 	void moveAnimationUpdate();
 
 	// TRIP related functions
@@ -46,10 +52,14 @@ private:
 	void dieUpdate();
 	void postDieUpdate();
 
+	// Collision handling
+	void handleFOMCollision(const Reference<FloorObjectMover>& fom);
+
 	Reference<GameObject> m_shadowGo;
 	Reference<GameObject> m_characterGo;
 	Reference<SpriteSheet> m_spriteSheet;
 	TimedAnimation* m_dieAnimation = nullptr;
+	int m_postDieElapsedTime = INT_MIN;
 
 	std::string m_currentAnimation = "";
 	float m_motionSpeed = 0;
