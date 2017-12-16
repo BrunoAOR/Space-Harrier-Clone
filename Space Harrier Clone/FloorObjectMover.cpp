@@ -10,46 +10,47 @@
 #include "FloorObjectType.h"
 
 
-void FloorObjectMover::init(const Reference<FloorManager>& floorManager, FloorObjectType type, float startXPos, float normalizedStartProgress, float normalizedEndProgress, float startScale, float endScale)
+void FloorObjectMover::init(const Reference<FloorManager>& floorManager, float startXPos, float normalizedStartProgress, float normalizedEndProgress, float startScale, float endScale)
 {
 	m_floorManager = floorManager;
-	m_floorObjectType = type;
 	if (!m_poolHandler)
 	{
 		m_poolHandler = gameObject()->getComponent<PooledGameObject>();
 	}
 	if (!m_collider)
 	{
-		m_collider = gameObject()->getComponent<Collider>();
+		m_collider = gameObject()->getComponentInChildren<Collider>();
 	}
 	if (!m_sprite)
 	{
-		m_sprite = gameObject()->getComponent<Sprite>();
+		m_sprite = gameObject()->getComponentInChildren<Sprite>();
 	}
 	assert(m_floorManager && m_floorObjectType != FloorObjectType::UNDEFINED && m_poolHandler && m_collider && m_sprite);
+	
 	m_startXPos = startXPos;
 	m_normalizedStartProgress = normalizedStartProgress;
 	m_normalizedEndProgress = normalizedEndProgress;
 	m_startScale = startScale;
 	m_endScale = endScale;
 	m_normalizedStartYPos = m_floorManager->getNormalizedYPos(m_normalizedStartProgress);
-	m_collider->zIndex = 0;
-}
 
-void FloorObjectMover::restart()
-{
-	assert(m_floorManager && m_poolHandler && m_collider && m_sprite);
 	m_fullMotionDuration = m_floorManager->getFullMotionDuration();
 	m_elapsedTime = m_fullMotionDuration * m_normalizedStartProgress;
 	adjustScale(m_normalizedStartProgress);
 	adjustPosition(m_normalizedStartProgress);
-	m_sprite->setActive(true);
+	m_collider->zIndex = 0;
 }
 
 
 FloorObjectType FloorObjectMover::getType() const
 {
 	return m_floorObjectType;
+}
+
+
+void FloorObjectMover::setType(FloorObjectType type)
+{
+	m_floorObjectType = type;
 }
 
 

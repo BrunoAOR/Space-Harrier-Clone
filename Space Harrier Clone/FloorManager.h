@@ -26,6 +26,7 @@ public:
 	float getXSpeedForYPos(float interpolatedCurrentYPos) const;
 
 	bool freezeAtBottom = false;
+	bool stopHorizontal = false;
 
 private:
 	void updateCurrentFloorHeight(float normalizedSpeed);

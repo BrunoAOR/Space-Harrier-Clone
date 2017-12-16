@@ -2,6 +2,7 @@
 #define H_FLOOR_OBJECTS_FACTORY
 
 #include <random>
+#include <vector>
 #include "Engine/Reference.h"
 #include "Engine/Behaviour.h"
 class FloorManager;
@@ -24,9 +25,11 @@ private:
 	void spawnObject();
 	
 	Reference<FloorManager> m_floorManager;
-	Reference<Prefab> m_prefabTree;
-	GameObjectPool* m_treePool = nullptr;
+
+	std::vector<Reference<Prefab>> m_prefabs;
+	std::vector<GameObjectPool*> m_prefabPools;
 	
+	int m_currPrefabIndex = 0;
 	int m_elapsedTime = 0;
 	int m_spawnWaitTime = 0;
 

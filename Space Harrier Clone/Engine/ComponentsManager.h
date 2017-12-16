@@ -47,6 +47,7 @@ ReferenceOwner<T> ComponentsManager::createNew(Reference<GameObject>& goRef) con
 		{
 			auto component = ReferenceOwner<T>(new T());
 			component->m_gameObject = goRef;
+			component->m_self = component;
 
 			if (typeid(T) != typeid(Transform) && !sendToManager(component.getStaticCastedReference<Component>()))
 			{

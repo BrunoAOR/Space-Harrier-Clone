@@ -44,6 +44,7 @@ public:
 	// Hierarchy related
 	const Reference<Transform>& getParent() const;
 	Reference<Transform>& getParent();
+	std::vector<Reference<Transform>> getChildren() const;
 	bool setParent(Reference<Transform>& parent, bool keepWorldPosition = true);
 	void removeParent();
 
@@ -72,6 +73,7 @@ private:
 	Transform* m_parentTransform = nullptr;
 	Reference<Transform> m_parentRef;
 	std::vector<Transform*> m_children;
+	std::vector<Reference<Transform>> m_childrenRef;
 };
 
 

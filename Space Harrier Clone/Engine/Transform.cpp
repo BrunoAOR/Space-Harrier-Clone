@@ -288,6 +288,12 @@ Reference<Transform>& Transform::getParent()
 }
 
 
+std::vector<Reference<Transform>> Transform::getChildren() const
+{
+	return m_childrenRef;
+}
+
+
 bool Transform::setParent(Reference<Transform>& parent, bool keepWorldPosition)
 {
 	if (!parent)
@@ -365,6 +371,7 @@ bool Transform::addChild(Transform * childTransform)
 	if (index == -1)
 	{
 		m_children.push_back(childTransform);
+		m_childrenRef.push_back(childTransform->m_self.static_reference_cast<Transform>());
 		return true;
 	}
 	return false;
@@ -377,6 +384,7 @@ bool Transform::removeChild(Transform * childTransform)
 	if (index != -1)
 	{
 		m_children.erase(m_children.begin() + index);
+		m_childrenRef.erase(m_childrenRef.begin() + index);
 		return true;
 	}
 	return false;

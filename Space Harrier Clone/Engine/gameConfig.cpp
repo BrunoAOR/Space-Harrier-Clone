@@ -31,6 +31,9 @@ bool scenesConfig()
 
 #include "../PlayerPrefab.h"
 #include "../TreePrefab.h"
+#include "../SmallBushPrefab.h"
+#include "../BigBushPrefab.h"
+#include "../RockPrefab.h"
 bool prefabsConfig()
 {
 	// Success flag
@@ -38,6 +41,9 @@ bool prefabsConfig()
 
 	success &= engine->prefabsFactory->addPrefab<PlayerPrefab>("PlayerPrefab");
 	success &= engine->prefabsFactory->addPrefab<TreePrefab>("TreePrefab");
+	success &= engine->prefabsFactory->addPrefab<SmallBushPrefab>("SmallBushPrefab");
+	success &= engine->prefabsFactory->addPrefab<BigBushPrefab>("BigBushPrefab");
+	success &= engine->prefabsFactory->addPrefab<RockPrefab>("RockPrefab");
 
 	return success;
 }

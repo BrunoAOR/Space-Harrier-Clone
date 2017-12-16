@@ -20,6 +20,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BackgroundScroller.cpp" />
+    <ClCompile Include="BigBushPrefab.cpp" />
     <ClCompile Include="DarkLinesController.cpp" />
     <ClCompile Include="EngineExt\RectangleRenderer.cpp" />
     <ClCompile Include="Engine\API.cpp" />
@@ -63,6 +64,8 @@
     <ClCompile Include="PlayerCollisionController.cpp" />
     <ClCompile Include="PlayerPrefab.cpp" />
     <ClCompile Include="PooledGameObject.cpp" />
+    <ClCompile Include="RockPrefab.cpp" />
+    <ClCompile Include="SmallBushPrefab.cpp" />
     <ClCompile Include="TimedAnimation.cpp" />
     <ClCompile Include="TimeLogger.cpp" />
     <ClCompile Include="TreePrefab.cpp" />
@@ -71,6 +74,7 @@
   <ItemGroup>
     <ClInclude Include="AnimationSection.h" />
     <ClInclude Include="BackgroundScroller.h" />
+    <ClInclude Include="BigBushPrefab.h" />
     <ClInclude Include="DarkLineInfo.h" />
     <ClInclude Include="DarkLinesController.h" />
     <ClInclude Include="EngineExt\RectangleRenderer.h" />
@@ -124,6 +128,8 @@
     <ClInclude Include="PlayerCollisionController.h" />
     <ClInclude Include="PlayerPrefab.h" />
     <ClInclude Include="PooledGameObject.h" />
+    <ClInclude Include="RockPrefab.h" />
+    <ClInclude Include="SmallBushPrefab.h" />
     <ClInclude Include="TimedAnimation.h" />
     <ClInclude Include="TimeLogger.h" />
     <ClInclude Include="TreePrefab.h" />

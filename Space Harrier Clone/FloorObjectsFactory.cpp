@@ -15,8 +15,11 @@
 
 FloorObjectsFactory::~FloorObjectsFactory()
 {
-	delete m_treePool;
-	m_treePool = nullptr;
+	for (GameObjectPool* gop : m_prefabPools)
+	{
+		delete gop;
+	}
+	m_prefabPools.clear();
 }
 
 
@@ -28,10 +31,17 @@ void FloorObjectsFactory::init(const Reference<FloorManager>& floorManager)
 
 void FloorObjectsFactory::start()
 {
-	m_prefabTree = Prefabs::getPrefab("TreePrefab");
-	assert(m_floorManager && m_prefabTree);
-
-	m_treePool = new GameObjectPool(m_prefabTree, 4);
+	assert(m_floorManager);
+	m_prefabs.reserve(4);
+	m_prefabs.push_back(Prefabs::getPrefab("TreePrefab"));
+	m_prefabs.push_back(Prefabs::getPrefab("SmallBushPrefab"));
+	m_prefabs.push_back(Prefabs::getPrefab("BigBushPrefab"));
+	m_prefabs.push_back(Prefabs::getPrefab("RockPrefab"));
+	for (Reference<Prefab>& prefab : m_prefabs)
+	{
+		assert(prefab);
+		m_prefabPools.push_back(new GameObjectPool(prefab, 4));
+	}
 
 	m_spawnWaitTime = 2500;
 	m_elapsedTime = 0;
@@ -64,15 +74,19 @@ void FloorObjectsFactory::spawnObject()
 	int currentFloorHeight = m_floorManager->getCurrentFloorHeight();
 	float spawnX = (float)m_distribution(m_generator);
 
-	auto go = m_treePool->getGameObject();
+
+	auto go = m_prefabPools[m_currPrefabIndex++]->getGameObject();
+	if (m_currPrefabIndex >= (int)m_prefabPools.size())
+	{
+		m_currPrefabIndex = 0;
+	}
 	if (go)
 	{
 		go->transform->setParent(gameObject()->transform);
 		auto mover = go->getComponent<FloorObjectMover>();
 		if (mover)
 		{
-			mover->init(m_floorManager, FloorObjectType::DIE, spawnX, 1 - m_normalizedSpawnY, 1 - m_normalizedDespawnY, 0, 1);
-			mover->restart();
+			mover->init(m_floorManager, spawnX, 1 - m_normalizedSpawnY, 1 - m_normalizedDespawnY, 0, 1);
 		}
 		go->setActive(true);
 	}

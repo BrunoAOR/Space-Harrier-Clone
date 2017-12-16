@@ -48,7 +48,7 @@ void FloorManager::update()
 {
 	float horRequestedNormalizedSpeed = 0;
 	m_targetHeight = m_midHeight;
-	if (freezeAtBottom)
+	if (freezeAtBottom || stopHorizontal)
 	{
 		m_horSpeedCurrentValue = 0;
 		m_horSpeedCurrentValue = 0;
@@ -67,7 +67,6 @@ void FloorManager::update()
 			// Leftwards
 			horRequestedNormalizedSpeed = -1;
 		}
-
 		if (Input::getKey(SDL_SCANCODE_UP))
 		{
 			// Scale up

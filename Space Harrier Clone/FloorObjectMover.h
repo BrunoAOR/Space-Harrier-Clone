@@ -14,9 +14,9 @@ class FloorObjectMover :
 	public Behaviour
 {
 public:
-	void init(const Reference<FloorManager>& floorManager, FloorObjectType type, float startXPos, float normalizedStartProgress, float normalizedEndProgress, float startScale, float endScale);
-	void restart();
+	void init(const Reference<FloorManager>& floorManager, float startXPos, float normalizedStartProgress, float normalizedEndProgress, float startScale, float endScale);
 	FloorObjectType getType() const;
+	void setType(FloorObjectType type);
 
 	virtual void update() override;
 	

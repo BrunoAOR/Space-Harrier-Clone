@@ -79,7 +79,11 @@ void Player::update()
 		moveAnimationUpdate();
 		break;
 	case PlayerState::SHORT_TRIP:
+		m_state = PlayerState::SHORT_TRIP;
+		tripUpdate();
+		break;
 	case PlayerState::LONG_TRIP:
+		m_state = PlayerState::LONG_TRIP;
 		tripUpdate();
 		break;
 	case PlayerState::DIE:
@@ -96,7 +100,7 @@ void Player::update()
 
 void Player::onTriggerEnter(Reference<Collider>& other)
 {
-	Reference<FloorObjectMover> fom = other->gameObject()->getComponent<FloorObjectMover>();
+	Reference<FloorObjectMover> fom = other->gameObject()->getComponentInParent<FloorObjectMover>();
 	if (fom)
 	{
 		handleFOMCollision(fom);
@@ -218,22 +222,38 @@ void Player::moveAnimationUpdate()
 
 void Player::tripUpdate()
 {
-	// Start animations
-	if (m_state == PlayerState::SHORT_TRIP && m_currentAnimation != "shortTrip")
+	if (floorManager)
 	{
-		m_currentAnimation = "shortTrip";
-		m_spriteSheet->playAnimation(m_currentAnimation, 8.0f);
+		floorManager->stopHorizontal = true;
 	}
-	else if (m_state == PlayerState::SHORT_TRIP && m_currentAnimation != "longTrip")
+	// Start animations
+	if (m_state == PlayerState::SHORT_TRIP && m_currentAnimation != "shortTrip" || m_state == PlayerState::LONG_TRIP && m_currentAnimation != "longTrip")
 	{
-		m_currentAnimation = "longTrip";
-		m_spriteSheet->playAnimation(m_currentAnimation, 8);
+		if (m_state == PlayerState::SHORT_TRIP && m_currentAnimation != "shortTrip")
+		{
+			m_currentAnimation = "shortTrip";
+		}
+		else
+		{
+			m_currentAnimation = "longTrip";
+		}
+		m_spriteSheet->playAnimation(m_currentAnimation, 8.0f);
+		Vector2 charPos = m_characterGo->transform->getLocalPosition();
+		charPos.y = m_minY;
+		m_characterGo->transform->setLocalPosition(charPos);
 	}
 
 	int currentFrame = m_spriteSheet->getCurrentAnimationFrameIndex();
 	int framesCount = m_spriteSheet->getCurrentAnimationFrameCount();
 
-	//CONTINUE;
+	if (currentFrame == framesCount - 1)
+	{
+		if (floorManager)
+		{
+			floorManager->stopHorizontal = false;
+		}
+		m_state = PlayerState::MOVE;
+	}
 }
 
 

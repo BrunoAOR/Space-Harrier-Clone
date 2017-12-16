@@ -23,6 +23,7 @@ protected:
 	Component();
 
 	ComponentType m_type;
+	Reference<Component> m_self;
 
 private:
 	// TESTING FIELDS START

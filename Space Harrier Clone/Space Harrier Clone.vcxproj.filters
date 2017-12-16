@@ -178,6 +178,15 @@
     <ClCompile Include="TimedAnimation.cpp">
       <Filter>Scripts\Animations</Filter>
     </ClCompile>
+    <ClCompile Include="SmallBushPrefab.cpp">
+      <Filter>Prefabs</Filter>
+    </ClCompile>
+    <ClCompile Include="BigBushPrefab.cpp">
+      <Filter>Prefabs</Filter>
+    </ClCompile>
+    <ClCompile Include="RockPrefab.cpp">
+      <Filter>Prefabs</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\API.h">
@@ -356,6 +365,15 @@
     </ClInclude>
     <ClInclude Include="TimedAnimation.h">
       <Filter>Scripts\Animations</Filter>
+    </ClInclude>
+    <ClInclude Include="SmallBushPrefab.h">
+      <Filter>Prefabs</Filter>
+    </ClInclude>
+    <ClInclude Include="BigBushPrefab.h">
+      <Filter>Prefabs</Filter>
+    </ClInclude>
+    <ClInclude Include="RockPrefab.h">
+      <Filter>Prefabs</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
