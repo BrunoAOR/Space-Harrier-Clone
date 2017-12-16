@@ -79,7 +79,9 @@ private:
 	float m_maxY = 0;
 	float m_yTarget = 0;
 
-	SFX m_sfxOuch;
+	SFX m_sfxTrip;
+	SFX m_sfxDie;
+	SFX m_sfxPostDie;
 	Music m_m1;
 	Music m_m2;
 };

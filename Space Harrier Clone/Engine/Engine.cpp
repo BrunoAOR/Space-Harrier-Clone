@@ -151,7 +151,7 @@ bool Engine::initSDL() const
 		}
 
 		//Initialize SDL_mixer
-		if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048) < 0)
+		if (Mix_OpenAudio(48000, MIX_DEFAULT_FORMAT, 2, 2048) < 0)
 		{
 			OutputLog("ERROR: SDL_mixer could not initialize! SDL_mixer Error: %s", Mix_GetError());
 			success = false;

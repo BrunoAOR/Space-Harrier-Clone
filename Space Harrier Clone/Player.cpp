@@ -59,9 +59,12 @@ void Player::start()
 	m_spriteSheet->setAnimationSpeed(16);
 	m_spriteSheet->playAnimation("run");
 	m_currentAnimation = "run";
-	m_sfxOuch = Audio::LoadSFX("assets/audio/SFX - Voice - Aaaaargh.wav");
-	m_m1 = Audio::LoadMusic("assets/audio/S1 MOOT Boss (Skyra).wav");
-	m_m2 = Audio::LoadMusic("assets/audio/Theme.wav");
+	
+	m_sfxTrip = Audio::LoadSFX("assets/audio/sfx/SFX - Voice - Ouch.wav");
+	m_sfxDie = Audio::LoadSFX("assets/audio/sfx/SFX - Voice - Aaaaargh.wav");
+	m_sfxPostDie = Audio::LoadSFX("assets/audio/sfx/SFX - Voice - Get ready.wav");
+	m_m1 = Audio::LoadMusic("assets/audio/bgm/Theme.wav");
+	m_m2 = Audio::LoadMusic("assets/audio/bgm/S1 MOOT Boss (Skyra).wav");
 }
 
 
@@ -110,10 +113,6 @@ void Player::onTriggerEnter(Reference<Collider>& other)
 
 void Player::handleInput(float & normalizedRequestedX, float & normalizedRequestedY) const
 {
-	if (Input::getKeyDown(SDL_SCANCODE_LCTRL))
-	{
-		Audio::PlaySFX(m_sfxOuch);
-	}
 	if (Input::getKeyDown(SDL_SCANCODE_1))
 	{
 		Audio::PlayMusic(m_m1);
@@ -261,6 +260,7 @@ void Player::dieUpdate()
 {
 	if (m_dieAnimation->isFinished())
 	{
+		Audio::PlaySFX(m_sfxPostDie);
 		m_state = PlayerState::POST_DIE;
 		return;
 	}
@@ -349,9 +349,11 @@ void Player::handleFOMCollision(const Reference<FloorObjectMover>& fom)
 	{
 	case FloorObjectType::SHORT_TRIP:
 		m_state = PlayerState::SHORT_TRIP;
+		Audio::PlaySFX(m_sfxTrip);
 		break;
 	case FloorObjectType::LONG_TRIP:
 		m_state = PlayerState::LONG_TRIP;
+		Audio::PlaySFX(m_sfxTrip);
 		break;
 	case FloorObjectType::DIE:
 		if (m_state != PlayerState::DIE && m_state != PlayerState::POST_DIE) {
@@ -363,6 +365,7 @@ void Player::handleFOMCollision(const Reference<FloorObjectMover>& fom)
 				floorManager->freezeAtBottom = true;
 			}
 			m_state = PlayerState::DIE;
+			Audio::PlaySFX(m_sfxDie);
 		}
 		break;
 	case FloorObjectType::UNDEFINED:

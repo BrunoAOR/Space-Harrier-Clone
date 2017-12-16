@@ -23,7 +23,8 @@ void TreePrefab::configureGameObject(Reference<GameObject>& gameObject) const
 	if (rectColl)
 	{
 		rectColl->isTrigger = true;
-		rectColl->size = Vector2(84, 178);
+		// Tree's collider height is reduced by 20px to allow the player to fly over it
+		rectColl->size = Vector2(84, 178 - 20);
 		rectColl->offset.y += rectColl->size.y / 2;
 		rectColl->setCollisionLayer("Obstacle");
 	}
