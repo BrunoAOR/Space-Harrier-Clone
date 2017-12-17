@@ -6,6 +6,7 @@
 #include "Engine/RectangleCollider.h"
 #include "FloorObjectMover.h"
 #include "FloorObjectType.h"
+#include "ExplosiveObject.h"
 
 
 void TreePrefab::configureGameObject(Reference<GameObject>& gameObject) const
@@ -34,4 +35,6 @@ void TreePrefab::configureGameObject(Reference<GameObject>& gameObject) const
 	{
 		fom->setType(FloorObjectType::DIE);
 	}
+
+	gameObject->addComponent<ExplosiveObject>();
 }

@@ -120,7 +120,7 @@ bool SpriteSheet::selectAnimation(const std::string& animationName, int starting
 			m_currentClipRectIndex = 0;
 		}
 		m_currentClipRect = &(m_currentAnimation->at(m_currentClipRectIndex));
-		m_isPlaying = false;
+		stopAnimation();
 		return true;
 	}
 	return false;
@@ -137,10 +137,18 @@ bool SpriteSheet::previousAnimationFrame()
 			resetCachedFields();
 			return false;
 		}
-		// Loop around if the previous index is less than zero
+		// Loop around if the previous index is less than zero (if looping)
 		if (--m_currentClipRectIndex < 0)
 		{
-			m_currentClipRectIndex = size - 1;
+			if (m_isLooping)
+			{
+				m_currentClipRectIndex = size - 1;
+			}
+			else
+			{
+				m_isFinished = true;
+				m_currentClipRectIndex = 0;
+			}
 		}
 		m_currentClipRect = &(m_currentAnimation->at(m_currentClipRectIndex));
 		return true;
@@ -159,10 +167,18 @@ bool SpriteSheet::nextAnimationFrame()
 			resetCachedFields();
 			return false;
 		}
-		// Loop around if the next index exceeds the frame count
+		// Loop around if the next index exceeds the frame count (if looping)
 		if (++m_currentClipRectIndex >= size)
 		{
-			m_currentClipRectIndex = 0;
+			if (m_isLooping)
+			{
+				m_currentClipRectIndex = 0;
+			}
+			else
+			{
+				m_isFinished = true;
+				m_currentClipRectIndex = size - 1;
+			}
 		}
 		m_currentClipRect = &(m_currentAnimation->at(m_currentClipRectIndex));
 		return true;
@@ -184,6 +200,7 @@ bool SpriteSheet::selectFrame(int frameIndex)
 		// Return false if frameIndex is out of bounds
 		if (frameIndex >= 0 && frameIndex < size)
 		{
+			stopAnimation();
 			m_currentClipRectIndex = frameIndex;
 			m_currentClipRect = &(m_currentAnimation->at(m_currentClipRectIndex));
 			return true;
@@ -220,12 +237,14 @@ int SpriteSheet::getCurrentAnimationFrameIndex() const
 }
 
 
-bool SpriteSheet::playAnimation(const std::string& animationName, int startingFrame)
+bool SpriteSheet::playAnimation(const std::string& animationName, bool loop, int startingFrame)
 {
 	stopAnimation();
 	if (selectAnimation(animationName, startingFrame)) {
 		m_elapsedTime = 0;
 		m_isPlaying = true;
+		m_isLooping = loop;
+		m_isFinished = false;
 		return true;
 	}
 
@@ -233,13 +252,15 @@ bool SpriteSheet::playAnimation(const std::string& animationName, int startingFr
 }
 
 
-bool SpriteSheet::playAnimation(const std::string& animationName, float fps, int startingFrame)
+bool SpriteSheet::playAnimation(const std::string& animationName, float fps, bool loop, int startingFrame)
 {
 	stopAnimation();
 	if (selectAnimation(animationName, startingFrame) && fps != 0) {
 		setAnimationSpeed(fps);
 		m_elapsedTime = 0;
 		m_isPlaying = true;
+		m_isLooping = loop;
+		m_isFinished = false;
 		return true;
 	}
 	
@@ -272,6 +293,8 @@ bool SpriteSheet::stopAnimation()
 	if (m_isPlaying)
 	{
 		m_isPlaying = false;
+		m_isLooping = false;
+		m_isFinished = true;
 		m_elapsedTime = 0;
 		m_direction = 0;
 		return true;
@@ -279,9 +302,15 @@ bool SpriteSheet::stopAnimation()
 	return false;
 }
 
+bool SpriteSheet::isFinished()
+{
+	return m_isFinished;
+}
+
 
 void SpriteSheet::resetCachedFields()
 {
+	m_isFinished = true;
 	m_currentAnimation = nullptr;
 	m_currentClipRect = nullptr;
 	m_currentClipRectIndex = -1;

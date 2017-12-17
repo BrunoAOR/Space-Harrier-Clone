@@ -23,6 +23,8 @@
     <ClCompile Include="BigBushPrefab.cpp" />
     <ClCompile Include="CollisionCallbackForwarder.cpp" />
     <ClCompile Include="DarkLinesController.cpp" />
+    <ClCompile Include="Explosion.cpp" />
+    <ClCompile Include="ExplosiveObject.cpp" />
     <ClCompile Include="EngineExt\RectangleRenderer.cpp" />
     <ClCompile Include="Engine\API.cpp" />
     <ClCompile Include="Engine\AudioController.cpp" />
@@ -55,6 +57,7 @@
     <ClCompile Include="Engine\Transform.cpp" />
     <ClCompile Include="Engine\TriggerCollisionCache.cpp" />
     <ClCompile Include="Engine\Vector2.cpp" />
+    <ClCompile Include="ExplosionPrefab.cpp" />
     <ClCompile Include="FloorManager.cpp" />
     <ClCompile Include="FloorObjectMover.cpp" />
     <ClCompile Include="FloorObjectsFactory.cpp" />
@@ -81,6 +84,8 @@
     <ClInclude Include="CollisionCallbackForwarder.h" />
     <ClInclude Include="DarkLineInfo.h" />
     <ClInclude Include="DarkLinesController.h" />
+    <ClInclude Include="Explosion.h" />
+    <ClInclude Include="ExplosiveObject.h" />
     <ClInclude Include="EngineExt\RectangleRenderer.h" />
     <ClInclude Include="Engine\API.h" />
     <ClInclude Include="Engine\AudioController.h" />
@@ -121,6 +126,7 @@
     <ClInclude Include="Engine\Transform.h" />
     <ClInclude Include="Engine\TriggerCollisionCache.h" />
     <ClInclude Include="Engine\Vector2.h" />
+    <ClInclude Include="ExplosionPrefab.h" />
     <ClInclude Include="FloorManager.h" />
     <ClInclude Include="FloorObjectMover.h" />
     <ClInclude Include="FloorObjectsFactory.h" />

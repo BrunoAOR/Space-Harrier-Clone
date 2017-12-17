@@ -8,6 +8,7 @@
 #include "FloorObjectMover.h"
 #include "FloorObjectType.h"
 #include "CollisionCallbackForwarder.h"
+#include "ExplosiveObject.h"
 
 
 void RockPrefab::configureGameObject(Reference<GameObject>& gameObject) const
@@ -26,6 +27,8 @@ void RockPrefab::configureGameObject(Reference<GameObject>& gameObject) const
 	{
 		fom->setType(FloorObjectType::DIE);
 	}
+
+	auto explosiveObject = gameObject->addComponent<ExplosiveObject>();
 
 	Reference<GameObject> childGo = GameObject::createNew();
 	if (childGo)
@@ -54,7 +57,7 @@ void RockPrefab::configureGameObject(Reference<GameObject>& gameObject) const
 		auto ccf = childGo->addComponent<CollisionCallbackForwarder>();
 		if (ccf)
 		{
-			ccf->target = fom;
+			ccf->target = explosiveObject;
 		}
 	}
 }

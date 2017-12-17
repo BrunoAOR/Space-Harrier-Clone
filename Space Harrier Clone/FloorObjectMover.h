@@ -6,6 +6,7 @@
 class FloorManager;
 class PooledGameObject;
 class Collider;
+class Explosion;
 enum class FloorObjectType;
 
 
@@ -16,10 +17,9 @@ public:
 	void init(const Reference<FloorManager>& floorManager, float startXPos, float normalizedStartProgress, float normalizedEndProgress, float startScale, float endScale);
 	FloorObjectType getType() const;
 	void setType(FloorObjectType type);
+	void setupExplosion(Reference<Explosion>& explosion);
 
 	virtual void update() override;
-	virtual void onTriggerEnter(Reference<Collider>& other) override;
-
 	
 private:
 	void adjustScale(float normalizedCurrentProgress);

@@ -5,6 +5,7 @@
 #include <vector>
 #include "Engine/Reference.h"
 #include "Engine/Behaviour.h"
+#include "Engine/SFX.h"
 class FloorManager;
 class GameObjectPool;
 class Prefab;
@@ -28,6 +29,9 @@ private:
 
 	std::vector<Reference<Prefab>> m_prefabs;
 	std::vector<GameObjectPool*> m_prefabPools;
+
+	GameObjectPool* m_explosionsPool;
+	SFX m_sfxExplosion;
 	
 	int m_currPrefabIndex = 0;
 	int m_elapsedTime = 0;

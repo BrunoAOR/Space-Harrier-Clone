@@ -5,6 +5,7 @@
 enum class FloorObjectType
 {
 	UNDEFINED,
+	NEUTRAL,
 	SHORT_TRIP,
 	LONG_TRIP,
 	DIE

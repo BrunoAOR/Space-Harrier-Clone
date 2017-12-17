@@ -196,6 +196,15 @@
     <ClCompile Include="PlayerShot.cpp">
       <Filter>Behaviours\Player</Filter>
     </ClCompile>
+    <ClCompile Include="ExplosionPrefab.cpp">
+      <Filter>Prefabs</Filter>
+    </ClCompile>
+    <ClCompile Include="ExplosiveObject.cpp">
+      <Filter>Behaviours</Filter>
+    </ClCompile>
+    <ClCompile Include="Explosion.cpp">
+      <Filter>Behaviours</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\API.h">
@@ -392,6 +401,15 @@
     </ClInclude>
     <ClInclude Include="PlayerShot.h">
       <Filter>Behaviours\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="ExplosionPrefab.h">
+      <Filter>Prefabs</Filter>
+    </ClInclude>
+    <ClInclude Include="ExplosiveObject.h">
+      <Filter>Behaviours</Filter>
+    </ClInclude>
+    <ClInclude Include="Explosion.h">
+      <Filter>Behaviours</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

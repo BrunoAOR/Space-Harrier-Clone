@@ -37,10 +37,11 @@ public:
 	int getCurrentAnimationFrameIndex() const;
 
 	// Play animations
-	bool playAnimation(const std::string& animationName, int startingFrame = 0);
-	bool playAnimation(const std::string& animationName, float fps, int startingFrame = 0);
+	bool playAnimation(const std::string& animationName, bool loop = true, int startingFrame = 0);
+	bool playAnimation(const std::string& animationName, float fps, bool loop = true, int startingFrame = 0);
 	void setAnimationSpeed(float fps);
 	bool stopAnimation();
+	bool isFinished();
 
 private:
 	void resetCachedFields();
@@ -52,6 +53,8 @@ private:
 
 	// automatic animation playback
 	bool m_isPlaying;
+	bool m_isLooping;
+	bool m_isFinished;
 	int m_elapsedTime;
 	int m_timeLimit;
 	int m_direction;

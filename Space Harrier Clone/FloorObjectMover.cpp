@@ -9,6 +9,7 @@
 #include "FloorManager.h"
 #include "FloorObjectType.h"
 #include "PlayerShot.h"
+#include "Explosion.h"
 
 
 void FloorObjectMover::init(const Reference<FloorManager>& floorManager, float startXPos, float normalizedStartProgress, float normalizedEndProgress, float startScale, float endScale)
@@ -22,7 +23,7 @@ void FloorObjectMover::init(const Reference<FloorManager>& floorManager, float s
 	{
 		m_collider = gameObject()->getComponentInChildren<Collider>();
 	}
-	assert(m_floorManager && m_floorObjectType != FloorObjectType::UNDEFINED && m_poolHandler && m_collider);
+	assert(m_floorManager && m_floorObjectType != FloorObjectType::UNDEFINED && m_poolHandler);
 	
 	m_startXPos = startXPos;
 	m_normalizedStartProgress = normalizedStartProgress;
@@ -35,7 +36,10 @@ void FloorObjectMover::init(const Reference<FloorManager>& floorManager, float s
 	m_elapsedTime = m_fullMotionDuration * m_normalizedStartProgress;
 	adjustScale(m_normalizedStartProgress);
 	adjustPosition(m_normalizedStartProgress);
-	m_collider->zIndex = 0;
+	if (m_collider)
+	{
+		m_collider->zIndex = 0;
+	}
 }
 
 
@@ -51,8 +55,21 @@ void FloorObjectMover::setType(FloorObjectType type)
 }
 
 
+void FloorObjectMover::setupExplosion(Reference<Explosion>& explosion)
+{
+	float normalizedCurrentProgress = m_elapsedTime / m_fullMotionDuration;
+	float interpolatedProgress = 1 - m_floorManager->getNormalizedYPos(normalizedCurrentProgress);
+	float currentScale = (1 - interpolatedProgress) * m_startScale + interpolatedProgress * m_endScale;
+	explosion->init(m_floorManager, gameObject()->transform->getLocalPosition().x, normalizedCurrentProgress, m_normalizedEndProgress, currentScale, m_endScale);
+}
+
+
 void FloorObjectMover::update()
 {
+	if (m_normalizedStartProgress > 0.3f)
+	{
+		int i = 3;
+	}
 	if (m_floorManager->freezeAtBottom)
 	{
 		return;
@@ -67,19 +84,12 @@ void FloorObjectMover::update()
 		return;
 	}
 
-	m_collider->zIndex = (int)(normalizedCurrentProgress * 100);
+	if (m_collider)
+	{
+		m_collider->zIndex = (int)(normalizedCurrentProgress * 100);
+	}
 	adjustScale(normalizedCurrentProgress);
 	adjustPosition(normalizedCurrentProgress);
-}
-
-
-void FloorObjectMover::onTriggerEnter(Reference<Collider>& other)
-{
-	if (m_floorObjectType == FloorObjectType::DIE && other->gameObject()->getComponent<PlayerShot>())
-	{
-		OutputLog("BOOM!");
-		m_poolHandler->returnToPool();
-	}
 }
 
 

@@ -35,6 +35,7 @@ bool scenesConfig()
 #include "../BigBushPrefab.h"
 #include "../RockPrefab.h"
 #include "../PlayerShotPrefab.h"
+#include "../ExplosionPrefab.h"
 bool prefabsConfig()
 {
 	// Success flag
@@ -46,6 +47,7 @@ bool prefabsConfig()
 	success &= engine->prefabsFactory->addPrefab<BigBushPrefab>("BigBushPrefab");
 	success &= engine->prefabsFactory->addPrefab<RockPrefab>("RockPrefab");
 	success &= engine->prefabsFactory->addPrefab<PlayerShotPrefab>("PlayerShotPrefab");
+	success &= engine->prefabsFactory->addPrefab<ExplosionPrefab>("ExplosionPrefab");
 
 	return success;
 }

@@ -251,16 +251,13 @@ void Player::tripUpdate()
 		{
 			m_currentAnimation = "longTrip";
 		}
-		m_spriteSheet->playAnimation(m_currentAnimation, 8.0f);
+		m_spriteSheet->playAnimation(m_currentAnimation, 8.0f, false);
 		Vector2 charPos = m_characterGo->transform->getLocalPosition();
 		charPos.y = m_minY;
 		m_characterGo->transform->setLocalPosition(charPos);
 	}
-
-	int currentFrame = m_spriteSheet->getCurrentAnimationFrameIndex();
-	int framesCount = m_spriteSheet->getCurrentAnimationFrameCount();
-
-	if (currentFrame == framesCount - 1)
+		
+	if (m_spriteSheet->isFinished())
 	{
 		if (floorManager)
 		{
