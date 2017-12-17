@@ -13,6 +13,7 @@ class SpriteSheet;
 class FloorManager;
 class FloorObjectMover;
 class Collider;
+class GameObjectPool;
 struct AnimationSection;
 
 
@@ -55,6 +56,10 @@ private:
 	// Collision handling
 	void handleFOMCollision(const Reference<FloorObjectMover>& fom);
 
+	// Shooting
+	void shoot() const;
+	GameObjectPool* m_shotsPool = nullptr;
+
 	Reference<GameObject> m_shadowGo;
 	Reference<GameObject> m_characterGo;
 	Reference<SpriteSheet> m_spriteSheet;
@@ -82,6 +87,7 @@ private:
 	SFX m_sfxTrip;
 	SFX m_sfxDie;
 	SFX m_sfxPostDie;
+	SFX m_sfxShot;
 	Music m_m1;
 	Music m_m2;
 };

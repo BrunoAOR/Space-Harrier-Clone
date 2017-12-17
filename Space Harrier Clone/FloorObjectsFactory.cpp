@@ -46,7 +46,7 @@ void FloorObjectsFactory::start()
 	m_spawnWaitTime = 2500;
 	m_elapsedTime = 0;
 
-	m_normalizedSpawnY = 0.8f;
+	m_normalizedSpawnY = 1.0f;
 	m_normalizedDespawnY = 0.05f;
 	m_spawnMinX = -20;
 	m_spawnMaxX = 20;

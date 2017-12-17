@@ -8,6 +8,7 @@
 #include "PooledGameObject.h"
 #include "FloorManager.h"
 #include "FloorObjectType.h"
+#include "PlayerShot.h"
 
 
 void FloorObjectMover::init(const Reference<FloorManager>& floorManager, float startXPos, float normalizedStartProgress, float normalizedEndProgress, float startScale, float endScale)
@@ -21,11 +22,7 @@ void FloorObjectMover::init(const Reference<FloorManager>& floorManager, float s
 	{
 		m_collider = gameObject()->getComponentInChildren<Collider>();
 	}
-	if (!m_sprite)
-	{
-		m_sprite = gameObject()->getComponentInChildren<Sprite>();
-	}
-	assert(m_floorManager && m_floorObjectType != FloorObjectType::UNDEFINED && m_poolHandler && m_collider && m_sprite);
+	assert(m_floorManager && m_floorObjectType != FloorObjectType::UNDEFINED && m_poolHandler && m_collider);
 	
 	m_startXPos = startXPos;
 	m_normalizedStartProgress = normalizedStartProgress;
@@ -60,7 +57,7 @@ void FloorObjectMover::update()
 	{
 		return;
 	}
-	// Calculate start time correcting for the normalizedStartProgress
+	// Calculate elapsed time correcting for the normalizedStartProgress
 	m_elapsedTime += Time::deltaTime();
 	float normalizedCurrentProgress = m_elapsedTime / m_fullMotionDuration;
 	// Destroy gameObject if motion is finished
@@ -76,9 +73,19 @@ void FloorObjectMover::update()
 }
 
 
+void FloorObjectMover::onTriggerEnter(Reference<Collider>& other)
+{
+	if (m_floorObjectType == FloorObjectType::DIE && other->gameObject()->getComponent<PlayerShot>())
+	{
+		OutputLog("BOOM!");
+		m_poolHandler->returnToPool();
+	}
+}
+
+
 void FloorObjectMover::adjustScale(float normalizedCurrentProgress)
 {
-	Vector2 scale = gameObject()->transform->getLocalScale();
+	Vector2 scale;
 	float interpolatedProgress = 1 - m_floorManager->getNormalizedYPos(normalizedCurrentProgress);
 	scale.y = scale.x = (1 - interpolatedProgress) * m_startScale + interpolatedProgress * m_endScale;
 	gameObject()->transform->setLocalScale(scale);

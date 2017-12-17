@@ -21,6 +21,7 @@
   <ItemGroup>
     <ClCompile Include="BackgroundScroller.cpp" />
     <ClCompile Include="BigBushPrefab.cpp" />
+    <ClCompile Include="CollisionCallbackForwarder.cpp" />
     <ClCompile Include="DarkLinesController.cpp" />
     <ClCompile Include="EngineExt\RectangleRenderer.cpp" />
     <ClCompile Include="Engine\API.cpp" />
@@ -63,6 +64,8 @@
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PlayerCollisionController.cpp" />
     <ClCompile Include="PlayerPrefab.cpp" />
+    <ClCompile Include="PlayerShot.cpp" />
+    <ClCompile Include="PlayerShotPrefab.cpp" />
     <ClCompile Include="PooledGameObject.cpp" />
     <ClCompile Include="RockPrefab.cpp" />
     <ClCompile Include="SmallBushPrefab.cpp" />
@@ -75,6 +78,7 @@
     <ClInclude Include="AnimationSection.h" />
     <ClInclude Include="BackgroundScroller.h" />
     <ClInclude Include="BigBushPrefab.h" />
+    <ClInclude Include="CollisionCallbackForwarder.h" />
     <ClInclude Include="DarkLineInfo.h" />
     <ClInclude Include="DarkLinesController.h" />
     <ClInclude Include="EngineExt\RectangleRenderer.h" />
@@ -127,6 +131,8 @@
     <ClInclude Include="Player.h" />
     <ClInclude Include="PlayerCollisionController.h" />
     <ClInclude Include="PlayerPrefab.h" />
+    <ClInclude Include="PlayerShot.h" />
+    <ClInclude Include="PlayerShotPrefab.h" />
     <ClInclude Include="PooledGameObject.h" />
     <ClInclude Include="RockPrefab.h" />
     <ClInclude Include="SmallBushPrefab.h" />

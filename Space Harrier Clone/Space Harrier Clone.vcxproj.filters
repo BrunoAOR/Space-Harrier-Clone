@@ -187,6 +187,15 @@
     <ClCompile Include="RockPrefab.cpp">
       <Filter>Prefabs</Filter>
     </ClCompile>
+    <ClCompile Include="PlayerShotPrefab.cpp">
+      <Filter>Prefabs</Filter>
+    </ClCompile>
+    <ClCompile Include="CollisionCallbackForwarder.cpp">
+      <Filter>Behaviours</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerShot.cpp">
+      <Filter>Behaviours\Player</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\API.h">
@@ -315,9 +324,6 @@
     <ClInclude Include="FloorManager.h">
       <Filter>Behaviours\Scenario</Filter>
     </ClInclude>
-    <ClInclude Include="FloorObjectMover.h">
-      <Filter>Behaviours\Scenario</Filter>
-    </ClInclude>
     <ClInclude Include="Player.h">
       <Filter>Behaviours\Player</Filter>
     </ClInclude>
@@ -374,6 +380,18 @@
     </ClInclude>
     <ClInclude Include="RockPrefab.h">
       <Filter>Prefabs</Filter>
+    </ClInclude>
+    <ClInclude Include="FloorObjectMover.h">
+      <Filter>Behaviours\Scenario</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerShotPrefab.h">
+      <Filter>Prefabs</Filter>
+    </ClInclude>
+    <ClInclude Include="CollisionCallbackForwarder.h">
+      <Filter>Behaviours</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerShot.h">
+      <Filter>Behaviours\Player</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

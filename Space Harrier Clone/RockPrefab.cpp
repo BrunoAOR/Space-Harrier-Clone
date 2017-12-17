@@ -7,10 +7,26 @@
 #include "Engine/RectangleCollider.h"
 #include "FloorObjectMover.h"
 #include "FloorObjectType.h"
+#include "CollisionCallbackForwarder.h"
 
 
 void RockPrefab::configureGameObject(Reference<GameObject>& gameObject) const
 {
+	auto shadowSprite = gameObject->addComponent<Sprite>();
+	if (shadowSprite)
+	{
+		shadowSprite->loadImage("assets/sprites/Floor_objects.png");
+		shadowSprite->setClipRect(SDL_Rect{ 170, 190, 62, 18 });
+		shadowSprite->setAllPivots(Vector2(0.5f, 0));
+		shadowSprite->setRenderLayer("Main");
+	}
+
+	auto fom = gameObject->addComponent<FloorObjectMover>();
+	if (fom)
+	{
+		fom->setType(FloorObjectType::DIE);
+	}
+
 	Reference<GameObject> childGo = GameObject::createNew();
 	if (childGo)
 	{
@@ -34,20 +50,11 @@ void RockPrefab::configureGameObject(Reference<GameObject>& gameObject) const
 			rectColl->offset.y += rectColl->size.y / 2;
 			rectColl->setCollisionLayer("Obstacle");
 		}
-	}
-	
-	auto shadowSprite = gameObject->addComponent<Sprite>();
-	if (shadowSprite)
-	{
-		shadowSprite->loadImage("assets/sprites/Floor_objects.png");
-		shadowSprite->setClipRect(SDL_Rect{ 170, 190, 62, 18 });
-		shadowSprite->setAllPivots(Vector2(0.5f, 0));
-		shadowSprite->setRenderLayer("Main");
-	}
 
-	auto fom = gameObject->addComponent<FloorObjectMover>();
-	if (fom)
-	{
-		fom->setType(FloorObjectType::DIE);
+		auto ccf = childGo->addComponent<CollisionCallbackForwarder>();
+		if (ccf)
+		{
+			ccf->target = fom;
+		}
 	}
 }

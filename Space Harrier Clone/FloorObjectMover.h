@@ -5,7 +5,6 @@
 #include "Engine/Reference.h"
 class FloorManager;
 class PooledGameObject;
-class Sprite;
 class Collider;
 enum class FloorObjectType;
 
@@ -19,6 +18,8 @@ public:
 	void setType(FloorObjectType type);
 
 	virtual void update() override;
+	virtual void onTriggerEnter(Reference<Collider>& other) override;
+
 	
 private:
 	void adjustScale(float normalizedCurrentProgress);
@@ -26,7 +27,6 @@ private:
 	
 	Reference<FloorManager> m_floorManager;
 	Reference<PooledGameObject> m_poolHandler;
-	Reference<Sprite> m_sprite;
 	Reference<Collider> m_collider;
 
 	FloorObjectType m_floorObjectType;

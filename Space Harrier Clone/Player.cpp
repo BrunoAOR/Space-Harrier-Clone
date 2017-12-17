@@ -13,12 +13,16 @@
 #include "FloorObjectMover.h"
 #include "FloorObjectType.h"
 #include "AnimationSection.h"
+#include "GameObjectPool.h"
+#include "PlayerShot.h"
 
 
 Player::~Player()
 {
 	delete m_dieAnimation;
 	m_dieAnimation = nullptr;
+	delete m_shotsPool;
+	m_shotsPool = nullptr;
 }
 
 
@@ -46,6 +50,9 @@ void Player::init(const Reference<GameObject>& characterGo, const Reference<Game
 
 	// Die Animation
 	m_dieAnimation = new TimedAnimation(getDieAnimationInfo(), m_spriteSheet);
+
+	// Shooting
+	m_shotsPool = new GameObjectPool(Prefabs::getPrefab("PlayerShotPrefab"), 6);
 }
 
 
@@ -63,6 +70,7 @@ void Player::start()
 	m_sfxTrip = Audio::LoadSFX("assets/audio/sfx/SFX - Voice - Ouch.wav");
 	m_sfxDie = Audio::LoadSFX("assets/audio/sfx/SFX - Voice - Aaaaargh.wav");
 	m_sfxPostDie = Audio::LoadSFX("assets/audio/sfx/SFX - Voice - Get ready.wav");
+	m_sfxShot = Audio::LoadSFX("assets/audio/sfx/SFX - PlayerShot.wav");
 	m_m1 = Audio::LoadMusic("assets/audio/bgm/Theme.wav");
 	m_m2 = Audio::LoadMusic("assets/audio/bgm/S1 MOOT Boss (Skyra).wav");
 }
@@ -122,6 +130,7 @@ void Player::handleInput(float & normalizedRequestedX, float & normalizedRequest
 		Audio::PlayMusic(m_m2);
 	}
 
+	// Motion
 	normalizedRequestedX = m_midX;
 	if (Input::getKey(SDL_SCANCODE_LEFT))
 	{
@@ -140,6 +149,12 @@ void Player::handleInput(float & normalizedRequestedX, float & normalizedRequest
 	if (Input::getKey(SDL_SCANCODE_UP))
 	{
 		normalizedRequestedY = m_maxY;
+	}
+
+	// Shooting
+	if (Input::getKeyDown(SDL_SCANCODE_LCTRL))
+	{
+		shoot();
 	}
 }
 
@@ -372,5 +387,21 @@ void Player::handleFOMCollision(const Reference<FloorObjectMover>& fom)
 	default:
 		assert(false);
 		break;
+	}
+}
+
+void Player::shoot() const
+{
+	if (m_shotsPool)
+	{
+		Vector2 currPos = m_characterGo->transform->getWorldPosition();
+		// The shot is lifted 10 px from the feet of the character
+		currPos.y += 5;
+		Reference<GameObject> shotGO = m_shotsPool->getGameObject();
+		shotGO->setActive(true);
+		Reference<PlayerShot> shot = shotGO->getComponent<PlayerShot>();
+		assert(shot);
+		shot->init(currPos, floorManager);	
+		Audio::PlaySFX(m_sfxShot);
 	}
 }
