@@ -34,6 +34,24 @@
     <Filter Include="Scripts\Animations">
       <UniqueIdentifier>{e6e815c8-945f-48a3-9b1c-6f704943b1ea}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Behaviours\Enemies">
+      <UniqueIdentifier>{655fb14d-ca9f-49f9-88f7-0e1c1fa371e4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scripts\MotionPatterns">
+      <UniqueIdentifier>{701a9fa3-e3ad-4da7-a83b-a8a013303d78}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Prefabs\Scenario">
+      <UniqueIdentifier>{34248832-c96b-48ed-b39e-da3bc3f264c4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Prefabs\Enemies">
+      <UniqueIdentifier>{98ad725c-b828-4cc1-882c-8f55c724db66}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Prefabs\Player">
+      <UniqueIdentifier>{8ac458c9-376a-45cf-b3af-0aaff1db798a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Behaviours\General">
+      <UniqueIdentifier>{b0891a7e-02a3-48f9-9e4f-5fa4bfdf2ded}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine\API.cpp">
@@ -130,9 +148,6 @@
     <ClCompile Include="EngineExt\RectangleRenderer.cpp">
       <Filter>_EngineExt</Filter>
     </ClCompile>
-    <ClCompile Include="TreePrefab.cpp">
-      <Filter>Prefabs</Filter>
-    </ClCompile>
     <ClCompile Include="FloorManager.cpp">
       <Filter>Behaviours\Scenario</Filter>
     </ClCompile>
@@ -144,9 +159,6 @@
     </ClCompile>
     <ClCompile Include="Player.cpp">
       <Filter>Behaviours\Player</Filter>
-    </ClCompile>
-    <ClCompile Include="PlayerPrefab.cpp">
-      <Filter>Prefabs</Filter>
     </ClCompile>
     <ClCompile Include="Utils.cpp">
       <Filter>Scripts</Filter>
@@ -163,35 +175,14 @@
     <ClCompile Include="GameObjectPool.cpp">
       <Filter>Scripts\GameObjectPooling</Filter>
     </ClCompile>
-    <ClCompile Include="PooledGameObject.cpp">
-      <Filter>Behaviours</Filter>
-    </ClCompile>
     <ClCompile Include="DarkLinesController.cpp">
       <Filter>Scripts\Scenario</Filter>
     </ClCompile>
     <ClCompile Include="FloorWarpController.cpp">
       <Filter>Scripts\Scenario</Filter>
     </ClCompile>
-    <ClCompile Include="PlayerCollisionController.cpp">
-      <Filter>Behaviours\Player</Filter>
-    </ClCompile>
     <ClCompile Include="TimedAnimation.cpp">
       <Filter>Scripts\Animations</Filter>
-    </ClCompile>
-    <ClCompile Include="SmallBushPrefab.cpp">
-      <Filter>Prefabs</Filter>
-    </ClCompile>
-    <ClCompile Include="BigBushPrefab.cpp">
-      <Filter>Prefabs</Filter>
-    </ClCompile>
-    <ClCompile Include="RockPrefab.cpp">
-      <Filter>Prefabs</Filter>
-    </ClCompile>
-    <ClCompile Include="PlayerShotPrefab.cpp">
-      <Filter>Prefabs</Filter>
-    </ClCompile>
-    <ClCompile Include="CollisionCallbackForwarder.cpp">
-      <Filter>Behaviours</Filter>
     </ClCompile>
     <ClCompile Include="PlayerShot.cpp">
       <Filter>Behaviours\Player</Filter>
@@ -199,11 +190,56 @@
     <ClCompile Include="ExplosionPrefab.cpp">
       <Filter>Prefabs</Filter>
     </ClCompile>
-    <ClCompile Include="ExplosiveObject.cpp">
-      <Filter>Behaviours</Filter>
+    <ClCompile Include="MotionPattern.cpp">
+      <Filter>Scripts\MotionPatterns</Filter>
+    </ClCompile>
+    <ClCompile Include="Enemy.cpp">
+      <Filter>Behaviours\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="MotionPatternPoint.cpp">
+      <Filter>Scripts\MotionPatterns</Filter>
+    </ClCompile>
+    <ClCompile Include="EnemiesFactory.cpp">
+      <Filter>Behaviours\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="EnemyShot.cpp">
+      <Filter>Behaviours\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="RockPrefab.cpp">
+      <Filter>Prefabs\Scenario</Filter>
+    </ClCompile>
+    <ClCompile Include="SmallBushPrefab.cpp">
+      <Filter>Prefabs\Scenario</Filter>
+    </ClCompile>
+    <ClCompile Include="TreePrefab.cpp">
+      <Filter>Prefabs\Scenario</Filter>
+    </ClCompile>
+    <ClCompile Include="BigBushPrefab.cpp">
+      <Filter>Prefabs\Scenario</Filter>
+    </ClCompile>
+    <ClCompile Include="EnemyShipPrefab.cpp">
+      <Filter>Prefabs\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="EnemyShotPrefab.cpp">
+      <Filter>Prefabs\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerPrefab.cpp">
+      <Filter>Prefabs\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerShotPrefab.cpp">
+      <Filter>Prefabs\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="PooledGameObject.cpp">
+      <Filter>Behaviours\General</Filter>
+    </ClCompile>
+    <ClCompile Include="CollisionCallbackForwarder.cpp">
+      <Filter>Behaviours\General</Filter>
     </ClCompile>
     <ClCompile Include="Explosion.cpp">
-      <Filter>Behaviours</Filter>
+      <Filter>Behaviours\General</Filter>
+    </ClCompile>
+    <ClCompile Include="ExplosiveObject.cpp">
+      <Filter>Behaviours\General</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -324,9 +360,6 @@
     <ClInclude Include="EngineExt\RectangleRenderer.h">
       <Filter>_EngineExt</Filter>
     </ClInclude>
-    <ClInclude Include="TreePrefab.h">
-      <Filter>Prefabs</Filter>
-    </ClInclude>
     <ClInclude Include="FloorObjectsFactory.h">
       <Filter>Behaviours\Scenario</Filter>
     </ClInclude>
@@ -335,9 +368,6 @@
     </ClInclude>
     <ClInclude Include="Player.h">
       <Filter>Behaviours\Player</Filter>
-    </ClInclude>
-    <ClInclude Include="PlayerPrefab.h">
-      <Filter>Prefabs</Filter>
     </ClInclude>
     <ClInclude Include="Utils.h">
       <Filter>Scripts</Filter>
@@ -357,9 +387,6 @@
     <ClInclude Include="GameObjectPool.h">
       <Filter>Scripts\GameObjectPooling</Filter>
     </ClInclude>
-    <ClInclude Include="PooledGameObject.h">
-      <Filter>Behaviours</Filter>
-    </ClInclude>
     <ClInclude Include="FloorWarpController.h">
       <Filter>Scripts\Scenario</Filter>
     </ClInclude>
@@ -369,35 +396,14 @@
     <ClInclude Include="DarkLinesController.h">
       <Filter>Scripts\Scenario</Filter>
     </ClInclude>
-    <ClInclude Include="PlayerCollisionController.h">
-      <Filter>Behaviours\Player</Filter>
-    </ClInclude>
-    <ClInclude Include="FloorObjectType.h">
-      <Filter>Behaviours\Scenario</Filter>
-    </ClInclude>
     <ClInclude Include="AnimationSection.h">
       <Filter>Scripts\Animations</Filter>
     </ClInclude>
     <ClInclude Include="TimedAnimation.h">
       <Filter>Scripts\Animations</Filter>
     </ClInclude>
-    <ClInclude Include="SmallBushPrefab.h">
-      <Filter>Prefabs</Filter>
-    </ClInclude>
-    <ClInclude Include="BigBushPrefab.h">
-      <Filter>Prefabs</Filter>
-    </ClInclude>
-    <ClInclude Include="RockPrefab.h">
-      <Filter>Prefabs</Filter>
-    </ClInclude>
     <ClInclude Include="FloorObjectMover.h">
       <Filter>Behaviours\Scenario</Filter>
-    </ClInclude>
-    <ClInclude Include="PlayerShotPrefab.h">
-      <Filter>Prefabs</Filter>
-    </ClInclude>
-    <ClInclude Include="CollisionCallbackForwarder.h">
-      <Filter>Behaviours</Filter>
     </ClInclude>
     <ClInclude Include="PlayerShot.h">
       <Filter>Behaviours\Player</Filter>
@@ -405,11 +411,62 @@
     <ClInclude Include="ExplosionPrefab.h">
       <Filter>Prefabs</Filter>
     </ClInclude>
-    <ClInclude Include="ExplosiveObject.h">
-      <Filter>Behaviours</Filter>
+    <ClInclude Include="MotionPatternPoint.h">
+      <Filter>Scripts\MotionPatterns</Filter>
+    </ClInclude>
+    <ClInclude Include="MotionPattern.h">
+      <Filter>Scripts\MotionPatterns</Filter>
+    </ClInclude>
+    <ClInclude Include="Enemy.h">
+      <Filter>Behaviours\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemySpawnInfo.h">
+      <Filter>Scripts\MotionPatterns</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemiesFactory.h">
+      <Filter>Behaviours\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjectEffectType.h">
+      <Filter>Scripts</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyShot.h">
+      <Filter>Behaviours\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="TreePrefab.h">
+      <Filter>Prefabs\Scenario</Filter>
+    </ClInclude>
+    <ClInclude Include="RockPrefab.h">
+      <Filter>Prefabs\Scenario</Filter>
+    </ClInclude>
+    <ClInclude Include="SmallBushPrefab.h">
+      <Filter>Prefabs\Scenario</Filter>
+    </ClInclude>
+    <ClInclude Include="BigBushPrefab.h">
+      <Filter>Prefabs\Scenario</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyShipPrefab.h">
+      <Filter>Prefabs\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyShotPrefab.h">
+      <Filter>Prefabs\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerShotPrefab.h">
+      <Filter>Prefabs\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerPrefab.h">
+      <Filter>Prefabs\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="CollisionCallbackForwarder.h">
+      <Filter>Behaviours\General</Filter>
     </ClInclude>
     <ClInclude Include="Explosion.h">
-      <Filter>Behaviours</Filter>
+      <Filter>Behaviours\General</Filter>
+    </ClInclude>
+    <ClInclude Include="ExplosiveObject.h">
+      <Filter>Behaviours\General</Filter>
+    </ClInclude>
+    <ClInclude Include="PooledGameObject.h">
+      <Filter>Behaviours\General</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -5,7 +5,7 @@
 #include "Engine/SpriteSheet.h"
 #include "Explosion.h"
 #include "FloorObjectMover.h"
-#include "FloorObjectType.h"
+#include "ObjectEffectType.h"
 
 
 void ExplosionPrefab::configureGameObject(Reference<GameObject>& gameObject) const
@@ -35,7 +35,7 @@ void ExplosionPrefab::configureGameObject(Reference<GameObject>& gameObject) con
 	auto fom = gameObject->addComponent<FloorObjectMover>();
 	if (fom)
 	{
-		fom->setType(FloorObjectType::NEUTRAL);
+		fom->setType(ObjectEffectType::NEUTRAL);
 	}
 
 	auto explosion = gameObject->addComponent<Explosion>();

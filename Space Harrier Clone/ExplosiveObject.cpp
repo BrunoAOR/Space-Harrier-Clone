@@ -1,5 +1,6 @@
 #include "ExplosiveObject.h"
 
+#include <assert.h>
 #include "Engine/Collider.h"
 #include "Engine/GameObject.h"
 #include "Engine/Transform.h"
@@ -9,7 +10,7 @@
 #include "PlayerShot.h"
 #include "Explosion.h"
 #include "FloorObjectMover.h"
-
+#include "Enemy.h"
 
 
 void ExplosiveObject::init(GameObjectPool * explosionPool, SFX explosionSFX)
@@ -30,11 +31,19 @@ void ExplosiveObject::start()
 	{
 		m_floorObjectMover = gameObject()->getComponent<FloorObjectMover>();
 	}
+
+	if (!m_enemy)
+	{
+		m_enemy = gameObject()->getComponent<Enemy>();
+	}
+
+	assert(m_poolHandler && (m_floorObjectMover || m_enemy));
 }
 
 
 void ExplosiveObject::onTriggerEnter(Reference<Collider>& other)
 {
+	OutputLog("ExpObj hit something");
 	if (other->gameObject()->getComponent<PlayerShot>())
 	{
 		Reference<Transform>& parent = gameObject()->transform->getParent();
@@ -49,6 +58,10 @@ void ExplosiveObject::onTriggerEnter(Reference<Collider>& other)
 				if (explosion && m_floorObjectMover)
 				{
 					m_floorObjectMover->setupExplosion(explosion);
+				}
+				else if (explosion && m_enemy)
+				{
+					m_enemy->setupExplosion(explosion);
 				}
 			}
 			explosionGO->setActive(true);

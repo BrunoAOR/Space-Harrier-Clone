@@ -7,22 +7,26 @@
 #include "Engine/Sprite.h"
 #include "Engine/Vector2.h"
 #include "Engine/gameConfig.h"
-
 #include "FloorManager.h"
 #include "FloorObjectsFactory.h"
 #include "BackgroundScroller.h"
 #include "TimeLogger.h"
 #include "PlayerPrefab.h"
 #include "Player.h"
-
+#include "EnemiesFactory.h"
+#include "EnemySpawnInfo.h"
+#include "MotionPattern.h"
+#include "Engine/SDL2_mixer/include/SDL_mixer.h"
 
 bool GameScene::load()
 {
+	Audio::setSFXVolume(0.25f);
+
 	auto worldGO = GameObject::createNew();
 	if (worldGO)
 	{
+		//worldGO->addComponent<TimeLogger>();
 		worldGO->transform->setWorldPosition(Vector2(SCREEN_WIDTH / 2.0f, 0));
-		worldGO->addComponent<TimeLogger>();
 
 		auto floorManagerGo = GameObject::createNew();
 		if (floorManagerGo)
@@ -36,6 +40,28 @@ bool GameScene::load()
 				floorManager->init("assets/sprites/FloorGreen.png");
 			}
 
+			auto playerGo = Prefabs::instantiate(Prefabs::getPrefab("PlayerPrefab"));
+			if (playerGo)
+			{
+				playerGo->transform->setParent(worldGO->transform, false);
+				Reference<Player>& player = playerGo->getComponent<Player>();
+				if (player)
+				{
+					player->floorManager = floorManager;
+				}
+
+				auto enemiesFactoryGo = GameObject::createNew();
+				if (enemiesFactoryGo)
+				{
+					enemiesFactoryGo->transform->setParent(worldGO->transform, false);
+					auto enemiesFactory = enemiesFactoryGo->addComponent<EnemiesFactory>();
+					if (enemiesFactory)
+					{
+						enemiesFactory->init(player->getCharacterTransform(), floorManager, getEnemiesSpawnInfo(), getMotionPatterns());
+					}
+				}
+			}
+
 			auto objectsFactoryGo = GameObject::createNew();
 			if (objectsFactoryGo)
 			{
@@ -46,6 +72,8 @@ bool GameScene::load()
 					floorObjectsFactory->init(floorManager);
 				}
 			}
+
+			
 
 			// True background
 			auto backgroundScrollerGo = GameObject::createNew();
@@ -79,16 +107,8 @@ bool GameScene::load()
 					backgroundScroller->init(floorManager, "assets/sprites/Background_lvl1_trees.png", 0.6f, -1);
 				}
 			}
-			auto playerGo = Prefabs::instantiate(Prefabs::getPrefab("PlayerPrefab"));
-			if (playerGo)
-			{
-				playerGo->transform->setParent(worldGO->transform, false);
-				Reference<Player>& player = playerGo->getComponent<Player>();
-				if (player)
-				{
-					player->floorManager = floorManager;
-				}
-			}
+			
+			
 		}
 	}
 

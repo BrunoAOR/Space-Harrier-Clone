@@ -1,20 +1,20 @@
-#ifndef H_PLAYER_SHOT
-#define H_PLAYER_SHOT
+#ifndef H_ENEMY_SHOT
+#define H_ENEMY_SHOT
 
 #include "Engine/Behaviour.h"
 #include "Engine/Reference.h"
+#include "Engine/Vector2.h"
 class FloorManager;
-class Vector2;
 class SpriteSheet;
 class Collider;
 class PooledGameObject;
 
 
-class PlayerShot :
+class EnemyShot :
 	public Behaviour
 {
 public:
-	void init(const Reference<FloorManager>& floorManager, Vector2 startPos);
+	void init(const Reference<FloorManager>& floorManager, const Vector2& startPos, float normalizedStartDepth, const Vector2& targetPos, float normalizedTargetDepth);
 	virtual void update() override;
 	virtual void onTriggerEnter(Reference<Collider>& other) override;
 
@@ -23,11 +23,15 @@ private:
 	Reference<SpriteSheet> m_spriteSheet;
 	Reference<Collider> m_collider;
 	Reference<PooledGameObject> m_poolHandler;
-	float m_startScale;
-	float m_endScale;
-	int m_shotDuration;
-	float m_elapsedTime;
+	
+	Vector2 m_startPos;
+	Vector2 m_targetPos;
+	float m_normalizedStartProgress;
+	int m_fullMotionDuration;
+	int m_elapsedTime;
+
+	bool m_shouldFreezeInPlace = false;
 };
 
 
-#endif // !H_PLAYER_SHOT
+#endif // !H_ENEMY_SHOT

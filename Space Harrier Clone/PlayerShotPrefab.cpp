@@ -6,7 +6,7 @@
 #include "Engine/RectangleCollider.h"
 #include "PlayerShot.h"
 #include "FloorObjectMover.h"
-#include "FloorObjectType.h"
+#include "ObjectEffectType.h"
 
 void PlayerShotPrefab::configureGameObject(Reference<GameObject>& gameObject) const
 {
@@ -14,7 +14,7 @@ void PlayerShotPrefab::configureGameObject(Reference<GameObject>& gameObject) co
 	if (spriteSheet)
 	{
 		spriteSheet->loadImage("assets/sprites/Character.png");
-		spriteSheet->setAllPivots(Vector2(0.5f, 0));
+		spriteSheet->setAllPivots(Vector2(0.5f, 0.5f));
 		spriteSheet->setRenderLayer("Main");
 
 		spriteSheet->addAnimation("shot");

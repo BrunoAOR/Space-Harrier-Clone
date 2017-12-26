@@ -3,8 +3,10 @@
 
 #include <vector>
 #include <string>
+class MotionPattern;
 struct AnimationSection;
 struct CollisionSystemSetup;
+struct EnemySpawnInfo;
 
 
 extern const int SCREEN_WIDTH;
@@ -21,5 +23,8 @@ bool prefabsConfig();
 std::vector<std::string> renderLayersConfig();
 CollisionSystemSetup collisionSystemSetup();
 std::vector<AnimationSection> getDieAnimationInfo();
+std::vector<MotionPattern> getMotionPatterns();
+std::vector<EnemySpawnInfo> getEnemiesSpawnInfo();
+
 
 #endif // !H_GAME_CONFIG

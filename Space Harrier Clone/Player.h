@@ -9,12 +9,14 @@
 #include "Engine/Music.h"
 #include "TimedAnimation.h"
 class GameObject;
+class Transform;
 class SpriteSheet;
 class FloorManager;
 class FloorObjectMover;
 class Collider;
 class GameObjectPool;
 struct AnimationSection;
+enum class ObjectEffectType;
 
 
 class Player :
@@ -28,6 +30,8 @@ public:
 	virtual void update() override;
 	virtual void onTriggerEnter(Reference<Collider>& other) override;
 
+	bool isAnimatingDeath() const;
+	Reference<Transform> getCharacterTransform() const;
 	Reference<FloorManager> floorManager;
 
 private:
@@ -54,11 +58,13 @@ private:
 	void postDieUpdate();
 
 	// Collision handling
-	void handleFOMCollision(const Reference<FloorObjectMover>& fom);
+	void handleStateChangingCollision(ObjectEffectType oet);
 
 	// Shooting
 	void shoot() const;
 	GameObjectPool* m_shotsPool = nullptr;
+
+	bool m_isAnimatingDeath = false;
 
 	Reference<GameObject> m_shadowGo;
 	Reference<GameObject> m_characterGo;

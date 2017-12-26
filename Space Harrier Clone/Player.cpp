@@ -11,7 +11,7 @@
 #include "Utils.h"
 #include "FloorManager.h"
 #include "FloorObjectMover.h"
-#include "FloorObjectType.h"
+#include "ObjectEffectType.h"
 #include "AnimationSection.h"
 #include "GameObjectPool.h"
 #include "PlayerShot.h"
@@ -111,11 +111,34 @@ void Player::update()
 
 void Player::onTriggerEnter(Reference<Collider>& other)
 {
+	OutputLog("Player hit something");
+	ObjectEffectType oet = ObjectEffectType::UNDEFINED;
+	// Player can only collider with Obstacles, Enemies and Enemy Shots
+	// If the collision occured against an Obstacle, the ObjectEffectType must be read from the obstacle
 	Reference<FloorObjectMover> fom = other->gameObject()->getComponentInParent<FloorObjectMover>();
 	if (fom)
 	{
-		handleFOMCollision(fom);
+		oet = fom->getType();
 	}
+	// In any other case (Enemy or EnemyShot), the Effect is Death
+	else
+	{
+		oet = ObjectEffectType::DIE;
+	}
+
+	handleStateChangingCollision(oet);
+}
+
+
+bool Player::isAnimatingDeath() const
+{
+	return m_isAnimatingDeath;
+}
+
+
+Reference<Transform> Player::getCharacterTransform() const
+{
+	return m_characterGo->transform;
 }
 
 
@@ -270,6 +293,7 @@ void Player::tripUpdate()
 
 void Player::dieUpdate()
 {
+	m_isAnimatingDeath = true;
 	if (m_dieAnimation->isFinished())
 	{
 		Audio::PlaySFX(m_sfxPostDie);
@@ -292,7 +316,7 @@ void Player::postDieUpdate()
 		{
 			floorManager->freezeAtBottom = true;
 		}
-		// LOSE LIFE HERE
+		// TODO: LOSE LIFE HERE
 	}
 	
 	// Limited motion
@@ -351,23 +375,24 @@ void Player::postDieUpdate()
 	// postDie is finished
 	m_spriteSheet->gameObject()->transform->setLocalScale(Vector2(1, 1));
 	m_postDieElapsedTime = INT_MIN;
-	m_state = PlayerState::MOVE;	
+	m_state = PlayerState::MOVE;
+	m_isAnimatingDeath = false;
 }
 
 
-void Player::handleFOMCollision(const Reference<FloorObjectMover>& fom)
+void Player::handleStateChangingCollision(ObjectEffectType oet)
 {
-	switch (fom->getType())
+	switch (oet)
 	{
-	case FloorObjectType::SHORT_TRIP:
+	case ObjectEffectType::SHORT_TRIP:
 		m_state = PlayerState::SHORT_TRIP;
 		Audio::PlaySFX(m_sfxTrip);
 		break;
-	case FloorObjectType::LONG_TRIP:
+	case ObjectEffectType::LONG_TRIP:
 		m_state = PlayerState::LONG_TRIP;
 		Audio::PlaySFX(m_sfxTrip);
 		break;
-	case FloorObjectType::DIE:
+	case ObjectEffectType::DIE:
 		if (m_state != PlayerState::DIE && m_state != PlayerState::POST_DIE) {
 			m_currentNormalizedPosition.y = m_minY;
 			m_spriteSheet->selectAnimation("die", 0);
@@ -380,7 +405,7 @@ void Player::handleFOMCollision(const Reference<FloorObjectMover>& fom)
 			Audio::PlaySFX(m_sfxDie);
 		}
 		break;
-	case FloorObjectType::UNDEFINED:
+	case ObjectEffectType::UNDEFINED:
 	default:
 		assert(false);
 		break;
@@ -393,12 +418,12 @@ void Player::shoot() const
 	{
 		Vector2 currPos = m_characterGo->transform->getWorldPosition();
 		// The shot is lifted 10 px from the feet of the character
-		currPos.y += 5;
+		currPos.y += 10;
 		Reference<GameObject> shotGO = m_shotsPool->getGameObject();
 		shotGO->setActive(true);
 		Reference<PlayerShot> shot = shotGO->getComponent<PlayerShot>();
 		assert(shot);
-		shot->init(currPos, floorManager);	
+		shot->init(floorManager, currPos);
 		Audio::PlaySFX(m_sfxShot);
 	}
 }

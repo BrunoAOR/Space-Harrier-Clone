@@ -22,13 +22,18 @@ public:
 	void StopMusic() const;
 	bool isMusicPaused() const;
 	bool isMusicPlaying() const;
+	float getMusicVolume() const;
+	void setMusicVolume(float normalizedVolume) const;
 
 	void PlaySFX(const SFX& sfx, int repetitions = 0) const;
+	float getSFXAverageVolume() const;
+	void setSFXVolume(float normalizedVolume) const;
 
 private:
 	std::list<Mix_Music*> musicPtrs;
 	std::list<Mix_Chunk*> sfxPtrs;
 
+	const int MAX_VOLUME = 128;
 };
 
 

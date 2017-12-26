@@ -1,0 +1,15 @@
+#ifndef H_OBJECT_EFFECT_TYPE
+#define H_OBJECT_EFFECT_TYPE
+
+
+enum class ObjectEffectType
+{
+	UNDEFINED,
+	NEUTRAL,
+	SHORT_TRIP,
+	LONG_TRIP,
+	DIE
+};
+
+
+#endif // !H_OBJECT_EFFECT_TYPE

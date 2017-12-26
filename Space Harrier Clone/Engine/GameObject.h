@@ -8,8 +8,7 @@
 #include "Engine.h"
 #include "ReferenceOwner.h"
 #include "ComponentsManager.h"
-class Component;
-class Transform;
+#include "Transform.h"
 
 
 class GameObject final

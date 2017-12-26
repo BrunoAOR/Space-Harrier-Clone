@@ -35,6 +35,9 @@ public:
 	int getAnimationFrameCount(const std::string& animationName) const;
 	int getCurrentAnimationFrameCount() const;
 	int getCurrentAnimationFrameIndex() const;
+	int getCurrentAnimationFrameHeight() const;
+	int getCurrentAnimationFrameWidth() const;
+
 
 	// Play animations
 	bool playAnimation(const std::string& animationName, bool loop = true, int startingFrame = 0);

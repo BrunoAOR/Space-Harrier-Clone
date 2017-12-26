@@ -3,6 +3,7 @@
 #include "globals.h"
 #include "Music.h"
 #include "SFX.h"
+#include "engineUtils.h"
 
 
 AudioController::AudioController()
@@ -41,6 +42,7 @@ Music AudioController::LoadMusic(const std::string& path)
 	return Music(sdlMusic);
 }
 
+
 SFX AudioController::LoadSFX(const std::string& path)
 {
 	Mix_Chunk* sdlSfx = nullptr;
@@ -56,6 +58,7 @@ SFX AudioController::LoadSFX(const std::string& path)
 	return SFX(sdlSfx);
 }
 
+
 void AudioController::PlayMusic(const Music& music, int repetitions) const
 {
 	Mix_Music* sdlMusic = music.m_music;
@@ -65,30 +68,53 @@ void AudioController::PlayMusic(const Music& music, int repetitions) const
 	}
 }
 
+
 void AudioController::PauseMusic() const
 {
 	Mix_PauseMusic();
 }
+
 
 void AudioController::UnpauseMusic() const
 {
 	Mix_ResumeMusic();
 }
 
+
 void AudioController::StopMusic() const
 {
 	Mix_HaltMusic();
 }
+
 
 bool AudioController::isMusicPaused() const
 {
 	return Mix_PausedMusic() == 1;
 }
 
+
 bool AudioController::isMusicPlaying() const
 {
 	return Mix_PlayingMusic() != 0;
 }
+
+
+float AudioController::getMusicVolume() const
+{
+	return (Mix_VolumeMusic(-1) / (float)MAX_VOLUME);
+}
+
+
+void AudioController::setMusicVolume(float normalizedVolume) const
+{
+	if (normalizedVolume < 0 || normalizedVolume > 1)
+	{
+		OutputLog("WARNING: Parameter normalizedVolume (%f) for setMusicVolume function is out of range (0-1). It will be clamped to the range!", normalizedVolume);
+	}
+	normalizedVolume = EngineUtils::clamp(normalizedVolume, 0, 1);
+	Mix_VolumeMusic((int)(normalizedVolume * MAX_VOLUME));
+}
+
 
 void AudioController::PlaySFX(const SFX& sfx, int repetitions) const
 {
@@ -97,4 +123,21 @@ void AudioController::PlaySFX(const SFX& sfx, int repetitions) const
 	{
 		OutputLog("WARNING: Could not play chunk. Mix_PlayChannel: %s", Mix_GetError());
 	}
+}
+
+
+float AudioController::getSFXAverageVolume() const
+{
+	return (Mix_Volume(-1, -1) / (float)MAX_VOLUME);
+}
+
+
+void AudioController::setSFXVolume(float normalizedVolume) const
+{
+	if (normalizedVolume < 0 || normalizedVolume > 1)
+	{
+		OutputLog("WARNING: Parameter normalizedVolume (%f) for setSFXVolume function is out of range (0-1). It will be clamped to the range!", normalizedVolume);
+	}
+	normalizedVolume = EngineUtils::clamp(normalizedVolume, 0, 1);
+	Mix_Volume(-1, (int)(normalizedVolume * MAX_VOLUME));
 }

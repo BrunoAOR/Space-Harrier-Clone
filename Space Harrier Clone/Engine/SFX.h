@@ -10,6 +10,11 @@ struct SFX {
 public:
 	SFX() {}
 
+	operator bool() const
+	{
+		return m_sfx != nullptr;
+	}
+
 private:
 	SFX(Mix_Chunk* sfx) : m_sfx(sfx) {}
 	Mix_Chunk* m_sfx = nullptr;

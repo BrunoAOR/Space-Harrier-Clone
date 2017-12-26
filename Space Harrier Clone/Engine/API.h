@@ -42,6 +42,10 @@ namespace Audio
 	void StopMusic();
 	bool isMusicPaused();
 	bool isMusicPlaying();
+	float getMusicVolume();
+	void setMusicVolume(float normalizedVolume);
+	float getSFXAverageVolume();
+	void setSFXVolume(float normalizedVolume);
 }
 
 

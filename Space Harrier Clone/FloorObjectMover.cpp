@@ -5,9 +5,10 @@
 #include "Engine/GameObject.h"
 #include "Engine/Transform.h"
 #include "Engine/Collider.h"
+#include "Engine/Renderer.h"
 #include "PooledGameObject.h"
 #include "FloorManager.h"
-#include "FloorObjectType.h"
+#include "ObjectEffectType.h"
 #include "PlayerShot.h"
 #include "Explosion.h"
 
@@ -23,7 +24,11 @@ void FloorObjectMover::init(const Reference<FloorManager>& floorManager, float s
 	{
 		m_collider = gameObject()->getComponentInChildren<Collider>();
 	}
-	assert(m_floorManager && m_floorObjectType != FloorObjectType::UNDEFINED && m_poolHandler);
+	if (!m_renderer)
+	{
+		m_renderer = gameObject()->getComponentInChildren<Renderer>();
+	}
+	assert(m_floorManager && m_poolHandler && m_renderer && m_floorObjectType != ObjectEffectType::UNDEFINED && m_poolHandler);
 	
 	m_startXPos = startXPos;
 	m_normalizedStartProgress = normalizedStartProgress;
@@ -40,16 +45,17 @@ void FloorObjectMover::init(const Reference<FloorManager>& floorManager, float s
 	{
 		m_collider->zIndex = 0;
 	}
+	m_renderer->setZIndex(0);
 }
 
 
-FloorObjectType FloorObjectMover::getType() const
+ObjectEffectType FloorObjectMover::getType() const
 {
 	return m_floorObjectType;
 }
 
 
-void FloorObjectMover::setType(FloorObjectType type)
+void FloorObjectMover::setType(ObjectEffectType type)
 {
 	m_floorObjectType = type;
 }
@@ -66,16 +72,7 @@ void FloorObjectMover::setupExplosion(Reference<Explosion>& explosion)
 
 void FloorObjectMover::update()
 {
-	if (m_normalizedStartProgress > 0.3f)
-	{
-		int i = 3;
-	}
-	if (m_floorManager->freezeAtBottom)
-	{
-		return;
-	}
 	// Calculate elapsed time correcting for the normalizedStartProgress
-	m_elapsedTime += Time::deltaTime();
 	float normalizedCurrentProgress = m_elapsedTime / m_fullMotionDuration;
 	// Destroy gameObject if motion is finished
 	if (normalizedCurrentProgress > m_normalizedEndProgress)
@@ -84,12 +81,20 @@ void FloorObjectMover::update()
 		return;
 	}
 
+	int zIndex = (int)(normalizedCurrentProgress * 100);
 	if (m_collider)
 	{
-		m_collider->zIndex = (int)(normalizedCurrentProgress * 100);
+		m_collider->zIndex = zIndex;
 	}
+	m_renderer->setZIndex(zIndex);
+
 	adjustScale(normalizedCurrentProgress);
 	adjustPosition(normalizedCurrentProgress);
+
+	if (!m_floorManager->freezeAtBottom)
+	{
+		m_elapsedTime += Time::deltaTime();
+	}
 }
 
 
@@ -116,8 +121,6 @@ void FloorObjectMover::adjustPosition(float normalizedCurrentProgress)
 	// Recalculate the referenceStartX for future calculations
 	m_startXPos = m_floorManager->getXCoordinateForYPos(xPos, normalizedYPosition, m_normalizedStartYPos);
 
-	//xPos += m_xPosSpeedOffset;
-	//OutputLog("%f gives %f", interpolatedProgress, m_xPosSpeedOffset);
 	// Update
 	Vector2 currentPos = gameObject()->transform->getLocalPosition();
 	currentPos.x = xPos;

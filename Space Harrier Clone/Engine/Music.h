@@ -11,6 +11,11 @@ struct Music {
 public:
 	Music() {}
 
+	operator bool() const
+	{
+		return m_music != nullptr;
+	}
+
 private:
 	Music(Mix_Music* music) : m_music(music) {}
 	Mix_Music* m_music;

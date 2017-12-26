@@ -233,7 +233,31 @@ int SpriteSheet::getCurrentAnimationFrameCount() const
 
 int SpriteSheet::getCurrentAnimationFrameIndex() const
 {
+	if (m_currentAnimation == nullptr)
+	{
+		return -1;
+	}
 	return m_currentClipRectIndex;
+}
+
+
+int SpriteSheet::getCurrentAnimationFrameHeight() const
+{
+	if (m_currentAnimation == nullptr)
+	{
+		return -1;
+	}
+	return m_currentClipRect->h;
+}
+
+
+int SpriteSheet::getCurrentAnimationFrameWidth() const
+{
+	if (m_currentAnimation == nullptr)
+	{
+		return -1;
+	}
+	return m_currentClipRect->w;
 }
 
 

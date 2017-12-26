@@ -36,6 +36,8 @@ bool scenesConfig()
 #include "../RockPrefab.h"
 #include "../PlayerShotPrefab.h"
 #include "../ExplosionPrefab.h"
+#include "../EnemyShipPrefab.h"
+#include "../EnemyShotPrefab.h"
 bool prefabsConfig()
 {
 	// Success flag
@@ -48,6 +50,8 @@ bool prefabsConfig()
 	success &= engine->prefabsFactory->addPrefab<RockPrefab>("RockPrefab");
 	success &= engine->prefabsFactory->addPrefab<PlayerShotPrefab>("PlayerShotPrefab");
 	success &= engine->prefabsFactory->addPrefab<ExplosionPrefab>("ExplosionPrefab");
+	success &= engine->prefabsFactory->addPrefab<EnemyShipPrefab>("EnemyShipPrefab");
+	success &= engine->prefabsFactory->addPrefab<EnemyShotPrefab>("EnemyShotPrefab");
 
 	return success;
 }
@@ -55,7 +59,7 @@ bool prefabsConfig()
 
 std::vector<std::string> renderLayersConfig()
 {
-	return std::vector<std::string>{"Background", "Main", "Foreground" };
+	return std::vector<std::string>{"Background", "Shadows", "Main", "Foreground" };
 }
 
 
@@ -96,3 +100,49 @@ std::vector<AnimationSection> getDieAnimationInfo()
 	animationSections.push_back(AnimationSection{ 6,  125, 0, 0, true, true });
 	return animationSections;
 }
+
+
+#include "../MotionPattern.h"
+#include "../MotionPatternPoint.h"
+std::vector<MotionPattern> getMotionPatterns()
+{
+	std::vector<MotionPattern> motionPatterns;
+
+	std::vector<MotionPatternPoint> points;
+	points.reserve(16);
+	// MP0
+	points.clear();
+	points.push_back(MotionPatternPoint(0, -0.5 * SCREEN_WIDTH, 80, 0.93f, 0, false, "fly", true));
+	points.push_back(MotionPatternPoint(0.35f, 0, 80, 0.93f));
+	points.push_back(MotionPatternPoint(0.5f, 0.5 * SCREEN_WIDTH, 80, 0.93f));
+	points.push_back(MotionPatternPoint(0.75f, 0, 61, 0.8f));
+	points.push_back(MotionPatternPoint(1, -0.5 * SCREEN_WIDTH, 42, 0.5f));
+	motionPatterns.push_back(MotionPattern(points));
+
+	// MP1
+	points.clear();
+	points.push_back(MotionPatternPoint(0, 0, 0, 1, 0, false, "fly", true));
+	points.push_back(MotionPatternPoint(0.1f, 0, 10, 0.9f, 1, true, "", false));
+	points.push_back(MotionPatternPoint(0.4f, 0, 40, 0.6f, 2, true, "", false));
+	points.push_back(MotionPatternPoint(1, 0, 100, 0.05f));
+	motionPatterns.push_back(MotionPattern(points));
+
+	return motionPatterns;
+}
+
+
+#include "../EnemySpawnInfo.h"
+std::vector<EnemySpawnInfo> getEnemiesSpawnInfo()
+{
+	std::vector<EnemySpawnInfo> info;
+	info.push_back(EnemySpawnInfo("EnemyShipPrefab", 2000, 4000, 0, "assets/audio/sfx/SFX - Spawn_Ship.wav"));
+	info.push_back(EnemySpawnInfo("EnemyShipPrefab", 2200, 4000, 0, "assets/audio/sfx/SFX - Spawn_Ship.wav"));
+	info.push_back(EnemySpawnInfo("EnemyShipPrefab", 2400, 4000, 0, "assets/audio/sfx/SFX - Spawn_Ship.wav"));
+	info.push_back(EnemySpawnInfo("EnemyShipPrefab", 2600, 4000, 0, "assets/audio/sfx/SFX - Spawn_Ship.wav"));
+	info.push_back(EnemySpawnInfo("EnemyShipPrefab", 2800, 4000, 0, "assets/audio/sfx/SFX - Spawn_Ship.wav"));
+	info.push_back(EnemySpawnInfo("EnemyShipPrefab", 3000, 4000, 0, "assets/audio/sfx/SFX - Spawn_Ship.wav"));
+	
+	info.push_back(EnemySpawnInfo("EnemyShipPrefab", 3000, 4000, 1, "assets/audio/sfx/SFX - Spawn_Ship.wav"));
+	return info;
+}
+

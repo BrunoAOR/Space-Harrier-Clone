@@ -5,7 +5,7 @@
 #include "Engine/Sprite.h"
 #include "Engine/RectangleCollider.h"
 #include "FloorObjectMover.h"
-#include "FloorObjectType.h"
+#include "ObjectEffectType.h"
 #include "ExplosiveObject.h"
 
 
@@ -33,7 +33,7 @@ void TreePrefab::configureGameObject(Reference<GameObject>& gameObject) const
 	auto fom = gameObject->addComponent<FloorObjectMover>();
 	if (fom)
 	{
-		fom->setType(FloorObjectType::DIE);
+		fom->setType(ObjectEffectType::DIE);
 	}
 
 	gameObject->addComponent<ExplosiveObject>();

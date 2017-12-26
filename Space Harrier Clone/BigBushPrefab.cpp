@@ -5,7 +5,7 @@
 #include "Engine/Sprite.h"
 #include "Engine/RectangleCollider.h"
 #include "FloorObjectMover.h"
-#include "FloorObjectType.h"
+#include "ObjectEffectType.h"
 
 
 void BigBushPrefab::configureGameObject(Reference<GameObject>& gameObject) const
@@ -31,6 +31,6 @@ void BigBushPrefab::configureGameObject(Reference<GameObject>& gameObject) const
 	auto fom = gameObject->addComponent<FloorObjectMover>();
 	if (fom)
 	{
-		fom->setType(FloorObjectType::LONG_TRIP);
+		fom->setType(ObjectEffectType::LONG_TRIP);
 	}
 }

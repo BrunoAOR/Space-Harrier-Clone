@@ -3,11 +3,12 @@
 
 #include "Engine/Behaviour.h"
 #include "Engine/Reference.h"
+class Renderer;
 class FloorManager;
 class PooledGameObject;
 class Collider;
 class Explosion;
-enum class FloorObjectType;
+enum class ObjectEffectType;
 
 
 class FloorObjectMover :
@@ -15,8 +16,8 @@ class FloorObjectMover :
 {
 public:
 	void init(const Reference<FloorManager>& floorManager, float startXPos, float normalizedStartProgress, float normalizedEndProgress, float startScale, float endScale);
-	FloorObjectType getType() const;
-	void setType(FloorObjectType type);
+	ObjectEffectType getType() const;
+	void setType(ObjectEffectType type);
 	void setupExplosion(Reference<Explosion>& explosion);
 
 	virtual void update() override;
@@ -28,8 +29,9 @@ private:
 	Reference<FloorManager> m_floorManager;
 	Reference<PooledGameObject> m_poolHandler;
 	Reference<Collider> m_collider;
+	Reference<Renderer> m_renderer;
 
-	FloorObjectType m_floorObjectType;
+	ObjectEffectType m_floorObjectType;
 
 	float m_startXPos = 0;
 	float m_normalizedStartProgress = 0;

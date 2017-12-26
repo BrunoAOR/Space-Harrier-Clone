@@ -16,7 +16,7 @@ FloorWarpController::~FloorWarpController()
 {
 }
 
-#include "Engine/Transform.h"
+
 void FloorWarpController::init(FloorManager* floorManager, const std::string& texturePath, int floorLinesCount, float horScrollSpeed, int horScrollWrapLimit)
 {
 	m_floorManager = floorManager;
@@ -26,7 +26,6 @@ void FloorWarpController::init(FloorManager* floorManager, const std::string& te
 	assert(m_floorManager && !texturePath.empty() && m_floorLinesCount > 0 && m_scrollLimit > 0);
 
 	m_spriteLines.reserve(floorLinesCount);
-	OutputLog("floor position %f, %f", m_floorManager->gameObject()->transform->getWorldPosition().x, m_floorManager->gameObject()->transform->getWorldPosition().y);
 	for (int i = 0; i < floorLinesCount; ++i)
 	{
 		auto sprite = m_floorManager->gameObject()->addComponent<Sprite>();

@@ -11,25 +11,29 @@
 #include "FloorManager.h"
 
 
-void PlayerShot::init(const Vector2& startPos, const Reference<FloorManager>& floorManager)
+void PlayerShot::init(const Reference<FloorManager>& floorManager, Vector2 startPos)
 {
+	m_floorManager = floorManager;
 	if (!m_spriteSheet)
 	{
 		m_spriteSheet = gameObject()->getComponent<SpriteSheet>();
-	}
-	if (!m_poolHandler)
-	{
-		m_poolHandler = gameObject()->getComponent<PooledGameObject>();
 	}
 	if (!m_collider)
 	{
 		m_collider = gameObject()->getComponent<Collider>();
 	}
-	m_floorManager = floorManager;
-	assert(m_spriteSheet && m_poolHandler && m_collider && m_floorManager);
+	if (!m_poolHandler)
+	{
+		m_poolHandler = gameObject()->getComponent<PooledGameObject>();
+	}
+	
+	assert(m_floorManager && m_spriteSheet && m_collider && m_poolHandler);
 
-	gameObject()->transform->setWorldPosition(startPos);
 	m_spriteSheet->playAnimation("shot", 16.0f);
+	// Offset the startPos because the spritesheet has its pivot in the center
+	startPos.y += m_spriteSheet->getCurrentAnimationFrameHeight() / 2.0f;
+	gameObject()->transform->setWorldPosition(startPos);
+	
 
 	m_startScale = 2;
 	m_endScale = 0.1f;
@@ -52,15 +56,17 @@ void PlayerShot::update()
 	scale.y = scale.x = (1 - correctedProgress) * m_startScale + correctedProgress * m_endScale;
 	gameObject()->transform->setLocalScale(scale);
 
-	m_collider->zIndex = (int)((1 - normalizedProgress) * 100);
+	int zIndex = (int)((1 - normalizedProgress) * 100);
+	m_collider->zIndex = zIndex;
+	m_spriteSheet->setZIndex(zIndex);
 
 	m_elapsedTime += Time::deltaTime();
-	
 }
 
 
 void PlayerShot::onTriggerEnter(Reference<Collider>& other)
 {
-	OutputLog("Hit something");
+	OutputLog("PlayerShot Hit something");
 	m_poolHandler->returnToPool();
+	// TODO: Add points here
 }

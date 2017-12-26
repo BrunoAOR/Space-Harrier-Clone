@@ -100,6 +100,30 @@ bool Audio::isMusicPlaying()
 }
 
 
+float Audio::getMusicVolume()
+{
+	return engine->audio->getMusicVolume();
+}
+
+
+void Audio::setMusicVolume(float normalizedVolume)
+{
+	engine->audio->setMusicVolume(normalizedVolume);
+}
+
+
+float Audio::getSFXAverageVolume()
+{
+	return engine->audio->getSFXAverageVolume();
+}
+
+
+void Audio::setSFXVolume(float normalizedVolume)
+{
+	engine->audio->setSFXVolume(normalizedVolume);
+}
+
+
 Reference<Prefab> Prefabs::getPrefab(const std::string& id)
 {
 	return engine->prefabsFactory->getPrefab(id);

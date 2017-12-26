@@ -9,7 +9,7 @@
 #include "FloorManager.h"
 #include "TreePrefab.h"
 #include "FloorObjectMover.h"
-#include "FloorObjectType.h"
+#include "ObjectEffectType.h"
 #include "GameObjectPool.h"
 #include "ExplosionPrefab.h"
 #include "ExplosiveObject.h"
@@ -69,13 +69,12 @@ void FloorObjectsFactory::update()
 	{
 		return;
 	}
-	m_elapsedTime += Time::deltaTime();
 	if (m_elapsedTime > m_spawnWaitTime)
 	{
 		m_elapsedTime -= m_spawnWaitTime;
 		spawnObject();
 	}
-
+	m_elapsedTime += Time::deltaTime();
 }
 
 void FloorObjectsFactory::spawnObject()

@@ -5,7 +5,7 @@
 #include "Engine/Sprite.h"
 #include "Engine/RectangleCollider.h"
 #include "FloorObjectMover.h"
-#include "FloorObjectType.h"
+#include "ObjectEffectType.h"
 
 
 void SmallBushPrefab::configureGameObject(Reference<GameObject>& gameObject) const
@@ -31,6 +31,6 @@ void SmallBushPrefab::configureGameObject(Reference<GameObject>& gameObject) con
 	auto fom = gameObject->addComponent<FloorObjectMover>();
 	if (fom)
 	{
-		fom->setType(FloorObjectType::SHORT_TRIP);
+		fom->setType(ObjectEffectType::SHORT_TRIP);
 	}
 }

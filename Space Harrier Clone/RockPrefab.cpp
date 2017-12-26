@@ -6,7 +6,7 @@
 #include "Engine/Sprite.h"
 #include "Engine/RectangleCollider.h"
 #include "FloorObjectMover.h"
-#include "FloorObjectType.h"
+#include "ObjectEffectType.h"
 #include "CollisionCallbackForwarder.h"
 #include "ExplosiveObject.h"
 
@@ -19,13 +19,13 @@ void RockPrefab::configureGameObject(Reference<GameObject>& gameObject) const
 		shadowSprite->loadImage("assets/sprites/Floor_objects.png");
 		shadowSprite->setClipRect(SDL_Rect{ 170, 190, 62, 18 });
 		shadowSprite->setAllPivots(Vector2(0.5f, 0));
-		shadowSprite->setRenderLayer("Main");
+		shadowSprite->setRenderLayer("Shadows");
 	}
 
 	auto fom = gameObject->addComponent<FloorObjectMover>();
 	if (fom)
 	{
-		fom->setType(FloorObjectType::DIE);
+		fom->setType(ObjectEffectType::DIE);
 	}
 
 	auto explosiveObject = gameObject->addComponent<ExplosiveObject>();

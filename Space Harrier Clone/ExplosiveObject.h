@@ -8,6 +8,7 @@ class Collider;
 class GameObjectPool;
 class PooledGameObject;
 class FloorObjectMover;
+class Enemy;
 
 
 class ExplosiveObject :
@@ -27,6 +28,7 @@ private:
 	Reference<PooledGameObject> m_poolHandler;
 
 	Reference<FloorObjectMover> m_floorObjectMover;
+	Reference<Enemy> m_enemy;
 };
 
 

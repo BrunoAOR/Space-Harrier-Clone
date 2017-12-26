@@ -18,5 +18,5 @@ void Explosion::init(const Reference<FloorManager>& floorManager, float startXPo
 	assert(m_floorObjectMover && m_spriteSheet);
 	m_floorObjectMover->init(floorManager, startXPos, normalizedStartProgress, normalizedEndProgress, startScale, endScale);
 	
-	m_spriteSheet->playAnimation("explosion", 24.0f, false);
+	m_spriteSheet->playAnimation("explosion", 8.0f, false);
 }

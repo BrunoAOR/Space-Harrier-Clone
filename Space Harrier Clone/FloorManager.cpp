@@ -183,6 +183,10 @@ float FloorManager::getXCoordinateForYPos(float startingXPos, float normalizedSt
 	Vector2 objectPoint(startingXPos, normalizedStartingYPos);
 
 	// Calculate the line equation y = mx + b to later extract x through: x = (y - b)/m;
+	if (vanishingPoint.x == objectPoint.x)
+	{
+		return vanishingPoint.x;
+	}
 	float m = (vanishingPoint.y - objectPoint.y) / (vanishingPoint.x - objectPoint.x);
 	float b = vanishingPoint.y - m * vanishingPoint.x;
 

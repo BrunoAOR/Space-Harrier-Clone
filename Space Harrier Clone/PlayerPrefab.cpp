@@ -7,7 +7,7 @@
 #include "Engine/Sprite.h"
 #include "Engine/RectangleCollider.h"
 #include "Player.h"
-#include "PlayerCollisionController.h"
+#include "CollisionCallbackForwarder.h"
 
 
 void PlayerPrefab::configureGameObject(Reference<GameObject>& gameObject) const
@@ -20,7 +20,11 @@ void PlayerPrefab::configureGameObject(Reference<GameObject>& gameObject) const
 		{
 			characterGo->transform->setParent(gameObject->transform, false);
 
-			characterGo->addComponent<PlayerCollisionController>();
+			auto ccf = characterGo->addComponent<CollisionCallbackForwarder>();
+			if (ccf)
+			{
+				ccf->target = player;
+			}
 
 			auto rectColl = characterGo->addComponent<RectangleCollider>();
 			if (rectColl)
@@ -159,7 +163,7 @@ void PlayerPrefab::configureGameObject(Reference<GameObject>& gameObject) const
 			auto shadow = shadowGo->addComponent<Sprite>();
 			if (shadow)
 			{
-				shadow->setRenderLayer("Foreground");
+				shadow->setRenderLayer("Shadows");
 				shadow->setZIndex(1);
 
 				shadow->loadImage("assets/sprites/Character.png");
