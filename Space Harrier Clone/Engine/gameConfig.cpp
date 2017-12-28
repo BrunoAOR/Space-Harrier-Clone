@@ -135,6 +135,8 @@ std::vector<MotionPattern> getMotionPatterns()
 std::vector<EnemySpawnInfo> getEnemiesSpawnInfo()
 {
 	std::vector<EnemySpawnInfo> info;
+
+	// Wave 1
 	info.push_back(EnemySpawnInfo("EnemyShipPrefab", 2000, 4000, 0, "assets/audio/sfx/SFX - Spawn_Ship.wav"));
 	info.push_back(EnemySpawnInfo("EnemyShipPrefab", 2200, 4000, 0, "assets/audio/sfx/SFX - Spawn_Ship.wav"));
 	info.push_back(EnemySpawnInfo("EnemyShipPrefab", 2400, 4000, 0, "assets/audio/sfx/SFX - Spawn_Ship.wav"));
@@ -143,6 +145,24 @@ std::vector<EnemySpawnInfo> getEnemiesSpawnInfo()
 	info.push_back(EnemySpawnInfo("EnemyShipPrefab", 3000, 4000, 0, "assets/audio/sfx/SFX - Spawn_Ship.wav"));
 	
 	info.push_back(EnemySpawnInfo("EnemyShipPrefab", 3000, 4000, 1, "assets/audio/sfx/SFX - Spawn_Ship.wav"));
+	
+	return info;
+}
+
+
+#include "../ObstacleSpawnInfo.h"
+std::vector<ObstacleSpawnInfo> getObstaclesSpawnInfo()
+{
+	std::vector<ObstacleSpawnInfo> info;
+
+	info.push_back(ObstacleSpawnInfo("SmallBushPrefab", 1733, -9.9f, 1, 0.05f));
+	info.push_back(ObstacleSpawnInfo("SmallBushPrefab", 2003, 13.85f, 1, 0.05f));
+	info.push_back(ObstacleSpawnInfo("SmallBushPrefab", 2272, 9.75f, 1, 0.05f));
+	info.push_back(ObstacleSpawnInfo("SmallBushPrefab", 2538, -0.50f, 1, 0.05f));
+	info.push_back(ObstacleSpawnInfo("SmallBushPrefab", 2867, 16.8f, 1, 0.05f));
+	info.push_back(ObstacleSpawnInfo("RockPrefab", 2935, -9.85f, 1, 0.05f));
+	info.push_back(ObstacleSpawnInfo("RockPrefab", 3005, -0.30f, 1, 0.05f));
+
 	return info;
 }
 

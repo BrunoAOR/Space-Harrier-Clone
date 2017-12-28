@@ -43,7 +43,6 @@ void ExplosiveObject::start()
 
 void ExplosiveObject::onTriggerEnter(Reference<Collider>& other)
 {
-	OutputLog("ExpObj hit something");
 	if (other->gameObject()->getComponent<PlayerShot>())
 	{
 		Reference<Transform>& parent = gameObject()->transform->getParent();
@@ -68,7 +67,6 @@ void ExplosiveObject::onTriggerEnter(Reference<Collider>& other)
 			Audio::PlaySFX(m_sfxExplosion);
 		}
 
-		OutputLog("BOOM!");
 		m_poolHandler->returnToPool();
 	}
 }

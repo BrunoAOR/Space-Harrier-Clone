@@ -1,6 +1,6 @@
 #include "FloorObjectsFactory.h"
 
-#include <random>
+#include <algorithm>
 #include <assert.h>
 #include "Engine/API.h"
 #include "Engine/PrefabsFactory.h"
@@ -13,13 +13,14 @@
 #include "GameObjectPool.h"
 #include "ExplosionPrefab.h"
 #include "ExplosiveObject.h"
+#include "ObstacleSpawnInfo.h"
 
 
 FloorObjectsFactory::~FloorObjectsFactory()
 {
-	for (GameObjectPool* gop : m_prefabPools)
+	for (auto it = m_prefabPools.begin(); it != m_prefabPools.end(); ++it)
 	{
-		delete gop;
+		delete (it->second);
 	}
 	m_prefabPools.clear();
 
@@ -28,66 +29,63 @@ FloorObjectsFactory::~FloorObjectsFactory()
 }
 
 
-void FloorObjectsFactory::init(const Reference<FloorManager>& floorManager)
+void FloorObjectsFactory::init(const Reference<FloorManager>& floorManager, const std::vector<ObstacleSpawnInfo>& spawnInfos)
 {
 	m_floorManager = floorManager;
-	assert(m_floorManager);
-	m_sfxExplosion = Audio::LoadSFX("assets/audio/sfx/SFX - Explosion.wav");
-}
+	m_spawnInfos = spawnInfos;
 
-void FloorObjectsFactory::start()
-{
 	assert(m_floorManager);
-	m_prefabs.reserve(4);
-	m_prefabs.push_back(Prefabs::getPrefab("TreePrefab"));
-	m_prefabs.push_back(Prefabs::getPrefab("SmallBushPrefab"));
-	m_prefabs.push_back(Prefabs::getPrefab("BigBushPrefab"));
-	m_prefabs.push_back(Prefabs::getPrefab("RockPrefab"));
-	for (Reference<Prefab>& prefab : m_prefabs)
+
+	// Ensure spawnInfos are sorted by spawnTime
+	std::sort(m_spawnInfos.begin(), m_spawnInfos.end(), [](ObstacleSpawnInfo info1, ObstacleSpawnInfo info2) -> bool { return info1.spawnTime < info2.spawnTime; });
+
+	// Get the required Prefabs
+	for (ObstacleSpawnInfo spawnInfo : m_spawnInfos)
 	{
-		assert(prefab);
-		m_prefabPools.push_back(new GameObjectPool(prefab, 2));
+		if (m_prefabPools.count(spawnInfo.prefabName) == 0)
+		{
+			Reference<Prefab> prefab = Prefabs::getPrefab(spawnInfo.prefabName);
+			assert(prefab);
+			m_prefabPools[spawnInfo.prefabName] = (new GameObjectPool(prefab, 4));
+		}
 	}
 
 	m_explosionsPool = new GameObjectPool(Prefabs::getPrefab("ExplosionPrefab"), 3);
 	assert(m_explosionsPool);
 
-	m_spawnWaitTime = 2500;
-	m_elapsedTime = 0;
+	m_sfxExplosion = Audio::LoadSFX("assets/audio/sfx/SFX - Explosion.wav");
+}
 
-	m_normalizedSpawnY = 1.0f;
-	m_normalizedDespawnY = 0.05f;
-	m_spawnMinX = -20;
-	m_spawnMaxX = 20;
-	m_distribution = std::uniform_int_distribution<int>(m_spawnMinX, m_spawnMaxX);
+void FloorObjectsFactory::start()
+{
+	m_elapsedTime = 0;
+	if (m_spawnInfos.size() > 0)
+	{
+		setupNextSpawnInfo();
+	}
 }
 
 
 void FloorObjectsFactory::update()
 {
-	if (m_floorManager->freezeAtBottom)
+	if (m_nextSpawnIndex == -1 || m_floorManager->freezeAtBottom)
 	{
 		return;
 	}
-	if (m_elapsedTime > m_spawnWaitTime)
+
+	while (m_elapsedTime > m_nextSpawnTime && m_nextSpawnIndex != -1)
 	{
-		m_elapsedTime -= m_spawnWaitTime;
 		spawnObject();
+		setupNextSpawnInfo();
 	}
+
 	m_elapsedTime += Time::deltaTime();
 }
 
 void FloorObjectsFactory::spawnObject()
 {
-	int currentFloorHeight = m_floorManager->getCurrentFloorHeight();
-	float spawnX = (float)m_distribution(m_generator);
-
-	auto go = m_prefabPools[m_currPrefabIndex++]->getGameObject();
-	
-	if (m_currPrefabIndex >= (int)m_prefabPools.size())
-	{
-		m_currPrefabIndex = 0;
-	}
+	ObstacleSpawnInfo spawnInfo = m_spawnInfos[m_nextSpawnIndex];
+	auto go = m_prefabPools[spawnInfo.prefabName]->getGameObject();
 
 	if (go)
 	{
@@ -95,7 +93,7 @@ void FloorObjectsFactory::spawnObject()
 		auto mover = go->getComponent<FloorObjectMover>();
 		if (mover)
 		{
-			mover->init(m_floorManager, spawnX, 1 - m_normalizedSpawnY, 1 - m_normalizedDespawnY, 0, 1);
+			mover->init(m_floorManager, spawnInfo.absoluteSpawnXPos, 1 - spawnInfo.normalizedSpawnYPos, 1 - spawnInfo.normalizedDespawnYPos, 0, 1);
 		}
 		auto explosiveObject = go->getComponent<ExplosiveObject>();
 		if (explosiveObject)
@@ -103,5 +101,22 @@ void FloorObjectsFactory::spawnObject()
 			explosiveObject->init(m_explosionsPool, m_sfxExplosion);
 		}
 		go->setActive(true);
+	}
+}
+
+
+void FloorObjectsFactory::setupNextSpawnInfo()
+{
+	++m_nextSpawnIndex;
+	if (m_nextSpawnIndex < (int)m_spawnInfos.size())
+	{
+		m_nextSpawnTime = m_spawnInfos[m_nextSpawnIndex].spawnTime;
+	}
+	else
+	{
+		m_nextSpawnIndex = -1;
+		m_nextSpawnTime = -1;
+		m_elapsedTime = 0;
+		setupNextSpawnInfo();
 	}
 }

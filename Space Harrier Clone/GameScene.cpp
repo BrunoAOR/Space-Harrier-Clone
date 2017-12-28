@@ -16,7 +16,8 @@
 #include "EnemiesFactory.h"
 #include "EnemySpawnInfo.h"
 #include "MotionPattern.h"
-#include "Engine/SDL2_mixer/include/SDL_mixer.h"
+#include "ObstacleSpawnInfo.h"
+
 
 bool GameScene::load()
 {
@@ -69,7 +70,7 @@ bool GameScene::load()
 				auto floorObjectsFactory = objectsFactoryGo->addComponent<FloorObjectsFactory>();
 				if (floorObjectsFactory)
 				{
-					floorObjectsFactory->init(floorManager);
+					floorObjectsFactory->init(floorManager, getObstaclesSpawnInfo());
 				}
 			}
 

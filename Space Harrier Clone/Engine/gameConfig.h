@@ -7,6 +7,7 @@ class MotionPattern;
 struct AnimationSection;
 struct CollisionSystemSetup;
 struct EnemySpawnInfo;
+struct ObstacleSpawnInfo;
 
 
 extern const int SCREEN_WIDTH;
@@ -25,6 +26,7 @@ CollisionSystemSetup collisionSystemSetup();
 std::vector<AnimationSection> getDieAnimationInfo();
 std::vector<MotionPattern> getMotionPatterns();
 std::vector<EnemySpawnInfo> getEnemiesSpawnInfo();
+std::vector<ObstacleSpawnInfo> getObstaclesSpawnInfo();
 
 
 #endif // !H_GAME_CONFIG

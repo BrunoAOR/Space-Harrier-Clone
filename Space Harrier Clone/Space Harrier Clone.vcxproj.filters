@@ -468,5 +468,8 @@
     <ClInclude Include="PooledGameObject.h">
       <Filter>Behaviours\General</Filter>
     </ClInclude>
+    <ClInclude Include="ObstacleSpawnInfo.h">
+      <Filter>Scripts\Scenario</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

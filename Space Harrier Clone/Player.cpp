@@ -90,11 +90,9 @@ void Player::update()
 		moveAnimationUpdate();
 		break;
 	case PlayerState::SHORT_TRIP:
-		m_state = PlayerState::SHORT_TRIP;
 		tripUpdate();
 		break;
 	case PlayerState::LONG_TRIP:
-		m_state = PlayerState::LONG_TRIP;
 		tripUpdate();
 		break;
 	case PlayerState::DIE:
@@ -111,7 +109,6 @@ void Player::update()
 
 void Player::onTriggerEnter(Reference<Collider>& other)
 {
-	OutputLog("Player hit something");
 	ObjectEffectType oet = ObjectEffectType::UNDEFINED;
 	// Player can only collider with Obstacles, Enemies and Enemy Shots
 	// If the collision occured against an Obstacle, the ObjectEffectType must be read from the obstacle
@@ -311,7 +308,8 @@ void Player::postDieUpdate()
 	if (m_postDieElapsedTime == INT_MIN)
 	{
 		m_postDieElapsedTime = -(int)Time::deltaTime();
-		m_spriteSheet->playAnimation("flyCenter", 16.0f);
+		m_currentAnimation = "flyCenter";
+		m_spriteSheet->playAnimation(m_currentAnimation, 16.0f);
 		if (floorManager)
 		{
 			floorManager->freezeAtBottom = true;
@@ -399,6 +397,7 @@ void Player::handleStateChangingCollision(ObjectEffectType oet)
 			m_dieAnimation->start(m_characterGo->transform->getLocalPosition().y);
 			if (floorManager)
 			{
+				floorManager->stopHorizontal = false;
 				floorManager->freezeAtBottom = true;
 			}
 			m_state = PlayerState::DIE;

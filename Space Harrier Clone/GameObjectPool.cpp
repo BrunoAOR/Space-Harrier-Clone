@@ -9,9 +9,9 @@
 GameObjectPool::GameObjectPool(const Reference<Prefab>& prefab, int initialPoolSize)
 {
 	m_prefab = prefab;
-	m_initialPoolSize = initialPoolSize >= 0 ? initialPoolSize : 0;
+	initialPoolSize = initialPoolSize >= 0 ? initialPoolSize : 0;
 	assert(m_prefab);
-	for (int i = 0; i < m_initialPoolSize; ++i)
+	for (int i = 0; i < initialPoolSize; ++i)
 	{
 		createGameObject();
 	}

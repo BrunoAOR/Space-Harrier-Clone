@@ -40,7 +40,7 @@ void EnemiesFactory::init(const Reference<Transform>& playerTransform, const Ref
 	// Ensure spawnInfos are sorted by spawnTime
 	std::sort(m_spawnInfos.begin(), m_spawnInfos.end(), [](EnemySpawnInfo info1, EnemySpawnInfo info2) -> bool { return info1.spawnTime < info2.spawnTime; });
 
-	// Get the required Prefabs and 
+	// Get the required Prefabs and Sfxs
 	for (EnemySpawnInfo spawnInfo : m_spawnInfos)
 	{
 		assert(spawnInfo.motionPatternIndex >= 0 && spawnInfo.motionPatternIndex < (int)m_motionPatterns.size());
@@ -69,9 +69,11 @@ void EnemiesFactory::init(const Reference<Transform>& playerTransform, const Ref
 
 void EnemiesFactory::start()
 {
-	m_spawnWaitTime = 500;
 	m_elapsedTime = 0;
-	setupNextSpawnInfo();
+	if (m_spawnInfos.size() > 0)
+	{
+		setupNextSpawnInfo();
+	}
 }
 
 

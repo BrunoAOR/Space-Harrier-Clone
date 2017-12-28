@@ -62,7 +62,6 @@ void Enemy::update()
 	if (normalizedTime > 1)
 	{
 		m_poolHandler->returnToPool();
-		OutputLog("Sending enemy to pool");
 		return;
 	}
 
@@ -137,8 +136,6 @@ void Enemy::shoot(MotionPatternPoint mpp)
 		Vector2 targetPos = m_playerTransform->getWorldPosition();
 		// The target is lifted to the approximate center of the character
 		targetPos.y += 30;
-		OutputLog("enemPos: %f, %f shifts to y: %f | scaleY: %f", currPos.x, m_characterGo->transform->getWorldPosition().y, currPos.y, gameObject()->transform->getLocalScale().y);
-		OutputLog("targetPos: %f, %f shifts to y: %f", targetPos.x, m_playerTransform->getWorldPosition().y, targetPos.y);
 		shot->init(m_floorManager, currPos, mpp.normalizedDepth, targetPos, 0.95f);
 		Audio::PlaySFX(m_sfxEnemyShot);
 	}

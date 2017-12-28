@@ -44,7 +44,6 @@ private:
 	int m_nextSpawnIndex = -1;
 	int m_nextSpawnTime = -1;
 	int m_elapsedTime = 0;
-	int m_spawnWaitTime = 0;
 };
 
 

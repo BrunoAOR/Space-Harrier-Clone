@@ -64,7 +64,6 @@ void EnemyShot::update()
 	Vector2 shotPos = (1 - interpolationProgress) * m_startPos + interpolationProgress * m_targetPos;
 	
 	Vector2 shadowPos = Vector2(shotPos.x, normalizedCorrectedProgress * m_floorManager->getCurrentFloorHeight());
-	OutputLog("interpolProg: %f | shotPos: %f, %f  |  normProg: %f | normCorrProg: %f  |  shadowPos: %f, %f", interpolationProgress, shotPos.x, shotPos.y, normalizedProgress, normalizedCorrectedProgress, shadowPos.x, shadowPos.y);
 
 	gameObject()->transform->setWorldPosition(shadowPos);
 	m_spriteSheet->gameObject()->transform->setWorldPosition(shotPos);

@@ -26,7 +26,17 @@ void FloorObjectMover::init(const Reference<FloorManager>& floorManager, float s
 	}
 	if (!m_renderer)
 	{
-		m_renderer = gameObject()->getComponentInChildren<Renderer>();
+		if (m_collider)
+		{
+			// So this is an obstacle that COULD BE the rock that has 2 Renderers in (Shadow in main Game Object and actual rock with collider in child Game Object)
+			// For this case, we get the renderer from the Game Object that has the collider
+			m_renderer = m_collider->gameObject()->getComponentInChildren<Renderer>();
+		}
+		else
+		{
+			// This would be the Explosion Game Object
+			m_renderer = gameObject()->getComponentInChildren<Renderer>();
+		}
 	}
 	assert(m_floorManager && m_poolHandler && m_renderer && m_floorObjectType != ObjectEffectType::UNDEFINED && m_poolHandler);
 	

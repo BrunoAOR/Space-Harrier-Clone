@@ -20,7 +20,6 @@ public:
 private:
 	void createGameObject();
 
-	int m_initialPoolSize = 0;
 	Reference<Prefab> m_prefab;
 	std::list<Reference<GameObject>> m_gameObjects;
 	std::stack<Reference<GameObject>*> m_availableGameObjects;

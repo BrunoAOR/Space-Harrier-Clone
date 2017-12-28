@@ -148,6 +148,7 @@
     <ClInclude Include="GameScene.h" />
     <ClInclude Include="MotionPattern.h" />
     <ClInclude Include="MotionPatternPoint.h" />
+    <ClInclude Include="ObstacleSpawnInfo.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="PlayerPrefab.h" />
     <ClInclude Include="PlayerShot.h" />
