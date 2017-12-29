@@ -1,8 +1,8 @@
 #ifndef H_REFERENCE
 #define H_REFERENCE
 
-//#include "globals.h"
 #include "ReferenceBase.h"
+//#include "globals.h"
 
 
 template<typename T>
@@ -22,6 +22,8 @@ public:
 	Reference(const Reference<U>& source);
 	Reference& operator=(const Reference& source);
 
+	template<typename U>
+	bool is_castable_as() const;
 	template<typename U>
 	Reference<U> static_reference_cast() const;
 	template<typename U>
@@ -94,6 +96,14 @@ Reference<T>& Reference<T>::operator=(const Reference & source)
 	m_dataPtr = source.m_dataPtr;
 	addReference();
 	return *this;
+}
+
+
+template<typename T>
+template<typename U>
+bool Reference<T>::is_castable_as() const
+{
+	return (dynamic_cast<U*>(static_cast<T*>(this->m_dataPtr)));
 }
 
 

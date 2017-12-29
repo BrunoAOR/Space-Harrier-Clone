@@ -13,7 +13,7 @@
 #include "Enemy.h"
 
 
-void ExplosiveObject::init(GameObjectPool * explosionPool, SFX explosionSFX)
+void ExplosiveObject::init(GameObjectPool* explosionPool, SFX explosionSFX)
 {
 	m_explosionPool = explosionPool;
 	m_sfxExplosion = explosionSFX;
@@ -43,8 +43,10 @@ void ExplosiveObject::start()
 
 void ExplosiveObject::onTriggerEnter(Reference<Collider>& other)
 {
-	if (other->gameObject()->getComponent<PlayerShot>())
+	Reference<PlayerShot> playerShot = other->gameObject()->getComponent<PlayerShot>();
+	if (playerShot)
 	{
+		playerShot->destroy();
 		Reference<Transform>& parent = gameObject()->transform->getParent();
 		if (m_explosionPool)
 		{

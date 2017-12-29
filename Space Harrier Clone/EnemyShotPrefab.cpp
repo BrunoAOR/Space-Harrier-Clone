@@ -41,16 +41,16 @@ void EnemyShotPrefab::configureGameObject(Reference<GameObject>& gameObject) con
 		if (circColl)
 		{
 			circColl->isTrigger = true;
-			// Shot's collider is enlarged 20% to make hitting enemies easier
+			// Shot's collider is smaller than the sprite (only the central circle area)
 			circColl->radius = 21;
-			circColl->offset.y += 68 / 2;
+			// Note: No need to offset the shot collider, because the sprite's pivot is at the center
 			circColl->setCollisionLayer("EnemyShot");
 		}
 
 		auto ccf = childGo->addComponent<CollisionCallbackForwarder>();
 		if (ccf)
 		{
-			ccf->target = eShot;
+			ccf->addTarget(eShot);
 		}
 	}
 

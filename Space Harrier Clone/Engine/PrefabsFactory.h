@@ -15,7 +15,7 @@ public:
 	PrefabsFactory();
 	~PrefabsFactory();
 
-	template <typename T>
+	template<typename T>
 	bool addPrefab(const std::string& id);
 	Reference<Prefab> getPrefab(const std::string& id) const;
 	Reference<GameObject> instantiate(const Reference<Prefab>& prefab);

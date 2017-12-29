@@ -44,16 +44,11 @@ void EnemyShipPrefab::configureGameObject(Reference<GameObject>& gameObject) con
 				spriteSheet->addRectForAnimation("fly", Vector2(120, 205), 112, 48);
 			}
 
-			auto ccf1 = characterGo->addComponent<CollisionCallbackForwarder>();
-			if (ccf1)
+			auto ccf = characterGo->addComponent<CollisionCallbackForwarder>();
+			if (ccf)
 			{
-				ccf1->target = enemy;
-			}
-
-			auto ccf2 = characterGo->addComponent<CollisionCallbackForwarder>();
-			if (ccf2)
-			{
-				ccf2->target = explosiveObject;
+				ccf->addTarget(enemy);
+				ccf->addTarget(explosiveObject);
 			}
 		}	
 	}

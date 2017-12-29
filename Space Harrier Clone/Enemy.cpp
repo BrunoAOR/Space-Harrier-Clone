@@ -83,10 +83,6 @@ void Enemy::update()
 	}
 
 	// Move characterGo (based on spritePosition.y)
-	if (normalizedTime > 0.5f && m_characterGo->transform->getLocalPosition().y < mpp.spritePosition.y)
-	{
-		int i = 0;
-	}
 	m_characterGo->transform->setLocalPosition(Vector2(0, mpp.spritePosition.y));
 	
 	// Move gameObject yPos (based on spritePosition.x and depth)
@@ -120,6 +116,7 @@ void Enemy::setupExplosion(Reference<Explosion>& explosion)
 	float currentScale = normalizedCurrentProgress;
 	explosion->init(m_floorManager, gameObject()->transform->getLocalPosition().x, normalizedCurrentProgress, 0.95f, currentScale, 1);
 }
+
 
 void Enemy::shoot(MotionPatternPoint mpp)
 {

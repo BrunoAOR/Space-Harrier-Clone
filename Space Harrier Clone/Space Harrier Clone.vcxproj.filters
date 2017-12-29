@@ -241,6 +241,15 @@
     <ClCompile Include="ExplosiveObject.cpp">
       <Filter>Behaviours\General</Filter>
     </ClCompile>
+    <ClCompile Include="EnemyBallPrefab.cpp">
+      <Filter>Prefabs\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="BallEnemy.cpp">
+      <Filter>Behaviours\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="BulletBouncer.cpp">
+      <Filter>Behaviours\Enemies</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\API.h">
@@ -470,6 +479,15 @@
     </ClInclude>
     <ClInclude Include="ObstacleSpawnInfo.h">
       <Filter>Scripts\Scenario</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyBallPrefab.h">
+      <Filter>Prefabs\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="BulletBouncer.h">
+      <Filter>Behaviours\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="BallEnemy.h">
+      <Filter>Behaviours\Enemies</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

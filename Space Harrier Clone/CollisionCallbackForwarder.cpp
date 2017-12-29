@@ -1,37 +1,58 @@
 #include "CollisionCallbackForwarder.h"
 
 
+void CollisionCallbackForwarder::addTarget(const Reference<Behaviour>& newTarget)
+{
+	if (newTarget)
+	{
+		m_targets.push_back(newTarget);
+	}
+}
+
+
 void CollisionCallbackForwarder::onCollision(CollisionInfo & info)
 {
-	if (target)
+	for (Reference<Behaviour>& target : m_targets)
 	{
-		target->onCollision(info);
+		if (target && target->isActive())
+		{
+			target->onCollision(info);
+		}
 	}
 }
 
 
 void CollisionCallbackForwarder::onTriggerEnter(Reference<Collider>& other)
 {
-	if (target)
+	for (Reference<Behaviour>& target : m_targets)
 	{
-		target->onTriggerEnter(other);
+		if (target && target->isActive())
+		{
+			target->onTriggerEnter(other);
+		}
 	}
 }
 
 
 void CollisionCallbackForwarder::onTriggerStay(Reference<Collider>& other)
 {
-	if (target)
+	for (Reference<Behaviour>& target : m_targets)
 	{
-		target->onTriggerStay(other);
+		if (target && target->isActive())
+		{
+			target->onTriggerStay(other);
+		}
 	}
 }
 
 
 void CollisionCallbackForwarder::onTriggerExit(Reference<Collider>& other)
 {
-	if (target)
+	for (Reference<Behaviour>& target : m_targets)
 	{
-		target->onTriggerExit(other);
+		if (target && target->isActive())
+		{
+			target->onTriggerExit(other);
+		}
 	}
 }

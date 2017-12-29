@@ -380,18 +380,18 @@ void Player::postDieUpdate()
 
 void Player::handleStateChangingCollision(ObjectEffectType oet)
 {
-	switch (oet)
-	{
-	case ObjectEffectType::SHORT_TRIP:
-		m_state = PlayerState::SHORT_TRIP;
-		Audio::PlaySFX(m_sfxTrip);
-		break;
-	case ObjectEffectType::LONG_TRIP:
-		m_state = PlayerState::LONG_TRIP;
-		Audio::PlaySFX(m_sfxTrip);
-		break;
-	case ObjectEffectType::DIE:
-		if (m_state != PlayerState::DIE && m_state != PlayerState::POST_DIE) {
+	if (m_state != PlayerState::DIE && m_state != PlayerState::POST_DIE) {
+		switch (oet)
+		{
+		case ObjectEffectType::SHORT_TRIP:
+			m_state = PlayerState::SHORT_TRIP;
+			Audio::PlaySFX(m_sfxTrip);
+			break;
+		case ObjectEffectType::LONG_TRIP:
+			m_state = PlayerState::LONG_TRIP;
+			Audio::PlaySFX(m_sfxTrip);
+			break;
+		case ObjectEffectType::DIE:
 			m_currentNormalizedPosition.y = m_minY;
 			m_spriteSheet->selectAnimation("die", 0);
 			m_dieAnimation->start(m_characterGo->transform->getLocalPosition().y);
@@ -402,12 +402,13 @@ void Player::handleStateChangingCollision(ObjectEffectType oet)
 			}
 			m_state = PlayerState::DIE;
 			Audio::PlaySFX(m_sfxDie);
+
+			break;
+		case ObjectEffectType::UNDEFINED:
+		default:
+			assert(false);
+			break;
 		}
-		break;
-	case ObjectEffectType::UNDEFINED:
-	default:
-		assert(false);
-		break;
 	}
 }
 

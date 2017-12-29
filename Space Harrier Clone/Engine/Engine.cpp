@@ -156,6 +156,7 @@ bool Engine::initSDL() const
 			OutputLog("ERROR: SDL_mixer could not initialize! SDL_mixer Error: %s", Mix_GetError());
 			success = false;
 		}
+		Mix_AllocateChannels(16);
 
 	}
 	return success;

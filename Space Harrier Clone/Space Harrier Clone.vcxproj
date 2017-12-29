@@ -20,11 +20,14 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BackgroundScroller.cpp" />
+    <ClCompile Include="BallEnemy.cpp" />
     <ClCompile Include="BigBushPrefab.cpp" />
+    <ClCompile Include="BulletBouncer.cpp" />
     <ClCompile Include="CollisionCallbackForwarder.cpp" />
     <ClCompile Include="DarkLinesController.cpp" />
     <ClCompile Include="EnemiesFactory.cpp" />
     <ClCompile Include="Enemy.cpp" />
+    <ClCompile Include="EnemyBallPrefab.cpp" />
     <ClCompile Include="EnemyShipPrefab.cpp" />
     <ClCompile Include="EnemyShot.cpp" />
     <ClCompile Include="EnemyShotPrefab.cpp" />
@@ -86,12 +89,15 @@
   <ItemGroup>
     <ClInclude Include="AnimationSection.h" />
     <ClInclude Include="BackgroundScroller.h" />
+    <ClInclude Include="BallEnemy.h" />
     <ClInclude Include="BigBushPrefab.h" />
+    <ClInclude Include="BulletBouncer.h" />
     <ClInclude Include="CollisionCallbackForwarder.h" />
     <ClInclude Include="DarkLineInfo.h" />
     <ClInclude Include="DarkLinesController.h" />
     <ClInclude Include="EnemiesFactory.h" />
     <ClInclude Include="Enemy.h" />
+    <ClInclude Include="EnemyBallPrefab.h" />
     <ClInclude Include="EnemyShipPrefab.h" />
     <ClInclude Include="EnemyShot.h" />
     <ClInclude Include="EnemyShotPrefab.h" />

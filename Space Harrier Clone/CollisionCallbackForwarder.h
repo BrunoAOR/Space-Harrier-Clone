@@ -1,6 +1,7 @@
 #ifndef H_COLLISION_CALLBACK_FORWARDER
 #define H_COLLISION_CALLBACK_FORWARDER
 
+#include <vector>
 #include "Engine/Behaviour.h"
 #include "Engine/Reference.h"
 class Collider;
@@ -12,12 +13,15 @@ class CollisionCallbackForwarder :
 	public Behaviour
 {
 public:
+	void addTarget(const Reference<Behaviour>& newTarget);
+
 	virtual void onCollision(CollisionInfo& info) override;
 	virtual void onTriggerEnter(Reference<Collider>& other) override;
 	virtual void onTriggerStay(Reference<Collider>& other) override;
 	virtual void onTriggerExit(Reference<Collider>& other) override;
 
-	Reference<Behaviour> target;	
+private:
+	std::vector<Reference<Behaviour>> m_targets;	
 };
 
 

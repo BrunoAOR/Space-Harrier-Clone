@@ -10,7 +10,7 @@ struct MotionPatternPoint
 public:
 	MotionPatternPoint();
 	MotionPatternPoint(float normTimeMS, float x, float y, float normDepth);
-	MotionPatternPoint(float normTimeMS, float x, float y, float normDepth, int triggerID, bool shouldFire, std::string animationName, bool shouldAnimationLoop);
+	MotionPatternPoint(float normTimeMS, float x, float y, float normDepth, int triggerID, bool shouldFire, std::string animationName = "", bool shouldAnimationLoop = false, int fps = 5);
 
 	float normalizedTime;
 	Vector2 spritePosition;
@@ -20,6 +20,7 @@ public:
 		bool fire = false;
 		std::string animationName = "";
 		bool animationLoop = false;
+		int animationFps = 5;
 	} action;
 };
 

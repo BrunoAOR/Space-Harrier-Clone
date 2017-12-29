@@ -30,7 +30,7 @@ void PlayerShotPrefab::configureGameObject(Reference<GameObject>& gameObject) co
 		rectColl->isTrigger = true;
 		// Shot's collider is enlarged 20% to make hitting enemies easier
 		rectColl->size = Vector2(45 * 1.2, 30 * 1.2);
-		rectColl->offset.y += 45 / 2;
+		// Note: No need to offset the shot collider, because the sprite's pivot is at the center
 		rectColl->setCollisionLayer("PlayerShot");
 	}
 

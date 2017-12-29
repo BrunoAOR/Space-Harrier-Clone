@@ -109,9 +109,9 @@ Reference<T> GameObject::getComponent() const
 	{
 		for (const ReferenceOwner<Component>& component : m_components)
 		{
-			if (Reference<T> componentRef = component.getDynamicCastedReference<T>())
+			if (component.is_castable_as<T>())
 			{
-				return componentRef;
+				return component.getStaticCastedReference<T>();
 			}
 		}
 	}
@@ -131,9 +131,9 @@ std::vector<Reference<T>> GameObject::getComponents() const
 	{
 		for (const ReferenceOwner<Component>& component : m_components)
 		{
-			if (Reference<T> componentRef = component.getDynamicCastedReference<T>())
+			if (component.is_castable_as<T>())
 			{
-				referencesVector.push_back(componentRef);
+				referencesVector.push_back(component.getStaticCastedReference<T>());
 			}
 		}
 	}
@@ -152,9 +152,9 @@ Reference<T> GameObject::getComponentInChildren() const
 	{
 		for (const ReferenceOwner<Component>& component : m_components)
 		{
-			if (Reference<T> componentRef = component.getDynamicCastedReference<T>())
+			if (component.is_castable_as<T>())
 			{
-				return componentRef;
+				return component.getStaticCastedReference<T>();
 			}
 		}
 
@@ -183,9 +183,9 @@ std::vector<Reference<T>> GameObject::getComponentsInChildren() const
 	{
 		for (const ReferenceOwner<Component>& component : m_components)
 		{
-			if (Reference<T> componentRef = component.getDynamicCastedReference<T>())
+			if (component.is_castable_as<T>())
 			{
-				referencesVector.push_back(componentRef);
+				referencesVector.push_back(component.getStaticCastedReference<T>());
 			}
 		}
 
@@ -213,9 +213,9 @@ Reference<T> GameObject::getComponentInParent() const
 	{
 		for (const ReferenceOwner<Component>& component : m_components)
 		{
-			if (Reference<T> componentRef = component.getDynamicCastedReference<T>())
+			if (component.is_castable_as<T>())
 			{
-				return componentRef;
+				return component.getStaticCastedReference<T>();
 			}
 		}
 		
@@ -245,9 +245,9 @@ template<typename T>
 	 {
 		 for (const ReferenceOwner<Component>& component : m_components)
 		 {
-			 if (Reference<T> componentRef = component.getDynamicCastedReference<T>())
+			 if (component.is_castable_as<T>())
 			 {
-				 referencesVector.push_back(componentRef);
+				 referencesVector.push_back(component.getStaticCastedReference<T>());
 			 }
 		 }
 

@@ -33,7 +33,7 @@ void EnemyShot::init(const Reference<FloorManager>& floorManager, const Vector2&
 	m_startPos = startPos;
 	m_targetPos = targetPos;
 
-	gameObject()->transform->setWorldPosition(startPos);
+	gameObject()->transform->setWorldPosition(m_startPos);
 
 	m_normalizedStartProgress = 1 - normalizedStartDepth;
 	m_fullMotionDuration = m_floorManager->getFullMotionDuration();

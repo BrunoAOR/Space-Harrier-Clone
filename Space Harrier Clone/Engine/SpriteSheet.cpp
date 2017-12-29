@@ -10,7 +10,7 @@ SpriteSheet::SpriteSheet()
 	, m_isPlaying(false)
 	, m_elapsedTime(0)
 	, m_timeLimit(200)
-	, m_direction(0)
+	, m_direction(1)
 {
 }
 
@@ -221,6 +221,12 @@ int SpriteSheet::getAnimationFrameCount(const std::string & animationName) const
 }
 
 
+std::string SpriteSheet::getCurrentAnimationName() const
+{
+	return m_currentAnimationName;
+}
+
+
 int SpriteSheet::getCurrentAnimationFrameCount() const
 {
 	if (m_currentAnimation == nullptr)
@@ -261,10 +267,23 @@ int SpriteSheet::getCurrentAnimationFrameWidth() const
 }
 
 
+bool SpriteSheet::isPlaying()
+{
+	return m_isPlaying;
+}
+
+
+bool SpriteSheet::isFinished()
+{
+	return m_isFinished;
+}
+
+
 bool SpriteSheet::playAnimation(const std::string& animationName, bool loop, int startingFrame)
 {
 	stopAnimation();
 	if (selectAnimation(animationName, startingFrame)) {
+		m_currentAnimationName = animationName;
 		m_elapsedTime = 0;
 		m_isPlaying = true;
 		m_isLooping = loop;
@@ -281,6 +300,7 @@ bool SpriteSheet::playAnimation(const std::string& animationName, float fps, boo
 	stopAnimation();
 	if (selectAnimation(animationName, startingFrame) && fps != 0) {
 		setAnimationSpeed(fps);
+		m_currentAnimationName = animationName;
 		m_elapsedTime = 0;
 		m_isPlaying = true;
 		m_isLooping = loop;
@@ -316,19 +336,14 @@ bool SpriteSheet::stopAnimation()
 {
 	if (m_isPlaying)
 	{
+		m_currentAnimationName = "";
 		m_isPlaying = false;
 		m_isLooping = false;
 		m_isFinished = true;
 		m_elapsedTime = 0;
-		m_direction = 0;
 		return true;
 	}
 	return false;
-}
-
-bool SpriteSheet::isFinished()
-{
-	return m_isFinished;
 }
 
 

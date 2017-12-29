@@ -79,7 +79,7 @@ void Collider::onCollision(CollisionInfo& info) const
 	auto behaviours = gameObject()->getComponents<Behaviour>();
 	for (Reference<Behaviour>& behaviourRef : behaviours)
 	{
-		if (behaviourRef)
+		if (behaviourRef && behaviourRef->isActive())
 		{
 			behaviourRef->onCollision(info);
 		}
@@ -92,7 +92,7 @@ void Collider::onTriggerEnter(Reference<Collider>& other) const
 	auto behaviours = gameObject()->getComponents<Behaviour>();
 	for (Reference<Behaviour>& behaviourRef : behaviours)
 	{
-		if (behaviourRef)
+		if (behaviourRef && behaviourRef->isActive())
 		{
 			behaviourRef->onTriggerEnter(other);
 		}
@@ -105,7 +105,7 @@ void Collider::onTriggerStay(Reference<Collider>& other) const
 	auto behaviours = gameObject()->getComponents<Behaviour>();
 	for (Reference<Behaviour>& behaviourRef : behaviours)
 	{
-		if (behaviourRef)
+		if (behaviourRef && behaviourRef->isActive())
 		{
 			behaviourRef->onTriggerStay(other);
 		}
@@ -118,7 +118,7 @@ void Collider::onTriggerExit(Reference<Collider>& other) const
 	auto behaviours = gameObject()->getComponents<Behaviour>();
 	for (Reference<Behaviour>& behaviourRef : behaviours)
 	{
-		if (behaviourRef)
+		if (behaviourRef && behaviourRef->isActive())
 		{
 			behaviourRef->onTriggerExit(other);
 		}

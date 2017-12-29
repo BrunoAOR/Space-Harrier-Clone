@@ -57,7 +57,7 @@ void RockPrefab::configureGameObject(Reference<GameObject>& gameObject) const
 		auto ccf = childGo->addComponent<CollisionCallbackForwarder>();
 		if (ccf)
 		{
-			ccf->target = explosiveObject;
+			ccf->addTarget(explosiveObject);
 		}
 	}
 }

@@ -15,7 +15,10 @@
 
 void FloorObjectMover::init(const Reference<FloorManager>& floorManager, float startXPos, float normalizedStartProgress, float normalizedEndProgress, float startScale, float endScale)
 {
-	m_floorManager = floorManager;
+	if (m_floorManager != floorManager)
+	{
+		m_floorManager = floorManager;
+	}
 	if (!m_poolHandler)
 	{
 		m_poolHandler = gameObject()->getComponent<PooledGameObject>();

@@ -1,7 +1,7 @@
 #ifndef H_UTILS
 #define H_UTILS
 
-template <typename T>
+template<typename T>
 T clamp(T value, T a, T b)
 {
 	if (a > b)

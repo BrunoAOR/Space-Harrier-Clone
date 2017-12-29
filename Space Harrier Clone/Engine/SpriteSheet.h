@@ -33,10 +33,13 @@ public:
 
 	// Get animation info
 	int getAnimationFrameCount(const std::string& animationName) const;
+	std::string getCurrentAnimationName() const;
 	int getCurrentAnimationFrameCount() const;
 	int getCurrentAnimationFrameIndex() const;
 	int getCurrentAnimationFrameHeight() const;
 	int getCurrentAnimationFrameWidth() const;
+	bool isPlaying();
+	bool isFinished();
 
 
 	// Play animations
@@ -44,13 +47,13 @@ public:
 	bool playAnimation(const std::string& animationName, float fps, bool loop = true, int startingFrame = 0);
 	void setAnimationSpeed(float fps);
 	bool stopAnimation();
-	bool isFinished();
 
 private:
 	void resetCachedFields();
 
 	std::unordered_map<std::string, std::vector<SDL_Rect>> m_animations;
 	std::vector<SDL_Rect>* m_currentAnimation = nullptr;
+	std::string m_currentAnimationName = "";
 	SDL_Rect* m_currentClipRect = nullptr;
 	int m_currentClipRectIndex;
 

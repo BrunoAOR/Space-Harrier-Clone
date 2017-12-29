@@ -19,12 +19,12 @@ class Enemy :
 	public Behaviour
 {
 public:
-	void init(int lifeTimeMS, const MotionPattern& motionPattern, const Reference<FloorManager>& floorManager, const Reference<Transform>& playerTransform, GameObjectPool* enemyShotPool, const SFX& sfxEnemyShot);
+	virtual void init(int lifeTimeMS, const MotionPattern& motionPattern, const Reference<FloorManager>& floorManager, const Reference<Transform>& playerTransform, GameObjectPool* enemyShotPool, const SFX& sfxEnemyShot);
 	virtual void update() override;
 
 	void setupExplosion(Reference<Explosion>& explosion);
 
-private:
+protected:
 	void shoot(MotionPatternPoint mpp);
 
 	Reference<Collider> m_collider;

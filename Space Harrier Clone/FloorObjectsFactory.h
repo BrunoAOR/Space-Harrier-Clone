@@ -33,7 +33,7 @@ private:
 
 	std::map<std::string, GameObjectPool*> m_prefabPools;
 
-	GameObjectPool* m_explosionsPool;
+	GameObjectPool* m_explosionsPool = nullptr;
 	SFX m_sfxExplosion;
 	
 	int m_nextSpawnIndex = -1;

@@ -90,7 +90,7 @@ void FloorObjectsFactory::spawnObject()
 	if (go)
 	{
 		go->transform->setParent(gameObject()->transform);
-		auto mover = go->getComponent<FloorObjectMover>();
+		Reference<FloorObjectMover> mover = go->getComponent<FloorObjectMover>();
 		if (mover)
 		{
 			mover->init(m_floorManager, spawnInfo.absoluteSpawnXPos, 1 - spawnInfo.normalizedSpawnYPos, 1 - spawnInfo.normalizedDespawnYPos, 0, 1);

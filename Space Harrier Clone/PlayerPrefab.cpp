@@ -23,7 +23,7 @@ void PlayerPrefab::configureGameObject(Reference<GameObject>& gameObject) const
 			auto ccf = characterGo->addComponent<CollisionCallbackForwarder>();
 			if (ccf)
 			{
-				ccf->target = player;
+				ccf->addTarget(player);
 			}
 
 			auto rectColl = characterGo->addComponent<RectangleCollider>();
