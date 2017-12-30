@@ -8,6 +8,7 @@ struct AnimationSection;
 struct CollisionSystemSetup;
 struct EnemySpawnInfo;
 struct ObstacleSpawnInfo;
+struct Font;
 
 
 extern const int SCREEN_WIDTH;
@@ -27,6 +28,7 @@ std::vector<AnimationSection> getDieAnimationInfo();
 std::vector<MotionPattern> getMotionPatterns();
 std::vector<EnemySpawnInfo> getEnemiesSpawnInfo();
 std::vector<ObstacleSpawnInfo> getObstaclesSpawnInfo();
+Font getFont(const std::string& fontName);
 
 
 #endif // !H_GAME_CONFIG

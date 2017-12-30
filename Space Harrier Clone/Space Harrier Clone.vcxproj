@@ -31,6 +31,7 @@
     <ClCompile Include="EnemyShipPrefab.cpp" />
     <ClCompile Include="EnemyShot.cpp" />
     <ClCompile Include="EnemyShotPrefab.cpp" />
+    <ClCompile Include="Engine\TextRenderer.cpp" />
     <ClCompile Include="Explosion.cpp" />
     <ClCompile Include="ExplosiveObject.cpp" />
     <ClCompile Include="EngineExt\RectangleRenderer.cpp" />
@@ -84,6 +85,7 @@
     <ClCompile Include="TimedAnimation.cpp" />
     <ClCompile Include="TimeLogger.cpp" />
     <ClCompile Include="TreePrefab.cpp" />
+    <ClCompile Include="UIManager.cpp" />
     <ClCompile Include="Utils.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -102,6 +104,10 @@
     <ClInclude Include="EnemyShot.h" />
     <ClInclude Include="EnemyShotPrefab.h" />
     <ClInclude Include="EnemySpawnInfo.h" />
+    <ClInclude Include="Engine\CollisionSystemSetup.h" />
+    <ClInclude Include="Engine\Font.h" />
+    <ClInclude Include="Engine\PixelPosition.h" />
+    <ClInclude Include="Engine\TextRenderer.h" />
     <ClInclude Include="Explosion.h" />
     <ClInclude Include="ExplosiveObject.h" />
     <ClInclude Include="EngineExt\RectangleRenderer.h" />
@@ -165,6 +171,7 @@
     <ClInclude Include="TimedAnimation.h" />
     <ClInclude Include="TimeLogger.h" />
     <ClInclude Include="TreePrefab.h" />
+    <ClInclude Include="UIManager.h" />
     <ClInclude Include="Utils.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

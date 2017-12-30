@@ -52,6 +52,9 @@
     <Filter Include="Behaviours\General">
       <UniqueIdentifier>{b0891a7e-02a3-48f9-9e4f-5fa4bfdf2ded}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Behaviours\UI">
+      <UniqueIdentifier>{3cee5158-9b81-4ea1-b673-8492f59177d8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine\API.cpp">
@@ -249,6 +252,12 @@
     </ClCompile>
     <ClCompile Include="BulletBouncer.cpp">
       <Filter>Behaviours\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\TextRenderer.cpp">
+      <Filter>__Potato Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="UIManager.cpp">
+      <Filter>Behaviours\UI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -488,6 +497,21 @@
     </ClInclude>
     <ClInclude Include="BallEnemy.h">
       <Filter>Behaviours\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\TextRenderer.h">
+      <Filter>__Potato Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Font.h">
+      <Filter>__Potato Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\CollisionSystemSetup.h">
+      <Filter>__Potato Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="UIManager.h">
+      <Filter>Behaviours\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\PixelPosition.h">
+      <Filter>__Potato Engine</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

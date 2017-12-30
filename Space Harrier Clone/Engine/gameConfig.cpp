@@ -61,7 +61,7 @@ bool prefabsConfig()
 
 std::vector<std::string> renderLayersConfig()
 {
-	return std::vector<std::string>{"Background", "Shadows", "Main", "Foreground" };
+	return std::vector<std::string>{"Background", "Shadows", "Main", "Foreground", "UI" };
 }
 
 
@@ -180,5 +180,138 @@ std::vector<ObstacleSpawnInfo> getObstaclesSpawnInfo()
 	info.push_back(ObstacleSpawnInfo("RockPrefab", 3005, -0.30f, 1, 0.05f));
 
 	return info;
+}
+
+
+#include "Font.h"
+#include "PixelPosition.h"
+Font getFont(const std::string& fontName)
+{
+	Font font;
+
+	if (fontName == "lifeIcons")
+	{
+		font.path = "assets/sprites/UI.png";
+		font.characterWidth = 8;
+		font.characterHeight = 16;
+		font.charsTopLeftCorners['L'] = PixelPosition{ 0, 104 };
+		font.charsTopLeftCorners['l'] = PixelPosition{ 0, 104 };
+		font.charsTopLeftCorners['S'] = PixelPosition{ 8, 104 };
+		font.charsTopLeftCorners['s'] = PixelPosition{ 8, 104 };
+		return font;
+	}
+
+	bool foundSmall = false;
+	bool foundBig = false;
+	int widthFactor = 0;
+	int heightOffset = 0;
+
+	if (fontName.find("small") != std::string::npos)
+	{
+		font.path = "assets/sprites/UI.png";
+		font.characterWidth = 8;
+		font.characterHeight = 8;
+
+		foundSmall = true;
+		if (fontName == "smallGray")
+		{
+			heightOffset = 0;
+		}
+		else if (fontName == "smallPink")
+		{
+			heightOffset = 8;
+		}
+		else if (fontName == "smallRed")
+		{
+			heightOffset = 16;
+		}
+		else if (fontName == "smallGreen")
+		{
+			heightOffset = 24;
+		}
+		else if (fontName == "smallYellow")
+		{
+			heightOffset = 32;
+		}
+		else
+		{
+			foundSmall = false;
+		}
+	}
+	else if (fontName.find("big") != std::string::npos)
+	{
+		font.path = "../assets/sprites/UI.png";
+		font.characterWidth = 16;
+		font.characterHeight = 16;
+
+		foundBig = true;
+		if (fontName == "bigGray")
+		{
+			heightOffset = 40;
+		}
+		else if (fontName == "bigPink")
+		{
+			heightOffset = 72;
+		}
+		else
+		{
+			foundBig = false;
+		}
+	}
+
+	if (foundSmall || foundBig)
+	{
+		font.charsTopLeftCorners['0'] = PixelPosition{ font.characterWidth * widthFactor++, heightOffset };
+		font.charsTopLeftCorners['1'] = PixelPosition{ font.characterWidth * widthFactor++, heightOffset };
+		font.charsTopLeftCorners['2'] = PixelPosition{ font.characterWidth * widthFactor++, heightOffset };
+		font.charsTopLeftCorners['3'] = PixelPosition{ font.characterWidth * widthFactor++, heightOffset };
+		font.charsTopLeftCorners['4'] = PixelPosition{ font.characterWidth * widthFactor++, heightOffset };
+		font.charsTopLeftCorners['5'] = PixelPosition{ font.characterWidth * widthFactor++, heightOffset };
+		font.charsTopLeftCorners['6'] = PixelPosition{ font.characterWidth * widthFactor++, heightOffset };
+		font.charsTopLeftCorners['7'] = PixelPosition{ font.characterWidth * widthFactor++, heightOffset };
+		font.charsTopLeftCorners['8'] = PixelPosition{ font.characterWidth * widthFactor++, heightOffset };
+		font.charsTopLeftCorners['9'] = PixelPosition{ font.characterWidth * widthFactor++, heightOffset };
+		if (foundSmall)
+		{
+			font.charsTopLeftCorners['.'] = PixelPosition{ font.characterWidth * widthFactor++, heightOffset };
+			font.charsTopLeftCorners['!'] = PixelPosition{ font.characterWidth * widthFactor++, heightOffset };
+			font.charsTopLeftCorners['?'] = PixelPosition{ font.characterWidth * widthFactor++, heightOffset };
+		}
+		font.charsTopLeftCorners['A'] = PixelPosition{ font.characterWidth * widthFactor++, heightOffset };
+		font.charsTopLeftCorners['B'] = PixelPosition{ font.characterWidth * widthFactor++, heightOffset };
+		font.charsTopLeftCorners['C'] = PixelPosition{ font.characterWidth * widthFactor++, heightOffset };
+		font.charsTopLeftCorners['D'] = PixelPosition{ font.characterWidth * widthFactor++, heightOffset };
+		font.charsTopLeftCorners['E'] = PixelPosition{ font.characterWidth * widthFactor++, heightOffset };
+		font.charsTopLeftCorners['F'] = PixelPosition{ font.characterWidth * widthFactor++, heightOffset };
+		font.charsTopLeftCorners['G'] = PixelPosition{ font.characterWidth * widthFactor++, heightOffset };
+		font.charsTopLeftCorners['H'] = PixelPosition{ font.characterWidth * widthFactor++, heightOffset };
+		if (foundBig)
+		{
+			widthFactor = 0;
+			heightOffset += font.characterHeight;
+		}
+		font.charsTopLeftCorners['I'] = PixelPosition{ font.characterWidth * widthFactor++, heightOffset };
+		font.charsTopLeftCorners['J'] = PixelPosition{ font.characterWidth * widthFactor++, heightOffset };
+		font.charsTopLeftCorners['K'] = PixelPosition{ font.characterWidth * widthFactor++, heightOffset };
+		font.charsTopLeftCorners['L'] = PixelPosition{ font.characterWidth * widthFactor++, heightOffset };
+		font.charsTopLeftCorners['M'] = PixelPosition{ font.characterWidth * widthFactor++, heightOffset };
+		font.charsTopLeftCorners['N'] = PixelPosition{ font.characterWidth * widthFactor++, heightOffset };
+		font.charsTopLeftCorners['O'] = PixelPosition{ font.characterWidth * widthFactor++, heightOffset };
+		font.charsTopLeftCorners['P'] = PixelPosition{ font.characterWidth * widthFactor++, heightOffset };
+		font.charsTopLeftCorners['Q'] = PixelPosition{ font.characterWidth * widthFactor++, heightOffset };
+		font.charsTopLeftCorners['R'] = PixelPosition{ font.characterWidth * widthFactor++, heightOffset };
+		font.charsTopLeftCorners['S'] = PixelPosition{ font.characterWidth * widthFactor++, heightOffset };
+		font.charsTopLeftCorners['T'] = PixelPosition{ font.characterWidth * widthFactor++, heightOffset };
+		font.charsTopLeftCorners['U'] = PixelPosition{ font.characterWidth * widthFactor++, heightOffset };
+		font.charsTopLeftCorners['V'] = PixelPosition{ font.characterWidth * widthFactor++, heightOffset };
+		font.charsTopLeftCorners['W'] = PixelPosition{ font.characterWidth * widthFactor++, heightOffset };
+		font.charsTopLeftCorners['X'] = PixelPosition{ font.characterWidth * widthFactor++, heightOffset };
+		font.charsTopLeftCorners['Y'] = PixelPosition{ font.characterWidth * widthFactor++, heightOffset };
+		font.charsTopLeftCorners['Z'] = PixelPosition{ font.characterWidth * widthFactor++, heightOffset };
+
+		return font;
+	}
+	
+	return Font();
 }
 

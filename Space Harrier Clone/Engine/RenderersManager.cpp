@@ -113,8 +113,8 @@ void RenderersManager::update()
 	// Note: refreshRenderers ensures that all Reference in m_components are valid, so they can be safely used
 	refreshRenderers();
 
-	// Set Render Color to white
-	SDL_SetRenderDrawColor(m_renderer, 0, 0, 0, 0xFF);
+	// Set Render Color to black transparent
+	SDL_SetRenderDrawColor(m_renderer, 0, 0, 0, 0);
 
 	// Clear screen
 	SDL_RenderClear(m_renderer);

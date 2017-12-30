@@ -17,6 +17,7 @@
 #include "EnemySpawnInfo.h"
 #include "MotionPattern.h"
 #include "ObstacleSpawnInfo.h"
+#include "UIManager.h"
 
 
 bool GameScene::load()
@@ -108,8 +109,13 @@ bool GameScene::load()
 					backgroundScroller->init(floorManager, "assets/sprites/Background_lvl1_trees.png", 0.6f, -1);
 				}
 			}
-			
-			
+		}
+
+		auto uiGo = GameObject::createNew();
+		if (uiGo)
+		{
+			uiGo->transform->setWorldPosition(Vector2(0, 0));
+			uiGo->addComponent<UIManager>();
 		}
 	}
 

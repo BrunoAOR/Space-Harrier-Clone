@@ -310,10 +310,6 @@ void Player::postDieUpdate()
 		m_postDieElapsedTime = -(int)Time::deltaTime();
 		m_currentAnimation = "flyCenter";
 		m_spriteSheet->playAnimation(m_currentAnimation, 16.0f);
-		if (floorManager)
-		{
-			floorManager->freezeAtBottom = true;
-		}
 		// TODO: LOSE LIFE HERE
 	}
 	

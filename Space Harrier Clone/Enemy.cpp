@@ -53,6 +53,9 @@ void Enemy::init(int lifeTimeMS, const MotionPattern& motionPattern, const Refer
 		m_collider->zIndex = 0;
 	}
 	m_spriteSheet->setZIndex(0);
+
+	// Move out of screen prior to its first update
+	gameObject()->transform->setWorldPosition(Vector2(-1000, -1000));
 }
 
 

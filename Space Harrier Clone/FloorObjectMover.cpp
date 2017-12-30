@@ -59,6 +59,9 @@ void FloorObjectMover::init(const Reference<FloorManager>& floorManager, float s
 		m_collider->zIndex = 0;
 	}
 	m_renderer->setZIndex(0);
+
+	// Move out of screen prior to its first update
+	gameObject()->transform->setWorldPosition(Vector2(-1000, -1000));
 }
 
 
