@@ -10,7 +10,6 @@
 #include "FloorManager.h"
 #include "FloorObjectsFactory.h"
 #include "BackgroundScroller.h"
-#include "TimeLogger.h"
 #include "PlayerPrefab.h"
 #include "Player.h"
 #include "EnemiesFactory.h"
@@ -20,6 +19,7 @@
 #include "UIManager.h"
 
 
+#include "TimeLogger.h"
 bool GameScene::load()
 {
 	Audio::setSFXVolume(0.25f);
@@ -27,7 +27,7 @@ bool GameScene::load()
 	auto worldGO = GameObject::createNew();
 	if (worldGO)
 	{
-		//worldGO->addComponent<TimeLogger>();
+		worldGO->addComponent<TimeLogger>();
 		worldGO->transform->setWorldPosition(Vector2(SCREEN_WIDTH / 2.0f, 0));
 
 		auto floorManagerGo = GameObject::createNew();

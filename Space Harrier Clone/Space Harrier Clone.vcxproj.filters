@@ -55,6 +55,9 @@
     <Filter Include="Behaviours\UI">
       <UniqueIdentifier>{3cee5158-9b81-4ea1-b673-8492f59177d8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Scripts\MessengerSystem">
+      <UniqueIdentifier>{09742dd1-4d76-42fd-9e5a-6ff433479648}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine\API.cpp">
@@ -247,9 +250,6 @@
     <ClCompile Include="EnemyBallPrefab.cpp">
       <Filter>Prefabs\Enemies</Filter>
     </ClCompile>
-    <ClCompile Include="BallEnemy.cpp">
-      <Filter>Behaviours\Enemies</Filter>
-    </ClCompile>
     <ClCompile Include="BulletBouncer.cpp">
       <Filter>Behaviours\Enemies</Filter>
     </ClCompile>
@@ -258,6 +258,18 @@
     </ClCompile>
     <ClCompile Include="UIManager.cpp">
       <Filter>Behaviours\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Messenger.cpp">
+      <Filter>Scripts\MessengerSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="EnemyBall.cpp">
+      <Filter>Behaviours\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="EnemyShip.cpp">
+      <Filter>Behaviours\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="ObstaclePoints.cpp">
+      <Filter>Behaviours\Scenario</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -495,9 +507,6 @@
     <ClInclude Include="BulletBouncer.h">
       <Filter>Behaviours\Enemies</Filter>
     </ClInclude>
-    <ClInclude Include="BallEnemy.h">
-      <Filter>Behaviours\Enemies</Filter>
-    </ClInclude>
     <ClInclude Include="Engine\TextRenderer.h">
       <Filter>__Potato Engine</Filter>
     </ClInclude>
@@ -512,6 +521,24 @@
     </ClInclude>
     <ClInclude Include="Engine\PixelPosition.h">
       <Filter>__Potato Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Messenger.h">
+      <Filter>Scripts\MessengerSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="MessengerEventType.h">
+      <Filter>Scripts\MessengerSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyBall.h">
+      <Filter>Behaviours\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyShip.h">
+      <Filter>Behaviours\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="MessengerEventListener.h">
+      <Filter>Scripts\MessengerSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="ObstaclePoints.h">
+      <Filter>Behaviours\Scenario</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

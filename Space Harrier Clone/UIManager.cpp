@@ -9,6 +9,19 @@
 #include "Engine/TextRenderer.h"
 #include "Engine/Font.h"
 #include "Engine/API.h"
+#include "Messenger.h"
+#include "MessengerEventType.h"
+
+
+UIManager::~UIManager()
+{
+	Messenger::removeListener(this, MessengerEventType::PLAYER_LOSE_LIFE);
+	Messenger::removeListener(this, MessengerEventType::FLOOR_MOTION_STOPPED);
+	Messenger::removeListener(this, MessengerEventType::FLOOR_MOTION_RESUMED);
+	Messenger::removeListener(this, MessengerEventType::POINTS_5000);
+	Messenger::removeListener(this, MessengerEventType::POINTS_10000);
+}
+
 
 void UIManager::awake()
 {
@@ -127,8 +140,15 @@ void UIManager::awake()
 
 void UIManager::start()
 {
+	Messenger::addListener(this, MessengerEventType::PLAYER_LOSE_LIFE);
+	Messenger::addListener(this, MessengerEventType::FLOOR_MOTION_STOPPED);
+	Messenger::addListener(this, MessengerEventType::FLOOR_MOTION_RESUMED);
+	Messenger::addListener(this, MessengerEventType::POINTS_5000);
+	Messenger::addListener(this, MessengerEventType::POINTS_10000);
+
 	m_pointsPerStep = 10;
 	m_pointsStepsPerSecond = 15;
+	m_shouldAddPoints = true;
 	m_elapsedTime = 0;
 	m_pointsTimeLimit = 1000.0f / 15;
 
@@ -152,7 +172,10 @@ void UIManager::update()
 		updateScoreText();
 	}
 
-	m_elapsedTime += Time::deltaTime();
+	if (m_shouldAddPoints)
+	{
+		m_elapsedTime += Time::deltaTime();
+	}
 
 	if (Input::getKeyDown(SDL_SCANCODE_KP_PLUS))
 	{
@@ -166,6 +189,35 @@ void UIManager::update()
 		setLivesCount(getLivesCount() - 1);
 		setStageNumber(getStageNumber() - 1);
 	}
+}
+
+
+void UIManager::eventsCallback(MessengerEventType eventType)
+{
+	switch (eventType)
+	{
+	case MessengerEventType::PLAYER_LOSE_LIFE:
+		setLivesCount(getLivesCount() - 1);
+		break;
+	case MessengerEventType::PLAYER_DEAD:
+		break;
+	case MessengerEventType::FLOOR_MOTION_STOPPED:
+		m_shouldAddPoints = false;
+		break;
+	case MessengerEventType::FLOOR_MOTION_RESUMED:
+		m_shouldAddPoints = true;
+		break;
+	case MessengerEventType::POINTS_5000:
+		addPoints(5000);
+		break;
+	case MessengerEventType::POINTS_10000:
+		addPoints(10000);
+		break;
+	case MessengerEventType::BOSS_KILLED:
+		break;
+	default:
+		break;
+	}	
 }
 
 
@@ -259,4 +311,10 @@ void UIManager::updateLivesText()
 void UIManager::updateStageText()
 {
 	m_stageText->setText(std::to_string(m_currentStage));
+}
+
+void UIManager::addPoints(int pointsToAdd)
+{
+	m_currentScore += pointsToAdd;
+	updateScoreText();
 }

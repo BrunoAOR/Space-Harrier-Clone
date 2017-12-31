@@ -5,14 +5,14 @@
 #include "Engine/SpriteSheet.h"
 #include "Engine/Sprite.h"
 #include "Engine/RectangleCollider.h"
-#include "Enemy.h"
+#include "EnemyShip.h"
 #include "CollisionCallbackForwarder.h"
 #include "ExplosiveObject.h"
 
 
 void EnemyShipPrefab::configureGameObject(Reference<GameObject>& gameObject) const
 {
-	auto enemy = gameObject->addComponent<Enemy>();
+	auto enemy = gameObject->addComponent<EnemyShip>();
 	auto explosiveObject = gameObject->addComponent<ExplosiveObject>();
 	if (enemy && explosiveObject)
 	{

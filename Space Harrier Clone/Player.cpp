@@ -15,6 +15,8 @@
 #include "AnimationSection.h"
 #include "GameObjectPool.h"
 #include "PlayerShot.h"
+#include "Messenger.h"
+#include "MessengerEventType.h"
 
 
 Player::~Player()
@@ -310,7 +312,8 @@ void Player::postDieUpdate()
 		m_postDieElapsedTime = -(int)Time::deltaTime();
 		m_currentAnimation = "flyCenter";
 		m_spriteSheet->playAnimation(m_currentAnimation, 16.0f);
-		// TODO: LOSE LIFE HERE
+		
+		Messenger::broadcastEvent(MessengerEventType::PLAYER_LOSE_LIFE);
 	}
 	
 	// Limited motion
@@ -345,6 +348,7 @@ void Player::postDieUpdate()
 	if (floorManager)
 	{
 		floorManager->freezeAtBottom = false;
+		Messenger::broadcastEvent(MessengerEventType::FLOOR_MOTION_RESUMED);
 	}
 
 	move(normalizedRequestedX, normalizedRequestedY);
@@ -395,6 +399,7 @@ void Player::handleStateChangingCollision(ObjectEffectType oet)
 			{
 				floorManager->stopHorizontal = false;
 				floorManager->freezeAtBottom = true;
+				Messenger::broadcastEvent(MessengerEventType::FLOOR_MOTION_STOPPED);
 			}
 			m_state = PlayerState::DIE;
 			Audio::PlaySFX(m_sfxDie);

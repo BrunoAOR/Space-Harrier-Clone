@@ -9,6 +9,7 @@
 #include "ObjectEffectType.h"
 #include "CollisionCallbackForwarder.h"
 #include "ExplosiveObject.h"
+#include "ObstaclePoints.h"
 
 
 void RockPrefab::configureGameObject(Reference<GameObject>& gameObject) const
@@ -43,6 +44,12 @@ void RockPrefab::configureGameObject(Reference<GameObject>& gameObject) const
 			sprite->setClipRect(SDL_Rect{ 5, 5, 113, 76 });
 			sprite->setAllPivots(Vector2(0.5f, 0));
 			sprite->setRenderLayer("Main");
+		}
+
+		auto obstaclePoints = childGo->addComponent<ObstaclePoints>();
+		if (obstaclePoints)
+		{
+			obstaclePoints->bigPointsBonus = true;
 		}
 
 		auto rectColl = childGo->addComponent<RectangleCollider>();

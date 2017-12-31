@@ -7,6 +7,7 @@
 #include "FloorObjectMover.h"
 #include "ObjectEffectType.h"
 #include "ExplosiveObject.h"
+#include "ObstaclePoints.h"
 
 
 void TreePrefab::configureGameObject(Reference<GameObject>& gameObject) const
@@ -18,6 +19,12 @@ void TreePrefab::configureGameObject(Reference<GameObject>& gameObject) const
 		sprite->setClipRect(SDL_Rect{ 165, 5, 84, 178 });
 		sprite->setAllPivots(Vector2(0.5f, 0));
 		sprite->setRenderLayer("Main");
+	}
+
+	auto obstaclePoints = gameObject->addComponent<ObstaclePoints>();
+	if (obstaclePoints)
+	{
+		obstaclePoints->bigPointsBonus = false;
 	}
 
 	auto rectColl = gameObject->addComponent<RectangleCollider>();

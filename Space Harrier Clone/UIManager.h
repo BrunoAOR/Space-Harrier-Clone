@@ -2,18 +2,25 @@
 #define H_UI_MANAGER
 
 #include "Engine/Behaviour.h"
+#include "MessengerEventListener.h"
 #include "Engine/Reference.h"
 class Sprite;
 class TextRenderer;
 
 
 class UIManager :
-	public Behaviour
+	public Behaviour,
+	public MessengerEventListener
 {
 public:
+	virtual ~UIManager();
+
 	virtual void awake() override;
 	virtual void start() override;
 	virtual void update() override;
+
+	// Inherited via MessengerEventListener
+	virtual void eventsCallback(MessengerEventType eventType) override;
 
 	int getTopScore() const;
 	void setTopScore(int topScore);
@@ -28,6 +35,8 @@ private:
 	void updateLivesText();
 	void updateStageText();
 
+	void addPoints(int pointsToAdd);
+
 	// Constant UI
 	Reference<Sprite> m_topLabel;
 	Reference<Sprite> m_scoreLabel;
@@ -41,6 +50,7 @@ private:
 
 	int m_pointsPerStep;
 	int m_pointsStepsPerSecond;
+	bool m_shouldAddPoints;
 	float m_elapsedTime;
 	float m_pointsTimeLimit;
 

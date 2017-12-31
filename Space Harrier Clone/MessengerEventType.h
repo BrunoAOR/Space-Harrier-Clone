@@ -1,0 +1,13 @@
+#pragma once
+
+
+enum class MessengerEventType
+{
+	PLAYER_LOSE_LIFE,
+	PLAYER_DEAD,
+	FLOOR_MOTION_STOPPED,
+	FLOOR_MOTION_RESUMED,
+	POINTS_5000,
+	POINTS_10000,
+	BOSS_KILLED,
+};

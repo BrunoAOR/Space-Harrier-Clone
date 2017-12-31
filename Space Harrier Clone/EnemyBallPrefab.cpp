@@ -5,7 +5,7 @@
 #include "Engine/SpriteSheet.h"
 #include "Engine/Sprite.h"
 #include "Engine/RectangleCollider.h"
-#include "BallEnemy.h"
+#include "EnemyBall.h"
 #include "CollisionCallbackForwarder.h"
 #include "ExplosiveObject.h"
 #include "BulletBouncer.h"
@@ -13,7 +13,7 @@
 
 void EnemyBallPrefab::configureGameObject(Reference<GameObject>& gameObject) const
 {
-	auto enemy = gameObject->addComponent<BallEnemy>();
+	auto enemy = gameObject->addComponent<EnemyBall>();
 	auto explosiveObject = gameObject->addComponent<ExplosiveObject>();
 	auto bulletBouncer = gameObject->addComponent<BulletBouncer>();
 	if (enemy && explosiveObject)

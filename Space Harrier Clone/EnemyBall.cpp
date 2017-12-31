@@ -1,13 +1,17 @@
-#include "BallEnemy.h"
+#include "EnemyBall.h"
 
 #include <assert.h>
 #include "Engine/GameObject.h"
 #include "Engine/SpriteSheet.h"
+#include "Engine/Collider.h"
 #include "ExplosiveObject.h"
 #include "BulletBouncer.h"
+#include "PlayerShot.h"
+#include "Messenger.h"
+#include "MessengerEventType.h"
 
 
-void BallEnemy::init(int lifeTimeMS, const MotionPattern & motionPattern, const Reference<FloorManager>& floorManager, const Reference<Transform>& playerTransform, GameObjectPool * enemyShotPool, const SFX & sfxEnemyShot)
+void EnemyBall::init(int lifeTimeMS, const MotionPattern & motionPattern, const Reference<FloorManager>& floorManager, const Reference<Transform>& playerTransform, GameObjectPool * enemyShotPool, const SFX & sfxEnemyShot)
 {
 	Enemy::init(lifeTimeMS, motionPattern, floorManager, playerTransform, enemyShotPool, sfxEnemyShot);
 
@@ -29,7 +33,7 @@ void BallEnemy::init(int lifeTimeMS, const MotionPattern & motionPattern, const 
 }
 
 
-void BallEnemy::update()
+void EnemyBall::update()
 {
 	Enemy::update();
 	std::string currentAnimationName = m_spriteSheet->getCurrentAnimationName();
@@ -44,5 +48,13 @@ void BallEnemy::update()
 	{
 		m_explosiveObject->setActive(m_shootable);
 		m_bulletBouncer->setActive(!m_shootable);
+	}
+}
+
+void EnemyBall::onTriggerEnter(Reference<Collider>& other)
+{
+	if (m_shootable && other->gameObject()->getComponent<PlayerShot>())
+	{
+		Messenger::broadcastEvent(MessengerEventType::POINTS_10000);
 	}
 }

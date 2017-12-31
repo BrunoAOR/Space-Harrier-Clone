@@ -169,15 +169,20 @@ std::vector<EnemySpawnInfo> getEnemiesSpawnInfo()
 #include "../ObstacleSpawnInfo.h"
 std::vector<ObstacleSpawnInfo> getObstaclesSpawnInfo()
 {
+	float normSpawnY = 1.0f;
+	float normDespawnY = 0.05f;
+
 	std::vector<ObstacleSpawnInfo> info;
 
-	info.push_back(ObstacleSpawnInfo("SmallBushPrefab", 1733, -9.9f, 1, 0.05f));
-	info.push_back(ObstacleSpawnInfo("SmallBushPrefab", 2003, 13.85f, 1, 0.05f));
-	info.push_back(ObstacleSpawnInfo("SmallBushPrefab", 2272, 9.75f, 1, 0.05f));
-	info.push_back(ObstacleSpawnInfo("SmallBushPrefab", 2538, -0.50f, 1, 0.05f));
-	info.push_back(ObstacleSpawnInfo("SmallBushPrefab", 2867, 16.8f, 1, 0.05f));
-	info.push_back(ObstacleSpawnInfo("RockPrefab", 2935, -9.85f, 1, 0.05f));
-	info.push_back(ObstacleSpawnInfo("RockPrefab", 3005, -0.30f, 1, 0.05f));
+	info.push_back(ObstacleSpawnInfo("TreePrefab", 500, 5.0f, normSpawnY, normDespawnY));
+
+	info.push_back(ObstacleSpawnInfo("SmallBushPrefab", 1733, -9.9f, normSpawnY, normDespawnY));
+	info.push_back(ObstacleSpawnInfo("SmallBushPrefab", 2003, 13.85f, normSpawnY, normDespawnY));
+	info.push_back(ObstacleSpawnInfo("SmallBushPrefab", 2272, 9.75f, normSpawnY, normDespawnY));
+	info.push_back(ObstacleSpawnInfo("SmallBushPrefab", 2538, -0.50f, normSpawnY, normDespawnY));
+	info.push_back(ObstacleSpawnInfo("SmallBushPrefab", 2867, 16.8f, normSpawnY, normDespawnY));
+	info.push_back(ObstacleSpawnInfo("RockPrefab", 2935, -9.85f, normSpawnY, normDespawnY));
+	info.push_back(ObstacleSpawnInfo("RockPrefab", 3005, -0.30f, normSpawnY, normDespawnY));
 
 	return info;
 }
