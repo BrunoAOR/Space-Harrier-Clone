@@ -84,7 +84,6 @@ void UIManager::awake()
 		bool success = m_scoreText->loadFont(getFont("smallGreen"));
 		assert(success);
 		m_scoreText->setAllPivots(Vector2(1, 1));
-		m_scoreText->setText("");
 	}
 
 	// m_lifesValue
@@ -100,7 +99,6 @@ void UIManager::awake()
 		bool success = m_lifesText->loadFont(getFont("lifeIcons"));
 		assert(success);
 		m_lifesText->setAllPivots(Vector2(0, 0));
-		m_lifesText->setText("");
 	}
 
 	// m_stageLabel;
@@ -133,7 +131,6 @@ void UIManager::awake()
 		bool success = m_stageText->loadFont(getFont("smallGray"));
 		assert(success);
 		m_stageText->setAllPivots(Vector2(1, 0));
-		m_stageText->setText("");
 	}
 }
 
@@ -154,7 +151,7 @@ void UIManager::start()
 
 	m_currentTopScore = 1000000;
 	m_currentScore = 0;
-	m_currentLives = 5;
+	m_currentLives = initial_player_lives;
 	m_currentStage = 1;
 	updateTopScoreText();
 	updateScoreText();

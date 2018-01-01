@@ -13,13 +13,17 @@ const int SCREEN_HEIGHT = 224;
 const int POST_DIE_BLINK_CYCLE_DURATION = 150;
 const int POST_DIE_BLINK_FLOOR_CYCLE_COUNT = 7;
 const int POST_DIE_BLINK_FREE_CYCLE_COUNT = 15;
+int initial_player_lives = 3;
 
+
+#include "../HomeScene.h"
 #include "../GameScene.h"
 bool scenesConfig()
 {
 	// Success flag
 	bool success = true;
 
+	success &= engine->sceneManager->addScene<HomeScene>();
 	success &= engine->sceneManager->addScene<GameScene>();
 	if (success)
 	{

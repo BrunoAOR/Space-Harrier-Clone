@@ -58,6 +58,9 @@
     <Filter Include="Scripts\MessengerSystem">
       <UniqueIdentifier>{09742dd1-4d76-42fd-9e5a-6ff433479648}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Behaviours\HomeScene">
+      <UniqueIdentifier>{39f99ccb-31dd-43b5-ad24-b628a365044f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine\API.cpp">
@@ -270,6 +273,12 @@
     </ClCompile>
     <ClCompile Include="ObstaclePoints.cpp">
       <Filter>Behaviours\Scenario</Filter>
+    </ClCompile>
+    <ClCompile Include="HomeScene.cpp">
+      <Filter>Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="HomeSceneManager.cpp">
+      <Filter>Behaviours\HomeScene</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -539,6 +548,12 @@
     </ClInclude>
     <ClInclude Include="ObstaclePoints.h">
       <Filter>Behaviours\Scenario</Filter>
+    </ClInclude>
+    <ClInclude Include="HomeScene.h">
+      <Filter>Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="HomeSceneManager.h">
+      <Filter>Behaviours\HomeScene</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

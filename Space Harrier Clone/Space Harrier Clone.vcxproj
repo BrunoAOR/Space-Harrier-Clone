@@ -73,6 +73,8 @@
     <ClCompile Include="FloorWarpController.cpp" />
     <ClCompile Include="GameObjectPool.cpp" />
     <ClCompile Include="GameScene.cpp" />
+    <ClCompile Include="HomeScene.cpp" />
+    <ClCompile Include="HomeSceneManager.cpp" />
     <ClCompile Include="Messenger.cpp" />
     <ClCompile Include="MotionPattern.cpp" />
     <ClCompile Include="MotionPatternPoint.cpp" />
@@ -111,6 +113,8 @@
     <ClInclude Include="Engine\Font.h" />
     <ClInclude Include="Engine\PixelPosition.h" />
     <ClInclude Include="Engine\TextRenderer.h" />
+    <ClInclude Include="HomeScene.h" />
+    <ClInclude Include="HomeSceneManager.h" />
     <ClInclude Include="MessengerEventListener.h" />
     <ClInclude Include="Explosion.h" />
     <ClInclude Include="ExplosiveObject.h" />
