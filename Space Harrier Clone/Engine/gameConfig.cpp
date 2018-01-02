@@ -73,7 +73,7 @@ bool prefabsConfig()
 
 std::vector<std::string> renderLayersConfig()
 {
-	return std::vector<std::string>{"Background", "Shadows", "Main", "Foreground", "UI" };
+	return std::vector<std::string>{"Background", "Shadows", "Main", "EnemyShots", "Foreground", "UI" };
 }
 
 
@@ -347,15 +347,31 @@ Boss1ChainConfig getBoss1ChainConfig()
 	// Position motion
 	b1cc.minXAxisDistance = 0;
 	b1cc.maxXAxisDistance = 200.0f;
-	b1cc.maxXDifferencePerSecond = 60.0f;
+	b1cc.maxXDifferencePerSecond = 200;
 	b1cc.minYPos = 30.0f;
 	b1cc.maxYPos = 200.0f;
 
 	// Depth motion
 	// Note: 0 progress means that the object is the furthest from the player (the player is at 0.95)
-	b1cc.minNormalizedProgress = 0.2f;
+	b1cc.minNormalizedProgress = 0.3f;
 	b1cc.maxNormalizedProgress = 0.9f;
 	b1cc.depthCycleTimeMS = 8000;
+
+	// Shooting
+	b1cc.shotsSpreadDistance = 15;
+	b1cc.normalizedCycleShootingTimes.push_back(0.13f);
+	b1cc.normalizedCycleShootingTimes.push_back(0.14f);
+	b1cc.normalizedCycleShootingTimes.push_back(0.15f);
+	b1cc.normalizedCycleShootingTimes.push_back(0.16f);
+	b1cc.normalizedCycleShootingTimes.push_back(0.17f);
+	b1cc.normalizedCycleShootingTimes.push_back(0.18f);
+
+	b1cc.normalizedCycleShootingTimes.push_back(0.33f);
+	b1cc.normalizedCycleShootingTimes.push_back(0.34f);
+	b1cc.normalizedCycleShootingTimes.push_back(0.35f);
+	b1cc.normalizedCycleShootingTimes.push_back(0.36f);
+	b1cc.normalizedCycleShootingTimes.push_back(0.37f);
+	b1cc.normalizedCycleShootingTimes.push_back(0.38f);
 
 	return b1cc;
 }

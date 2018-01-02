@@ -14,6 +14,7 @@
 #include "PlayerShot.h"
 #include "Boss1ChainLink.h"
 #include "Explosion.h"
+#include "EnemyShot.h"
 
 
 void Boss1::onDestroy()
@@ -97,6 +98,8 @@ void Boss1::start()
 	m_spriteSetsCount = 7;
 
 	m_sideFlipFactor = 1;
+	m_nextShotIndex = 0;
+	m_lastCycleTime = -1;
 }
 
 
@@ -109,9 +112,12 @@ void Boss1::update()
 	}
 
 	int cycleElapsedTime = m_elapsedTime % m_chainConfig.depthCycleTimeMS;
+	float u = (float)cycleElapsedTime / m_chainConfig.depthCycleTimeMS;
+
+	// Shooting
+	shoot(cycleElapsedTime);
 
 	// DEPTH
-	float u = (float)cycleElapsedTime / m_chainConfig.depthCycleTimeMS;
 	float currentNormalizedProgress;
 	// Moving towards the FRONT
 	if (cycleElapsedTime < 0.5f * m_chainConfig.depthCycleTimeMS)
@@ -130,15 +136,15 @@ void Boss1::update()
 		halfCycleU -= 1;
 		currentNormalizedProgress = (1 - halfCycleU) * m_chainConfig.maxNormalizedProgress + halfCycleU * m_chainConfig.minNormalizedProgress;
 	}
-	float currentnormalizedDepth = m_floorManager->getNormalizedYPos(currentNormalizedProgress);
-	m_absoluteDepth = currentnormalizedDepth * m_floorManager->getCurrentFloorHeight();
+	m_currentnormalizedDepth = m_floorManager->getNormalizedYPos(currentNormalizedProgress);
+	m_absoluteDepth = m_currentnormalizedDepth * m_floorManager->getCurrentFloorHeight();
 
 	// Set Scale
-	m_scale.x = m_scale.y = 1 - currentnormalizedDepth;
+	m_scale.x = m_scale.y = 1 - m_currentnormalizedDepth;
 	gameObject()->transform->setLocalScale(m_scale);
 	
 	// Set z-indexes (There's no need to update the shadow's zIndex)
-	m_zIndex = (int)((1 - currentnormalizedDepth) * 100);
+	m_zIndex = (int)((1 - m_currentnormalizedDepth) * 100);
 	m_headSprite->setZIndex(m_zIndex);
 	m_collider->zIndex = m_zIndex;
 
@@ -147,7 +153,7 @@ void Boss1::update()
 	// Left-Right
 	float xHalfRange = 0.5f * (m_chainConfig.maxXAxisDistance - m_chainConfig.minXAxisDistance);
 	m_xPos = 0.5f * (m_chainConfig.minXAxisDistance + m_chainConfig.maxXAxisDistance) + xHalfRange * sinf(u * (5.5f * (float)M_PI));
-	m_xPos *= (1 - currentnormalizedDepth);	// xPos must be scaled, because it is applied to the parent GameObject
+	m_xPos *= (1 - m_currentnormalizedDepth);	// xPos must be scaled, because it is applied to the parent GameObject
 	
 	// Avoid the player side
 	float playerNormXPos = (m_playerTransform->getWorldPosition().x - SCREEN_WIDTH / 2.0f) / SCREEN_WIDTH;
@@ -168,7 +174,8 @@ void Boss1::update()
 	float previousXPos = gameObject()->transform->getLocalPosition().x;
 
 	float xPosDifference = m_xPos - previousXPos;
-	float maxXDifferenceInFrame = m_chainConfig.maxXDifferencePerSecond * Time::deltaTime() / 1000.0f;
+	// Account for scale
+	float maxXDifferenceInFrame = gameObject()->transform->getLocalScale().x * m_chainConfig.maxXDifferencePerSecond * Time::deltaTime() / 1000.0f;
 
 	if (fabs(xPosDifference) > maxXDifferenceInFrame)
 	{
@@ -227,6 +234,53 @@ void Boss1::faceDirection(bool toFront, bool forceUpdate)
 	{
 		m_headSprite->setClipRect(SDL_Rect{ 75, 10 + m_currentSpritesSet * 110, 70, 108 });
 	}
+}
+
+
+void Boss1::shoot(int cycleTime)
+{
+	if (cycleTime < m_lastCycleTime)
+	{
+		m_cycleShotsDone = false;
+	}
+
+	float nextTime = m_chainConfig.depthCycleTimeMS * m_chainConfig.normalizedCycleShootingTimes[m_nextShotIndex];
+
+	if (!m_cycleShotsDone && cycleTime >= nextTime)
+	{
+		++m_nextShotIndex;
+		if (m_nextShotIndex >= (int)m_chainConfig.normalizedCycleShootingTimes.size())
+		{
+			m_cycleShotsDone = true;
+			m_nextShotIndex = 0;
+		}
+
+		auto shotGo = m_shotsPool->getGameObject();
+		assert(shotGo);
+		{
+			shotGo->setActive(true);
+			Reference<EnemyShot> shot = shotGo->getComponent<EnemyShot>();
+			assert(shot);
+			Vector2 currPos = m_headSprite->gameObject()->transform->getWorldPosition();
+			// The shot is lifted to the mouth of the dragon head (consider scale)
+			currPos.y += m_headSprite->gameObject()->transform->getLocalScale().y * 15.0f;
+
+			Vector2 targetPos = m_playerTransform->getWorldPosition();
+			// The target is lifted to the approximate center of the character
+			targetPos.y += 30;
+
+			// Pseudo-random shot spread (time-based)
+			float xNormSpread = 2 * (Time::time() % 25) / 25.0f - 1;
+			float yNormSpread = 2 * (Time::time() % 100) / 100.0f - 1;
+
+			targetPos.x += m_chainConfig.shotsSpreadDistance * xNormSpread;
+			targetPos.y += m_chainConfig.shotsSpreadDistance * yNormSpread;
+
+			shot->init(m_floorManager, currPos, m_currentnormalizedDepth, targetPos, 0.95f);
+			Audio::PlaySFX(m_sfxBossShot);
+		}
+	}
+	m_lastCycleTime = cycleTime;
 }
 
 

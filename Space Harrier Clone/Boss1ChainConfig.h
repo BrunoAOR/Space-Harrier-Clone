@@ -1,6 +1,8 @@
 #ifndef H_BOSS_1_CHAIN_CONFIG
 #define H_BOSS_1_CHAIN_CONFIG
 
+#include <vector>
+
 
 struct Boss1ChainConfig
 {
@@ -19,6 +21,10 @@ struct Boss1ChainConfig
 	float minNormalizedProgress;
 	float maxNormalizedProgress;
 	int depthCycleTimeMS;
+
+	// Shooting
+	int shotsSpreadDistance;
+	std::vector<float> normalizedCycleShootingTimes;
 };
 
 

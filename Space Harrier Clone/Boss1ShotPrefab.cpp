@@ -23,7 +23,7 @@ void Boss1ShotPrefab::configureGameObject(Reference<GameObject>& gameObject) con
 		{
 			spriteSheet->loadImage("assets/sprites/Boss_lvl1.png");
 			spriteSheet->setAllPivots(Vector2(0.5f, 0.5f));
-			spriteSheet->setRenderLayer("Main");
+			spriteSheet->setRenderLayer("EnemyShots");
 
 			spriteSheet->addAnimation("shot");
 			spriteSheet->addRectForAnimation("shot", Vector2(340, 425), 54, 53);

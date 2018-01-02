@@ -28,6 +28,7 @@ public:
 
 private:
 	void faceDirection(bool toFront, bool forceUpdate = false);
+	void shoot(int cycleTime);
 	void die();
 
 	Reference<FloorManager> m_floorManager;
@@ -45,16 +46,21 @@ private:
 
 	int m_elapsedTime;
 	bool m_facingFront;
+
+	// Shooting
+	int m_nextShotIndex;
+	bool m_cycleShotsDone;
+	int m_lastCycleTime;
 	
+	// Position information
 	float m_xPos;
 	float m_yPos;
 	float m_absoluteDepth;
 	int m_zIndex;
 	Vector2 m_scale;
 
-	// Position information
-	Vector2 m_currentPosition;
-	float m_normalizedDepth;
+	float m_currentnormalizedDepth;
+
 	int m_sideFlipFactor;
 
 	Boss1ChainConfig m_chainConfig;

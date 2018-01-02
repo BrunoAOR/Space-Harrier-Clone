@@ -109,7 +109,8 @@ void Boss1ChainLink::update()
 	float previousXPos = gameObject()->transform->getLocalPosition().x;
 
 	float xPosDifference = m_xPos - previousXPos;
-	float maxXDifferenceInFrame = m_chainConfig.maxXDifferencePerSecond * Time::deltaTime() / 1000.0f;
+	// Account for scale
+	float maxXDifferenceInFrame = gameObject()->transform->getLocalScale().x * m_chainConfig.maxXDifferencePerSecond * Time::deltaTime() / 1000.0f;
 
 	if (fabs(xPosDifference) > maxXDifferenceInFrame)
 	{

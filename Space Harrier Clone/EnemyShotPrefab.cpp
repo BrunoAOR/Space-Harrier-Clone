@@ -23,7 +23,7 @@ void EnemyShotPrefab::configureGameObject(Reference<GameObject>& gameObject) con
 		{
 			spriteSheet->loadImage("assets/sprites/Enemies.png");
 			spriteSheet->setAllPivots(Vector2(0.5f, 0.5f));
-			spriteSheet->setRenderLayer("Main");
+			spriteSheet->setRenderLayer("EnemyShots");
 
 			spriteSheet->addAnimation("shot");
 			spriteSheet->addRectForAnimation("shot", Vector2(5, 5), 68, 68);
