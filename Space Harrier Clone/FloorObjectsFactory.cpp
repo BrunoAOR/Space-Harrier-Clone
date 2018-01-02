@@ -16,7 +16,7 @@
 #include "ObstacleSpawnInfo.h"
 
 
-FloorObjectsFactory::~FloorObjectsFactory()
+void FloorObjectsFactory::onDestroy()
 {
 	for (auto it = m_prefabPools.begin(); it != m_prefabPools.end(); ++it)
 	{
@@ -117,6 +117,5 @@ void FloorObjectsFactory::setupNextSpawnInfo()
 		m_nextSpawnIndex = -1;
 		m_nextSpawnTime = -1;
 		m_elapsedTime = 0;
-		setupNextSpawnInfo();
 	}
 }

@@ -13,7 +13,7 @@
 #include "MessengerEventType.h"
 
 
-UIManager::~UIManager()
+void UIManager::onDestroy()
 {
 	Messenger::removeListener(this, MessengerEventType::PLAYER_LOSE_LIFE);
 	Messenger::removeListener(this, MessengerEventType::FLOOR_MOTION_STOPPED);

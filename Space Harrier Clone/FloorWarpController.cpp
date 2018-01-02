@@ -7,16 +7,6 @@
 #include "FloorManager.h"
 
 
-FloorWarpController::FloorWarpController()
-{
-}
-
-
-FloorWarpController::~FloorWarpController()
-{
-}
-
-
 void FloorWarpController::init(FloorManager* floorManager, const std::string& texturePath, int floorLinesCount, float horScrollSpeed, int horScrollWrapLimit)
 {
 	m_floorManager = floorManager;

@@ -41,7 +41,7 @@ void FloorObjectMover::init(const Reference<FloorManager>& floorManager, float s
 			m_renderer = gameObject()->getComponentInChildren<Renderer>();
 		}
 	}
-	assert(m_floorManager && m_poolHandler && m_renderer && m_floorObjectType != ObjectEffectType::UNDEFINED && m_poolHandler);
+	assert(m_floorManager && m_renderer && m_floorObjectType != ObjectEffectType::UNDEFINED);
 	
 	m_startXPos = startXPos;
 	m_normalizedStartProgress = normalizedStartProgress;
@@ -93,7 +93,14 @@ void FloorObjectMover::update()
 	// Destroy gameObject if motion is finished
 	if (normalizedCurrentProgress > m_normalizedEndProgress)
 	{
-		m_poolHandler->returnToPool();
+		if (m_poolHandler)
+		{
+			m_poolHandler->returnToPool();
+		}
+		else
+		{
+			GameObject::destroy(gameObject());
+		}
 		return;
 	}
 

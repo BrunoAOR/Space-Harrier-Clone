@@ -21,6 +21,7 @@ public:
 	virtual void awake();
 	virtual void start();
 	virtual void update();
+	virtual void onDestroy();
 	// Collisions related
 	virtual void onCollision(CollisionInfo& info);
 	virtual void onTriggerEnter(Reference<Collider>& other);

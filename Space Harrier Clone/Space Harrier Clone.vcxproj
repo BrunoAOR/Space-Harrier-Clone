@@ -20,6 +20,12 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BackgroundScroller.cpp" />
+    <ClCompile Include="Boss1.cpp" />
+    <ClCompile Include="Boss1ChainLink.cpp" />
+    <ClCompile Include="Boss1ChainLinkPrefab.cpp" />
+    <ClCompile Include="Boss1ExplosionPrefab.cpp" />
+    <ClCompile Include="Boss1Prefab.cpp" />
+    <ClCompile Include="Boss1ShotPrefab.cpp" />
     <ClCompile Include="EnemyBall.cpp" />
     <ClCompile Include="BigBushPrefab.cpp" />
     <ClCompile Include="BulletBouncer.cpp" />
@@ -96,6 +102,13 @@
   <ItemGroup>
     <ClInclude Include="AnimationSection.h" />
     <ClInclude Include="BackgroundScroller.h" />
+    <ClInclude Include="Boss1.h" />
+    <ClInclude Include="Boss1ChainLink.h" />
+    <ClInclude Include="Boss1ChainLinkPrefab.h" />
+    <ClInclude Include="Boss1ExplosionPrefab.h" />
+    <ClInclude Include="Boss1Prefab.h" />
+    <ClInclude Include="Boss1ChainConfig.h" />
+    <ClInclude Include="Boss1ShotPrefab.h" />
     <ClInclude Include="EnemyBall.h" />
     <ClInclude Include="BigBushPrefab.h" />
     <ClInclude Include="BulletBouncer.h" />

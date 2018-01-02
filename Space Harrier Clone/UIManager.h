@@ -13,7 +13,7 @@ class UIManager :
 	public MessengerEventListener
 {
 public:
-	virtual ~UIManager();
+	virtual void onDestroy() override;
 
 	virtual void awake() override;
 	virtual void start() override;

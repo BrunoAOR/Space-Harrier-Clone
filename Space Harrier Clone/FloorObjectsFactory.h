@@ -17,7 +17,7 @@ class FloorObjectsFactory :
 	public Behaviour
 {
 public:
-	~FloorObjectsFactory();
+	virtual void onDestroy() override;
 	
 	void init(const Reference<FloorManager>& floorManager, const std::vector<ObstacleSpawnInfo>& spawnInfos);
 	virtual void start() override;

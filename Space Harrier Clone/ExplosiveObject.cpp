@@ -64,8 +64,8 @@ void ExplosiveObject::onTriggerEnter(Reference<Collider>& other)
 				{
 					m_enemy->setupExplosion(explosion);
 				}
+				explosionGO->setActive(true);
 			}
-			explosionGO->setActive(true);
 			Audio::PlaySFX(m_sfxExplosion);
 		}
 

@@ -33,6 +33,11 @@ void Behaviour::update()
 }
 
 
+void Behaviour::onDestroy()
+{
+}
+
+
 void Behaviour::onCollision(CollisionInfo& info)
 {
 }

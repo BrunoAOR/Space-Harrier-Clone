@@ -47,7 +47,6 @@ void PlayerShot::init(const Reference<FloorManager>& floorManager, Vector2 start
 	int widthClearance = m_spriteSheet->getCurrentAnimationFrameWidth() + SCREEN_WIDTH;
 	int heightClearance = m_spriteSheet->getCurrentAnimationFrameHeight() + SCREEN_HEIGHT;
 	m_bounceClearanceDistance = sqrtf((float)(widthClearance * widthClearance + heightClearance * heightClearance));
-
 }
 
 
@@ -66,16 +65,10 @@ void PlayerShot::update()
 	{
 		fly();
 	}
-	
 
 	m_elapsedTime += Time::deltaTime();
 }
 
-
-void PlayerShot::onTriggerEnter(Reference<Collider>& other)
-{
-	// TODO: Add points here
-}
 
 void PlayerShot::bounceOut()
 {

@@ -8,6 +8,7 @@
 #include "Engine/Vector2.h"
 #include "Engine/gameConfig.h"
 #include "FloorManager.h"
+#include "DarkLineinfo.h"
 #include "FloorObjectsFactory.h"
 #include "BackgroundScroller.h"
 #include "PlayerPrefab.h"
@@ -27,7 +28,7 @@ bool GameScene::load()
 	auto worldGO = GameObject::createNew();
 	if (worldGO)
 	{
-		worldGO->addComponent<TimeLogger>();
+		//worldGO->addComponent<TimeLogger>();
 		worldGO->transform->setWorldPosition(Vector2(SCREEN_WIDTH / 2.0f, 0));
 
 		auto floorManagerGo = GameObject::createNew();

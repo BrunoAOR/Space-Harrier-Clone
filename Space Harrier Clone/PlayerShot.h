@@ -16,7 +16,6 @@ class PlayerShot :
 public:
 	void init(const Reference<FloorManager>& floorManager, Vector2 startPos);
 	virtual void update() override;
-	virtual void onTriggerEnter(Reference<Collider>& other) override;
 	void bounceOut();
 	void destroy();
 

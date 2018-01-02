@@ -3,6 +3,7 @@
 #include "EngineUtils.h"
 #include "GameObject.h"
 #include "Transform.h"
+#include "Behaviour.h"
 
 
 GameObjectsManager::GameObjectsManager()
@@ -34,6 +35,10 @@ void GameObjectsManager::destroyGameObject(Reference<GameObject>& gameObject)
 {
 	// Check if the gameObject hasn't already been added to the list
 	if (EngineUtils::indexOf(m_gosToDestroy, gameObject) == -1) {
+		for (Reference<Behaviour>& behaviour : gameObject->getComponents<Behaviour>())
+		{
+			behaviour->onDestroy();
+		}
 		m_gosToDestroy.push_back(gameObject);
 	}
 }
@@ -41,7 +46,12 @@ void GameObjectsManager::destroyGameObject(Reference<GameObject>& gameObject)
 
 void GameObjectsManager::destroyAllGameObjects()
 {
-	m_gameObjects.clear();
+	refreshGameObjects();
+	for (ReferenceOwner<GameObject>& go : m_gameObjects)
+	{
+		destroyGameObject(go);
+	}
+	refreshGameObjects();
 }
 
 

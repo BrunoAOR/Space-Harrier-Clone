@@ -18,7 +18,7 @@ class EnemiesFactory :
 	public Behaviour
 {
 public:
-	~EnemiesFactory();
+	virtual void onDestroy();
 
 	void init(const Reference<Transform>& playerTransform, const Reference<FloorManager>& floorManager, const std::vector<EnemySpawnInfo>& spawnInfos, const std::vector<MotionPattern>& motionPAtterns);
 	virtual void start() override;
@@ -26,6 +26,7 @@ public:
 
 private:
 	void spawnEnemy();
+	void spawnBoss();
 	void setupNextSpawnInfo();
 
 	Reference<Transform> m_playerTransform;

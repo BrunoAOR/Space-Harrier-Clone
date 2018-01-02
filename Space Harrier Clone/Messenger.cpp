@@ -8,16 +8,6 @@
 std::map<MessengerEventType, std::list<MessengerEventListener*>> Messenger::m_listenersMap;
 
 
-Messenger::Messenger()
-{
-}
-
-
-Messenger::~Messenger()
-{
-}
-
-
 bool Messenger::addListener(MessengerEventListener * listener, MessengerEventType eventType)
 {
 	if (m_listenersMap.count(eventType) == 0)

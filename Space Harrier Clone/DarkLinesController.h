@@ -10,9 +10,6 @@ struct DarkLineInfo;
 class DarkLinesController
 {
 public:
-	DarkLinesController();
-	~DarkLinesController();
-
 	void init(FloorManager* floorManager, int darkLinesCount, float cycleDuration);
 
 	void scrollDarkLinesVertical(int targetFloorHeight, bool scaleOnly = false);

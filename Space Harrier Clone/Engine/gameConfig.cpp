@@ -43,6 +43,10 @@ bool scenesConfig()
 #include "../EnemyShotPrefab.h"
 #include "../EnemyShipPrefab.h"
 #include "../EnemyBallPrefab.h"
+#include "../Boss1ShotPrefab.h"
+#include "../Boss1Prefab.h"
+#include "../Boss1ChainLinkPrefab.h"
+#include "../Boss1ExplosionPrefab.h"
 bool prefabsConfig()
 {
 	// Success flag
@@ -58,6 +62,10 @@ bool prefabsConfig()
 	success &= engine->prefabsFactory->addPrefab<EnemyShotPrefab>("EnemyShotPrefab");
 	success &= engine->prefabsFactory->addPrefab<EnemyShipPrefab>("EnemyShipPrefab");
 	success &= engine->prefabsFactory->addPrefab<EnemyBallPrefab>("EnemyBallPrefab");
+	success &= engine->prefabsFactory->addPrefab<Boss1ShotPrefab>("Boss1ShotPrefab");
+	success &= engine->prefabsFactory->addPrefab<Boss1Prefab>("Boss1Prefab");
+	success &= engine->prefabsFactory->addPrefab<Boss1ChainLinkPrefab>("Boss1ChainLinkPrefab");
+	success &= engine->prefabsFactory->addPrefab<Boss1ExplosionPrefab>("Boss1ExplosionPrefab");
 
 	return success;
 }
@@ -165,6 +173,8 @@ std::vector<EnemySpawnInfo> getEnemiesSpawnInfo()
 	info.push_back(EnemySpawnInfo("EnemyShipPrefab", 3000, 4000, 1, "assets/audio/sfx/SFX - Spawn_Ship.wav"));
 	
 	info.push_back(EnemySpawnInfo("EnemyBallPrefab", 3000, 6000, 2, "assets/audio/sfx/SFX - Spawn_Ball.wav"));
+	
+	info.push_back(EnemySpawnInfo("Boss1Prefab", 8000, -1, -1, ""));
 
 	return info;
 }
@@ -322,5 +332,31 @@ Font getFont(const std::string& fontName)
 	}
 	
 	return Font();
+}
+
+
+#include "../Boss1ChainConfig.h"
+Boss1ChainConfig getBoss1ChainConfig()
+{
+	Boss1ChainConfig b1cc;
+
+	b1cc.chainLength = 9;
+	b1cc.chainDelay = 100;
+	b1cc.deathDelay = 300;
+
+	// Position motion
+	b1cc.minXAxisDistance = 0;
+	b1cc.maxXAxisDistance = 200.0f;
+	b1cc.maxXDifferencePerSecond = 60.0f;
+	b1cc.minYPos = 30.0f;
+	b1cc.maxYPos = 200.0f;
+
+	// Depth motion
+	// Note: 0 progress means that the object is the furthest from the player (the player is at 0.95)
+	b1cc.minNormalizedProgress = 0.2f;
+	b1cc.maxNormalizedProgress = 0.9f;
+	b1cc.depthCycleTimeMS = 8000;
+
+	return b1cc;
 }
 

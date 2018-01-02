@@ -12,7 +12,7 @@ class Explosion :
 	public Behaviour
 {
 public:
-	void init(const Reference<FloorManager>& floorManager, float startXPos, float normalizedStartProgress, float normalizedEndProgress, float startScale, float endScale);
+	void init(const Reference<FloorManager>& floorManager, float startXPos, float normalizedStartProgress, float normalizedEndProgress, float startScale, float endScale, bool shouldLoopAnimation = false);
 
 private:
 	Reference<FloorObjectMover> m_floorObjectMover;

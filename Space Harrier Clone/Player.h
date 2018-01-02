@@ -23,7 +23,7 @@ class Player :
 	public Behaviour
 {
 public:
-	~Player();
+	virtual void onDestroy() override;
 
 	void init(const Reference<GameObject>& characterGo, const Reference<GameObject>& shadowGo);
 	virtual void start() override;

@@ -8,16 +8,6 @@
 #include "DarkLineInfo.h"
 
 
-DarkLinesController::DarkLinesController()
-{
-}
-
-
-DarkLinesController::~DarkLinesController()
-{
-}
-
-
 void DarkLinesController::init(FloorManager* floorManager, int darkLinesCount, float cycleDuration)
 {
 	floorManager = floorManager;

@@ -11,9 +11,6 @@ class FloorManager;
 class FloorWarpController
 {
 public:
-	FloorWarpController();
-	~FloorWarpController();
-
 	void init(FloorManager* floorManager, const std::string& texturePath, int floorLinesCount, float horScrollSpeed, int horScrollWrapLimit);
 	void scrollFloorHorizontal(float normalizedSpeed);
 	void scaleFloorVertical(int targetFloorHeight);

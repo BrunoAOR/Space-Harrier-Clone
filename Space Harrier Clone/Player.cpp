@@ -19,7 +19,7 @@
 #include "MessengerEventType.h"
 
 
-Player::~Player()
+void Player::onDestroy()
 {
 	delete m_dieAnimation;
 	m_dieAnimation = nullptr;
@@ -150,6 +150,10 @@ void Player::handleInput(float & normalizedRequestedX, float & normalizedRequest
 	if (Input::getKeyDown(SDL_SCANCODE_2))
 	{
 		Audio::PlayMusic(m_m2);
+	}
+	if (Input::getKeyDown(SDL_SCANCODE_0))
+	{
+		Scenes::loadScene(0);
 	}
 
 	// Motion

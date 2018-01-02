@@ -9,6 +9,7 @@ struct CollisionSystemSetup;
 struct EnemySpawnInfo;
 struct ObstacleSpawnInfo;
 struct Font;
+struct Boss1ChainConfig;
 
 
 extern const int SCREEN_WIDTH;
@@ -30,6 +31,7 @@ std::vector<MotionPattern> getMotionPatterns();
 std::vector<EnemySpawnInfo> getEnemiesSpawnInfo();
 std::vector<ObstacleSpawnInfo> getObstaclesSpawnInfo();
 Font getFont(const std::string& fontName);
+Boss1ChainConfig getBoss1ChainConfig();
 
 
 #endif // !H_GAME_CONFIG

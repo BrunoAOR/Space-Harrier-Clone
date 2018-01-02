@@ -61,6 +61,9 @@
     <Filter Include="Behaviours\HomeScene">
       <UniqueIdentifier>{39f99ccb-31dd-43b5-ad24-b628a365044f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Scripts\Boss">
+      <UniqueIdentifier>{1166a50a-6d54-4b78-a3f3-531fabf12024}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine\API.cpp">
@@ -279,6 +282,24 @@
     </ClCompile>
     <ClCompile Include="HomeSceneManager.cpp">
       <Filter>Behaviours\HomeScene</Filter>
+    </ClCompile>
+    <ClCompile Include="Boss1.cpp">
+      <Filter>Behaviours\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="Boss1ChainLink.cpp">
+      <Filter>Behaviours\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="Boss1Prefab.cpp">
+      <Filter>Prefabs\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="Boss1ChainLinkPrefab.cpp">
+      <Filter>Prefabs\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="Boss1ExplosionPrefab.cpp">
+      <Filter>Prefabs\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="Boss1ShotPrefab.cpp">
+      <Filter>Prefabs\Enemies</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -554,6 +575,27 @@
     </ClInclude>
     <ClInclude Include="HomeSceneManager.h">
       <Filter>Behaviours\HomeScene</Filter>
+    </ClInclude>
+    <ClInclude Include="Boss1.h">
+      <Filter>Behaviours\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="Boss1ChainLink.h">
+      <Filter>Behaviours\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="Boss1Prefab.h">
+      <Filter>Prefabs\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="Boss1ChainLinkPrefab.h">
+      <Filter>Prefabs\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="Boss1ChainConfig.h">
+      <Filter>Scripts\Boss</Filter>
+    </ClInclude>
+    <ClInclude Include="Boss1ExplosionPrefab.h">
+      <Filter>Prefabs\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="Boss1ShotPrefab.h">
+      <Filter>Prefabs\Enemies</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -1,4 +1,4 @@
-#include "EnemyShotPrefab.h"
+#include "Boss1ShotPrefab.h"
 
 #include "Engine/GameObject.h"
 #include "Engine/Transform.h"
@@ -9,7 +9,7 @@
 #include "CollisionCallbackForwarder.h"
 
 
-void EnemyShotPrefab::configureGameObject(Reference<GameObject>& gameObject) const
+void Boss1ShotPrefab::configureGameObject(Reference<GameObject>& gameObject) const
 {
 	auto eShot = gameObject->addComponent<EnemyShot>();
 
@@ -21,20 +21,14 @@ void EnemyShotPrefab::configureGameObject(Reference<GameObject>& gameObject) con
 		auto spriteSheet = childGo->addComponent<SpriteSheet>();
 		if (spriteSheet)
 		{
-			spriteSheet->loadImage("assets/sprites/Enemies.png");
+			spriteSheet->loadImage("assets/sprites/Boss_lvl1.png");
 			spriteSheet->setAllPivots(Vector2(0.5f, 0.5f));
 			spriteSheet->setRenderLayer("Main");
 
 			spriteSheet->addAnimation("shot");
-			spriteSheet->addRectForAnimation("shot", Vector2(5, 5), 68, 68);
-			spriteSheet->addRectForAnimation("shot", Vector2(80, 5), 68, 68);
-			spriteSheet->addRectForAnimation("shot", Vector2(155, 5), 68, 68);
-			spriteSheet->addRectForAnimation("shot", Vector2(230, 5), 68, 68);
-			spriteSheet->addRectForAnimation("shot", Vector2(5, 80), 68, 68);
-			spriteSheet->addRectForAnimation("shot", Vector2(80, 80), 68, 68);
-			spriteSheet->addRectForAnimation("shot", Vector2(155, 80), 68, 68);
-			spriteSheet->addRectForAnimation("shot", Vector2(230, 80), 68, 68);
-
+			spriteSheet->addRectForAnimation("shot", Vector2(340, 425), 54, 53);
+			spriteSheet->addRectForAnimation("shot", Vector2(395, 425), 54, 53);
+			spriteSheet->addRectForAnimation("shot", Vector2(450, 425), 54, 53);
 		}
 
 		auto circColl = childGo->addComponent<CircleCollider>();
@@ -42,7 +36,7 @@ void EnemyShotPrefab::configureGameObject(Reference<GameObject>& gameObject) con
 		{
 			circColl->isTrigger = true;
 			// Shot's collider is smaller than the sprite (only the central circle area)
-			circColl->radius = 21;
+			circColl->radius = 22;
 			// Note: No need to offset the shot collider, because the sprite's pivot is at the center
 			circColl->setCollisionLayer("EnemyShot");
 		}
