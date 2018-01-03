@@ -46,6 +46,11 @@ void Boss1ChainLink::start()
 
 void Boss1ChainLink::update()
 {
+	if (m_playerDead)
+	{
+		return;
+	}
+
 	if (m_deathElapsedTime != -1)
 	{
 		die();
@@ -175,6 +180,16 @@ void Boss1ChainLink::requestElapsedTimeDeath(int elapsedTimeForDeath)
 	if (m_nextLink)
 	{
 		m_nextLink->requestElapsedTimeDeath(elapsedTimeForDeath);
+	}
+}
+
+
+void Boss1ChainLink::setPlayerDead(bool playerDead)
+{
+	m_playerDead = playerDead;
+	if (m_nextLink)
+	{
+		m_nextLink->setPlayerDead(playerDead);
 	}
 }
 

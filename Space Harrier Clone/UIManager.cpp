@@ -16,6 +16,7 @@
 void UIManager::onDestroy()
 {
 	Messenger::removeListener(this, MessengerEventType::PLAYER_LOSE_LIFE);
+	Messenger::removeListener(this, MessengerEventType::PLAYER_DEAD);
 	Messenger::removeListener(this, MessengerEventType::FLOOR_MOTION_STOPPED);
 	Messenger::removeListener(this, MessengerEventType::FLOOR_MOTION_RESUMED);
 	Messenger::removeListener(this, MessengerEventType::POINTS_5000);
@@ -132,12 +133,125 @@ void UIManager::awake()
 		assert(success);
 		m_stageText->setAllPivots(Vector2(1, 0));
 	}
+
+	// m_stageNumberLabel
+	{
+		auto go = GameObject::createNew();
+		assert(go);
+		go->transform->setWorldPosition(Vector2(SCREEN_WIDTH / 2.0f, (float)SCREEN_HEIGHT - 80));
+		m_stageNumberLabel = go->addComponent<TextRenderer>();
+		assert(m_stageNumberLabel);
+
+		m_stageNumberLabel->setRenderLayer("UI");
+		m_stageNumberLabel->setZIndex(1);
+
+		bool success = m_stageNumberLabel->loadFont(getFont("bigGray"));
+		assert(success);
+		m_stageNumberLabel->setAllPivots(Vector2(0.5f, 1));
+		m_stageNumberLabel->setText("STAGE 1");
+	}
+
+	// m_stageNameLabel
+	{
+		auto go = GameObject::createNew();
+		assert(go);
+		go->transform->setWorldPosition(Vector2(SCREEN_WIDTH / 2.0f, (float)SCREEN_HEIGHT - 104));
+		m_stageNameLabel = go->addComponent<TextRenderer>();
+		assert(m_stageNameLabel);
+
+		m_stageNameLabel->setRenderLayer("UI");
+		m_stageNameLabel->setZIndex(1);
+
+		bool success = m_stageNameLabel->loadFont(getFont("bigGray"));
+		assert(success);
+		m_stageNameLabel->setAllPivots(Vector2(0.5f, 1));
+		m_stageNameLabel->setText("MOOT");
+	}
+
+	// m_reviveLabel
+	{
+		auto go = GameObject::createNew();
+		assert(go);
+		go->transform->setWorldPosition(Vector2(SCREEN_WIDTH / 2.0f, (float)SCREEN_HEIGHT - 80));
+		m_postReviveLabel = go->addComponent<TextRenderer>();
+		assert(m_postReviveLabel);
+
+		m_postReviveLabel->setRenderLayer("UI");
+		m_postReviveLabel->setZIndex(1);
+
+		bool success = m_postReviveLabel->loadFont(getFont("smallGreen"));
+		assert(success);
+		m_postReviveLabel->setAllPivots(Vector2(0.5f, 1));
+		m_postReviveLabel->setText("        READY ?\n\nMANY MORE BATTLE SCENES\n\nWILL SOON BE AVAILABLE !");
+
+		m_postReviveLabel->setActive(false);
+	}
+
+	// m_insertCoinsLabel
+	{
+		auto go = GameObject::createNew();
+		assert(go);
+		go->transform->setWorldPosition(Vector2(SCREEN_WIDTH / 2.0f, (float)SCREEN_HEIGHT - 88));
+		m_insertCoinsLabel = go->addComponent<TextRenderer>();
+		assert(m_insertCoinsLabel);
+
+		m_insertCoinsLabel->setRenderLayer("UI");
+		m_insertCoinsLabel->setZIndex(1);
+
+		bool success = m_insertCoinsLabel->loadFont(getFont("smallPink"));
+		assert(success);
+		m_insertCoinsLabel->setAllPivots(Vector2(0.5f, 1));
+		m_insertCoinsLabel->setText("    CONTINUE PLAY\n\n    INSERT COINS\n\nWITHIN 10 COUNT DOWN");
+
+		m_insertCoinsLabel->setActive(false);
+	}
+
+	// m_insertCoinsCountdownText
+	{
+		auto go = GameObject::createNew();
+		assert(go);
+		go->transform->setWorldPosition(Vector2((float)SCREEN_WIDTH - 152 , (float)SCREEN_HEIGHT - 136));
+		m_insertCoinsCountdownText = go->addComponent<TextRenderer>();
+		assert(m_insertCoinsCountdownText);
+
+		m_insertCoinsCountdownText->setRenderLayer("UI");
+		m_insertCoinsCountdownText->setZIndex(1);
+
+		bool success = m_insertCoinsCountdownText->loadFont(getFont("bigPink"));
+		assert(success);
+		m_insertCoinsCountdownText->setAllPivots(Vector2(1, 1));
+		m_insertCoinsCountdownText->setText("10");
+
+		m_insertCoinsCountdownText->setActive(false);
+	}
+
+	// m_postCoinsStartLabel
+	{
+		auto go = GameObject::createNew();
+		assert(go);
+		go->transform->setWorldPosition(Vector2(SCREEN_WIDTH / 2.0f, (float)SCREEN_HEIGHT - 72));
+		m_postCoinsStartLabel = go->addComponent<TextRenderer>();
+		assert(m_postCoinsStartLabel);
+
+		m_postCoinsStartLabel->setRenderLayer("UI");
+		m_postCoinsStartLabel->setZIndex(1);
+
+		bool success = m_postCoinsStartLabel->loadFont(getFont("smallGreen"));
+		assert(success);
+		m_postCoinsStartLabel->setAllPivots(Vector2(0.5f, 1));
+		m_postCoinsStartLabel->setText("PUSH START BUTTON ");
+
+		m_postCoinsStartLabel->setActive(false);
+	}
+
+	m_sfxCoin = Audio::LoadSFX("assets/audio/sfx/SFX - Coin.wav");
 }
 
 
 void UIManager::start()
 {
 	Messenger::addListener(this, MessengerEventType::PLAYER_LOSE_LIFE);
+	Messenger::addListener(this, MessengerEventType::PLAYER_DEAD);
 	Messenger::addListener(this, MessengerEventType::FLOOR_MOTION_STOPPED);
 	Messenger::addListener(this, MessengerEventType::FLOOR_MOTION_RESUMED);
 	Messenger::addListener(this, MessengerEventType::POINTS_5000);
@@ -146,12 +260,17 @@ void UIManager::start()
 	m_pointsPerStep = 10;
 	m_pointsStepsPerSecond = 15;
 	m_shouldAddPoints = true;
-	m_elapsedTime = 0;
+	m_pointsElapsedTime = 0;
 	m_pointsTimeLimit = 1000.0f / 15;
+
+	m_totalElapsedTime = 0;
+	m_hidePostReviveLabelTime = -1;
+	m_hideStageInfoTime = 4000;
+	m_nextCountDownDropTime = -1;
+	m_currentCountDownNumber = 10;
 
 	m_currentTopScore = 1000000;
 	m_currentScore = 0;
-	m_currentLives = initial_player_lives;
 	m_currentStage = 1;
 	updateTopScoreText();
 	updateScoreText();
@@ -162,30 +281,69 @@ void UIManager::start()
 
 void UIManager::update()
 {
-	if (m_elapsedTime >= m_pointsTimeLimit)
+	// Handle input (coins)
+	if (Input::getKeyDown(SDL_SCANCODE_Q))
 	{
-		m_elapsedTime -= m_pointsTimeLimit;
+		Audio::PlaySFX(m_sfxCoin);
+		player_lives += LIVES_PER_COIN;
+		updateLivesText();
+		if (m_showingInsertCointsPrompt)
+		{
+			m_postCoinsStartLabel->setActive(true);
+		}
+	}
+
+	if (m_showingInsertCointsPrompt && player_lives > 0 && Input::getKeyDown(SDL_SCANCODE_LCTRL))
+	{
+		finishInsertCoinsPrompt();
+	}
+
+	// Points adding
+	if (m_pointsElapsedTime >= m_pointsTimeLimit)
+	{
+		m_pointsElapsedTime -= m_pointsTimeLimit;
 		m_currentScore += m_pointsPerStep;
 		updateScoreText();
 	}
 
 	if (m_shouldAddPoints)
 	{
-		m_elapsedTime += Time::deltaTime();
+		m_pointsElapsedTime += Time::deltaTime();
 	}
 
-	if (Input::getKeyDown(SDL_SCANCODE_KP_PLUS))
+	// Handling messages
+	
+	// Stage info
+	if (m_hideStageInfoTime != -1 && m_totalElapsedTime >= m_hideStageInfoTime)
 	{
-		setTopScore(getTopScore() + 1000000);
-		setLivesCount(getLivesCount() + 1);
-		setStageNumber(getStageNumber() + 1);
+		m_hideStageInfoTime = -1;
+		m_stageNameLabel->setActive(false);
+		m_stageNumberLabel->setActive(false);
 	}
-	if (Input::getKeyDown(SDL_SCANCODE_KP_MINUS))
+
+	// Post revive
+	if (m_hidePostReviveLabelTime != -1 && m_totalElapsedTime >= m_hidePostReviveLabelTime)
 	{
-		setTopScore(getTopScore() - 100000);
-		setLivesCount(getLivesCount() - 1);
-		setStageNumber(getStageNumber() - 1);
+		m_hidePostReviveLabelTime = -1;
+		m_postReviveLabel->setActive(false);
 	}
+
+	// Insert coins prompt countdown
+	if (m_nextCountDownDropTime != -1 && m_totalElapsedTime >= m_nextCountDownDropTime)
+	{
+		if (m_currentCountDownNumber > 0)
+		{
+			m_insertCoinsCountdownText->setText(std::to_string(--m_currentCountDownNumber));
+			m_nextCountDownDropTime = m_totalElapsedTime + 1000;
+		}
+		else
+		{
+			// So, either player loses or coins have been inserted
+			finishInsertCoinsPrompt();
+		}
+	}
+
+	m_totalElapsedTime += Time::deltaTime();
 }
 
 
@@ -194,15 +352,17 @@ void UIManager::eventsCallback(MessengerEventType eventType)
 	switch (eventType)
 	{
 	case MessengerEventType::PLAYER_LOSE_LIFE:
-		setLivesCount(getLivesCount() - 1);
+		updateLivesText();
 		break;
 	case MessengerEventType::PLAYER_DEAD:
+		startInsertCoinsPrompt();
 		break;
 	case MessengerEventType::FLOOR_MOTION_STOPPED:
 		m_shouldAddPoints = false;
 		break;
 	case MessengerEventType::FLOOR_MOTION_RESUMED:
 		m_shouldAddPoints = true;
+		showPostReviveMessage();
 		break;
 	case MessengerEventType::POINTS_5000:
 		addPoints(5000);
@@ -236,24 +396,6 @@ void UIManager::setTopScore(int topScore)
 }
 
 
-int UIManager::getLivesCount() const
-{
-	return m_currentLives;
-}
-
-
-void UIManager::setLivesCount(int livesCount)
-{
-	if (livesCount < 0)
-	{
-		OutputLog("WARNING: Attempting to set the UI lives count to a negative value (%i). The lives count will be set to zero.", livesCount);
-		livesCount = 0;
-	}
-	m_currentLives = livesCount;
-	updateLivesText();
-}
-
-
 int UIManager::getStageNumber() const
 {
 	return m_currentStage;
@@ -280,14 +422,25 @@ void UIManager::updateTopScoreText()
 
 void UIManager::updateScoreText()
 {
+	if (m_currentScore > m_currentTopScore)	
+	{
+		m_currentTopScore = m_currentScore;
+		m_topScoreText->setText(std::to_string(m_currentTopScore));
+	}
 	m_scoreText->setText(std::to_string(m_currentScore));
 }
 
 
 void UIManager::updateLivesText()
 {
+	if (player_lives < 0)
+	{
+		OutputLog("WARNING: Attempting to set the UI lives count to a negative value (%i). The lives count will be set to zero.", player_lives);
+		player_lives = 0;
+	}
+
 	std::string livesText = "";
-	int livesToShow = m_currentLives % 100;
+	int livesToShow = (player_lives % 100) - 1;
 	
 	int smallIcons = livesToShow % 10;
 	int largeIcons = livesToShow / 10;
@@ -310,8 +463,51 @@ void UIManager::updateStageText()
 	m_stageText->setText(std::to_string(m_currentStage));
 }
 
+
 void UIManager::addPoints(int pointsToAdd)
 {
 	m_currentScore += pointsToAdd;
 	updateScoreText();
+}
+
+
+void UIManager::showPostReviveMessage()
+{
+	m_postReviveLabel->setActive(true);
+	m_hidePostReviveLabelTime = m_totalElapsedTime + 2000;
+}
+
+
+void UIManager::startInsertCoinsPrompt()
+{
+	m_currentCountDownNumber = 10;
+	m_showingInsertCointsPrompt = true;
+	m_insertCoinsLabel->setActive(true);
+	m_insertCoinsCountdownText->setActive(true);
+	m_insertCoinsCountdownText->setText(std::to_string(m_currentCountDownNumber));
+	m_nextCountDownDropTime = m_totalElapsedTime + 1000;
+}
+
+
+void UIManager::finishInsertCoinsPrompt()
+{
+	m_showingInsertCointsPrompt = false;
+	m_nextCountDownDropTime = -1;
+	m_insertCoinsLabel->setActive(false);
+	m_insertCoinsCountdownText->setActive(false);
+	m_postCoinsStartLabel->setActive(false);
+	if (player_lives > 0)
+	{
+		Messenger::broadcastEvent(MessengerEventType::PLAYER_REVIVED);
+	}
+	else
+	{
+		handleGameOver();
+	}
+}
+
+
+void UIManager::handleGameOver()
+{
+	OutputLog("GAME OVER");
 }

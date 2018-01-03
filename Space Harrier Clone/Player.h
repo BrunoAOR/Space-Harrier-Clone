@@ -8,6 +8,7 @@
 #include "Engine/SFX.h"
 #include "Engine/Music.h"
 #include "TimedAnimation.h"
+#include "MessengerEventListener.h"
 class GameObject;
 class Transform;
 class SpriteSheet;
@@ -20,7 +21,7 @@ enum class ObjectEffectType;
 
 
 class Player :
-	public Behaviour
+	public Behaviour, public MessengerEventListener
 {
 public:
 	virtual void onDestroy() override;
@@ -29,6 +30,9 @@ public:
 	virtual void start() override;
 	virtual void update() override;
 	virtual void onTriggerEnter(Reference<Collider>& other) override;
+
+	// Inherited via MessengerEventListener
+	virtual void eventsCallback(MessengerEventType eventType) override;
 
 	bool isAnimatingDeath() const;
 	Reference<Transform> getCharacterTransform() const;
@@ -56,6 +60,7 @@ private:
 	// DIE related functions
 	void dieUpdate();
 	void postDieUpdate();
+	void revive();
 
 	// Collision handling
 	void handleStateChangingCollision(ObjectEffectType oet);
@@ -63,6 +68,8 @@ private:
 	// Shooting
 	void shoot() const;
 	GameObjectPool* m_shotsPool = nullptr;
+
+	bool m_isDead;
 
 	bool m_isAnimatingDeath = false;
 

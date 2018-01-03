@@ -128,7 +128,7 @@ bool TextRenderer::rebuildTexture()
 {
 	if (m_fontTexture == nullptr)
 	{
-		OutputLog("ERROR: No font texture has been loaded for a TextRenderer!");
+		OutputLog("ERROR: No font texture has been loaded for a TextRenderer with text '%s'!", m_text.c_str());
 		return false;
 	}
 

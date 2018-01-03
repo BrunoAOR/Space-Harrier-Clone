@@ -13,7 +13,8 @@ const int SCREEN_HEIGHT = 224;
 const int POST_DIE_BLINK_CYCLE_DURATION = 150;
 const int POST_DIE_BLINK_FLOOR_CYCLE_COUNT = 7;
 const int POST_DIE_BLINK_FREE_CYCLE_COUNT = 15;
-int initial_player_lives = 3;
+const int LIVES_PER_COIN = 3;
+int player_lives = 3;
 
 
 #include "../HomeScene.h"
@@ -259,7 +260,7 @@ Font getFont(const std::string& fontName)
 	}
 	else if (fontName.find("big") != std::string::npos)
 	{
-		font.path = "../assets/sprites/UI.png";
+		font.path = "assets/sprites/UI.png";
 		font.characterWidth = 16;
 		font.characterHeight = 16;
 

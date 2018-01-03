@@ -8,11 +8,12 @@
 #include "PooledGameObject.h"
 #include "FloorManager.h"
 #include "Player.h"
+#include "MessengerEventType.h"
+#include "Messenger.h"
 
 
 void EnemyShot::init(const Reference<FloorManager>& floorManager, const Vector2& startPos, float normalizedStartDepth, const Vector2& targetPos, float normalizedTargetDepth)
 {
-	m_floorManager = floorManager;
 	if (!m_spriteSheet)
 	{
 		m_spriteSheet = gameObject()->getComponentInChildren<SpriteSheet>();
@@ -25,8 +26,10 @@ void EnemyShot::init(const Reference<FloorManager>& floorManager, const Vector2&
 	{
 		m_poolHandler = gameObject()->getComponent<PooledGameObject>();
 	}
+	assert(m_spriteSheet && m_collider && m_poolHandler);
 
-	assert(m_floorManager && m_spriteSheet && m_collider && m_poolHandler);
+	m_floorManager = floorManager;
+	assert(m_floorManager);
 
 	m_spriteSheet->playAnimation("shot", 16.0f);
 
@@ -40,6 +43,34 @@ void EnemyShot::init(const Reference<FloorManager>& floorManager, const Vector2&
 	m_elapsedTime = 0;
 
 	update();
+}
+
+
+void EnemyShot::onDestroy()
+{
+	Messenger::removeListener(this, MessengerEventType::PLAYER_DEAD);
+	Messenger::removeListener(this, MessengerEventType::PLAYER_REVIVED);
+}
+
+
+void EnemyShot::awake()
+{
+	if (!m_spriteSheet)
+	{
+		m_spriteSheet = gameObject()->getComponentInChildren<SpriteSheet>();
+	}
+	if (!m_collider)
+	{
+		m_collider = gameObject()->getComponentInChildren<Collider>();
+	}
+	if (!m_poolHandler)
+	{
+		m_poolHandler = gameObject()->getComponent<PooledGameObject>();
+	}
+	assert(m_spriteSheet && m_collider && m_poolHandler);
+
+	Messenger::addListener(this, MessengerEventType::PLAYER_DEAD);
+	Messenger::addListener(this, MessengerEventType::PLAYER_REVIVED);
 }
 
 
@@ -95,5 +126,18 @@ void EnemyShot::onTriggerEnter(Reference<Collider>& other)
 	{
 		// So, the shot has just killed the player and should freeze in position
 		m_shouldFreezeInPlace = true;
+	}
+}
+
+
+void EnemyShot::eventsCallback(MessengerEventType eventType)
+{
+	if (eventType == MessengerEventType::PLAYER_DEAD)
+	{
+		m_spriteSheet->pauseAnimation();
+	}
+	else if (eventType == MessengerEventType::PLAYER_REVIVED)
+	{
+		m_spriteSheet->resumeAnimation();
 	}
 }

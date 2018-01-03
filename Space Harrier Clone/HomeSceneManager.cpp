@@ -451,14 +451,14 @@ void HomeSceneManager::update()
 		{
 			m_insertCoinsPrompt->gameObject()->setActive(false);
 			m_pushStartPrompt->gameObject()->setActive(true);
-			m_playerLives += 3;
+			m_playerLives += LIVES_PER_COIN;
 			Audio::PlaySFX(m_sfxCoin);
 			m_livesValue->setText(std::to_string(m_playerLives));
 		}
 
 		if (m_playerLives > 0 && Input::getKeyDown(SDL_SCANCODE_LCTRL))
 		{
-			initial_player_lives = m_playerLives;
+			player_lives = m_playerLives;
 			Scenes::loadScene(1);
 		}
 	}

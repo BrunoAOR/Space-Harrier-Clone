@@ -2,6 +2,7 @@
 #define H_ENEMY_SHOT
 
 #include "Engine/Behaviour.h"
+#include "MessengerEventListener.h"
 #include "Engine/Reference.h"
 #include "Engine/Vector2.h"
 class FloorManager;
@@ -11,12 +12,17 @@ class PooledGameObject;
 
 
 class EnemyShot :
-	public Behaviour
+	public Behaviour, public MessengerEventListener
 {
 public:
 	void init(const Reference<FloorManager>& floorManager, const Vector2& startPos, float normalizedStartDepth, const Vector2& targetPos, float normalizedTargetDepth);
+	virtual void onDestroy() override;
+	virtual void awake() override;
 	virtual void update() override;
 	virtual void onTriggerEnter(Reference<Collider>& other) override;
+
+	// Inherited via MessengerEventListener
+	virtual void eventsCallback(MessengerEventType eventType) override;
 
 private:
 	Reference<FloorManager> m_floorManager;

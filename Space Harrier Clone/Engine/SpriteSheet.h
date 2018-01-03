@@ -41,12 +41,13 @@ public:
 	bool isPlaying();
 	bool isFinished();
 
-
 	// Play animations
 	bool playAnimation(const std::string& animationName, bool loop = true, int startingFrame = 0);
 	bool playAnimation(const std::string& animationName, float fps, bool loop = true, int startingFrame = 0);
 	void setAnimationSpeed(float fps);
 	bool stopAnimation();
+	bool pauseAnimation();
+	bool resumeAnimation();
 
 private:
 	void resetCachedFields();
@@ -61,6 +62,7 @@ private:
 	bool m_isPlaying;
 	bool m_isLooping;
 	bool m_isFinished;
+	bool m_isPaused;
 	int m_elapsedTime;
 	int m_timeLimit;
 	int m_direction;

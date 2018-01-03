@@ -15,10 +15,15 @@
 #include "Boss1ChainLink.h"
 #include "Explosion.h"
 #include "EnemyShot.h"
+#include "MessengerEventType.h"
+#include "Messenger.h"
 
 
 void Boss1::onDestroy()
 {
+	Messenger::removeListener(this, MessengerEventType::PLAYER_DEAD);
+	Messenger::removeListener(this, MessengerEventType::PLAYER_REVIVED);
+
 	if (m_shotsPool != nullptr)
 	{
 		delete(m_shotsPool);
@@ -76,6 +81,9 @@ void Boss1::init(const Reference<FloorManager>& floorManager, const Reference<Tr
 
 void Boss1::awake()
 {
+	Messenger::addListener(this, MessengerEventType::PLAYER_DEAD);
+	Messenger::addListener(this, MessengerEventType::PLAYER_REVIVED);
+
 	m_sfxBossShot = Audio::LoadSFX("assets/audio/sfx/SFX - BossShot.wav");
 	m_collider = gameObject()->getComponentInChildren<Collider>();
 	m_headSprite = m_collider->gameObject()->getComponent<Sprite>();
@@ -105,6 +113,11 @@ void Boss1::start()
 
 void Boss1::update()
 {
+	if (m_playerDead)
+	{
+		return;
+	}
+
 	if (m_deathElapsedTime != -1)
 	{
 		die();
@@ -214,6 +227,27 @@ void Boss1::onTriggerEnter(Reference<Collider>& other)
 				m_nextLink->requestElapsedTimeDeath(m_deathElapsedTime);
 			}
 			m_collider->setActive(false);
+		}
+	}
+}
+
+
+void Boss1::eventsCallback(MessengerEventType eventType)
+{
+	if (eventType == MessengerEventType::PLAYER_DEAD)
+	{
+		m_playerDead = true;
+		if (m_nextLink)
+		{
+			m_nextLink->setPlayerDead(true);
+		}
+	}
+	else if (eventType == MessengerEventType::PLAYER_REVIVED)
+	{
+		m_playerDead = false;
+		if (m_nextLink)
+		{
+			m_nextLink->setPlayerDead(false);
 		}
 	}
 }

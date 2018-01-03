@@ -2,6 +2,7 @@
 #define H_BOSS_1
 
 #include "Engine/Behaviour.h"
+#include "MessengerEventListener.h"
 #include "Engine/Reference.h"
 #include "Engine/Vector2.h"
 #include "Engine/SFX.h"
@@ -15,7 +16,7 @@ class Boss1ChainLink;
 
 
 class Boss1 :
-	public Behaviour
+	public Behaviour, public MessengerEventListener
 {
 public:
 	virtual void onDestroy();
@@ -25,11 +26,15 @@ public:
 	virtual void update() override;
 	virtual void onTriggerEnter(Reference<Collider>& other);
 
+	// Inherited via MessengerEventListener
+	virtual void eventsCallback(MessengerEventType eventType) override;
 
 private:
 	void faceDirection(bool toFront, bool forceUpdate = false);
 	void shoot(int cycleTime);
 	void die();
+
+	bool m_playerDead;
 
 	Reference<FloorManager> m_floorManager;
 	Reference<Transform> m_playerTransform;

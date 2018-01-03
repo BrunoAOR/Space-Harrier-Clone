@@ -21,6 +21,7 @@
 
 void Player::onDestroy()
 {
+	Messenger::removeListener(this, MessengerEventType::PLAYER_REVIVED);
 	delete m_dieAnimation;
 	m_dieAnimation = nullptr;
 	delete m_shotsPool;
@@ -60,6 +61,8 @@ void Player::init(const Reference<GameObject>& characterGo, const Reference<Game
 
 void Player::start()
 {
+	Messenger::addListener(this, MessengerEventType::PLAYER_REVIVED);
+
 	gameObject()->transform->setLocalPosition(Vector2(0, 0));
 	m_currentNormalizedPosition.x = m_midX;
 	m_currentNormalizedPosition.y = m_minY;
@@ -126,6 +129,15 @@ void Player::onTriggerEnter(Reference<Collider>& other)
 	}
 
 	handleStateChangingCollision(oet);
+}
+
+
+void Player::eventsCallback(MessengerEventType eventType)
+{
+	if (eventType == MessengerEventType::PLAYER_REVIVED)
+	{
+		revive();
+	}
 }
 
 
@@ -299,7 +311,6 @@ void Player::dieUpdate()
 	m_isAnimatingDeath = true;
 	if (m_dieAnimation->isFinished())
 	{
-		Audio::PlaySFX(m_sfxPostDie);
 		m_state = PlayerState::POST_DIE;
 		return;
 	}
@@ -313,18 +324,35 @@ void Player::postDieUpdate()
 {
 	if (m_postDieElapsedTime == INT_MIN)
 	{
+		Audio::PlaySFX(m_sfxPostDie);
 		m_postDieElapsedTime = -(int)Time::deltaTime();
 		m_currentAnimation = "flyCenter";
 		m_spriteSheet->playAnimation(m_currentAnimation, 16.0f);
 		
-		Messenger::broadcastEvent(MessengerEventType::PLAYER_LOSE_LIFE);
+		--player_lives;
+		if (player_lives > 0)
+		{
+			Messenger::broadcastEvent(MessengerEventType::PLAYER_LOSE_LIFE);
+		}
+		else
+		{
+			Messenger::broadcastEvent(MessengerEventType::PLAYER_DEAD);
+			m_spriteSheet->pauseAnimation();
+			m_isDead = true;
+		}
 	}
+
+	// Verify if player still has lives. if not, hold until revived (the UI will issue the order throught the Messenger service)
+	if (m_isDead)
+	{
+		return;
+	}
+	m_spriteSheet->resumeAnimation();
 	
 	// Limited motion
 	float normalizedRequestedX;
 	float normalizedRequestedY;
 	handleInput(normalizedRequestedX, normalizedRequestedY);
-	
 
 	m_postDieElapsedTime += Time::deltaTime();
 	float pastCyclesTime = 0;
@@ -347,9 +375,9 @@ void Player::postDieUpdate()
 		}
 		pastCyclesTime += POST_DIE_BLINK_CYCLE_DURATION;
 	}
-	
+
 	// Blinking and free motion starts (free motion)
-	if (floorManager)
+	if (floorManager && floorManager->freezeAtBottom)
 	{
 		floorManager->freezeAtBottom = false;
 		Messenger::broadcastEvent(MessengerEventType::FLOOR_MOTION_RESUMED);
@@ -382,6 +410,13 @@ void Player::postDieUpdate()
 }
 
 
+void Player::revive()
+{
+	assert(m_isDead);
+	m_isDead = false;
+}
+
+
 void Player::handleStateChangingCollision(ObjectEffectType oet)
 {
 	if (m_state != PlayerState::DIE && m_state != PlayerState::POST_DIE) {
@@ -402,8 +437,11 @@ void Player::handleStateChangingCollision(ObjectEffectType oet)
 			if (floorManager)
 			{
 				floorManager->stopHorizontal = false;
-				floorManager->freezeAtBottom = true;
-				Messenger::broadcastEvent(MessengerEventType::FLOOR_MOTION_STOPPED);
+				if (!floorManager->freezeAtBottom)
+				{
+					floorManager->freezeAtBottom = true;
+					Messenger::broadcastEvent(MessengerEventType::FLOOR_MOTION_STOPPED);
+				}
 			}
 			m_state = PlayerState::DIE;
 			Audio::PlaySFX(m_sfxDie);
@@ -416,6 +454,7 @@ void Player::handleStateChangingCollision(ObjectEffectType oet)
 		}
 	}
 }
+
 
 void Player::shoot() const
 {

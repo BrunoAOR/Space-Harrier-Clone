@@ -19,7 +19,8 @@ extern const int SCREEN_SIZE;
 extern const int POST_DIE_BLINK_CYCLE_DURATION;
 extern const int POST_DIE_BLINK_FLOOR_CYCLE_COUNT;
 extern const int POST_DIE_BLINK_FREE_CYCLE_COUNT;
-extern int initial_player_lives;
+extern const int LIVES_PER_COIN;
+extern int player_lives;
 
 
 bool scenesConfig();

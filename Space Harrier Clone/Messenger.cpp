@@ -17,7 +17,7 @@ bool Messenger::addListener(MessengerEventListener * listener, MessengerEventTyp
 	else
 	{
 		std::list<MessengerEventListener*>& list = m_listenersMap[eventType];
-		if (std::find(list.begin(), list.end(), listener) != list.end())
+		if (std::find(list.begin(), list.end(), listener) == list.end())
 		{
 			list.push_back(listener);
 		}

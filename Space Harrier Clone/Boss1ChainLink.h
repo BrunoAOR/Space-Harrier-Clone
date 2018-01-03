@@ -27,6 +27,7 @@ public:
 	void setAsTail(bool isTail = true);
 	void requestElapsedTimeSideFlip(int elapsedTimeForFlip);
 	void requestElapsedTimeDeath(int elapsedTimeForDeath);
+	void setPlayerDead(bool playerDead);
 
 private:
 	void updateSideFlipFactor();
@@ -36,6 +37,7 @@ private:
 	Reference<Transform> m_playerTransform;
 	SFX m_sfxExplosion;
 
+	bool m_playerDead;
 
 	Reference<Collider> m_collider;
 	Reference<Sprite> m_shadowSprite;
