@@ -246,6 +246,10 @@ void Boss1ChainLink::die()
 		explosionGO->setActive(true);
 		Audio::playSFX(m_sfxExplosion);
 		GameObject::destroy(gameObject());
+		if (!m_nextLink)
+		{
+			Messenger::broadcastEvent(MessengerEventType::GAME_WON);
+		}
 	}
 	else
 	{

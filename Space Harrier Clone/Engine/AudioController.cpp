@@ -43,13 +43,14 @@ Music AudioController::loadMusic(const std::string& path)
 }
 
 
-bool AudioController::unloadMusic(const Music& music)
+bool AudioController::unloadMusic(Music& music)
 {
 	auto it = std::find(musicPtrs.begin(), musicPtrs.end(), music.m_music);
 	if (it != musicPtrs.end())
 	{
 		Mix_FreeMusic(*it);
 		musicPtrs.erase(it);
+		music.m_music = nullptr;
 		return true;
 	}
 	return false;
@@ -83,13 +84,14 @@ SFX AudioController::loadSFX(const std::string& path)
 }
 
 
-bool AudioController::unloadSFX(const SFX& sfx)
+bool AudioController::unloadSFX(SFX& sfx)
 {
 	auto it = std::find(sfxPtrs.begin(), sfxPtrs.end(), sfx.m_sfx);
 	if (it != sfxPtrs.end())
 	{
 		Mix_FreeChunk(*it);
 		sfxPtrs.erase(it);
+		sfx.m_sfx = nullptr;
 		return true;
 	}
 	return false;

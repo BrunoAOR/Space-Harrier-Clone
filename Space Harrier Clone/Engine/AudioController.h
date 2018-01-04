@@ -14,10 +14,10 @@ public:
 	~AudioController();
 
 	Music loadMusic(const std::string& path);
-	bool unloadMusic(const Music& music);
+	bool unloadMusic(Music& music);
 	void unloadAllMusic();
 	SFX loadSFX(const std::string& path);
-	bool unloadSFX(const SFX& sfx);
+	bool unloadSFX(SFX& sfx);
 	void unloadAllSFX();
 
 	void playMusic(const Music& music, int repetitions = -1) const;

@@ -9,9 +9,11 @@
 void GameSceneMusicManager::onDestroy()
 {
 	Messenger::removeListener(this, MessengerEventType::BOSS_SPAWNED);
+	Messenger::removeListener(this, MessengerEventType::GAME_WON);
 
 	Audio::unloadMusic(m_musicLevel);
 	Audio::unloadMusic(m_musicBoss);
+	Audio::unloadMusic(m_musicGameWon);
 	Audio::unloadSFX(m_sfxWelcome);
 }
 
@@ -19,10 +21,13 @@ void GameSceneMusicManager::onDestroy()
 void GameSceneMusicManager::awake()
 {
 	Messenger::addListener(this, MessengerEventType::BOSS_SPAWNED);
+	Messenger::addListener(this, MessengerEventType::GAME_WON);
+
 	m_musicLevel = Audio::loadMusic("assets/audio/bgm/Theme.wav");
 	m_musicBoss = Audio::loadMusic("assets/audio/bgm/S1 MOOT Boss (Skyra).wav");
+	m_musicGameWon = Audio::loadMusic("assets/audio/bgm/Lake Side Memory (WIN).wav");
 	m_sfxWelcome = Audio::loadSFX("assets/audio/sfx/SFX - Voice - Welcome to the fantasy zone.wav");
-	assert(m_musicLevel && m_musicBoss && m_sfxWelcome);
+	assert(m_musicLevel && m_musicBoss && m_musicGameWon && m_sfxWelcome);
 }
 
 
@@ -38,5 +43,9 @@ void GameSceneMusicManager::eventsCallback(MessengerEventType eventType)
 	if (eventType == MessengerEventType::BOSS_SPAWNED)
 	{
 		Audio::playMusic(m_musicBoss);
+	}
+	else if (eventType == MessengerEventType::GAME_WON)
+	{
+		Audio::playMusic(m_musicGameWon);
 	}
 }

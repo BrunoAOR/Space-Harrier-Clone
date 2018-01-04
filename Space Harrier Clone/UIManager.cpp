@@ -22,6 +22,7 @@ void UIManager::onDestroy()
 	Messenger::removeListener(this, MessengerEventType::POINTS_5000);
 	Messenger::removeListener(this, MessengerEventType::POINTS_10000);
 	Messenger::removeListener(this, MessengerEventType::POINTS_100000);
+	Messenger::removeListener(this, MessengerEventType::GAME_WON);
 
 	Audio::unloadSFX(m_sfxCoin);
 }
@@ -29,6 +30,15 @@ void UIManager::onDestroy()
 
 void UIManager::awake()
 {
+	Messenger::addListener(this, MessengerEventType::PLAYER_LOSE_LIFE);
+	Messenger::addListener(this, MessengerEventType::PLAYER_DEAD);
+	Messenger::addListener(this, MessengerEventType::FLOOR_MOTION_STOPPED);
+	Messenger::addListener(this, MessengerEventType::FLOOR_MOTION_RESUMED);
+	Messenger::addListener(this, MessengerEventType::POINTS_5000);
+	Messenger::addListener(this, MessengerEventType::POINTS_10000);
+	Messenger::addListener(this, MessengerEventType::POINTS_100000);
+	Messenger::addListener(this, MessengerEventType::GAME_WON);
+
 	m_sfxCoin = Audio::loadSFX("assets/audio/sfx/SFX - Coin.wav");
 	assert(m_sfxCoin);
 
@@ -267,19 +277,31 @@ void UIManager::awake()
 
 		m_postCoinsStartLabel->setActive(false);
 	}
+
+	// m_gameWonLabel
+	{
+		auto go = GameObject::createNew();
+		assert(go);
+		go->transform->setParent(m_uiGO->transform);
+		go->transform->setWorldPosition(Vector2(SCREEN_WIDTH / 2.0f, (float)SCREEN_HEIGHT - 96));
+		m_gameWonLabel = go->addComponent<TextRenderer>();
+		assert(m_gameWonLabel);
+
+		m_gameWonLabel->setRenderLayer("UI");
+		m_gameWonLabel->setZIndex(1);
+
+		bool success = m_gameWonLabel->loadFont(getFont("bigPink"));
+		assert(success);
+		m_gameWonLabel->setAllPivots(Vector2(0.5f, 1));
+		m_gameWonLabel->setText("CONGRATULATIONS\n\n    YOU WIN");
+
+		m_gameWonLabel->setActive(false);
+	}
 }
 
 
 void UIManager::start()
 {
-	Messenger::addListener(this, MessengerEventType::PLAYER_LOSE_LIFE);
-	Messenger::addListener(this, MessengerEventType::PLAYER_DEAD);
-	Messenger::addListener(this, MessengerEventType::FLOOR_MOTION_STOPPED);
-	Messenger::addListener(this, MessengerEventType::FLOOR_MOTION_RESUMED);
-	Messenger::addListener(this, MessengerEventType::POINTS_5000);
-	Messenger::addListener(this, MessengerEventType::POINTS_10000);
-	Messenger::addListener(this, MessengerEventType::POINTS_100000);
-
 	m_pointsPerStep = 10;
 	m_pointsStepsPerSecond = 15;
 	m_shouldAddPoints = true;
@@ -287,10 +309,13 @@ void UIManager::start()
 	m_pointsTimeLimit = 1000.0f / 15;
 
 	m_totalElapsedTime = 0;
-	m_hidePostReviveLabelTime = -1;
-	m_hideStageInfoTime = 4000;
+	m_hidePostReviveLabelEndTime = -1;
+	m_hideStageInfoEndTime = 4000;
 	m_nextCountDownDropTime = -1;
 	m_currentCountDownNumber = 10;
+
+	m_gameWonLabelDuration = 3000;
+	m_gameWonLabelEndTime = -1;
 
 	m_currentTopScore = 1000000;
 	m_currentScore = 0;
@@ -342,17 +367,17 @@ void UIManager::update()
 	// Handling messages
 	
 	// Stage info
-	if (m_hideStageInfoTime != -1 && m_totalElapsedTime >= m_hideStageInfoTime)
+	if (m_hideStageInfoEndTime != -1 && m_totalElapsedTime >= m_hideStageInfoEndTime)
 	{
-		m_hideStageInfoTime = -1;
+		m_hideStageInfoEndTime = -1;
 		m_stageNameLabel->setActive(false);
 		m_stageNumberLabel->setActive(false);
 	}
 
 	// Post revive
-	if (m_hidePostReviveLabelTime != -1 && m_totalElapsedTime >= m_hidePostReviveLabelTime)
+	if (m_hidePostReviveLabelEndTime != -1 && m_totalElapsedTime >= m_hidePostReviveLabelEndTime)
 	{
-		m_hidePostReviveLabelTime = -1;
+		m_hidePostReviveLabelEndTime = -1;
 		m_postReviveLabel->setActive(false);
 	}
 
@@ -371,12 +396,24 @@ void UIManager::update()
 		}
 	}
 
+	// Game won label
+	if (m_gameWonLabelEndTime != -1 && m_totalElapsedTime >= m_gameWonLabelEndTime)
+	{
+		m_gameWonLabelEndTime = -1;
+		m_gameWonLabel->setActive(false);
+		handleGameOver();
+	}
+
 	m_totalElapsedTime += Time::deltaTime();
 }
 
 
 void UIManager::eventsCallback(MessengerEventType eventType)
 {
+	if (!m_isActive)
+	{
+		return;
+	}
 	switch (eventType)
 	{
 	case MessengerEventType::PLAYER_LOSE_LIFE:
@@ -400,6 +437,9 @@ void UIManager::eventsCallback(MessengerEventType eventType)
 		break;
 	case MessengerEventType::POINTS_100000:
 		addPoints(100000);
+		break;
+	case MessengerEventType::GAME_WON:
+		handleGameWon();
 		break;
 	default:
 		break;
@@ -503,7 +543,7 @@ void UIManager::addPoints(int pointsToAdd)
 void UIManager::showPostReviveMessage()
 {
 	m_postReviveLabel->setActive(true);
-	m_hidePostReviveLabelTime = m_totalElapsedTime + 2000;
+	m_hidePostReviveLabelEndTime = m_totalElapsedTime + 2000;
 }
 
 
@@ -536,13 +576,19 @@ void UIManager::finishInsertCoinsPrompt()
 }
 
 
+void UIManager::handleGameWon()
+{
+	m_gameWonLabel->setActive(true);
+	m_gameWonLabelEndTime = m_totalElapsedTime + 10000;
+}
+
+
 void UIManager::handleGameOver()
 {
+	OutputLog("GAME OVER");
 	m_uiGO->setActive(false);
 	m_isActive = false;
 	Audio::stopMusic();
-
-	OutputLog("GAME OVER");
-	Messenger::broadcastEvent(MessengerEventType::GAME_OVER);
+	// Show ranking here
 	Messenger::broadcastEvent(MessengerEventType::CHANGE_SCENE);
 }

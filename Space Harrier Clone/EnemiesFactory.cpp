@@ -27,6 +27,11 @@ void EnemiesFactory::onDestroy()
 
 	Audio::unloadSFX(m_sfxExplosion);
 	Audio::unloadSFX(m_sfxEnemyShot);
+	for (auto it = m_spawnSfxs.begin(); it != m_spawnSfxs.end(); ++it)
+	{
+		Audio::unloadSFX(it->second);
+	}
+	m_spawnSfxs.clear();
 
 	delete m_explosionsPool;
 	m_explosionsPool = nullptr;

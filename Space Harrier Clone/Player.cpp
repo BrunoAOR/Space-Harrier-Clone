@@ -22,6 +22,7 @@
 void Player::onDestroy()
 {
 	Messenger::removeListener(this, MessengerEventType::PLAYER_REVIVED);
+	Messenger::removeListener(this, MessengerEventType::GAME_WON);
 
 	Audio::unloadSFX(m_sfxTrip);
 	Audio::unloadSFX(m_sfxDie);
@@ -60,7 +61,10 @@ void Player::init(const Reference<GameObject>& characterGo, const Reference<Game
 
 void Player::awake()
 {
+	assert(floorManager);
+
 	Messenger::addListener(this, MessengerEventType::PLAYER_REVIVED);
+	Messenger::addListener(this, MessengerEventType::GAME_WON);
 
 	m_sfxTrip = Audio::loadSFX("assets/audio/sfx/SFX - Voice - Ouch.wav");
 	m_sfxDie = Audio::loadSFX("assets/audio/sfx/SFX - Voice - Aaaaargh.wav");
@@ -93,14 +97,17 @@ void Player::update()
 {
 	switch (m_state)
 	{
-	case PlayerState::STOP:
-		break;
 	case PlayerState::MOVE:
 		float normalizedRequestedX;
 		float normalizedRequestedY;
 		handleInput(normalizedRequestedX, normalizedRequestedY);
 		move(normalizedRequestedX, normalizedRequestedY);
 		moveAnimationUpdate();
+		if (m_gameWon)
+		{
+			floorManager->stopHorizontal = true;
+			m_state = PlayerState::GAME_WON;
+		}
 		break;
 	case PlayerState::SHORT_TRIP:
 		tripUpdate();
@@ -114,6 +121,12 @@ void Player::update()
 	case PlayerState::POST_DIE:
 		postDieUpdate();
 		break;
+	case PlayerState::GAME_WON:
+		
+		move(m_midX, m_minY);
+		moveAnimationUpdate();
+		break;
+		break;
 	default:
 		break;
 	}
@@ -122,6 +135,10 @@ void Player::update()
 
 void Player::onTriggerEnter(Reference<Collider>& other)
 {
+	if (m_gameWon)
+	{
+		return;
+	}
 	ObjectEffectType oet = ObjectEffectType::UNDEFINED;
 	// Player can only collider with Obstacles, Enemies and Enemy Shots
 	// If the collision occured against an Obstacle, the ObjectEffectType must be read from the obstacle
@@ -145,6 +162,10 @@ void Player::eventsCallback(MessengerEventType eventType)
 	if (eventType == MessengerEventType::PLAYER_REVIVED)
 	{
 		revive();
+	}
+	else if (eventType == MessengerEventType::GAME_WON)
+	{
+		m_gameWon = true;
 	}
 }
 
@@ -269,10 +290,8 @@ void Player::moveAnimationUpdate()
 
 void Player::tripUpdate()
 {
-	if (floorManager)
-	{
-		floorManager->stopHorizontal = true;
-	}
+	floorManager->stopHorizontal = true;
+	
 	// Start animations
 	if (m_state == PlayerState::SHORT_TRIP && m_currentAnimation != "shortTrip" || m_state == PlayerState::LONG_TRIP && m_currentAnimation != "longTrip")
 	{
@@ -292,11 +311,16 @@ void Player::tripUpdate()
 		
 	if (m_spriteSheet->isFinished())
 	{
-		if (floorManager)
+		if (m_gameWon)
+		{
+			floorManager->stopHorizontal = true;
+			m_state = PlayerState::GAME_WON;
+		}
+		else
 		{
 			floorManager->stopHorizontal = false;
+			m_state = PlayerState::MOVE;
 		}
-		m_state = PlayerState::MOVE;
 	}
 }
 
@@ -324,7 +348,10 @@ void Player::postDieUpdate()
 		m_currentAnimation = "flyCenter";
 		m_spriteSheet->playAnimation(m_currentAnimation, 16.0f);
 		
-		--player_lives;
+		if (!m_gameWon)
+		{
+			--player_lives;
+		}
 		if (player_lives > 0)
 		{
 			Messenger::broadcastEvent(MessengerEventType::PLAYER_LOSE_LIFE);
@@ -372,7 +399,7 @@ void Player::postDieUpdate()
 	}
 
 	// Blinking and free motion starts (free motion)
-	if (floorManager && floorManager->freezeAtBottom)
+	if (floorManager->freezeAtBottom)
 	{
 		floorManager->freezeAtBottom = false;
 		Messenger::broadcastEvent(MessengerEventType::FLOOR_MOTION_RESUMED);
@@ -400,7 +427,15 @@ void Player::postDieUpdate()
 	// postDie is finished
 	m_spriteSheet->gameObject()->transform->setLocalScale(Vector2(1, 1));
 	m_postDieElapsedTime = INT_MIN;
-	m_state = PlayerState::MOVE;
+	if (m_gameWon)
+	{
+		floorManager->stopHorizontal = true;
+		m_state = PlayerState::GAME_WON;
+	}
+	else
+	{
+		m_state = PlayerState::MOVE;
+	}
 	m_isAnimatingDeath = false;
 }
 
@@ -429,15 +464,14 @@ void Player::handleStateChangingCollision(ObjectEffectType oet)
 			m_currentNormalizedPosition.y = m_minY;
 			m_spriteSheet->selectAnimation("die", 0);
 			m_dieAnimation->start(m_characterGo->transform->getLocalPosition().y);
-			if (floorManager)
+
+			floorManager->stopHorizontal = false;
+			if (!floorManager->freezeAtBottom)
 			{
-				floorManager->stopHorizontal = false;
-				if (!floorManager->freezeAtBottom)
-				{
-					floorManager->freezeAtBottom = true;
-					Messenger::broadcastEvent(MessengerEventType::FLOOR_MOTION_STOPPED);
-				}
+				floorManager->freezeAtBottom = true;
+				Messenger::broadcastEvent(MessengerEventType::FLOOR_MOTION_STOPPED);
 			}
+
 			m_state = PlayerState::DIE;
 			Audio::playSFX(m_sfxDie);
 

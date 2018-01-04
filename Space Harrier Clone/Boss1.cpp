@@ -17,6 +17,7 @@
 #include "EnemyShot.h"
 #include "MessengerEventType.h"
 #include "Messenger.h"
+#include "PooledGameObject.h"
 
 
 void Boss1::onDestroy()
@@ -353,7 +354,7 @@ void Boss1::die()
 		explosion->init(m_floorManager, m_xPos, m_zIndex / 100.0f, 0.95f, m_scale.x, 0.95f, true);
 		explosionGO->setActive(true);
 		Audio::playSFX(m_sfxExplosion);
-		GameObject::destroy(gameObject());
+		gameObject()->getComponent<PooledGameObject>()->returnToPool();
 	}
 	else
 	{

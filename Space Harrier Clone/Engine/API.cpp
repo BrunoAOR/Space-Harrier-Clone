@@ -46,13 +46,13 @@ Uint32 Time::deltaTime()
 }
 
 
-Music Audio::loadMusic(const std::string & path)
+Music Audio::loadMusic(const std::string& path)
 {
 	return engine->audio->loadMusic(path);
 }
 
 
-bool Audio::unloadMusic(const Music & music)
+bool Audio::unloadMusic(Music& music)
 {
 	return engine->audio->unloadMusic(music);
 }
@@ -64,13 +64,13 @@ void Audio::unloadAllMusic()
 }
 
 
-SFX Audio::loadSFX(const std::string & path)
+SFX Audio::loadSFX(const std::string& path)
 {
 	return engine->audio->loadSFX(path);
 }
 
 
-bool Audio::unloadSFX(const SFX & sfx)
+bool Audio::unloadSFX(SFX& sfx)
 {
 	return engine->audio->unloadSFX(sfx);
 }
@@ -82,13 +82,13 @@ void Audio::unloadAllSFX()
 }
 
 
-void Audio::playMusic(const Music & music, int repetitions)
+void Audio::playMusic(const Music& music, int repetitions)
 {
 	engine->audio->playMusic(music, repetitions);
 }
 
 
-void Audio::playSFX(const SFX & sfx, int repetitions)
+void Audio::playSFX(const SFX& sfx, int repetitions)
 {
 	engine->audio->playSFX(sfx, repetitions);
 }

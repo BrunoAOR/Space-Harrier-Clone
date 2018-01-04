@@ -42,12 +42,12 @@ public:
 private:
 	enum class PlayerState
 	{
-		STOP,
 		MOVE,
 		SHORT_TRIP,
 		LONG_TRIP,
 		DIE,
-		POST_DIE
+		POST_DIE,
+		GAME_WON,
 	};
 
 	// MOVE related functions
@@ -70,9 +70,9 @@ private:
 	void shoot() const;
 	GameObjectPool* m_shotsPool = nullptr;
 
+	bool m_gameWon;
 	bool m_isDead;
-
-	bool m_isAnimatingDeath = false;
+	bool m_isAnimatingDeath;
 
 	Reference<GameObject> m_shadowGo;
 	Reference<GameObject> m_characterGo;

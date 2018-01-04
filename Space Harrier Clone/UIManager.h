@@ -39,6 +39,7 @@ private:
 	void showPostReviveMessage();
 	void startInsertCoinsPrompt();
 	void finishInsertCoinsPrompt();
+	void handleGameWon();
 	void handleGameOver();
 
 	// Containing GO
@@ -54,6 +55,7 @@ private:
 	Reference<TextRenderer> m_stageNameLabel;
 	Reference<TextRenderer> m_insertCoinsLabel;
 	Reference<TextRenderer> m_postCoinsStartLabel;
+	Reference<TextRenderer> m_gameWonLabel;
 
 	// Changing UI
 	Reference<TextRenderer> m_topScoreText;
@@ -71,11 +73,16 @@ private:
 
 	// Temporary message timers and info
 	int m_totalElapsedTime;
-	int m_hideStageInfoTime;
-	int m_hidePostReviveLabelTime;
+
+	int m_hideStageInfoEndTime;
+	int m_hidePostReviveLabelEndTime;
 	int m_nextCountDownDropTime;
 	int m_currentCountDownNumber;
 	bool m_showingInsertCointsPrompt;
+
+	// Game Win timer
+	int m_gameWonLabelDuration;
+	int m_gameWonLabelEndTime;
 
 	SFX m_sfxCoin;
 

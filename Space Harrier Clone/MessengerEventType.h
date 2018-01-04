@@ -15,7 +15,7 @@ enum class MessengerEventType
 	POINTS_10000,
 	POINTS_100000,
 	BOSS_SPAWNED,
-	GAME_OVER
+	GAME_WON
 };
 
 

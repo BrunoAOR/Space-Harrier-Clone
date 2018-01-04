@@ -21,6 +21,7 @@ public:
 private:
 	Music m_musicLevel;
 	Music m_musicBoss;
+	Music m_musicGameWon;
 	SFX m_sfxWelcome;
 };
 

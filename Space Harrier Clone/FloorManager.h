@@ -25,8 +25,8 @@ public:
 	float getXCoordinateForYPos(float startingXPos, float normalizedStartingYPos, float normalizedCurrentYPos) const;
 	float getXSpeedForYPos(float interpolatedCurrentYPos) const;
 
-	bool freezeAtBottom = false;
-	bool stopHorizontal = false;
+	bool freezeAtBottom;
+	bool stopHorizontal;
 
 private:
 	void updateCurrentFloorHeight(float normalizedSpeed);
