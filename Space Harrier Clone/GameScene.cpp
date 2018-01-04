@@ -38,7 +38,9 @@ bool GameScene::load()
 	if (worldGO)
 	{
 		//worldGO->addComponent<TimeLogger>();
-		assert(worldGO->addComponent<GameSceneMusicManager>());
+		auto musicManager = worldGO->addComponent<GameSceneMusicManager>();
+		assert(musicManager);
+
 		worldGO->transform->setWorldPosition(Vector2(SCREEN_WIDTH / 2.0f, 0));
 
 		auto floorManagerGo = GameObject::createNew();

@@ -172,11 +172,11 @@ std::vector<EnemySpawnInfo> getEnemiesSpawnInfo()
 	info.push_back(EnemySpawnInfo("EnemyShipPrefab", 2600, 4000, 0, "assets/audio/sfx/SFX - Spawn_Ship.wav"));
 	info.push_back(EnemySpawnInfo("EnemyShipPrefab", 2800, 4000, 0, "assets/audio/sfx/SFX - Spawn_Ship.wav"));
 	info.push_back(EnemySpawnInfo("EnemyShipPrefab", 3000, 4000, 0, "assets/audio/sfx/SFX - Spawn_Ship.wav"));
-	
+	*/
 	info.push_back(EnemySpawnInfo("EnemyShipPrefab", 3000, 4000, 1, "assets/audio/sfx/SFX - Spawn_Ship.wav"));
 	
 	info.push_back(EnemySpawnInfo("EnemyBallPrefab", 3000, 6000, 2, "assets/audio/sfx/SFX - Spawn_Ball.wav"));
-	*/
+	
 	info.push_back(EnemySpawnInfo("Boss1Prefab", 8000, -1, -1, ""));
 	
 	return info;

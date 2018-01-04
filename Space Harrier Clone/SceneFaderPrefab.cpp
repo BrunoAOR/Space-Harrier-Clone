@@ -8,6 +8,7 @@
 
 void SceneFaderPrefab::configureGameObject(Reference<GameObject>& gameObject) const
 {
-	assert(gameObject->addComponent<SceneFader>());
-	assert(gameObject->addComponent<RectangleRenderer>());
+	auto sceneFader = gameObject->addComponent<SceneFader>();
+	auto rectangleRenderer = gameObject->addComponent<RectangleRenderer>();
+	assert(sceneFader && rectangleRenderer);
 }

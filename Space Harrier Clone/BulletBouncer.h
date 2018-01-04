@@ -11,6 +11,7 @@ class BulletBouncer :
 	public Behaviour
 {
 public:
+	virtual void onDestroy() override;
 	virtual void awake() override;
 	virtual void onTriggerEnter(Reference<Collider>& other) override;
 

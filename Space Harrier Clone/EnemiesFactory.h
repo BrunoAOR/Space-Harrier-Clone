@@ -21,6 +21,7 @@ public:
 	virtual void onDestroy();
 
 	void init(const Reference<Transform>& playerTransform, const Reference<FloorManager>& floorManager, const std::vector<EnemySpawnInfo>& spawnInfos, const std::vector<MotionPattern>& motionPAtterns);
+	virtual void awake() override;
 	virtual void start() override;
 	virtual void update() override;
 

@@ -22,6 +22,12 @@
 void Player::onDestroy()
 {
 	Messenger::removeListener(this, MessengerEventType::PLAYER_REVIVED);
+
+	Audio::unloadSFX(m_sfxTrip);
+	Audio::unloadSFX(m_sfxDie);
+	Audio::unloadSFX(m_sfxPostDie);
+	Audio::unloadSFX(m_sfxShot);
+
 	delete m_dieAnimation;
 	m_dieAnimation = nullptr;
 	delete m_shotsPool;
@@ -58,10 +64,19 @@ void Player::init(const Reference<GameObject>& characterGo, const Reference<Game
 	m_shotsPool = new GameObjectPool(Prefabs::getPrefab("PlayerShotPrefab"), 6);
 }
 
+void Player::awake()
+{
+	Messenger::addListener(this, MessengerEventType::PLAYER_REVIVED);
+
+	m_sfxTrip = Audio::loadSFX("assets/audio/sfx/SFX - Voice - Ouch.wav");
+	m_sfxDie = Audio::loadSFX("assets/audio/sfx/SFX - Voice - Aaaaargh.wav");
+	m_sfxPostDie = Audio::loadSFX("assets/audio/sfx/SFX - Voice - Get ready.wav");
+	m_sfxShot = Audio::loadSFX("assets/audio/sfx/SFX - PlayerShot.wav");
+}
+
 
 void Player::start()
 {
-	Messenger::addListener(this, MessengerEventType::PLAYER_REVIVED);
 
 	gameObject()->transform->setLocalPosition(Vector2(0, 0));
 	m_currentNormalizedPosition.x = m_midX;
@@ -71,11 +86,6 @@ void Player::start()
 	m_spriteSheet->setAnimationSpeed(16);
 	m_spriteSheet->playAnimation("run");
 	m_currentAnimation = "run";
-	
-	m_sfxTrip = Audio::LoadSFX("assets/audio/sfx/SFX - Voice - Ouch.wav");
-	m_sfxDie = Audio::LoadSFX("assets/audio/sfx/SFX - Voice - Aaaaargh.wav");
-	m_sfxPostDie = Audio::LoadSFX("assets/audio/sfx/SFX - Voice - Get ready.wav");
-	m_sfxShot = Audio::LoadSFX("assets/audio/sfx/SFX - PlayerShot.wav");
 }
 
 
@@ -309,7 +319,7 @@ void Player::postDieUpdate()
 {
 	if (m_postDieElapsedTime == INT_MIN)
 	{
-		Audio::PlaySFX(m_sfxPostDie);
+		Audio::playSFX(m_sfxPostDie);
 		m_postDieElapsedTime = -(int)Time::deltaTime();
 		m_currentAnimation = "flyCenter";
 		m_spriteSheet->playAnimation(m_currentAnimation, 16.0f);
@@ -409,11 +419,11 @@ void Player::handleStateChangingCollision(ObjectEffectType oet)
 		{
 		case ObjectEffectType::SHORT_TRIP:
 			m_state = PlayerState::SHORT_TRIP;
-			Audio::PlaySFX(m_sfxTrip);
+			Audio::playSFX(m_sfxTrip);
 			break;
 		case ObjectEffectType::LONG_TRIP:
 			m_state = PlayerState::LONG_TRIP;
-			Audio::PlaySFX(m_sfxTrip);
+			Audio::playSFX(m_sfxTrip);
 			break;
 		case ObjectEffectType::DIE:
 			m_currentNormalizedPosition.y = m_minY;
@@ -429,7 +439,7 @@ void Player::handleStateChangingCollision(ObjectEffectType oet)
 				}
 			}
 			m_state = PlayerState::DIE;
-			Audio::PlaySFX(m_sfxDie);
+			Audio::playSFX(m_sfxDie);
 
 			break;
 		case ObjectEffectType::UNDEFINED:
@@ -453,6 +463,6 @@ void Player::shoot() const
 		Reference<PlayerShot> shot = shotGO->getComponent<PlayerShot>();
 		assert(shot);
 		shot->init(floorManager, currPos);
-		Audio::PlaySFX(m_sfxShot);
+		Audio::playSFX(m_sfxShot);
 	}
 }

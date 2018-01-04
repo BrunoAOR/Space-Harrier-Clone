@@ -137,6 +137,6 @@ void Enemy::shoot(MotionPatternPoint mpp)
 		// The target is lifted to the approximate center of the character
 		targetPos.y += 30;
 		shot->init(m_floorManager, currPos, mpp.normalizedDepth, targetPos, 0.95f);
-		Audio::PlaySFX(m_sfxEnemyShot);
+		Audio::playSFX(m_sfxEnemyShot);
 	}
 }

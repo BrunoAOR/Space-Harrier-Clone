@@ -66,7 +66,7 @@ void ExplosiveObject::onTriggerEnter(Reference<Collider>& other)
 				}
 				explosionGO->setActive(true);
 			}
-			Audio::PlaySFX(m_sfxExplosion);
+			Audio::playSFX(m_sfxExplosion);
 		}
 
 		m_poolHandler->returnToPool();

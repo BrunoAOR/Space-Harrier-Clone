@@ -24,6 +24,8 @@ void FloorObjectsFactory::onDestroy()
 	}
 	m_prefabPools.clear();
 
+	Audio::unloadSFX(m_sfxExplosion);
+
 	delete m_explosionsPool;
 	m_explosionsPool = nullptr;
 }
@@ -53,7 +55,13 @@ void FloorObjectsFactory::init(const Reference<FloorManager>& floorManager, cons
 	m_explosionsPool = new GameObjectPool(Prefabs::getPrefab("ExplosionPrefab"), 3);
 	assert(m_explosionsPool);
 
-	m_sfxExplosion = Audio::LoadSFX("assets/audio/sfx/SFX - Explosion.wav");
+}
+
+
+void FloorObjectsFactory::awake()
+{
+	m_sfxExplosion = Audio::loadSFX("assets/audio/sfx/SFX - Explosion.wav");
+	assert(m_sfxExplosion);
 }
 
 void FloorObjectsFactory::start()

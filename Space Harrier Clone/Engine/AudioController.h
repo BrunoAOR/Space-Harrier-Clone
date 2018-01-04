@@ -13,19 +13,23 @@ public:
 	AudioController();
 	~AudioController();
 
-	Music LoadMusic(const std::string& path);
-	SFX LoadSFX(const std::string& path);
+	Music loadMusic(const std::string& path);
+	bool unloadMusic(const Music& music);
+	void unloadAllMusic();
+	SFX loadSFX(const std::string& path);
+	bool unloadSFX(const SFX& sfx);
+	void unloadAllSFX();
 
-	void PlayMusic(const Music& music, int repetitions = -1) const;
-	void PauseMusic() const;
-	void UnpauseMusic() const;
-	void StopMusic() const;
+	void playMusic(const Music& music, int repetitions = -1) const;
+	void pauseMusic() const;
+	void unpauseMusic() const;
+	void stopMusic() const;
 	bool isMusicPaused() const;
 	bool isMusicPlaying() const;
 	float getMusicVolume() const;
 	void setMusicVolume(float normalizedVolume) const;
 
-	void PlaySFX(const SFX& sfx, int repetitions = 0) const;
+	void playSFX(const SFX& sfx, int repetitions = 0) const;
 	float getSFXAverageVolume() const;
 	void setSFXVolume(float normalizedVolume) const;
 

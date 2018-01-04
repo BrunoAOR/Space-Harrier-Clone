@@ -46,45 +46,69 @@ Uint32 Time::deltaTime()
 }
 
 
-Music Audio::LoadMusic(const std::string & path)
+Music Audio::loadMusic(const std::string & path)
 {
-	return engine->audio->LoadMusic(path);
+	return engine->audio->loadMusic(path);
 }
 
 
-SFX Audio::LoadSFX(const std::string & path)
+bool Audio::unloadMusic(const Music & music)
 {
-	return engine->audio->LoadSFX(path);
+	return engine->audio->unloadMusic(music);
 }
 
 
-void Audio::PlayMusic(const Music & music, int repetitions)
+void Audio::unloadAllMusic()
 {
-	engine->audio->PlayMusic(music, repetitions);
+	engine->audio->unloadAllMusic();
 }
 
 
-void Audio::PlaySFX(const SFX & sfx, int repetitions)
+SFX Audio::loadSFX(const std::string & path)
 {
-	engine->audio->PlaySFX(sfx, repetitions);
+	return engine->audio->loadSFX(path);
 }
 
 
-void Audio::PauseMusic()
+bool Audio::unloadSFX(const SFX & sfx)
 {
-	engine->audio->PauseMusic();
+	return engine->audio->unloadSFX(sfx);
 }
 
 
-void Audio::UnpauseMusic()
+void Audio::unloadAllSFX()
 {
-	engine->audio->UnpauseMusic();
+	engine->audio->unloadAllSFX();
 }
 
 
-void Audio::StopMusic()
+void Audio::playMusic(const Music & music, int repetitions)
 {
-	engine->audio->StopMusic();
+	engine->audio->playMusic(music, repetitions);
+}
+
+
+void Audio::playSFX(const SFX & sfx, int repetitions)
+{
+	engine->audio->playSFX(sfx, repetitions);
+}
+
+
+void Audio::pauseMusic()
+{
+	engine->audio->pauseMusic();
+}
+
+
+void Audio::unpauseMusic()
+{
+	engine->audio->unpauseMusic();
+}
+
+
+void Audio::stopMusic()
+{
+	engine->audio->stopMusic();
 }
 
 

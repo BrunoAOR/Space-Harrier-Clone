@@ -25,6 +25,9 @@ void EnemiesFactory::onDestroy()
 	}
 	m_prefabPools.clear();
 
+	Audio::unloadSFX(m_sfxExplosion);
+	Audio::unloadSFX(m_sfxEnemyShot);
+
 	delete m_explosionsPool;
 	m_explosionsPool = nullptr;
 	delete m_enemyShotsPool;
@@ -61,7 +64,7 @@ void EnemiesFactory::init(const Reference<Transform>& playerTransform, const Ref
 
 			if (m_spawnSfxs.count(spawnInfo.spawnSfxName) == 0)
 			{
-				SFX sfx = Audio::LoadSFX(spawnInfo.spawnSfxName);
+				SFX sfx = Audio::loadSFX(spawnInfo.spawnSfxName);
 				assert(sfx);
 				m_spawnSfxs[spawnInfo.spawnSfxName] = sfx;
 			}
@@ -70,9 +73,16 @@ void EnemiesFactory::init(const Reference<Transform>& playerTransform, const Ref
 
 	m_explosionsPool = new GameObjectPool(Prefabs::getPrefab("ExplosionPrefab"), 4);
 	m_enemyShotsPool = new GameObjectPool(Prefabs::getPrefab("EnemyShotPrefab"), 6);
-	m_sfxExplosion = Audio::LoadSFX("assets/audio/sfx/SFX - Explosion.wav");
-	m_sfxEnemyShot = Audio::LoadSFX("assets/audio/sfx/SFX - EnemyShot.wav");
-	assert(m_explosionsPool && m_enemyShotsPool && m_sfxExplosion && m_sfxEnemyShot);
+	assert(m_explosionsPool && m_enemyShotsPool);
+}
+
+
+void EnemiesFactory::awake()
+{
+	m_sfxExplosion = Audio::loadSFX("assets/audio/sfx/SFX - Explosion.wav");
+	m_sfxEnemyShot = Audio::loadSFX("assets/audio/sfx/SFX - EnemyShot.wav");
+	assert(m_sfxExplosion && m_sfxEnemyShot);
+
 }
 
 
@@ -124,7 +134,7 @@ void EnemiesFactory::spawnEnemy()
 		{
 			explosiveObject->init(m_explosionsPool, m_sfxExplosion);
 		}
-		Audio::PlaySFX(m_spawnSfxs[spawnInfo.spawnSfxName]);
+		Audio::playSFX(m_spawnSfxs[spawnInfo.spawnSfxName]);
 	}
 	else
 	{

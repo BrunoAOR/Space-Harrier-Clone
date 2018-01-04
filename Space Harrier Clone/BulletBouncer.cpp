@@ -6,9 +6,15 @@
 #include "PlayerShot.h"
 
 
+void BulletBouncer::onDestroy()
+{
+	Audio::unloadSFX(m_sfxBounce);
+}
+
+
 void BulletBouncer::awake()
 {
-	m_sfxBounce = Audio::LoadSFX("assets/audio/sfx/SFX - Bullet_Bounce.wav");
+	m_sfxBounce = Audio::loadSFX("assets/audio/sfx/SFX - Bullet_Bounce.wav");
 }
 
 
@@ -18,6 +24,6 @@ void BulletBouncer::onTriggerEnter(Reference<Collider>& other)
 	if (playerShot)
 	{
 		playerShot->bounceOut();
-		Audio::PlaySFX(m_sfxBounce);
+		Audio::playSFX(m_sfxBounce);
 	}
 }

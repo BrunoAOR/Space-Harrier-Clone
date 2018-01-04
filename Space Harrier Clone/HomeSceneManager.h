@@ -13,6 +13,7 @@ class HomeSceneManager :
 	public Behaviour
 {
 public:
+	virtual void onDestroy() override;
 	virtual void awake() override;
 	virtual void start() override;
 	virtual void update() override;

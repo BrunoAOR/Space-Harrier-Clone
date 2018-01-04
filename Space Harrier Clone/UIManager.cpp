@@ -22,11 +22,16 @@ void UIManager::onDestroy()
 	Messenger::removeListener(this, MessengerEventType::POINTS_5000);
 	Messenger::removeListener(this, MessengerEventType::POINTS_10000);
 	Messenger::removeListener(this, MessengerEventType::POINTS_100000);
+
+	Audio::unloadSFX(m_sfxCoin);
 }
 
 
 void UIManager::awake()
 {
+	m_sfxCoin = Audio::loadSFX("assets/audio/sfx/SFX - Coin.wav");
+	assert(m_sfxCoin);
+
 	m_uiGO = GameObject::createNew();
 	assert(m_uiGO);
 	m_uiGO->transform->setParent(gameObject()->transform, false);
@@ -228,7 +233,7 @@ void UIManager::awake()
 		auto go = GameObject::createNew();
 		assert(go);
 		go->transform->setParent(m_uiGO->transform);
-		go->transform->setWorldPosition(Vector2((float)SCREEN_WIDTH - 152 , (float)SCREEN_HEIGHT - 136));
+		go->transform->setWorldPosition(Vector2((float)SCREEN_WIDTH - 152, (float)SCREEN_HEIGHT - 136));
 		m_insertCoinsCountdownText = go->addComponent<TextRenderer>();
 		assert(m_insertCoinsCountdownText);
 
@@ -262,8 +267,6 @@ void UIManager::awake()
 
 		m_postCoinsStartLabel->setActive(false);
 	}
-
-	m_sfxCoin = Audio::LoadSFX("assets/audio/sfx/SFX - Coin.wav");
 }
 
 
@@ -309,7 +312,7 @@ void UIManager::update()
 	// Handle input (coins)
 	if (Input::getKeyDown(SDL_SCANCODE_Q))
 	{
-		Audio::PlaySFX(m_sfxCoin);
+		Audio::playSFX(m_sfxCoin);
 		player_lives += LIVES_PER_COIN;
 		updateLivesText();
 		if (m_showingInsertCointsPrompt)
@@ -537,7 +540,7 @@ void UIManager::handleGameOver()
 {
 	m_uiGO->setActive(false);
 	m_isActive = false;
-	Audio::StopMusic();
+	Audio::stopMusic();
 
 	OutputLog("GAME OVER");
 	Messenger::broadcastEvent(MessengerEventType::GAME_OVER);

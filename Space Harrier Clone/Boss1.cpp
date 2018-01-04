@@ -26,6 +26,8 @@ void Boss1::onDestroy()
 	Messenger::removeListener(this, MessengerEventType::FLOOR_MOTION_STOPPED);
 	Messenger::removeListener(this, MessengerEventType::FLOOR_MOTION_RESUMED);
 
+	Audio::unloadSFX(m_sfxBossShot);
+
 	if (m_shotsPool != nullptr)
 	{
 		delete(m_shotsPool);
@@ -86,7 +88,7 @@ void Boss1::awake()
 		previousChainLink = chainLink;
 	}
 
-	m_sfxBossShot = Audio::LoadSFX("assets/audio/sfx/SFX - BossShot.wav");
+	m_sfxBossShot = Audio::loadSFX("assets/audio/sfx/SFX - BossShot.wav");
 	m_collider = gameObject()->getComponentInChildren<Collider>();
 	m_headSprite = m_collider->gameObject()->getComponent<Sprite>();
 	m_shadowSprite = gameObject()->getComponent<Sprite>();
@@ -326,7 +328,7 @@ void Boss1::shoot(int cycleTime)
 				targetPos.y += m_chainConfig.shotsSpreadDistance * yNormSpread;
 
 				shot->init(m_floorManager, currPos, m_currentnormalizedDepth, targetPos, 0.95f);
-				Audio::PlaySFX(m_sfxBossShot);
+				Audio::playSFX(m_sfxBossShot);
 			}
 		}
 	}
@@ -350,7 +352,7 @@ void Boss1::die()
 		assert(explosion);
 		explosion->init(m_floorManager, m_xPos, m_zIndex / 100.0f, 0.95f, m_scale.x, 0.95f, true);
 		explosionGO->setActive(true);
-		Audio::PlaySFX(m_sfxExplosion);
+		Audio::playSFX(m_sfxExplosion);
 		GameObject::destroy(gameObject());
 	}
 	else

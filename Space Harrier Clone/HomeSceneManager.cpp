@@ -12,11 +12,18 @@
 #include "MessengerEventType.h"
 
 
+void HomeSceneManager::onDestroy()
+{
+	Audio::unloadSFX(m_sfxCoin);
+}
+
+
 void HomeSceneManager::awake()
 {
 	m_shouldHandleInput = true;
-
 	std::string imagePath = "assets/sprites/Home_screen.png";
+	m_sfxCoin = Audio::loadSFX("assets/audio/sfx/SFX - Coin.wav");
+	assert(m_sfxCoin);
 
 	gameObject()->transform->setWorldPosition(Vector2(0, 0));
 	
@@ -369,10 +376,6 @@ void HomeSceneManager::awake()
 		m_pushStartPrompt->setText("PUSH START BUTTON ");
 	}
 	m_pushStartPrompt->gameObject()->setActive(false);
-
-	
-	m_sfxCoin = Audio::LoadSFX("assets/audio/sfx/SFX - Coin.wav");
-	assert(m_sfxCoin);
 }
 
 
@@ -417,7 +420,7 @@ void HomeSceneManager::update()
 			m_insertCoinsPrompt->gameObject()->setActive(false);
 			m_pushStartPrompt->gameObject()->setActive(true);
 			m_playerLives += LIVES_PER_COIN;
-			Audio::PlaySFX(m_sfxCoin);
+			Audio::playSFX(m_sfxCoin);
 			m_livesValue->setText(std::to_string(m_playerLives));
 		}
 

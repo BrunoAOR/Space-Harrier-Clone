@@ -27,6 +27,7 @@ public:
 	virtual void onDestroy() override;
 
 	void init(const Reference<GameObject>& characterGo, const Reference<GameObject>& shadowGo);
+	virtual void awake() override;
 	virtual void start() override;
 	virtual void update() override;
 	virtual void onTriggerEnter(Reference<Collider>& other) override;

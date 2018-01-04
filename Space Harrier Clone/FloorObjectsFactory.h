@@ -20,6 +20,7 @@ public:
 	virtual void onDestroy() override;
 	
 	void init(const Reference<FloorManager>& floorManager, const std::vector<ObstacleSpawnInfo>& spawnInfos);
+	virtual void awake() override;
 	virtual void start() override;
 	virtual void update() override;
 
