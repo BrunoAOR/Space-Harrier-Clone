@@ -48,6 +48,7 @@ bool scenesConfig()
 #include "../Boss1Prefab.h"
 #include "../Boss1ChainLinkPrefab.h"
 #include "../Boss1ExplosionPrefab.h"
+#include "../SceneFaderPrefab.h"
 bool prefabsConfig()
 {
 	// Success flag
@@ -67,6 +68,7 @@ bool prefabsConfig()
 	success &= engine->prefabsFactory->addPrefab<Boss1Prefab>("Boss1Prefab");
 	success &= engine->prefabsFactory->addPrefab<Boss1ChainLinkPrefab>("Boss1ChainLinkPrefab");
 	success &= engine->prefabsFactory->addPrefab<Boss1ExplosionPrefab>("Boss1ExplosionPrefab");
+	success &= engine->prefabsFactory->addPrefab<SceneFaderPrefab>("SceneFaderPrefab");
 
 	return success;
 }
@@ -174,9 +176,9 @@ std::vector<EnemySpawnInfo> getEnemiesSpawnInfo()
 	info.push_back(EnemySpawnInfo("EnemyShipPrefab", 3000, 4000, 1, "assets/audio/sfx/SFX - Spawn_Ship.wav"));
 	
 	info.push_back(EnemySpawnInfo("EnemyBallPrefab", 3000, 6000, 2, "assets/audio/sfx/SFX - Spawn_Ball.wav"));
-	
-	info.push_back(EnemySpawnInfo("Boss1Prefab", 8000, -1, -1, ""));
 	*/
+	info.push_back(EnemySpawnInfo("Boss1Prefab", 8000, -1, -1, ""));
+	
 	return info;
 }
 

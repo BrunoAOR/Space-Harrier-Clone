@@ -21,15 +21,21 @@ void UIManager::onDestroy()
 	Messenger::removeListener(this, MessengerEventType::FLOOR_MOTION_RESUMED);
 	Messenger::removeListener(this, MessengerEventType::POINTS_5000);
 	Messenger::removeListener(this, MessengerEventType::POINTS_10000);
+	Messenger::removeListener(this, MessengerEventType::POINTS_100000);
 }
 
 
 void UIManager::awake()
 {
+	m_uiGO = GameObject::createNew();
+	assert(m_uiGO);
+	m_uiGO->transform->setParent(gameObject()->transform, false);
+
 	// m_topLabel
 	{
 		auto go = GameObject::createNew();
 		assert(go);
+		go->transform->setParent(m_uiGO->transform);
 		go->transform->setWorldPosition(Vector2(22, (float)SCREEN_HEIGHT - 14));
 		m_topLabel = go->addComponent<Sprite>();
 		assert(m_topLabel);
@@ -44,6 +50,7 @@ void UIManager::awake()
 	{
 		auto go = GameObject::createNew();
 		assert(go);
+		go->transform->setParent(m_uiGO->transform);
 		go->transform->setWorldPosition(Vector2(120, (float)SCREEN_HEIGHT - 16));
 		m_topScoreText = go->addComponent<TextRenderer>();
 		assert(m_topScoreText);
@@ -61,6 +68,7 @@ void UIManager::awake()
 	{
 		auto go = GameObject::createNew();
 		assert(go);
+		go->transform->setParent(m_uiGO->transform);
 		go->transform->setWorldPosition(Vector2((float)SCREEN_WIDTH - 82, (float)SCREEN_HEIGHT - 14));
 		m_scoreLabel = go->addComponent<Sprite>();
 		assert(m_scoreLabel);
@@ -75,6 +83,7 @@ void UIManager::awake()
 	{
 		auto go = GameObject::createNew();
 		assert(go);
+		go->transform->setParent(m_uiGO->transform);
 		go->transform->setWorldPosition(Vector2((float)SCREEN_WIDTH - 16, (float)SCREEN_HEIGHT - 16));
 		m_scoreText = go->addComponent<TextRenderer>();
 		assert(m_scoreText);
@@ -91,6 +100,7 @@ void UIManager::awake()
 	{
 		auto go = GameObject::createNew();
 		assert(go);
+		go->transform->setParent(m_uiGO->transform);
 		go->transform->setWorldPosition(Vector2(24, 8));
 		m_lifesText = go->addComponent<TextRenderer>();
 		assert(m_lifesText);
@@ -106,11 +116,13 @@ void UIManager::awake()
 	{
 		auto go = GameObject::createNew();
 		assert(go);
+		go->transform->setParent(m_uiGO->transform);
 		go->transform->setWorldPosition(Vector2((float)SCREEN_WIDTH - 56, 8));
 		m_stageLabel = go->addComponent<TextRenderer>();
-		assert(m_scoreLabel);
+		assert(m_stageLabel);
 
-		m_scoreLabel->setRenderLayer("UI");
+		m_stageLabel->setRenderLayer("UI");
+		m_stageLabel->setZIndex(1);
 
 		bool success = m_stageLabel->loadFont(getFont("smallGray"));
 		assert(success);
@@ -122,6 +134,7 @@ void UIManager::awake()
 	{
 		auto go = GameObject::createNew();
 		assert(go);
+		go->transform->setParent(m_uiGO->transform);
 		go->transform->setWorldPosition(Vector2((float)SCREEN_WIDTH - 32, 8));
 		m_stageText = go->addComponent<TextRenderer>();
 		assert(m_stageText);
@@ -138,6 +151,7 @@ void UIManager::awake()
 	{
 		auto go = GameObject::createNew();
 		assert(go);
+		go->transform->setParent(m_uiGO->transform);
 		go->transform->setWorldPosition(Vector2(SCREEN_WIDTH / 2.0f, (float)SCREEN_HEIGHT - 80));
 		m_stageNumberLabel = go->addComponent<TextRenderer>();
 		assert(m_stageNumberLabel);
@@ -155,6 +169,7 @@ void UIManager::awake()
 	{
 		auto go = GameObject::createNew();
 		assert(go);
+		go->transform->setParent(m_uiGO->transform);
 		go->transform->setWorldPosition(Vector2(SCREEN_WIDTH / 2.0f, (float)SCREEN_HEIGHT - 104));
 		m_stageNameLabel = go->addComponent<TextRenderer>();
 		assert(m_stageNameLabel);
@@ -172,6 +187,7 @@ void UIManager::awake()
 	{
 		auto go = GameObject::createNew();
 		assert(go);
+		go->transform->setParent(m_uiGO->transform);
 		go->transform->setWorldPosition(Vector2(SCREEN_WIDTH / 2.0f, (float)SCREEN_HEIGHT - 80));
 		m_postReviveLabel = go->addComponent<TextRenderer>();
 		assert(m_postReviveLabel);
@@ -191,6 +207,7 @@ void UIManager::awake()
 	{
 		auto go = GameObject::createNew();
 		assert(go);
+		go->transform->setParent(m_uiGO->transform);
 		go->transform->setWorldPosition(Vector2(SCREEN_WIDTH / 2.0f, (float)SCREEN_HEIGHT - 88));
 		m_insertCoinsLabel = go->addComponent<TextRenderer>();
 		assert(m_insertCoinsLabel);
@@ -210,6 +227,7 @@ void UIManager::awake()
 	{
 		auto go = GameObject::createNew();
 		assert(go);
+		go->transform->setParent(m_uiGO->transform);
 		go->transform->setWorldPosition(Vector2((float)SCREEN_WIDTH - 152 , (float)SCREEN_HEIGHT - 136));
 		m_insertCoinsCountdownText = go->addComponent<TextRenderer>();
 		assert(m_insertCoinsCountdownText);
@@ -229,6 +247,7 @@ void UIManager::awake()
 	{
 		auto go = GameObject::createNew();
 		assert(go);
+		go->transform->setParent(m_uiGO->transform);
 		go->transform->setWorldPosition(Vector2(SCREEN_WIDTH / 2.0f, (float)SCREEN_HEIGHT - 72));
 		m_postCoinsStartLabel = go->addComponent<TextRenderer>();
 		assert(m_postCoinsStartLabel);
@@ -256,6 +275,7 @@ void UIManager::start()
 	Messenger::addListener(this, MessengerEventType::FLOOR_MOTION_RESUMED);
 	Messenger::addListener(this, MessengerEventType::POINTS_5000);
 	Messenger::addListener(this, MessengerEventType::POINTS_10000);
+	Messenger::addListener(this, MessengerEventType::POINTS_100000);
 
 	m_pointsPerStep = 10;
 	m_pointsStepsPerSecond = 15;
@@ -281,6 +301,11 @@ void UIManager::start()
 
 void UIManager::update()
 {
+	if (!m_isActive)
+	{
+		return;
+	}
+
 	// Handle input (coins)
 	if (Input::getKeyDown(SDL_SCANCODE_Q))
 	{
@@ -370,7 +395,8 @@ void UIManager::eventsCallback(MessengerEventType eventType)
 	case MessengerEventType::POINTS_10000:
 		addPoints(10000);
 		break;
-	case MessengerEventType::BOSS_KILLED:
+	case MessengerEventType::POINTS_100000:
+		addPoints(100000);
 		break;
 	default:
 		break;
@@ -509,5 +535,11 @@ void UIManager::finishInsertCoinsPrompt()
 
 void UIManager::handleGameOver()
 {
+	m_uiGO->setActive(false);
+	m_isActive = false;
+	Audio::StopMusic();
+
 	OutputLog("GAME OVER");
+	Messenger::broadcastEvent(MessengerEventType::GAME_OVER);
+	Messenger::broadcastEvent(MessengerEventType::CHANGE_SCENE);
 }

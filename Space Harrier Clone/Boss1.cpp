@@ -23,6 +23,8 @@ void Boss1::onDestroy()
 {
 	Messenger::removeListener(this, MessengerEventType::PLAYER_DEAD);
 	Messenger::removeListener(this, MessengerEventType::PLAYER_REVIVED);
+	Messenger::removeListener(this, MessengerEventType::FLOOR_MOTION_STOPPED);
+	Messenger::removeListener(this, MessengerEventType::FLOOR_MOTION_RESUMED);
 
 	if (m_shotsPool != nullptr)
 	{
@@ -39,23 +41,36 @@ void Boss1::init(const Reference<FloorManager>& floorManager, const Reference<Tr
 	m_sfxExplosion = explosionSFX;
 	assert(m_floorManager && m_playerTransform && m_sfxExplosion);
 
+	assert(m_nextLink);
+	m_nextLink->init(m_floorManager, m_playerTransform, gameObject()->transform->getParent(), m_sfxExplosion, m_chainConfig, m_chainConfig.chainDelay, 0);
+
+	m_scale.x = m_scale.y = 0;
+	gameObject()->transform->setLocalScale(m_scale);
+	gameObject()->setActive(true);
+}
+
+
+void Boss1::awake()
+{
+	Messenger::addListener(this, MessengerEventType::PLAYER_DEAD);
+	Messenger::addListener(this, MessengerEventType::PLAYER_REVIVED);
+	Messenger::addListener(this, MessengerEventType::FLOOR_MOTION_STOPPED);
+	Messenger::addListener(this, MessengerEventType::FLOOR_MOTION_RESUMED);
+
 	Reference<Prefab> chainLinkPrefab = Prefabs::getPrefab("Boss1ChainLinkPrefab");
 	assert(chainLinkPrefab);
-
 	m_chainConfig = getBoss1ChainConfig();
 
 	Reference<Boss1ChainLink> previousChainLink;
-	int delay = m_chainConfig.chainDelay;
 
 	for (int i = 1; i < m_chainConfig.chainLength; ++i)
 	{
 		auto go = Prefabs::instantiate(chainLinkPrefab);
 		assert(go);
 
-		go->transform->setParent(gameObject()->transform->getParent());
+		go->transform->setParent(gameObject()->transform);
 		auto chainLink = go->getComponent<Boss1ChainLink>();
 		assert(chainLink);
-		delay += m_chainConfig.chainDelay;
 		if (i == 1)
 		{
 			m_nextLink = chainLink;
@@ -68,21 +83,8 @@ void Boss1::init(const Reference<FloorManager>& floorManager, const Reference<Tr
 		{
 			chainLink->setAsTail();
 		}
-		chainLink->init(m_floorManager, m_playerTransform, m_sfxExplosion, m_chainConfig, delay);
 		previousChainLink = chainLink;
-
 	}
-
-	m_scale.x = m_scale.y = 0;
-	gameObject()->transform->setLocalScale(m_scale);
-
-}
-
-
-void Boss1::awake()
-{
-	Messenger::addListener(this, MessengerEventType::PLAYER_DEAD);
-	Messenger::addListener(this, MessengerEventType::PLAYER_REVIVED);
 
 	m_sfxBossShot = Audio::LoadSFX("assets/audio/sfx/SFX - BossShot.wav");
 	m_collider = gameObject()->getComponentInChildren<Collider>();
@@ -96,7 +98,7 @@ void Boss1::awake()
 
 	faceDirection(true);
 
-	gameObject()->setActive(true);
+	gameObject()->setActive(false);
 }
 
 
@@ -250,6 +252,16 @@ void Boss1::eventsCallback(MessengerEventType eventType)
 			m_nextLink->setPlayerDead(false);
 		}
 	}
+	else if (eventType == MessengerEventType::FLOOR_MOTION_STOPPED)
+	{
+		m_playerDowned = true;
+		
+	}
+	else if (eventType == MessengerEventType::FLOOR_MOTION_RESUMED)
+	{
+		m_playerDowned = false;
+		
+	}
 }
 
 
@@ -289,29 +301,33 @@ void Boss1::shoot(int cycleTime)
 			m_nextShotIndex = 0;
 		}
 
-		auto shotGo = m_shotsPool->getGameObject();
-		assert(shotGo);
+
+		if (!m_playerDowned)
 		{
-			shotGo->setActive(true);
-			Reference<EnemyShot> shot = shotGo->getComponent<EnemyShot>();
-			assert(shot);
-			Vector2 currPos = m_headSprite->gameObject()->transform->getWorldPosition();
-			// The shot is lifted to the mouth of the dragon head (consider scale)
-			currPos.y += m_headSprite->gameObject()->transform->getLocalScale().y * 15.0f;
+			auto shotGo = m_shotsPool->getGameObject();
+			assert(shotGo);
+			{
+				shotGo->setActive(true);
+				Reference<EnemyShot> shot = shotGo->getComponent<EnemyShot>();
+				assert(shot);
+				Vector2 currPos = m_headSprite->gameObject()->transform->getWorldPosition();
+				// The shot is lifted to the mouth of the dragon head (consider scale)
+				currPos.y += m_headSprite->gameObject()->transform->getLocalScale().y * 15.0f;
 
-			Vector2 targetPos = m_playerTransform->getWorldPosition();
-			// The target is lifted to the approximate center of the character
-			targetPos.y += 30;
+				Vector2 targetPos = m_playerTransform->getWorldPosition();
+				// The target is lifted to the approximate center of the character
+				targetPos.y += 30;
 
-			// Pseudo-random shot spread (time-based)
-			float xNormSpread = 2 * (Time::time() % 25) / 25.0f - 1;
-			float yNormSpread = 2 * (Time::time() % 100) / 100.0f - 1;
+				// Pseudo-random shot spread (time-based)
+				float xNormSpread = 2 * (Time::time() % 25) / 25.0f - 1;
+				float yNormSpread = 2 * (Time::time() % 100) / 100.0f - 1;
 
-			targetPos.x += m_chainConfig.shotsSpreadDistance * xNormSpread;
-			targetPos.y += m_chainConfig.shotsSpreadDistance * yNormSpread;
+				targetPos.x += m_chainConfig.shotsSpreadDistance * xNormSpread;
+				targetPos.y += m_chainConfig.shotsSpreadDistance * yNormSpread;
 
-			shot->init(m_floorManager, currPos, m_currentnormalizedDepth, targetPos, 0.95f);
-			Audio::PlaySFX(m_sfxBossShot);
+				shot->init(m_floorManager, currPos, m_currentnormalizedDepth, targetPos, 0.95f);
+				Audio::PlaySFX(m_sfxBossShot);
+			}
 		}
 	}
 	m_lastCycleTime = cycleTime;
@@ -322,6 +338,7 @@ void Boss1::die()
 {
 	if (m_elapsedTime >= m_deathElapsedTime)
 	{
+		Messenger::broadcastEvent(MessengerEventType::POINTS_100000);
 		// EXPLODE!
 		Reference<Transform>& parent = gameObject()->transform->getParent();
 		auto explosionGO = Prefabs::instantiate(Prefabs::getPrefab("Boss1ExplosionPrefab"));

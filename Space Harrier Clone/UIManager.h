@@ -5,6 +5,7 @@
 #include "MessengerEventListener.h"
 #include "Engine/Reference.h"
 #include "Engine/SFX.h"
+class GameObject;
 class Sprite;
 class TextRenderer;
 
@@ -39,6 +40,10 @@ private:
 	void startInsertCoinsPrompt();
 	void finishInsertCoinsPrompt();
 	void handleGameOver();
+
+	// Containing GO
+	Reference<GameObject> m_uiGO;
+	bool m_isActive = true;
 
 	// Constant UI
 	Reference<Sprite> m_topLabel;

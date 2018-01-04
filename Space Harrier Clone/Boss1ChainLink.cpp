@@ -9,16 +9,25 @@
 #include "Engine/gameConfig.h"
 #include "FloorManager.h"
 #include "Explosion.h"
+#include "Messenger.h"
+#include "MessengerEventType.h"
 
 
-void Boss1ChainLink::init(const Reference<FloorManager>& floorManager, const Reference<Transform>& playerTransform, const SFX& explosionSFX, const Boss1ChainConfig& chainConfig, int motionDelayMS)
+void Boss1ChainLink::init(const Reference<FloorManager>& floorManager, const Reference<Transform>& playerTransform, Reference<Transform>& parentTransform, const SFX& explosionSFX, const Boss1ChainConfig& chainConfig, int motionDelayMS, int previousLinkMotionDelayMS)
 {
 	m_floorManager = floorManager;
 	m_playerTransform = playerTransform;
 	m_sfxExplosion = explosionSFX;
-	assert(m_floorManager && m_playerTransform && m_sfxExplosion);
+	assert(m_floorManager && m_playerTransform && m_sfxExplosion && parentTransform);
+	gameObject()->transform->setParent(parentTransform);
 	m_chainConfig = chainConfig;
-	m_elapsedTime -= motionDelayMS;
+	int totalDelay = motionDelayMS + previousLinkMotionDelayMS;
+	m_elapsedTime -= totalDelay;
+	if (m_nextLink)
+	{
+		m_nextLink->init(m_floorManager, m_playerTransform, parentTransform, m_sfxExplosion, m_chainConfig, motionDelayMS, totalDelay);
+	}
+	gameObject()->setActive(true);
 }
 
 
@@ -34,7 +43,7 @@ void Boss1ChainLink::awake()
 
 	m_sideFlipFactor = 1;
 
-	gameObject()->setActive(true);
+	gameObject()->setActive(false);
 }
 
 
@@ -223,6 +232,7 @@ void Boss1ChainLink::die()
 {
 	if (m_elapsedTime >= m_deathElapsedTime)
 	{
+		Messenger::broadcastEvent(MessengerEventType::POINTS_100000);
 		// EXPLODE!
 		Reference<Transform>& parent = gameObject()->transform->getParent();
 		auto explosionGO = Prefabs::instantiate(Prefabs::getPrefab("Boss1ExplosionPrefab"));

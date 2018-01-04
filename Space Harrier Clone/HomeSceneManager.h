@@ -20,6 +20,8 @@ public:
 private:
 	virtual void togglePrompts(bool activeState);
 
+	bool m_shouldHandleInput;
+
 	Reference<SpriteSheet> m_gameTitle;
 	Reference<SpriteSheet> m_mammoth;
 	Reference<SpriteSheet> m_character;

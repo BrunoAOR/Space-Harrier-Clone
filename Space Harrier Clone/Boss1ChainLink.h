@@ -17,7 +17,7 @@ class Boss1ChainLink :
 	public Behaviour
 {
 public:
-	void init(const Reference<FloorManager>& floorManager, const Reference<Transform>& playerTransform, const SFX& explosionSFX, const Boss1ChainConfig& chainConfig, int motionDelayMS);
+	void init(const Reference<FloorManager>& floorManager, const Reference<Transform>& playerTransform, Reference<Transform>& parentTransform, const SFX& explosionSFX, const Boss1ChainConfig& chainConfig, int motionDelayMS, int previousLinkMotionDelayMS);
 	virtual void awake() override;
 	virtual void start() override;
 	virtual void update() override;

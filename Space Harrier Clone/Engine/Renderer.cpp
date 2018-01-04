@@ -8,9 +8,9 @@
 
 
 Renderer::Renderer()
-	: m_positionPivot(Vector2(0.5, 0.5))
-	, m_rotationPivot(Vector2(0.5, 0.5))
-	, m_scalePivot(Vector2(0.5, 0.5))
+	: m_positionPivot(Vector2(0.5f, 0.5f))
+	, m_rotationPivot(Vector2(0.5f, 0.5f))
+	, m_scalePivot(Vector2(0.5f, 0.5f))
 	, m_renderLayer("default")
 	, m_zIndex(0)
 {

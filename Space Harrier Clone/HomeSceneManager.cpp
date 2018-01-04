@@ -1,5 +1,6 @@
 #include "HomeSceneManager.h"
 
+#include <string>
 #include "Engine/gameConfig.h"
 #include "Engine/GameObject.h"
 #include "Engine/Transform.h"
@@ -7,12 +8,14 @@
 #include "Engine/SpriteSheet.h"
 #include "Engine/TextRenderer.h"
 #include "Engine/API.h"
-
-#include <string>
+#include "Messenger.h"
+#include "MessengerEventType.h"
 
 
 void HomeSceneManager::awake()
 {
+	m_shouldHandleInput = true;
+
 	std::string imagePath = "assets/sprites/Home_screen.png";
 
 	gameObject()->transform->setWorldPosition(Vector2(0, 0));
@@ -405,6 +408,27 @@ void HomeSceneManager::start()
 
 void HomeSceneManager::update()
 {
+	// Receive user input
+
+	if (m_shouldHandleInput)
+	{
+		if (Input::getKeyDown(SDL_SCANCODE_Q))
+		{
+			m_insertCoinsPrompt->gameObject()->setActive(false);
+			m_pushStartPrompt->gameObject()->setActive(true);
+			m_playerLives += LIVES_PER_COIN;
+			Audio::PlaySFX(m_sfxCoin);
+			m_livesValue->setText(std::to_string(m_playerLives));
+		}
+
+		if (m_playerLives > 0 && Input::getKeyDown(SDL_SCANCODE_LCTRL))
+		{
+			player_lives = m_playerLives;
+			m_shouldHandleInput = false;
+			Messenger::broadcastEvent(MessengerEventType::CHANGE_SCENE);
+		}
+	}
+
 	// Scale the Game_title
 	{
 		if (m_gameTitleScale < 1)
@@ -445,24 +469,6 @@ void HomeSceneManager::update()
 		}
 	}
 
-	// Receive user input
-	{
-		if (Input::getKeyDown(SDL_SCANCODE_Q))
-		{
-			m_insertCoinsPrompt->gameObject()->setActive(false);
-			m_pushStartPrompt->gameObject()->setActive(true);
-			m_playerLives += LIVES_PER_COIN;
-			Audio::PlaySFX(m_sfxCoin);
-			m_livesValue->setText(std::to_string(m_playerLives));
-		}
-
-		if (m_playerLives > 0 && Input::getKeyDown(SDL_SCANCODE_LCTRL))
-		{
-			player_lives = m_playerLives;
-			Scenes::loadScene(1);
-		}
-	}
-
 	// Show Insert_coins_prompt or Push_start_prompt
 	{
 		if (m_promptsElapsedTime >= (m_promptsShowTime + m_promptsHideTime))
@@ -479,6 +485,7 @@ void HomeSceneManager::update()
 		m_promptsElapsedTime += Time::deltaTime();
 	}
 }
+
 
 void HomeSceneManager::togglePrompts(bool activeState)
 {

@@ -52,9 +52,6 @@
     <Filter Include="Behaviours\General">
       <UniqueIdentifier>{b0891a7e-02a3-48f9-9e4f-5fa4bfdf2ded}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Behaviours\UI">
-      <UniqueIdentifier>{3cee5158-9b81-4ea1-b673-8492f59177d8}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Scripts\MessengerSystem">
       <UniqueIdentifier>{09742dd1-4d76-42fd-9e5a-6ff433479648}</UniqueIdentifier>
     </Filter>
@@ -63,6 +60,9 @@
     </Filter>
     <Filter Include="Scripts\Boss">
       <UniqueIdentifier>{1166a50a-6d54-4b78-a3f3-531fabf12024}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Behaviours\GameScene">
+      <UniqueIdentifier>{3cee5158-9b81-4ea1-b673-8492f59177d8}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -263,7 +263,7 @@
       <Filter>__Potato Engine</Filter>
     </ClCompile>
     <ClCompile Include="UIManager.cpp">
-      <Filter>Behaviours\UI</Filter>
+      <Filter>Behaviours\GameScene</Filter>
     </ClCompile>
     <ClCompile Include="Messenger.cpp">
       <Filter>Scripts\MessengerSystem</Filter>
@@ -300,6 +300,15 @@
     </ClCompile>
     <ClCompile Include="Boss1ShotPrefab.cpp">
       <Filter>Prefabs\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneFaderPrefab.cpp">
+      <Filter>Prefabs</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneFader.cpp">
+      <Filter>Behaviours\General</Filter>
+    </ClCompile>
+    <ClCompile Include="GameSceneMusicManager.cpp">
+      <Filter>Behaviours\GameScene</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -547,7 +556,7 @@
       <Filter>__Potato Engine</Filter>
     </ClInclude>
     <ClInclude Include="UIManager.h">
-      <Filter>Behaviours\UI</Filter>
+      <Filter>Behaviours\GameScene</Filter>
     </ClInclude>
     <ClInclude Include="Engine\PixelPosition.h">
       <Filter>__Potato Engine</Filter>
@@ -596,6 +605,15 @@
     </ClInclude>
     <ClInclude Include="Boss1ShotPrefab.h">
       <Filter>Prefabs\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneFaderPrefab.h">
+      <Filter>Prefabs</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneFader.h">
+      <Filter>Behaviours\General</Filter>
+    </ClInclude>
+    <ClInclude Include="GameSceneMusicManager.h">
+      <Filter>Behaviours\GameScene</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

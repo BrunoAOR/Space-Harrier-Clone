@@ -101,8 +101,6 @@ private:
 	SFX m_sfxDie;
 	SFX m_sfxPostDie;
 	SFX m_sfxShot;
-	Music m_m1;
-	Music m_m2;
 };
 
 

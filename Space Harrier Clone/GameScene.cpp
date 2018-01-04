@@ -18,17 +18,27 @@
 #include "MotionPattern.h"
 #include "ObstacleSpawnInfo.h"
 #include "UIManager.h"
-
+#include "SceneFader.h"
+#include "GameSceneMusicManager.h"
 
 #include "TimeLogger.h"
 bool GameScene::load()
 {
 	Audio::setSFXVolume(0.25f);
 
+	{
+		auto go = Prefabs::instantiate(Prefabs::getPrefab("SceneFaderPrefab"));
+		assert(go);
+		auto sceneFader = go->getComponent<SceneFader>();
+		assert(sceneFader);
+		sceneFader->init(0, SDL_Color{ 0, 0, 0, 255 }, 0, 0, 0, true);
+	}
+
 	auto worldGO = GameObject::createNew();
 	if (worldGO)
 	{
 		//worldGO->addComponent<TimeLogger>();
+		assert(worldGO->addComponent<GameSceneMusicManager>());
 		worldGO->transform->setWorldPosition(Vector2(SCREEN_WIDTH / 2.0f, 0));
 
 		auto floorManagerGo = GameObject::createNew();
@@ -122,6 +132,7 @@ bool GameScene::load()
 
 	return true;
 }
+
 
 void GameScene::unload()
 {

@@ -35,6 +35,7 @@ private:
 	void die();
 
 	bool m_playerDead;
+	bool m_playerDowned;
 
 	Reference<FloorManager> m_floorManager;
 	Reference<Transform> m_playerTransform;

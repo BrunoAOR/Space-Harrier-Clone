@@ -13,6 +13,8 @@
 #include "ExplosiveObject.h"
 #include "EnemySpawnInfo.h"
 #include "Boss1.h"
+#include "Messenger.h"
+#include "MessengerEventType.h"
 
 
 void EnemiesFactory::onDestroy()
@@ -42,17 +44,21 @@ void EnemiesFactory::init(const Reference<Transform>& playerTransform, const Ref
 	std::sort(m_spawnInfos.begin(), m_spawnInfos.end(), [](EnemySpawnInfo info1, EnemySpawnInfo info2) -> bool { return info1.spawnTime < info2.spawnTime; });
 
 	// Get the required Prefabs and Sfxs
+	bool isBoss;
 	for (EnemySpawnInfo spawnInfo : m_spawnInfos)
 	{
-		if (spawnInfo.prefabName != "Boss1Prefab")
+		isBoss = spawnInfo.prefabName.find("Boss") != std::string::npos;
+		if (m_prefabPools.count(spawnInfo.prefabName) == 0)
+		{
+			Reference<Prefab> prefab = Prefabs::getPrefab(spawnInfo.prefabName);
+			assert(prefab);
+			m_prefabPools[spawnInfo.prefabName] = (new GameObjectPool(prefab, isBoss ? 1 : 6));
+		}
+
+		if (!isBoss)
 		{
 			assert(spawnInfo.motionPatternIndex >= 0 && spawnInfo.motionPatternIndex < (int)m_motionPatterns.size());
-			if (m_prefabPools.count(spawnInfo.prefabName) == 0)
-			{
-				Reference<Prefab> prefab = Prefabs::getPrefab(spawnInfo.prefabName);
-				assert(prefab);
-				m_prefabPools[spawnInfo.prefabName] = (new GameObjectPool(prefab, 4));
-			}
+
 			if (m_spawnSfxs.count(spawnInfo.spawnSfxName) == 0)
 			{
 				SFX sfx = Audio::LoadSFX(spawnInfo.spawnSfxName);
@@ -101,33 +107,34 @@ void EnemiesFactory::spawnEnemy()
 {
 	EnemySpawnInfo spawnInfo = m_spawnInfos[m_nextSpawnIndex];
 	
-	if (spawnInfo.prefabName == "Boss1Prefab")
-	{
-		spawnBoss();
+	bool isBoss = spawnInfo.prefabName.find("Boss") != std::string::npos;
+
+	auto go = m_prefabPools[spawnInfo.prefabName]->getGameObject();
+	assert(go);
+	go->transform->setParent(gameObject()->transform);
+	if (!isBoss) {
+		auto enemy = go->getComponent<Enemy>();
+		if (enemy)
+		{
+			enemy->init(spawnInfo.lifeTime, m_motionPatterns[spawnInfo.motionPatternIndex], m_floorManager, m_playerTransform, m_enemyShotsPool, m_sfxEnemyShot);
+		}
+
+		auto explosiveObject = go->getComponent<ExplosiveObject>();
+		if (explosiveObject)
+		{
+			explosiveObject->init(m_explosionsPool, m_sfxExplosion);
+		}
+		Audio::PlaySFX(m_spawnSfxs[spawnInfo.spawnSfxName]);
 	}
 	else
 	{
-
-		auto go = m_prefabPools[spawnInfo.prefabName]->getGameObject();
-
-		if (go)
-		{
-			go->transform->setParent(gameObject()->transform);
-			auto enemy = go->getComponent<Enemy>();
-			if (enemy)
-			{
-				enemy->init(spawnInfo.lifeTime, m_motionPatterns[spawnInfo.motionPatternIndex], m_floorManager, m_playerTransform, m_enemyShotsPool, m_sfxEnemyShot);
-			}
-
-			auto explosiveObject = go->getComponent<ExplosiveObject>();
-			if (explosiveObject)
-			{
-				explosiveObject->init(m_explosionsPool, m_sfxExplosion);
-			}
-			Audio::PlaySFX(m_spawnSfxs[spawnInfo.spawnSfxName]);
-			go->setActive(true);
-		}
+		go->transform->setParent(gameObject()->transform);
+		auto boss1 = go->getComponent<Boss1>();
+		assert(boss1);
+		boss1->init(m_floorManager, m_playerTransform, m_sfxExplosion);
+		Messenger::broadcastEvent(MessengerEventType::BOSS_SPAWNED);
 	}
+	go->setActive(true);
 }
 
 

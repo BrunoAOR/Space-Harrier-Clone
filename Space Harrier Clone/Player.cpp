@@ -76,8 +76,6 @@ void Player::start()
 	m_sfxDie = Audio::LoadSFX("assets/audio/sfx/SFX - Voice - Aaaaargh.wav");
 	m_sfxPostDie = Audio::LoadSFX("assets/audio/sfx/SFX - Voice - Get ready.wav");
 	m_sfxShot = Audio::LoadSFX("assets/audio/sfx/SFX - PlayerShot.wav");
-	m_m1 = Audio::LoadMusic("assets/audio/bgm/Theme.wav");
-	m_m2 = Audio::LoadMusic("assets/audio/bgm/S1 MOOT Boss (Skyra).wav");
 }
 
 
@@ -155,19 +153,6 @@ Reference<Transform> Player::getCharacterTransform() const
 
 void Player::handleInput(float & normalizedRequestedX, float & normalizedRequestedY) const
 {
-	if (Input::getKeyDown(SDL_SCANCODE_1))
-	{
-		Audio::PlayMusic(m_m1);
-	}
-	if (Input::getKeyDown(SDL_SCANCODE_2))
-	{
-		Audio::PlayMusic(m_m2);
-	}
-	if (Input::getKeyDown(SDL_SCANCODE_0))
-	{
-		Scenes::loadScene(0);
-	}
-
 	// Motion
 	normalizedRequestedX = m_midX;
 	if (Input::getKey(SDL_SCANCODE_LEFT))
