@@ -18,7 +18,7 @@ bool HomeScene::load()
 		assert(go);
 		auto sceneFader = go->getComponent<SceneFader>();
 		assert(sceneFader);
-		sceneFader->init(1, SDL_Color{ 0, 0, 0, 255 }, 0, 0, 0, false);
+		sceneFader->init(1, SDL_Color{ 0, 0, 0, 255 }, 100, 0, 100, false);
 	}
 	
 	{

@@ -77,6 +77,7 @@
     <ClCompile Include="FloorObjectMover.cpp" />
     <ClCompile Include="FloorObjectsFactory.cpp" />
     <ClCompile Include="FloorWarpController.cpp" />
+    <ClCompile Include="gameData.cpp" />
     <ClCompile Include="GameObjectPool.cpp" />
     <ClCompile Include="GameScene.cpp" />
     <ClCompile Include="GameSceneMusicManager.cpp" />
@@ -130,6 +131,7 @@
     <ClInclude Include="Engine\PixelPosition.h" />
     <ClInclude Include="Engine\TextRenderer.h" />
     <ClInclude Include="GameSceneMusicManager.h" />
+    <ClInclude Include="gameData.h" />
     <ClInclude Include="HomeScene.h" />
     <ClInclude Include="HomeSceneManager.h" />
     <ClInclude Include="MessengerEventListener.h" />

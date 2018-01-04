@@ -1,13 +1,13 @@
 #include "HomeSceneManager.h"
 
 #include <string>
-#include "Engine/gameConfig.h"
 #include "Engine/GameObject.h"
 #include "Engine/Transform.h"
 #include "Engine/Sprite.h"
 #include "Engine/SpriteSheet.h"
 #include "Engine/TextRenderer.h"
 #include "Engine/API.h"
+#include "gameData.h"
 #include "Messenger.h"
 #include "MessengerEventType.h"
 
@@ -424,7 +424,7 @@ void HomeSceneManager::update()
 			m_livesValue->setText(std::to_string(m_playerLives));
 		}
 
-		if (m_playerLives > 0 && Input::getKeyDown(SDL_SCANCODE_LCTRL))
+		if (m_playerLives > 0 && Input::getKeyDown(SDL_SCANCODE_SPACE))
 		{
 			player_lives = m_playerLives;
 			m_shouldHandleInput = false;

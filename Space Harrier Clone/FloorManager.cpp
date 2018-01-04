@@ -14,7 +14,7 @@ void FloorManager::init(const std::string & texturePath)
 }
 
 
-void FloorManager::start()
+void FloorManager::awake()
 {
 	assert(!m_texturePath.empty());
 	m_horInterpolationDuration = 500;

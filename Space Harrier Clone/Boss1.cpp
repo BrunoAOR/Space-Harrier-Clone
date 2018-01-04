@@ -2,12 +2,12 @@
 
 #include <assert.h>
 #include <math.h>
-#include "Engine/gameConfig.h"
 #include "Engine/GameObject.h"
 #include "Engine/Transform.h"
 #include "Engine/API.h"
 #include "Engine/Collider.h"
 #include "Engine/Sprite.h"
+#include "gameData.h"
 #include "Utils.h"
 #include "FloorManager.h"
 #include "GameObjectPool.h"

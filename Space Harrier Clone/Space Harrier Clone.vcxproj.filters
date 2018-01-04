@@ -310,6 +310,7 @@
     <ClCompile Include="GameSceneMusicManager.cpp">
       <Filter>Behaviours\GameScene</Filter>
     </ClCompile>
+    <ClCompile Include="gameData.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\API.h">
@@ -615,5 +616,6 @@
     <ClInclude Include="GameSceneMusicManager.h">
       <Filter>Behaviours\GameScene</Filter>
     </ClInclude>
+    <ClInclude Include="gameData.h" />
   </ItemGroup>
 </Project>

@@ -6,7 +6,7 @@
 #include "Engine/Behaviour.h"
 #include "Engine/Sprite.h"
 #include "Engine/Vector2.h"
-#include "Engine/gameConfig.h"
+#include "gameData.h"
 #include "FloorManager.h"
 #include "DarkLineinfo.h"
 #include "FloorObjectsFactory.h"
@@ -31,7 +31,7 @@ bool GameScene::load()
 		assert(go);
 		auto sceneFader = go->getComponent<SceneFader>();
 		assert(sceneFader);
-		sceneFader->init(0, SDL_Color{ 0, 0, 0, 255 }, 0, 0, 0, true);
+		sceneFader->init(0, SDL_Color{ 0, 0, 0, 255 }, 200, 100, 0, true);
 	}
 
 	auto worldGO = GameObject::createNew();

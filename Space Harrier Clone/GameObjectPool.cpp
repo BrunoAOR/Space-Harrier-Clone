@@ -22,6 +22,7 @@ GameObjectPool::~GameObjectPool()
 {
 	for (Reference<GameObject>& goRef : m_gameObjects)
 	{
+		goRef->getComponent<PooledGameObject>()->m_pool = nullptr;
 		GameObject::destroy(goRef);
 	}
 }

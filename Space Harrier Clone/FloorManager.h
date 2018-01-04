@@ -15,7 +15,7 @@ class FloorManager :
 {
 public:
 	void init(const std::string& texturePath);
-	virtual void start() override;
+	virtual void awake() override;
 	virtual void update() override;
 	
 	int getCurrentFloorHeight() const;

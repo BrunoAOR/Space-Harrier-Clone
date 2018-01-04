@@ -70,15 +70,15 @@ void EnemiesFactory::init(const Reference<Transform>& playerTransform, const Ref
 			}
 		}
 	}
-
-	m_explosionsPool = new GameObjectPool(Prefabs::getPrefab("ExplosionPrefab"), 4);
-	m_enemyShotsPool = new GameObjectPool(Prefabs::getPrefab("EnemyShotPrefab"), 6);
-	assert(m_explosionsPool && m_enemyShotsPool);
 }
 
 
 void EnemiesFactory::awake()
 {
+	m_explosionsPool = new GameObjectPool(Prefabs::getPrefab("ExplosionPrefab"), 4);
+	m_enemyShotsPool = new GameObjectPool(Prefabs::getPrefab("EnemyShotPrefab"), 6);
+	assert(m_explosionsPool && m_enemyShotsPool);
+
 	m_sfxExplosion = Audio::loadSFX("assets/audio/sfx/SFX - Explosion.wav");
 	m_sfxEnemyShot = Audio::loadSFX("assets/audio/sfx/SFX - EnemyShot.wav");
 	assert(m_sfxExplosion && m_sfxEnemyShot);

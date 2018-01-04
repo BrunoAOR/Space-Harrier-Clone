@@ -2,13 +2,13 @@
 
 #include <assert.h>
 #include "Engine/globals.h"
-#include "Engine/gameConfig.h"
 #include "Engine/GameObject.h"
 #include "Engine/Transform.h"
 #include "Engine/Sprite.h"
 #include "Engine/TextRenderer.h"
 #include "Engine/Font.h"
 #include "Engine/API.h"
+#include "gameData.h"
 #include "Messenger.h"
 #include "MessengerEventType.h"
 
@@ -321,7 +321,7 @@ void UIManager::update()
 		}
 	}
 
-	if (m_showingInsertCointsPrompt && player_lives > 0 && Input::getKeyDown(SDL_SCANCODE_LCTRL))
+	if (m_showingInsertCointsPrompt && player_lives > 0 && Input::getKeyDown(SDL_SCANCODE_SPACE))
 	{
 		finishInsertCoinsPrompt();
 	}

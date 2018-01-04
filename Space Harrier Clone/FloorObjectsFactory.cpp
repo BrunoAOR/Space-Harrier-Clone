@@ -51,15 +51,14 @@ void FloorObjectsFactory::init(const Reference<FloorManager>& floorManager, cons
 			m_prefabPools[spawnInfo.prefabName] = (new GameObjectPool(prefab, 4));
 		}
 	}
-
-	m_explosionsPool = new GameObjectPool(Prefabs::getPrefab("ExplosionPrefab"), 3);
-	assert(m_explosionsPool);
-
 }
 
 
 void FloorObjectsFactory::awake()
 {
+	m_explosionsPool = new GameObjectPool(Prefabs::getPrefab("ExplosionPrefab"), 3);
+	assert(m_explosionsPool);
+
 	m_sfxExplosion = Audio::loadSFX("assets/audio/sfx/SFX - Explosion.wav");
 	assert(m_sfxExplosion);
 }

@@ -1,13 +1,13 @@
 #include "Player.h"
 
 #include <assert.h>
-#include "Engine/gameConfig.h"
 #include "Engine/API.h"
 #include "Engine/GameObject.h"
 #include "Engine/Transform.h"
 #include "Engine/Sprite.h"
 #include "Engine/SpriteSheet.h"
 #include "Engine/Collider.h"
+#include "gameData.h"
 #include "Utils.h"
 #include "FloorManager.h"
 #include "FloorObjectMover.h"
@@ -56,12 +56,6 @@ void Player::init(const Reference<GameObject>& characterGo, const Reference<Game
 	m_midY = 0.35f;
 	m_maxY = 0.71f;
 	m_yTarget = m_midY;
-
-	// Die Animation
-	m_dieAnimation = new TimedAnimation(getDieAnimationInfo(), m_spriteSheet);
-
-	// Shooting
-	m_shotsPool = new GameObjectPool(Prefabs::getPrefab("PlayerShotPrefab"), 6);
 }
 
 void Player::awake()
@@ -72,6 +66,12 @@ void Player::awake()
 	m_sfxDie = Audio::loadSFX("assets/audio/sfx/SFX - Voice - Aaaaargh.wav");
 	m_sfxPostDie = Audio::loadSFX("assets/audio/sfx/SFX - Voice - Get ready.wav");
 	m_sfxShot = Audio::loadSFX("assets/audio/sfx/SFX - PlayerShot.wav");
+
+	// Die Animation
+	m_dieAnimation = new TimedAnimation(getDieAnimationInfo(), m_spriteSheet);
+
+	// Shooting
+	m_shotsPool = new GameObjectPool(Prefabs::getPrefab("PlayerShotPrefab"), 6);
 }
 
 
