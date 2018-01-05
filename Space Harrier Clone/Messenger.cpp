@@ -40,6 +40,10 @@ bool Messenger::removeListener(MessengerEventListener * listener, MessengerEvent
 		if (it != list.end())
 		{
 			list.erase(it);
+			if (list.size() == 0)
+			{
+				m_listenersMap.erase(eventType);
+			}
 			return true;
 		}
 	}

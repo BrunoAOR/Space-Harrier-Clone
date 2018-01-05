@@ -11,6 +11,7 @@
 #include "gameData.h"
 #include "Messenger.h"
 #include "MessengerEventType.h"
+#include "Ranking.h"
 
 
 void UIManager::onDestroy()
@@ -25,6 +26,13 @@ void UIManager::onDestroy()
 	Messenger::removeListener(this, MessengerEventType::GAME_WON);
 
 	Audio::unloadSFX(m_sfxCoin);
+}
+
+
+void UIManager::init(const Reference<Ranking>& ranking)
+{
+	m_ranking = ranking;
+	assert(m_ranking);
 }
 
 
@@ -46,6 +54,7 @@ void UIManager::awake()
 	assert(m_uiGO);
 	m_uiGO->transform->setParent(gameObject()->transform, false);
 
+	bool loadSuccess;
 	// m_topLabel
 	{
 		auto go = GameObject::createNew();
@@ -56,7 +65,10 @@ void UIManager::awake()
 		assert(m_topLabel);
 
 		m_topLabel->setRenderLayer("UI");
-		m_topLabel->loadImage("assets/sprites/UI.png");
+		m_topLabel->setZIndex(1);
+
+		loadSuccess = m_topLabel->loadImage("assets/sprites/UI.png");
+		assert(loadSuccess);
 		m_topLabel->setAllPivots(Vector2(0, 1));
 		m_topLabel->setClipRect(SDL_Rect{ 16, 104, 30, 12 });
 	}
@@ -73,8 +85,8 @@ void UIManager::awake()
 		m_topScoreText->setRenderLayer("UI");
 		m_topScoreText->setZIndex(1);
 
-		bool success = m_topScoreText->loadFont(getFont("smallPink"));
-		assert(success);
+		loadSuccess = m_topScoreText->loadFont(getFont("smallPink"));
+		assert(loadSuccess);
 		m_topScoreText->setAllPivots(Vector2(1, 1));
 		m_topScoreText->setText("");
 	}
@@ -89,7 +101,10 @@ void UIManager::awake()
 		assert(m_scoreLabel);
 
 		m_scoreLabel->setRenderLayer("UI");
-		m_scoreLabel->loadImage("assets/sprites/UI.png");
+		m_scoreLabel->setZIndex(1);
+
+		loadSuccess = m_scoreLabel->loadImage("assets/sprites/UI.png");
+		assert(loadSuccess);
 		m_scoreLabel->setAllPivots(Vector2(1, 1));
 		m_scoreLabel->setClipRect(SDL_Rect{ 46, 104, 48, 12 });
 	}
@@ -106,8 +121,8 @@ void UIManager::awake()
 		m_scoreText->setRenderLayer("UI");
 		m_scoreText->setZIndex(1);
 
-		bool success = m_scoreText->loadFont(getFont("smallGreen"));
-		assert(success);
+		loadSuccess = m_scoreText->loadFont(getFont("smallGreen"));
+		assert(loadSuccess);
 		m_scoreText->setAllPivots(Vector2(1, 1));
 	}
 
@@ -117,14 +132,15 @@ void UIManager::awake()
 		assert(go);
 		go->transform->setParent(m_uiGO->transform);
 		go->transform->setWorldPosition(Vector2(24, 8));
-		m_lifesText = go->addComponent<TextRenderer>();
-		assert(m_lifesText);
+		m_livesText = go->addComponent<TextRenderer>();
+		assert(m_livesText);
 
-		m_lifesText->setRenderLayer("UI");
+		m_livesText->setRenderLayer("UI");
+		m_livesText->setZIndex(1);
 
-		bool success = m_lifesText->loadFont(getFont("lifeIcons"));
-		assert(success);
-		m_lifesText->setAllPivots(Vector2(0, 0));
+		loadSuccess = m_livesText->loadFont(getFont("lifeIcons"));
+		assert(loadSuccess);
+		m_livesText->setAllPivots(Vector2(0, 0));
 	}
 
 	// m_stageLabel;
@@ -139,8 +155,8 @@ void UIManager::awake()
 		m_stageLabel->setRenderLayer("UI");
 		m_stageLabel->setZIndex(1);
 
-		bool success = m_stageLabel->loadFont(getFont("smallGray"));
-		assert(success);
+		loadSuccess = m_stageLabel->loadFont(getFont("smallGray"));
+		assert(loadSuccess);
 		m_stageLabel->setAllPivots(Vector2(1, 0));
 		m_stageLabel->setText("STAGE");
 	}
@@ -157,8 +173,8 @@ void UIManager::awake()
 		m_stageText->setRenderLayer("UI");
 		m_stageText->setZIndex(1);
 
-		bool success = m_stageText->loadFont(getFont("smallGray"));
-		assert(success);
+		loadSuccess = m_stageText->loadFont(getFont("smallGray"));
+		assert(loadSuccess);
 		m_stageText->setAllPivots(Vector2(1, 0));
 	}
 
@@ -174,8 +190,8 @@ void UIManager::awake()
 		m_stageNumberLabel->setRenderLayer("UI");
 		m_stageNumberLabel->setZIndex(1);
 
-		bool success = m_stageNumberLabel->loadFont(getFont("bigGray"));
-		assert(success);
+		loadSuccess = m_stageNumberLabel->loadFont(getFont("bigGray"));
+		assert(loadSuccess);
 		m_stageNumberLabel->setAllPivots(Vector2(0.5f, 1));
 		m_stageNumberLabel->setText("STAGE 1");
 	}
@@ -192,8 +208,8 @@ void UIManager::awake()
 		m_stageNameLabel->setRenderLayer("UI");
 		m_stageNameLabel->setZIndex(1);
 
-		bool success = m_stageNameLabel->loadFont(getFont("bigGray"));
-		assert(success);
+		loadSuccess = m_stageNameLabel->loadFont(getFont("bigGray"));
+		assert(loadSuccess);
 		m_stageNameLabel->setAllPivots(Vector2(0.5f, 1));
 		m_stageNameLabel->setText("MOOT");
 	}
@@ -210,8 +226,8 @@ void UIManager::awake()
 		m_postReviveLabel->setRenderLayer("UI");
 		m_postReviveLabel->setZIndex(1);
 
-		bool success = m_postReviveLabel->loadFont(getFont("smallGreen"));
-		assert(success);
+		loadSuccess = m_postReviveLabel->loadFont(getFont("smallGreen"));
+		assert(loadSuccess);
 		m_postReviveLabel->setAllPivots(Vector2(0.5f, 1));
 		m_postReviveLabel->setText("        READY ?\n\nMANY MORE BATTLE SCENES\n\nWILL SOON BE AVAILABLE !");
 
@@ -230,8 +246,8 @@ void UIManager::awake()
 		m_insertCoinsLabel->setRenderLayer("UI");
 		m_insertCoinsLabel->setZIndex(1);
 
-		bool success = m_insertCoinsLabel->loadFont(getFont("smallPink"));
-		assert(success);
+		loadSuccess = m_insertCoinsLabel->loadFont(getFont("smallPink"));
+		assert(loadSuccess);
 		m_insertCoinsLabel->setAllPivots(Vector2(0.5f, 1));
 		m_insertCoinsLabel->setText("    CONTINUE PLAY\n\n    INSERT COINS\n\nWITHIN 10 COUNT DOWN");
 
@@ -250,8 +266,8 @@ void UIManager::awake()
 		m_insertCoinsCountdownText->setRenderLayer("UI");
 		m_insertCoinsCountdownText->setZIndex(1);
 
-		bool success = m_insertCoinsCountdownText->loadFont(getFont("bigPink"));
-		assert(success);
+		loadSuccess = m_insertCoinsCountdownText->loadFont(getFont("bigPink"));
+		assert(loadSuccess);
 		m_insertCoinsCountdownText->setAllPivots(Vector2(1, 1));
 		m_insertCoinsCountdownText->setText("10");
 
@@ -270,8 +286,8 @@ void UIManager::awake()
 		m_postCoinsStartLabel->setRenderLayer("UI");
 		m_postCoinsStartLabel->setZIndex(1);
 
-		bool success = m_postCoinsStartLabel->loadFont(getFont("smallGreen"));
-		assert(success);
+		loadSuccess = m_postCoinsStartLabel->loadFont(getFont("smallGreen"));
+		assert(loadSuccess);
 		m_postCoinsStartLabel->setAllPivots(Vector2(0.5f, 1));
 		m_postCoinsStartLabel->setText("PUSH START BUTTON ");
 
@@ -290,8 +306,8 @@ void UIManager::awake()
 		m_gameWonLabel->setRenderLayer("UI");
 		m_gameWonLabel->setZIndex(1);
 
-		bool success = m_gameWonLabel->loadFont(getFont("bigPink"));
-		assert(success);
+		loadSuccess = m_gameWonLabel->loadFont(getFont("bigPink"));
+		assert(loadSuccess);
 		m_gameWonLabel->setAllPivots(Vector2(0.5f, 1));
 		m_gameWonLabel->setText("CONGRATULATIONS\n\n    YOU WIN");
 
@@ -387,7 +403,7 @@ void UIManager::update()
 		if (m_currentCountDownNumber > 0)
 		{
 			m_insertCoinsCountdownText->setText(std::to_string(--m_currentCountDownNumber));
-			m_nextCountDownDropTime = m_totalElapsedTime + 1000;
+			m_nextCountDownDropTime += 1000;
 		}
 		else
 		{
@@ -523,7 +539,7 @@ void UIManager::updateLivesText()
 		livesText += "s";
 	}
 
-	m_lifesText->setText(livesText);
+	m_livesText->setText(livesText);
 }
 
 
@@ -585,10 +601,8 @@ void UIManager::handleGameWon()
 
 void UIManager::handleGameOver()
 {
-	OutputLog("GAME OVER");
 	m_uiGO->setActive(false);
 	m_isActive = false;
 	Audio::stopMusic();
-	// Show ranking here
-	Messenger::broadcastEvent(MessengerEventType::CHANGE_SCENE);
+	m_ranking->show(m_currentScore);
 }

@@ -4,8 +4,22 @@
 const int POST_DIE_BLINK_CYCLE_DURATION = 150;
 const int POST_DIE_BLINK_FLOOR_CYCLE_COUNT = 7;
 const int POST_DIE_BLINK_FREE_CYCLE_COUNT = 15;
-const int LIVES_PER_COIN = 1;
+const int LIVES_PER_COIN = 3;
 int player_lives = 3;
+
+#include "ScoreInfo.h"
+std::vector<ScoreInfo> scoreInfos {
+	ScoreInfo(1000000, "CAT"),
+	ScoreInfo(900000, "PUC"),
+	ScoreInfo(800000, "CIN"),
+	ScoreInfo(700000, "O."),
+	ScoreInfo(600000, "STU"),
+	ScoreInfo(500000, "DIO"),
+	ScoreInfo(400000, "S."),
+	ScoreInfo(0, ""),
+	ScoreInfo(0, ""),
+	ScoreInfo(0, "")
+};
 
 
 #include "AnimationSection.h"
@@ -487,6 +501,11 @@ Font getFont(const std::string& fontName)
 		font.charsTopLeftCorners['X'] = PixelPosition{ font.characterWidth * widthFactor++, heightOffset };
 		font.charsTopLeftCorners['Y'] = PixelPosition{ font.characterWidth * widthFactor++, heightOffset };
 		font.charsTopLeftCorners['Z'] = PixelPosition{ font.characterWidth * widthFactor++, heightOffset };
+		if (foundSmall)
+		{
+			font.charsTopLeftCorners['<'] = PixelPosition{ font.characterWidth * widthFactor++, heightOffset };
+			font.charsTopLeftCorners['>'] = PixelPosition{ font.characterWidth * widthFactor++, heightOffset };
+		}
 
 		return font;
 	}

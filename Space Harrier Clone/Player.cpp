@@ -8,7 +8,7 @@
 #include "Engine/SpriteSheet.h"
 #include "Engine/Collider.h"
 #include "gameData.h"
-#include "Utils.h"
+#include "utils.h"
 #include "FloorManager.h"
 #include "FloorObjectMover.h"
 #include "ObjectEffectType.h"

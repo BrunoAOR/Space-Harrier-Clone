@@ -18,6 +18,7 @@
 #include "MotionPattern.h"
 #include "ObstacleSpawnInfo.h"
 #include "UIManager.h"
+#include "Ranking.h"
 #include "SceneFader.h"
 #include "GameSceneMusicManager.h"
 
@@ -37,7 +38,7 @@ bool GameScene::load()
 	auto worldGO = GameObject::createNew();
 	if (worldGO)
 	{
-		//worldGO->addComponent<TimeLogger>();
+		worldGO->addComponent<TimeLogger>();
 		auto musicManager = worldGO->addComponent<GameSceneMusicManager>();
 		assert(musicManager);
 
@@ -128,7 +129,10 @@ bool GameScene::load()
 		if (uiGo)
 		{
 			uiGo->transform->setWorldPosition(Vector2(0, 0));
-			uiGo->addComponent<UIManager>();
+			auto uiManager = uiGo->addComponent<UIManager>();
+			auto ranking = uiGo->addComponent<Ranking>();
+			assert(uiManager && ranking);
+			uiManager->init(ranking);
 		}
 	}
 

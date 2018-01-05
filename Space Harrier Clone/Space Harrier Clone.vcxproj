@@ -26,6 +26,7 @@
     <ClCompile Include="Boss1ExplosionPrefab.cpp" />
     <ClCompile Include="Boss1Prefab.cpp" />
     <ClCompile Include="Boss1ShotPrefab.cpp" />
+    <ClCompile Include="EngineExt\ClippableTextRenderer.cpp" />
     <ClCompile Include="EnemyBall.cpp" />
     <ClCompile Include="BigBushPrefab.cpp" />
     <ClCompile Include="BulletBouncer.cpp" />
@@ -92,6 +93,7 @@
     <ClCompile Include="PlayerShot.cpp" />
     <ClCompile Include="PlayerShotPrefab.cpp" />
     <ClCompile Include="PooledGameObject.cpp" />
+    <ClCompile Include="Ranking.cpp" />
     <ClCompile Include="RockPrefab.cpp" />
     <ClCompile Include="EnemyShip.cpp" />
     <ClCompile Include="SceneFader.cpp" />
@@ -101,7 +103,6 @@
     <ClCompile Include="TimeLogger.cpp" />
     <ClCompile Include="TreePrefab.cpp" />
     <ClCompile Include="UIManager.cpp" />
-    <ClCompile Include="Utils.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AnimationSection.h" />
@@ -113,6 +114,7 @@
     <ClInclude Include="Boss1Prefab.h" />
     <ClInclude Include="Boss1ChainConfig.h" />
     <ClInclude Include="Boss1ShotPrefab.h" />
+    <ClInclude Include="EngineExt\ClippableTextRenderer.h" />
     <ClInclude Include="EnemyBall.h" />
     <ClInclude Include="BigBushPrefab.h" />
     <ClInclude Include="BulletBouncer.h" />
@@ -196,16 +198,18 @@
     <ClInclude Include="PlayerShot.h" />
     <ClInclude Include="PlayerShotPrefab.h" />
     <ClInclude Include="PooledGameObject.h" />
+    <ClInclude Include="Ranking.h" />
     <ClInclude Include="RockPrefab.h" />
     <ClInclude Include="EnemyShip.h" />
     <ClInclude Include="SceneFader.h" />
     <ClInclude Include="SceneFaderPrefab.h" />
+    <ClInclude Include="ScoreInfo.h" />
     <ClInclude Include="SmallBushPrefab.h" />
     <ClInclude Include="TimedAnimation.h" />
     <ClInclude Include="TimeLogger.h" />
     <ClInclude Include="TreePrefab.h" />
     <ClInclude Include="UIManager.h" />
-    <ClInclude Include="Utils.h" />
+    <ClInclude Include="utils.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>

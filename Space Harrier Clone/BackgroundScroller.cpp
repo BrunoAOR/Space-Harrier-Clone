@@ -5,7 +5,7 @@
 #include "Engine/GameObject.h"
 #include "Engine/Transform.h"
 #include "FloorManager.h"
-#include "Utils.h"
+#include "utils.h"
 
 
 void BackgroundScroller::init(const Reference<FloorManager>& floorManager, const std::string & texturePath, float speedModifier, int zIndex)

@@ -24,19 +24,21 @@ public:
 	std::string getText() const;
 	void setText(const std::string& text);
 
-private:
+protected:
 	bool rebuildTexture();
+	SDL_Rect m_clipRect;
+	bool m_shouldReloadTexture;
+
+private:
 	bool getBlankTexture();
 	void freeFontTexture();
 	bool validateFont(const Font& font, int width, int height) const;
 
 	Font m_font;
 	SDL_Texture* m_fontTexture = nullptr;
-	SDL_Rect m_clipRect;
 	std::string m_text;
 	int m_characterSpacing;
 	int m_lineSpacing;
-	bool m_shouldReloadTexture;
 };
 
 

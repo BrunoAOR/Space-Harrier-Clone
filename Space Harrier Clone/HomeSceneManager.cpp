@@ -288,9 +288,12 @@ void HomeSceneManager::awake()
 
 		auto livesLabel = go->addComponent<TextRenderer>();
 		assert(livesLabel);
+
+		livesLabel->setRenderLayer("UI");
+		livesLabel->setZIndex(1);
+
 		bool success = livesLabel->loadFont(getFont("smallGray"));
 		assert(success);
-		livesLabel->setRenderLayer("UI");
 		livesLabel->setAllPivots(Vector2(0, 0));
 		livesLabel->setText("PLAYER");
 	}
@@ -304,9 +307,12 @@ void HomeSceneManager::awake()
 
 		m_livesValue = go->addComponent<TextRenderer>();
 		assert(m_livesValue);
+
+		m_livesValue->setRenderLayer("UI");
+		m_livesValue->setZIndex(1);
+
 		bool success = m_livesValue->loadFont(getFont("smallGray"));
 		assert(success);
-		m_livesValue->setRenderLayer("UI");
 		m_livesValue->setAllPivots(Vector2(1, 0));
 		m_livesValue->setText("0");
 	}
@@ -320,9 +326,12 @@ void HomeSceneManager::awake()
 
 		auto sprite = go->addComponent<Sprite>();
 		assert(sprite);
+
+		sprite->setRenderLayer("UI");
+		sprite->setZIndex(1);
+
 		bool success = sprite->loadImage("assets/sprites/UI.png");
 		assert(success);
-		sprite->setRenderLayer("UI");
 		sprite->setAllPivots(Vector2(1, 0));
 		sprite->setClipRect(SDL_Rect{ 96, 104, 8, 8 });
 	}
@@ -336,9 +345,12 @@ void HomeSceneManager::awake()
 
 		auto segaLabel = go->addComponent<TextRenderer>();
 		assert(segaLabel);
+
+		segaLabel->setRenderLayer("UI");
+		segaLabel->setZIndex(1);
+
 		bool success = segaLabel->loadFont(getFont("smallGray"));
 		assert(success);
-		segaLabel->setRenderLayer("UI");
 		segaLabel->setAllPivots(Vector2(1, 0));
 		segaLabel->setText("SEGA 1985");
 	}
@@ -352,9 +364,11 @@ void HomeSceneManager::awake()
 		
 		m_insertCoinsPrompt = go->addComponent<TextRenderer>();
 		assert(m_insertCoinsPrompt);
+		m_insertCoinsPrompt->setRenderLayer("UI");
+		m_insertCoinsPrompt->setZIndex(1);
+
 		bool success = m_insertCoinsPrompt->loadFont(getFont("smallRed"));
 		assert(success);
-		m_insertCoinsPrompt->setRenderLayer("UI");
 		m_insertCoinsPrompt->setAllPivots(Vector2(0.5f, 1));
 		m_insertCoinsPrompt->setText("INSERT COINS");
 	}
@@ -369,9 +383,12 @@ void HomeSceneManager::awake()
 
 		m_pushStartPrompt = go->addComponent<TextRenderer>();
 		assert(m_pushStartPrompt);
+
+		m_pushStartPrompt->setRenderLayer("UI");
+		m_pushStartPrompt->setZIndex(1);
+
 		bool success = m_pushStartPrompt->loadFont(getFont("smallGreen"));
 		assert(success);
-		m_pushStartPrompt->setRenderLayer("UI");
 		m_pushStartPrompt->setAllPivots(Vector2(0.5f, 0));
 		m_pushStartPrompt->setText("PUSH START BUTTON ");
 	}
@@ -457,7 +474,6 @@ void HomeSceneManager::update()
 		if (m_robotShineInMotion)
 		{
 			float u = 2 * m_robotShineElapsedTime / m_totalAnimationCycleTimeMS;
-			//OutputLog("u: %f | elapsed: %f", u, m_robotShineElapsedTime);
 			if (u <= 1)
 			{
 				Vector2 currPos = (1 - u) * m_robotShineStartPos + u * m_robotShineEndPos;

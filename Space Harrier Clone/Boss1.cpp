@@ -8,7 +8,7 @@
 #include "Engine/Collider.h"
 #include "Engine/Sprite.h"
 #include "gameData.h"
-#include "Utils.h"
+#include "utils.h"
 #include "FloorManager.h"
 #include "GameObjectPool.h"
 #include "PlayerShot.h"

@@ -4,6 +4,7 @@
 #include <vector>
 #include "Engine/gameConfig.h"
 class MotionPattern;
+struct ScoreInfo;
 struct AnimationSection;
 struct EnemySpawnInfo;
 struct ObstacleSpawnInfo;
@@ -16,6 +17,7 @@ extern const int POST_DIE_BLINK_FLOOR_CYCLE_COUNT;
 extern const int POST_DIE_BLINK_FREE_CYCLE_COUNT;
 extern const int LIVES_PER_COIN;
 extern int player_lives;
+extern std::vector<ScoreInfo> scoreInfos;
 
 
 std::vector<AnimationSection> getDieAnimationInfo();

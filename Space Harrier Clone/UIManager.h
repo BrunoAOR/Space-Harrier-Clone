@@ -8,6 +8,7 @@
 class GameObject;
 class Sprite;
 class TextRenderer;
+class Ranking;
 
 
 class UIManager :
@@ -17,6 +18,7 @@ class UIManager :
 public:
 	virtual void onDestroy() override;
 
+	void init(const Reference<Ranking>& ranking);
 	virtual void awake() override;
 	virtual void start() override;
 	virtual void update() override;
@@ -42,6 +44,8 @@ private:
 	void handleGameWon();
 	void handleGameOver();
 
+	Reference<Ranking> m_ranking;
+
 	// Containing GO
 	Reference<GameObject> m_uiGO;
 	bool m_isActive = true;
@@ -60,7 +64,7 @@ private:
 	// Changing UI
 	Reference<TextRenderer> m_topScoreText;
 	Reference<TextRenderer> m_scoreText;
-	Reference<TextRenderer> m_lifesText;
+	Reference<TextRenderer> m_livesText;
 	Reference<TextRenderer> m_stageText;
 	Reference<TextRenderer> m_insertCoinsCountdownText;
 

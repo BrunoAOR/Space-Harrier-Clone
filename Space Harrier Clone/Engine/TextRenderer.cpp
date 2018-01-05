@@ -189,7 +189,7 @@ bool TextRenderer::rebuildTexture()
 				{
 					lineWidth += m_font.characterWidth;
 					x += m_font.characterWidth;
-					OutputLog("INFO: Character %c could not be found in the font information!", c);
+					OutputLog("WARNING: Character %c could not be found in the font information!", c);
 				}
 				// But if the character is available, draw it to m_texture
 				else

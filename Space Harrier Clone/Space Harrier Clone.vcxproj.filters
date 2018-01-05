@@ -172,9 +172,6 @@
     <ClCompile Include="Player.cpp">
       <Filter>Behaviours\Player</Filter>
     </ClCompile>
-    <ClCompile Include="Utils.cpp">
-      <Filter>Scripts</Filter>
-    </ClCompile>
     <ClCompile Include="BackgroundScroller.cpp">
       <Filter>Behaviours\Scenario</Filter>
     </ClCompile>
@@ -311,6 +308,12 @@
       <Filter>Behaviours\GameScene</Filter>
     </ClCompile>
     <ClCompile Include="gameData.cpp" />
+    <ClCompile Include="Ranking.cpp">
+      <Filter>Behaviours\GameScene</Filter>
+    </ClCompile>
+    <ClCompile Include="EngineExt\ClippableTextRenderer.cpp">
+      <Filter>_EngineExt</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\API.h">
@@ -438,9 +441,6 @@
     </ClInclude>
     <ClInclude Include="Player.h">
       <Filter>Behaviours\Player</Filter>
-    </ClInclude>
-    <ClInclude Include="Utils.h">
-      <Filter>Scripts</Filter>
     </ClInclude>
     <ClInclude Include="BackgroundScroller.h">
       <Filter>Behaviours\Scenario</Filter>
@@ -617,5 +617,17 @@
       <Filter>Behaviours\GameScene</Filter>
     </ClInclude>
     <ClInclude Include="gameData.h" />
+    <ClInclude Include="Ranking.h">
+      <Filter>Behaviours\GameScene</Filter>
+    </ClInclude>
+    <ClInclude Include="ScoreInfo.h">
+      <Filter>Scripts</Filter>
+    </ClInclude>
+    <ClInclude Include="utils.h">
+      <Filter>Scripts</Filter>
+    </ClInclude>
+    <ClInclude Include="EngineExt\ClippableTextRenderer.h">
+      <Filter>_EngineExt</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
