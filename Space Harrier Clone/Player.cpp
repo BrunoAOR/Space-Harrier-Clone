@@ -453,12 +453,18 @@ void Player::handleStateChangingCollision(ObjectEffectType oet)
 		switch (oet)
 		{
 		case ObjectEffectType::SHORT_TRIP:
-			m_state = PlayerState::SHORT_TRIP;
-			Audio::playSFX(m_sfxTrip);
+			if (m_state != PlayerState::LONG_TRIP)
+			{
+				m_state = PlayerState::SHORT_TRIP;
+				Audio::playSFX(m_sfxTrip);
+			}
 			break;
 		case ObjectEffectType::LONG_TRIP:
-			m_state = PlayerState::LONG_TRIP;
-			Audio::playSFX(m_sfxTrip);
+			if (m_state != PlayerState::SHORT_TRIP)
+			{
+				m_state = PlayerState::LONG_TRIP;
+				Audio::playSFX(m_sfxTrip);
+			}
 			break;
 		case ObjectEffectType::DIE:
 			m_currentNormalizedPosition.y = m_minY;

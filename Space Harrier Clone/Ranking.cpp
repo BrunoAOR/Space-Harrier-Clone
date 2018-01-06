@@ -265,11 +265,6 @@ void Ranking::update()
 		return;
 	}
 
-	if (Input::getKeyDown(SDL_SCANCODE_SPACE))
-	{
-		hide();
-	}
-
 	// Handle Input for name entry
 	if (m_nameEntryNextCounterTime != -1)
 	{
