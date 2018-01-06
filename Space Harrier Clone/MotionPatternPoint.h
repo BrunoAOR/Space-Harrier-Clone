@@ -9,10 +9,10 @@ struct MotionPatternPoint
 {
 public:
 	MotionPatternPoint();
-	MotionPatternPoint(float normTimeMS, float x, float y, float normDepth);
-	MotionPatternPoint(float normTimeMS, float x, float y, float normDepth, int triggerID, bool shouldFire, std::string animationName = "", bool shouldAnimationLoop = false, int fps = 5);
+	MotionPatternPoint(int timeMS, float x, float y, float normDepth);
+	MotionPatternPoint(int timeMS, float x, float y, float normDepth, int triggerID, bool shouldFire, std::string animationName = "", bool shouldAnimationLoop = false, float fps = 6);
 
-	float normalizedTime;
+	int time;
 	Vector2 spritePosition;
 	float normalizedDepth;
 	struct {
@@ -20,7 +20,7 @@ public:
 		bool fire = false;
 		std::string animationName = "";
 		bool animationLoop = false;
-		int animationFps = 5;
+		float animationFps = 6;
 	} action;
 };
 

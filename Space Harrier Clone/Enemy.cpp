@@ -61,14 +61,13 @@ void Enemy::init(int lifeTimeMS, const MotionPattern& motionPattern, const Refer
 
 void Enemy::update()
 {
-	float normalizedTime = ((float)m_elapsedTime) / m_lifeTimeMS;
-	if (normalizedTime > 1)
+	if (m_elapsedTime > m_lifeTimeMS)
 	{
 		m_poolHandler->returnToPool();
 		return;
 	}
 
-	MotionPatternPoint mpp = m_motionPattern.getMotionPatternPoint(normalizedTime);
+	MotionPatternPoint mpp = m_motionPattern.getMotionPatternPoint(m_elapsedTime);
 	
 	// Perform action, if required
 	if (mpp.action.triggerId != m_lastTriggeredActionId)
@@ -81,7 +80,7 @@ void Enemy::update()
 		}
 		if (mpp.action.animationName != "")
 		{
-			m_spriteSheet->playAnimation(mpp.action.animationName, mpp.action.animationLoop);
+			m_spriteSheet->playAnimation(mpp.action.animationName, mpp.action.animationFps, mpp.action.animationLoop);
 		}
 	}
 
@@ -93,6 +92,7 @@ void Enemy::update()
 	gameObject()->transform->setLocalPosition(Vector2( mpp.spritePosition.x, depthY));
 
 	// Scale children based on normalizedDepth (the parent can't be scaled because the height of the characterGo MUST be independent of scale)
+	// Increase the scale by 0.1f to better reflect the behaviour form the original game
 	float scale = (1 - mpp.normalizedDepth) + 0.1f;
 	m_characterGo->transform->setLocalScale(Vector2(scale, scale));
 	m_shadowGo->transform->setLocalScale(Vector2(scale, scale));
@@ -114,7 +114,7 @@ void Enemy::update()
 
 void Enemy::setupExplosion(Reference<Explosion>& explosion)
 {
-	float normalizedDepth = m_motionPattern.getMotionPatternPoint(((float)m_elapsedTime) / m_lifeTimeMS).normalizedDepth;
+	float normalizedDepth = m_motionPattern.getMotionPatternPoint(m_elapsedTime).normalizedDepth;
 	float normalizedCurrentProgress = 1 - normalizedDepth;
 	float currentScale = normalizedCurrentProgress;
 	explosion->init(m_floorManager, gameObject()->transform->getLocalPosition().x, normalizedCurrentProgress, 0.95f, currentScale, 1);

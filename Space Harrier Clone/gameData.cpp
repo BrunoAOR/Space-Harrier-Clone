@@ -48,32 +48,185 @@ std::vector<MotionPattern> getMotionPatterns()
 
 	std::vector<MotionPatternPoint> points;
 	points.reserve(16);
-	// MP0 (SHIP)
+
+	// MP0 (SHIP - Wave 1)
 	points.clear();
-	points.push_back(MotionPatternPoint(0, -0.5f * SCREEN_WIDTH, 80, 0.93f, 0, false, "fly", true, 6));
-	points.push_back(MotionPatternPoint(0.35f, 0, 80, 0.93f));
-	points.push_back(MotionPatternPoint(0.5f, 0.5f * SCREEN_WIDTH, 80, 0.93f));
-	points.push_back(MotionPatternPoint(0.75f, 0, 61, 0.8f));
-	points.push_back(MotionPatternPoint(1, -0.5f * SCREEN_WIDTH, 42, 0.5f));
+	points.push_back(MotionPatternPoint(0, -155, 80, 0.93f, 0, false, "fly", true, 6));
+	points.push_back(MotionPatternPoint(1066, -25, 80, 0.93f));
+	points.push_back(MotionPatternPoint(2016, 172, 80, 0.93f));
+	points.push_back(MotionPatternPoint(2816, 65, 73, 0.92f));
+	points.push_back(MotionPatternPoint(3850, -175, 45, 0.53f));
 	motionPatterns.push_back(MotionPattern(points));
 
-	// MP1 (SHIP)
+	// MP1 (SHIP - Wave 2, Right)
 	points.clear();
-	points.push_back(MotionPatternPoint(0, 0, 0, 1, 0, false, "fly", true, 6));
-	points.push_back(MotionPatternPoint(0.1f, 50, 10, 0.9f, 1, true));
-	points.push_back(MotionPatternPoint(0.4f, 50, 40, 0.6f, 2, true));
-	points.push_back(MotionPatternPoint(1, 0, 100, 0.05f));
+	points.push_back(MotionPatternPoint(0, 110, 12, 0.95f, 0, false, "fly", true, 6));
+	points.push_back(MotionPatternPoint(416, 105, 12, 0.85f));
+	points.push_back(MotionPatternPoint(483, 105, 17, 0.85f));
+	points.push_back(MotionPatternPoint(733, 105, 0, 0.85f));
+	points.push_back(MotionPatternPoint(1066, 105, 0, 0.85f));
+	points.push_back(MotionPatternPoint(2983, 105, 110, 0.85f, 1, true));
+	points.push_back(MotionPatternPoint(3550, 105, 0, 0.85f));
+	points.push_back(MotionPatternPoint(3616, 105, 0, 0.85f));
+	points.push_back(MotionPatternPoint(4533, 105, 33, 0.05f));
 	motionPatterns.push_back(MotionPattern(points));
 
-	// MP7 (BALL)
+	// MP2 (SHIP - Wave 2, Center)
+	points.clear();
+	points.push_back(MotionPatternPoint(0, 0, 12, 0.95f, 0, false, "fly", true, 6));
+	points.push_back(MotionPatternPoint(416, 0, 12, 0.85f));
+	points.push_back(MotionPatternPoint(483, 0, 17, 0.85f));
+	points.push_back(MotionPatternPoint(733, 0, 0, 0.85f));
+	points.push_back(MotionPatternPoint(1066, 0, 0, 0.85f));
+	points.push_back(MotionPatternPoint(2983, 0, 110, 0.85f, 1, true));
+	points.push_back(MotionPatternPoint(3550, 0, 0, 0.85f));
+	points.push_back(MotionPatternPoint(3616, 0, 0, 0.85f));
+	points.push_back(MotionPatternPoint(4533, 0, 33, 0.05f));
+	motionPatterns.push_back(MotionPattern(points));
+
+	// MP3 (SHIP - Wave 2, Left)
+	points.clear();
+	points.push_back(MotionPatternPoint(0, -92, 12, 0.95f, 0, false, "fly", true, 6));
+	points.push_back(MotionPatternPoint(416, -95, 12, 0.85f));
+	points.push_back(MotionPatternPoint(483, -95, 17, 0.85f));
+	points.push_back(MotionPatternPoint(733, -95, 0, 0.85f));
+	points.push_back(MotionPatternPoint(1066, -95, 0, 0.85f));
+	points.push_back(MotionPatternPoint(2983, -95, 110, 0.85f, 1, true));
+	points.push_back(MotionPatternPoint(3550, -95, 0, 0.85f));
+	points.push_back(MotionPatternPoint(3616, -95, 0, 0.85f));
+	points.push_back(MotionPatternPoint(4533, -95, 33, 0.05f));
+	motionPatterns.push_back(MotionPattern(points));
+
+	// MP4 (SHIP - Wave 3, Start Left)
+	points.clear();
+	points.push_back(MotionPatternPoint(0, 170, 32, 0.55f, 0, false, "fly", true, 6));
+	points.push_back(MotionPatternPoint(683, 0, 23, 0.82f));
+	points.push_back(MotionPatternPoint(950, -47, 20, 0.87f, 1, true));
+	points.push_back(MotionPatternPoint(1183, -85, 20, 0.9f));
+	points.push_back(MotionPatternPoint(1300, -92, 20, 0.9f));
+	points.push_back(MotionPatternPoint(1466, -110, 20, 0.92f));
+	points.push_back(MotionPatternPoint(1583, -110, 20, 0.92f));
+	points.push_back(MotionPatternPoint(1766, -120, 20, 0.94f));
+	points.push_back(MotionPatternPoint(2266, -120, 20, 0.94f));
+	points.push_back(MotionPatternPoint(3800, -35, 15, 0.97f));
+	motionPatterns.push_back(MotionPattern(points));
+
+	// MP5 (SHIP - Wave 3, Start Right)
+	points.clear();
+	points.push_back(MotionPatternPoint(0, -170, 32, 0.55f, 0, false, "fly", true, 6));
+	points.push_back(MotionPatternPoint(683, 0, 23, 0.82f));
+	points.push_back(MotionPatternPoint(950, 47, 20, 0.87f, 1, true));
+	points.push_back(MotionPatternPoint(1183, 85, 20, 0.9f));
+	points.push_back(MotionPatternPoint(1300, 92, 20, 0.9f));
+	points.push_back(MotionPatternPoint(1466, 110, 20, 0.92f));
+	points.push_back(MotionPatternPoint(1583, 110, 20, 0.92f));
+	points.push_back(MotionPatternPoint(1766, 120, 20, 0.94f));
+	points.push_back(MotionPatternPoint(2266, 120, 20, 0.94f));
+	points.push_back(MotionPatternPoint(3800, 35, 15, 0.97f));
+	motionPatterns.push_back(MotionPattern(points));
+
+	// MP6 (BALL - Wave 4, up)
 	points.clear();
 	points.push_back(MotionPatternPoint(0, 0, 41, 1));
-	points.push_back(MotionPatternPoint(0.10f, 0, 41, 0.5f));
-	points.push_back(MotionPatternPoint(0.15f, 0, 79, 0.5f, 0, false, "open", false, 4));
-	points.push_back(MotionPatternPoint(0.45f, 0, 79, 0.5f, 1, true));
-	points.push_back(MotionPatternPoint(0.70f, 0, 41, 0.5f, 2, false, "close", false, 4));
-	points.push_back(MotionPatternPoint(0.90f, 0, 41, 0.5f));
-	points.push_back(MotionPatternPoint(1, 0, 41, 1));
+	points.push_back(MotionPatternPoint(1066, 0, 41, 0.95f));
+	points.push_back(MotionPatternPoint(1583, 0, 41, 0.95f));
+	points.push_back(MotionPatternPoint(1950, 0, 82, 0.92f, 0, false, "open", false, 10));
+	points.push_back(MotionPatternPoint(2600, 0, 82, 0.87f));
+	points.push_back(MotionPatternPoint(3116, 0, 82, 0.87f, 1, true));
+	points.push_back(MotionPatternPoint(3366, 0, 82, 0.87f, 2, false, "close", false, 20));
+	points.push_back(MotionPatternPoint(4033, 0, 82, 0.87f, 3, false, "open", false, 10));
+	points.push_back(MotionPatternPoint(4766, 0, 82, 0.78f));
+	points.push_back(MotionPatternPoint(5450, 0, 82, 0.78f, 4, true));
+	points.push_back(MotionPatternPoint(5633, 0, 82, 0.78f, 5, false, "close", false, 20));
+	points.push_back(MotionPatternPoint(6266, 0, 82, 0.78f, 6, false, "open", false, 10));
+	points.push_back(MotionPatternPoint(6916, 0, 82, 0.65f));
+	points.push_back(MotionPatternPoint(7783, 0, 82, 0.65f, 7, true));
+	points.push_back(MotionPatternPoint(7833, 0, 82, 0.65f, 8, false, "close", false, 20));
+	points.push_back(MotionPatternPoint(8216, 0, 82, 0.65f));
+	points.push_back(MotionPatternPoint(8683, 0, 42, 0.77f));
+	points.push_back(MotionPatternPoint(9666, 0, 42, 1));
+	motionPatterns.push_back(MotionPattern(points));
+
+	// MP7 (BALL - Wave 4, left-down)
+	points.clear();
+	points.push_back(MotionPatternPoint(0, 0, 41, 1));
+	points.push_back(MotionPatternPoint(1066, 0, 41, 0.95f));
+	points.push_back(MotionPatternPoint(1583, 0, 41, 0.95f));
+	points.push_back(MotionPatternPoint(1950, -60, 12, 0.92f, 0, false, "open", false, 10));
+	points.push_back(MotionPatternPoint(2600, -60, 12, 0.87f));
+	points.push_back(MotionPatternPoint(3233, -60, 12, 0.87f, 1, true));
+	points.push_back(MotionPatternPoint(3366, -60, 12, 0.87f, 2, false, "close", false, 20));
+	points.push_back(MotionPatternPoint(4033, -60, 12, 0.87f, 3, false, "open", false, 10));
+	points.push_back(MotionPatternPoint(4766, -60, 12, 0.78f));
+	points.push_back(MotionPatternPoint(5566, -60, 12, 0.78f, 4, true));
+	points.push_back(MotionPatternPoint(5633, -60, 12, 0.78f, 5, false, "close", false, 20));
+	points.push_back(MotionPatternPoint(6266, -60, 12, 0.78f, 6, false, "open", false, 10));
+	points.push_back(MotionPatternPoint(6916, -60, 12, 0.65f));
+	points.push_back(MotionPatternPoint(7550, -60, 12, 0.65f, 7, true));
+	points.push_back(MotionPatternPoint(7833, -60, 12, 0.65f, 8, false, "close", false, 20));
+	points.push_back(MotionPatternPoint(8216, -60, 82, 0.65f));
+	points.push_back(MotionPatternPoint(8683, 0, 42, 0.77f));
+	points.push_back(MotionPatternPoint(9666, 0, 42, 1));
+	motionPatterns.push_back(MotionPattern(points));
+
+	// MP8 (BALL - Wave 4, right-down)
+	points.clear();
+	points.push_back(MotionPatternPoint(0, 0, 41, 1));
+	points.push_back(MotionPatternPoint(1066, 0, 41, 0.95f));
+	points.push_back(MotionPatternPoint(1583, 0, 41, 0.95f));
+	points.push_back(MotionPatternPoint(1950, 60, 12, 0.92f, 0, false, "open", false, 10));
+	points.push_back(MotionPatternPoint(2600, 60, 12, 0.87f));
+	points.push_back(MotionPatternPoint(3350, 60, 12, 0.87f, 1, true));
+	points.push_back(MotionPatternPoint(3366, 60, 12, 0.87f, 2, false, "close", false, 20));
+	points.push_back(MotionPatternPoint(4033, 60, 12, 0.87f, 3, false, "open", false, 10));
+	points.push_back(MotionPatternPoint(4766, 60, 12, 0.78f));
+	points.push_back(MotionPatternPoint(5333, 60, 12, 0.78f, 4, true));
+	points.push_back(MotionPatternPoint(5633, 60, 12, 0.78f, 5, false, "close", false, 20));
+	points.push_back(MotionPatternPoint(6266, 60, 12, 0.78f, 6, false, "open", false, 10));
+	points.push_back(MotionPatternPoint(6916, 60, 12, 0.65f));
+	points.push_back(MotionPatternPoint(7666, 60, 12, 0.65f, 7, true));
+	points.push_back(MotionPatternPoint(7833, 60, 12, 0.65f, 8, false, "close", false, 20));
+	points.push_back(MotionPatternPoint(8216, 60, 82, 0.65f));
+	points.push_back(MotionPatternPoint(8683, 0, 42, 0.77f));
+	points.push_back(MotionPatternPoint(9666, 0, 42, 1));
+	motionPatterns.push_back(MotionPattern(points));
+
+	// MP9 (SHIP - Wave 5)
+	points.clear();
+	points.push_back(MotionPatternPoint(0, -166, 44, 0.55f, 0, false, "fly", true, 6));
+	points.push_back(MotionPatternPoint(633, -4, 62, 0.85f));
+	points.push_back(MotionPatternPoint(733, 4, 67, 0.88f));
+	points.push_back(MotionPatternPoint(1583, -103, 90, 0.97f));
+	points.push_back(MotionPatternPoint(1816, -111, 90, 0.92f));
+	points.push_back(MotionPatternPoint(2883, 50, 90, 0.05f));
+	motionPatterns.push_back(MotionPattern(points));
+
+	// MP10 (SHIP - Wave 6, Start right)
+	points.clear();
+	points.push_back(MotionPatternPoint(0, 172, 62, 0.53f, 0, false, "fly", true, 6));
+	points.push_back(MotionPatternPoint(133, 112, 62, 0.66f));
+	points.push_back(MotionPatternPoint(383, 51, 56, 0.75f));
+	points.push_back(MotionPatternPoint(816, -105, 42, 0.88f));
+	points.push_back(MotionPatternPoint(1183, -120, 31, 0.92f));
+	points.push_back(MotionPatternPoint(1600, -81, 23, 0.95f));
+	points.push_back(MotionPatternPoint(2050, 0, 20, 0.95f));
+	points.push_back(MotionPatternPoint(2400, 57, 35, 0.93f, 1, true));
+	points.push_back(MotionPatternPoint(2833, 130, 58, 0.78f));
+	points.push_back(MotionPatternPoint(3183, 182, 85, 0.5f));
+	motionPatterns.push_back(MotionPattern(points));
+
+	// MP11 (SHIP - Wave 6, Start left)
+	points.clear();
+	points.push_back(MotionPatternPoint(0, -172, 62, 0.53f, 0, false, "fly", true, 6));
+	points.push_back(MotionPatternPoint(133, -112, 62, 0.66f));
+	points.push_back(MotionPatternPoint(383, -51, 56, 0.75f));
+	points.push_back(MotionPatternPoint(816, 105, 42, 0.88f));
+	points.push_back(MotionPatternPoint(1183, 120, 31, 0.92f));
+	points.push_back(MotionPatternPoint(1600, 81, 23, 0.95f));
+	points.push_back(MotionPatternPoint(2050, 0, 20, 0.95f));
+	points.push_back(MotionPatternPoint(2400, -57, 35, 0.93f, 1, true));
+	points.push_back(MotionPatternPoint(2833, -130, 58, 0.78f));
+	points.push_back(MotionPatternPoint(3183, -182, 85, 0.5f));
 	motionPatterns.push_back(MotionPattern(points));
 
 	return motionPatterns;
@@ -86,20 +239,55 @@ std::vector<EnemySpawnInfo> getEnemiesSpawnInfo()
 	std::vector<EnemySpawnInfo> info;
 
 	// Wave 1
-	/*
-	info.push_back(EnemySpawnInfo("EnemyShipPrefab", 2000, 4000, 0, "assets/audio/sfx/SFX - Spawn_Ship.wav"));
-	info.push_back(EnemySpawnInfo("EnemyShipPrefab", 2200, 4000, 0, "assets/audio/sfx/SFX - Spawn_Ship.wav"));
-	info.push_back(EnemySpawnInfo("EnemyShipPrefab", 2400, 4000, 0, "assets/audio/sfx/SFX - Spawn_Ship.wav"));
-	info.push_back(EnemySpawnInfo("EnemyShipPrefab", 2600, 4000, 0, "assets/audio/sfx/SFX - Spawn_Ship.wav"));
-	info.push_back(EnemySpawnInfo("EnemyShipPrefab", 2800, 4000, 0, "assets/audio/sfx/SFX - Spawn_Ship.wav"));
-	info.push_back(EnemySpawnInfo("EnemyShipPrefab", 3000, 4000, 0, "assets/audio/sfx/SFX - Spawn_Ship.wav"));
-	*/
-	info.push_back(EnemySpawnInfo("EnemyShipPrefab", 3000, 4000, 1, "assets/audio/sfx/SFX - Spawn_Ship.wav"));
+	info.push_back(EnemySpawnInfo("EnemyShipPrefab", 5716, 0, "assets/audio/sfx/SFX - Spawn_Ship.wav"));
+	info.push_back(EnemySpawnInfo("EnemyShipPrefab", 5850, 0, "assets/audio/sfx/SFX - Spawn_Ship.wav"));
+	info.push_back(EnemySpawnInfo("EnemyShipPrefab", 5983, 0, "assets/audio/sfx/SFX - Spawn_Ship.wav"));
+	info.push_back(EnemySpawnInfo("EnemyShipPrefab", 6116, 0, "assets/audio/sfx/SFX - Spawn_Ship.wav"));
+	info.push_back(EnemySpawnInfo("EnemyShipPrefab", 6250, 0, "assets/audio/sfx/SFX - Spawn_Ship.wav"));
+	info.push_back(EnemySpawnInfo("EnemyShipPrefab", 6383, 0, "assets/audio/sfx/SFX - Spawn_Ship.wav"));
 
-	info.push_back(EnemySpawnInfo("EnemyBallPrefab", 3000, 6000, 2, "assets/audio/sfx/SFX - Spawn_Ball.wav"));
+	// Wave 2
+	info.push_back(EnemySpawnInfo("EnemyShipPrefab", 11150, 1, "assets/audio/sfx/SFX - Spawn_Ship.wav"));
+	info.push_back(EnemySpawnInfo("EnemyShipPrefab", 11700, 2, "assets/audio/sfx/SFX - Spawn_Ship.wav"));
+	info.push_back(EnemySpawnInfo("EnemyShipPrefab", 12250, 3, "assets/audio/sfx/SFX - Spawn_Ship.wav"));
 
-	info.push_back(EnemySpawnInfo("Boss1Prefab", 8000, -1, -1, ""));
+	// Wave 3
+	info.push_back(EnemySpawnInfo("EnemyShipPrefab", 18133, 4, "assets/audio/sfx/SFX - Spawn_Ship.wav"));
+	info.push_back(EnemySpawnInfo("EnemyShipPrefab", 18466, 4, "assets/audio/sfx/SFX - Spawn_Ship.wav"));
+	info.push_back(EnemySpawnInfo("EnemyShipPrefab", 18800, 4, "assets/audio/sfx/SFX - Spawn_Ship.wav"));
+	info.push_back(EnemySpawnInfo("EnemyShipPrefab", 19133, 4, "assets/audio/sfx/SFX - Spawn_Ship.wav"));
+	info.push_back(EnemySpawnInfo("EnemyShipPrefab", 19800, 5, "assets/audio/sfx/SFX - Spawn_Ship.wav"));
+	info.push_back(EnemySpawnInfo("EnemyShipPrefab", 20133, 5, "assets/audio/sfx/SFX - Spawn_Ship.wav"));
+	info.push_back(EnemySpawnInfo("EnemyShipPrefab", 20466, 5, "assets/audio/sfx/SFX - Spawn_Ship.wav"));
+	info.push_back(EnemySpawnInfo("EnemyShipPrefab", 20800, 5, "assets/audio/sfx/SFX - Spawn_Ship.wav"));
 
+	// Wave 4
+	info.push_back(EnemySpawnInfo("EnemyBallPrefab", 26300, 6, "assets/audio/sfx/SFX - Spawn_Ball.wav"));
+	info.push_back(EnemySpawnInfo("EnemyBallPrefab", 26316, 7, "assets/audio/sfx/SFX - Spawn_Ball.wav"));
+	info.push_back(EnemySpawnInfo("EnemyBallPrefab", 26333, 8, "assets/audio/sfx/SFX - Spawn_Ball.wav"));
+
+	// Wave 5
+	info.push_back(EnemySpawnInfo("EnemyShipPrefab", 35350, 9, "assets/audio/sfx/SFX - Spawn_Ship.wav"));
+	info.push_back(EnemySpawnInfo("EnemyShipPrefab", 35683, 9, "assets/audio/sfx/SFX - Spawn_Ship.wav"));
+	info.push_back(EnemySpawnInfo("EnemyShipPrefab", 36016, 9, "assets/audio/sfx/SFX - Spawn_Ship.wav"));
+	info.push_back(EnemySpawnInfo("EnemyShipPrefab", 36350, 9, "assets/audio/sfx/SFX - Spawn_Ship.wav"));
+
+	// Wave 6
+	info.push_back(EnemySpawnInfo("EnemyShipPrefab", 42266, 10, "assets/audio/sfx/SFX - Spawn_Ship.wav"));
+	info.push_back(EnemySpawnInfo("EnemyShipPrefab", 42366, 11, "assets/audio/sfx/SFX - Spawn_Ship.wav"));
+	info.push_back(EnemySpawnInfo("EnemyShipPrefab", 42366, 10, "assets/audio/sfx/SFX - Spawn_Ship.wav"));
+	info.push_back(EnemySpawnInfo("EnemyShipPrefab", 42433, 11, "assets/audio/sfx/SFX - Spawn_Ship.wav"));
+	info.push_back(EnemySpawnInfo("EnemyShipPrefab", 42483, 10, "assets/audio/sfx/SFX - Spawn_Ship.wav"));
+	info.push_back(EnemySpawnInfo("EnemyShipPrefab", 42533, 11, "assets/audio/sfx/SFX - Spawn_Ship.wav"));
+
+	// Wave 7
+	info.push_back(EnemySpawnInfo("EnemyBallPrefab", 48516, 6, "assets/audio/sfx/SFX - Spawn_Ball.wav"));
+	info.push_back(EnemySpawnInfo("EnemyBallPrefab", 48533, 7, "assets/audio/sfx/SFX - Spawn_Ball.wav"));
+	info.push_back(EnemySpawnInfo("EnemyBallPrefab", 48550, 8, "assets/audio/sfx/SFX - Spawn_Ball.wav"));
+
+	// Boss
+	info.push_back(EnemySpawnInfo("Boss1Prefab", 58516, -1, ""));
+	
 	return info;
 }
 

@@ -100,7 +100,9 @@ void PlayerShot::fly()
 	float normalizedProgress = m_elapsedTime / m_shotDuration;
 	float correctedProgress = m_floorManager->getNormalizedYPos(1 - normalizedProgress);
 	correctedProgress = correctedProgress > 0 ? correctedProgress : 0;
-	scale.y = scale.x = (1 - correctedProgress) * m_startScale + correctedProgress * m_endScale;
+	scale.x = (1 - correctedProgress) * m_startScale + correctedProgress * m_endScale;
+	// Increase the shot scale from the calculated value when it gets far (to ease hitting enemies far away)
+	scale.y = scale.x = scale.x * (2 - scale.x);
 	gameObject()->transform->setLocalScale(scale);
 
 	int zIndex = (int)((1 - normalizedProgress) * 100);

@@ -86,8 +86,10 @@ void EnemyShot::update()
 	float normalizedCorrectedProgress = m_floorManager->getNormalizedYPos(normalizedProgress);
 
 	// The scale reaches 1 when the shot reaches the closest point (getNormalizedYPos returns 0 at this point)
+	// Increase the scale by 0.1f to better reflect the behaviour form the original game (same as with the Enemy itself)
 	Vector2 scale;
-	scale.y = scale.x = (1 - normalizedCorrectedProgress);
+	scale.x = (1 - normalizedCorrectedProgress) + 0.1f;
+	scale.y = scale.x = scale.x > 1 ? 1 : scale.x;
 	gameObject()->transform->setLocalScale(scale);
 
 	// Move the main Game Object (shadow-holding) and the spritesheet-holding gameObjects

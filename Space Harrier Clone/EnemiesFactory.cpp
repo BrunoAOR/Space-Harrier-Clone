@@ -131,7 +131,7 @@ void EnemiesFactory::spawnEnemy()
 		auto enemy = go->getComponent<Enemy>();
 		if (enemy)
 		{
-			enemy->init(spawnInfo.lifeTime, m_motionPatterns[spawnInfo.motionPatternIndex], m_floorManager, m_playerTransform, m_enemyShotsPool, m_sfxEnemyShot);
+			enemy->init(m_motionPatterns[spawnInfo.motionPatternIndex].getLifeTimeMS(), m_motionPatterns[spawnInfo.motionPatternIndex], m_floorManager, m_playerTransform, m_enemyShotsPool, m_sfxEnemyShot);
 		}
 
 		auto explosiveObject = go->getComponent<ExplosiveObject>();

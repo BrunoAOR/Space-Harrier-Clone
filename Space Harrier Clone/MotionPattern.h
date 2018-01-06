@@ -10,7 +10,8 @@ class MotionPattern
 public:
 	MotionPattern();
 	MotionPattern(const std::vector<MotionPatternPoint>& motionPoints);
-	MotionPatternPoint getMotionPatternPoint(float normalizedTime);
+	MotionPatternPoint getMotionPatternPoint(int time);
+	int getLifeTimeMS();
 	bool isValid() const;
 
 private:

@@ -27,7 +27,7 @@ void EnemyBallPrefab::configureGameObject(Reference<GameObject>& gameObject) con
 			if (rectColl)
 			{
 				rectColl->isTrigger = true;
-				rectColl->size = Vector2(60, 59);
+				rectColl->size = Vector2(162, 160);
 				rectColl->offset.y += rectColl->size.y / 2;
 				rectColl->setCollisionLayer("Enemy");
 			}
@@ -40,24 +40,24 @@ void EnemyBallPrefab::configureGameObject(Reference<GameObject>& gameObject) con
 				spriteSheet->setRenderLayer("Main");
 
 				spriteSheet->addAnimation("open");
-				spriteSheet->addRectForAnimation("open", Vector2(370, 135), 60, 59);
-				spriteSheet->addRectForAnimation("open", Vector2(305, 135), 60, 59);
-				spriteSheet->addRectForAnimation("open", Vector2(435, 70), 60, 59);
-				spriteSheet->addRectForAnimation("open", Vector2(370, 70), 60, 59);
-				spriteSheet->addRectForAnimation("open", Vector2(305, 70), 60, 59);
-				spriteSheet->addRectForAnimation("open", Vector2(435, 5), 60, 59);
-				spriteSheet->addRectForAnimation("open", Vector2(370, 5), 60, 59);
-				spriteSheet->addRectForAnimation("open", Vector2(305, 5), 60, 59);
+				spriteSheet->addRectForAnimation("open", Vector2(465, 335), 162, 160);
+				spriteSheet->addRectForAnimation("open", Vector2(300, 335), 162, 160);
+				spriteSheet->addRectForAnimation("open", Vector2(630, 170), 162, 160);
+				spriteSheet->addRectForAnimation("open", Vector2(465, 170), 162, 160);
+				spriteSheet->addRectForAnimation("open", Vector2(300, 170), 162, 160);
+				spriteSheet->addRectForAnimation("open", Vector2(630, 5), 162, 160);
+				spriteSheet->addRectForAnimation("open", Vector2(465, 5), 162, 160);
+				spriteSheet->addRectForAnimation("open", Vector2(300, 5), 162, 160);
 
 				spriteSheet->addAnimation("close");
-				spriteSheet->addRectForAnimation("close", Vector2(305, 5), 60, 59);
-				spriteSheet->addRectForAnimation("close", Vector2(370, 5), 60, 59);
-				spriteSheet->addRectForAnimation("close", Vector2(435, 5), 60, 59);
-				spriteSheet->addRectForAnimation("close", Vector2(305, 70), 60, 59);
-				spriteSheet->addRectForAnimation("close", Vector2(370, 70), 60, 59);
-				spriteSheet->addRectForAnimation("close", Vector2(435, 70), 60, 59);
-				spriteSheet->addRectForAnimation("close", Vector2(305, 135), 60, 59);
-				spriteSheet->addRectForAnimation("close", Vector2(370, 135), 60, 59);
+				spriteSheet->addRectForAnimation("close", Vector2(300, 5), 162, 160);
+				spriteSheet->addRectForAnimation("close", Vector2(465, 5), 162, 160);
+				spriteSheet->addRectForAnimation("close", Vector2(630, 5), 162, 160);
+				spriteSheet->addRectForAnimation("close", Vector2(300, 170), 162, 160);
+				spriteSheet->addRectForAnimation("close", Vector2(465, 170), 162, 160);
+				spriteSheet->addRectForAnimation("close", Vector2(630, 170), 162, 160);
+				spriteSheet->addRectForAnimation("close", Vector2(300, 335), 162, 160);
+				spriteSheet->addRectForAnimation("close", Vector2(465, 335), 162, 160);
 			}
 
 			auto ccf = characterGo->addComponent<CollisionCallbackForwarder>();
