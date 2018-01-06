@@ -6,6 +6,7 @@
 #include "CollisionSystemSetup.h"
 
 
+const std::string GAME_NAME = "Space Harrier Tribute (by Bruno Ortiz)";
 const int SCREEN_SIZE = 2;
 const int SCREEN_WIDTH = 320;
 const int SCREEN_HEIGHT = 224;

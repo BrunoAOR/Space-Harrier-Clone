@@ -22,7 +22,7 @@
 #include "SceneFader.h"
 #include "GameSceneMusicManager.h"
 
-#include "TimeLogger.h"
+
 bool GameScene::load()
 {
 	Audio::setSFXVolume(0.25f);
@@ -38,7 +38,6 @@ bool GameScene::load()
 	auto worldGO = GameObject::createNew();
 	if (worldGO)
 	{
-		worldGO->addComponent<TimeLogger>();
 		auto musicManager = worldGO->addComponent<GameSceneMusicManager>();
 		assert(musicManager);
 

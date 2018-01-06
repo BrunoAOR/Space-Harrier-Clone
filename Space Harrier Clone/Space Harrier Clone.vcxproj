@@ -100,7 +100,6 @@
     <ClCompile Include="SceneFaderPrefab.cpp" />
     <ClCompile Include="SmallBushPrefab.cpp" />
     <ClCompile Include="TimedAnimation.cpp" />
-    <ClCompile Include="TimeLogger.cpp" />
     <ClCompile Include="TreePrefab.cpp" />
     <ClCompile Include="UIManager.cpp" />
   </ItemGroup>
@@ -206,7 +205,6 @@
     <ClInclude Include="ScoreInfo.h" />
     <ClInclude Include="SmallBushPrefab.h" />
     <ClInclude Include="TimedAnimation.h" />
-    <ClInclude Include="TimeLogger.h" />
     <ClInclude Include="TreePrefab.h" />
     <ClInclude Include="UIManager.h" />
     <ClInclude Include="utils.h" />
@@ -291,6 +289,7 @@
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
+      <SubSystem>Windows</SubSystem>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">

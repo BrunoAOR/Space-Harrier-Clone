@@ -142,7 +142,7 @@ bool RenderersManager::init()
 	bool success = true;
 
 	// Create window
-	m_window = SDL_CreateWindow("SDL Game", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH * SCREEN_SIZE, SCREEN_HEIGHT * SCREEN_SIZE, SDL_WINDOW_SHOWN);
+	m_window = SDL_CreateWindow(GAME_NAME.c_str(), SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH * SCREEN_SIZE, SCREEN_HEIGHT * SCREEN_SIZE, SDL_WINDOW_SHOWN);
 	if (m_window == nullptr)
 	{
 		OutputLog("Error: Window could not be created! SDL Error: %s", SDL_GetError());

@@ -154,9 +154,6 @@
     <ClCompile Include="GameScene.cpp">
       <Filter>Scenes</Filter>
     </ClCompile>
-    <ClCompile Include="TimeLogger.cpp">
-      <Filter>Behaviours</Filter>
-    </ClCompile>
     <ClCompile Include="EngineExt\RectangleRenderer.cpp">
       <Filter>_EngineExt</Filter>
     </ClCompile>
@@ -426,9 +423,6 @@
     </ClInclude>
     <ClInclude Include="GameScene.h">
       <Filter>Scenes</Filter>
-    </ClInclude>
-    <ClInclude Include="TimeLogger.h">
-      <Filter>Behaviours</Filter>
     </ClInclude>
     <ClInclude Include="EngineExt\RectangleRenderer.h">
       <Filter>_EngineExt</Filter>

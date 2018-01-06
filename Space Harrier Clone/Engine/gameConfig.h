@@ -5,7 +5,7 @@
 #include <string>
 struct CollisionSystemSetup;
 
-
+extern const std::string GAME_NAME;
 extern const int SCREEN_WIDTH;
 extern const int SCREEN_HEIGHT;
 extern const int SCREEN_SIZE;
