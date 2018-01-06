@@ -152,6 +152,10 @@ bool RenderersManager::init()
 	{
 		// Create Renderer for window (used for texture rendering)
 		Uint32 flags = SDL_RENDERER_ACCELERATED;
+		if (USE_VSYNC)
+		{
+			flags |= SDL_RENDERER_PRESENTVSYNC;
+		}
 		m_renderer = SDL_CreateRenderer(m_window, -1, flags);
 		if (m_renderer == nullptr)
 		{

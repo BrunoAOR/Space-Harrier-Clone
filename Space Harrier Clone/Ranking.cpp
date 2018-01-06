@@ -22,7 +22,7 @@ void Ranking::onDestroy()
 
 void Ranking::awake()
 {
-	m_musicNameEntry = Audio::loadMusic("assets/audio/bgm/Winners Song (Name Entry).wav");
+	m_musicNameEntry = Audio::loadMusic("assets/audio/bgm/Winners Song (Name Entry).ogg");
 	assert(m_musicNameEntry);
 
 	m_rankingListEntryDuration = 1733;
@@ -61,25 +61,6 @@ void Ranking::awake()
 		assert(success);
 		tableHeaderLabel->setAllPivots(Vector2(1, 1));
 		tableHeaderLabel->setText("SCORE  NAME");
-	}
-
-	// Lives_label
-	{
-		auto go = GameObject::createNew();
-		assert(go);
-		go->transform->setParent(m_rankingGO->transform, false);
-		go->transform->setLocalPosition(Vector2(16, 16));
-
-		auto livesLabel = go->addComponent<TextRenderer>();
-		assert(livesLabel);
-
-		livesLabel->setRenderLayer("UI");
-		livesLabel->setZIndex(1);
-
-		bool success = livesLabel->loadFont(getFont("smallGray"));
-		assert(success);
-		livesLabel->setAllPivots(Vector2(0, 0));
-		livesLabel->setText("PLAYER   0");
 	}
 
 	// Copyright_symbol
@@ -159,6 +140,24 @@ void Ranking::awake()
 	m_nameEntryTableLabel->setActive(false);
 
 	// VARIABLE
+	
+	// m_livesLabel
+	{
+		auto go = GameObject::createNew();
+		assert(go);
+		go->transform->setParent(m_rankingGO->transform, false);
+		go->transform->setLocalPosition(Vector2(16, 16));
+
+		m_livesLabel = go->addComponent<TextRenderer>();
+		assert(m_livesLabel);
+
+		m_livesLabel->setRenderLayer("UI");
+		m_livesLabel->setZIndex(1);
+
+		bool success = m_livesLabel->loadFont(getFont("smallGray"));
+		assert(success);
+		m_livesLabel->setAllPivots(Vector2(0, 0));
+	}
 
 	// m_newScoreTableCounterValue;
 	{
@@ -344,6 +343,8 @@ void Ranking::show(int playerScore)
 	m_nameEntryNextCounterTime = -1;
 	m_rankingListEntryEndTime = -1;
 	m_nameEntryCounterNumber = 30;
+
+	m_livesLabel->setText("PLAYER   " + std::to_string(player_lives));
 
 	updatePlayerPositionInRanking();
 

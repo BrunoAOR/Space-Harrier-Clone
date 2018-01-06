@@ -52,6 +52,7 @@ private:
 	Reference<TextRenderer> m_charSelectionLabel;
 
 	// Variable UI
+	Reference<TextRenderer> m_livesLabel;
 	Reference<TextRenderer> m_topScoreValue;
 	Reference<TextRenderer> m_nameEntryTableCounterValue;
 	Reference<TextRenderer> m_selectedCharacterValue;

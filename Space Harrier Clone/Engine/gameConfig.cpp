@@ -7,6 +7,7 @@
 
 
 const std::string GAME_NAME = "Space Harrier Tribute (by Bruno Ortiz)";
+const bool USE_VSYNC = true;
 const int SCREEN_SIZE = 2;
 const int SCREEN_WIDTH = 320;
 const int SCREEN_HEIGHT = 224;

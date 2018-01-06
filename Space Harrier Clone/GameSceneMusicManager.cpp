@@ -23,9 +23,9 @@ void GameSceneMusicManager::awake()
 	Messenger::addListener(this, MessengerEventType::BOSS_SPAWNED);
 	Messenger::addListener(this, MessengerEventType::GAME_WON);
 
-	m_musicLevel = Audio::loadMusic("assets/audio/bgm/Theme.wav");
-	m_musicBoss = Audio::loadMusic("assets/audio/bgm/S1 MOOT Boss (Skyra).wav");
-	m_musicGameWon = Audio::loadMusic("assets/audio/bgm/Lake Side Memory (WIN).wav");
+	m_musicLevel = Audio::loadMusic("assets/audio/bgm/Theme.ogg");
+	m_musicBoss = Audio::loadMusic("assets/audio/bgm/S1 MOOT Boss (Skyra).ogg");
+	m_musicGameWon = Audio::loadMusic("assets/audio/bgm/Lake Side Memory (WIN).ogg");
 	m_sfxWelcome = Audio::loadSFX("assets/audio/sfx/SFX - Voice - Welcome to the fantasy zone.wav");
 	assert(m_musicLevel && m_musicBoss && m_musicGameWon && m_sfxWelcome);
 }
