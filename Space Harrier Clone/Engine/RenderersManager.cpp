@@ -8,8 +8,10 @@
 #include "ComponentType.h"
 #include "Reference.h"
 #include "Renderer.h"
+#include "SpriteRenderer.h"
 #include "GameObject.h"
 #include "Component.h"
+#include "ResourcesManager.h"
 
 
 RenderersManager::RenderersManager()
@@ -175,6 +177,7 @@ bool RenderersManager::init()
 			}
 		}
 	}
+	m_texturesManager = new ResourcesManager<SDL_Texture>(SDL_DestroyTexture);
 
 	return success;
 }
@@ -182,6 +185,8 @@ bool RenderersManager::init()
 
 void RenderersManager::close()
 {
+	delete m_texturesManager;
+	m_texturesManager = nullptr;
 	SDL_DestroyRenderer(m_renderer);
 	m_renderer = nullptr;
 	SDL_DestroyWindow(m_window);
@@ -197,7 +202,7 @@ bool RenderersManager::initializeComponent(Reference<Component>& component)
 		auto renderer = component.static_reference_cast<Renderer>();
 		renderer->m_renderer = m_renderer;
 		renderer->m_renderersManager = this;
-
+		renderer->m_texturesManager = m_texturesManager;
 		return true;
 	}
 	return false;

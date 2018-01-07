@@ -5,6 +5,7 @@
 #include "GameObject.h"
 #include "Transform.h"
 #include "ComponentType.h"
+#include "ResourcesManager.h"
 
 
 Renderer::Renderer()
@@ -185,7 +186,14 @@ void Renderer::free()
 	// Free texture if it exists
 	if (m_texture != nullptr)
 	{
-		SDL_DestroyTexture(m_texture);
+		if (m_isTextureUnique)
+		{
+			SDL_DestroyTexture(m_texture);
+		}
+		else
+		{
+			m_texturesManager->returnResource(m_texture);
+		}
 		m_texture = nullptr;
 		m_width = 0;
 		m_height = 0;

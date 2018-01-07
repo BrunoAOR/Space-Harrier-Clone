@@ -116,11 +116,11 @@ void Engine::loop() const
 
 void Engine::close() const
 {
-	// Delete all ComponentManagers
-	componentsManager->close();
-
 	// Unload scene
 	sceneManager->close();
+
+	// Delete all ComponentManagers
+	componentsManager->close();
 
 	// Quit SDL subsystems
 	Mix_CloseAudio();

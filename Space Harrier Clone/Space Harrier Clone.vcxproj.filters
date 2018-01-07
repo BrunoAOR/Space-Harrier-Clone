@@ -623,5 +623,7 @@
     <ClInclude Include="EngineExt\ClippableTextRenderer.h">
       <Filter>_EngineExt</Filter>
     </ClInclude>
+    <ClInclude Include="Engine\ResourceManager.h" />
+    <ClInclude Include="Engine\ResourcesManager.h" />
   </ItemGroup>
 </Project>

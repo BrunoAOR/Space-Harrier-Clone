@@ -5,6 +5,8 @@
 #include <string>
 #include "Component.h"
 #include "Vector2.h"
+template<typename T>
+class ResourcesManager;
 
 
 class Renderer :
@@ -46,10 +48,12 @@ protected:
 
 	// The renderer associated with this texture
 	SDL_Renderer* m_renderer = nullptr;
+	bool m_isTextureUnique = true;
 	RenderersManager* m_renderersManager = nullptr;
 
 	// The actual hardware texture
 	SDL_Texture* m_texture = nullptr;
+	ResourcesManager<SDL_Texture>* m_texturesManager = nullptr;
 
 	// Image dimensions
 	int m_width = 0;

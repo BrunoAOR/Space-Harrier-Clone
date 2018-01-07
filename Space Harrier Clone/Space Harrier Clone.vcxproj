@@ -130,6 +130,8 @@
     <ClInclude Include="Engine\CollisionSystemSetup.h" />
     <ClInclude Include="Engine\Font.h" />
     <ClInclude Include="Engine\PixelPosition.h" />
+    <ClInclude Include="Engine\ResourceManager.h" />
+    <ClInclude Include="Engine\ResourcesManager.h" />
     <ClInclude Include="Engine\TextRenderer.h" />
     <ClInclude Include="GameSceneMusicManager.h" />
     <ClInclude Include="gameData.h" />

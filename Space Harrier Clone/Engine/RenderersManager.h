@@ -9,7 +9,8 @@
 #include "Reference.h"
 class Component;
 class Renderer;
-
+template<typename T>
+class ResourcesManager;
 
 class RenderersManager final :
 	public ComponentManager
@@ -39,6 +40,7 @@ private:
 
 	SDL_Window* m_window = nullptr;
 	SDL_Renderer* m_renderer = nullptr;
+	ResourcesManager<SDL_Texture>* m_texturesManager = nullptr;
 	std::vector<std::string> m_renderLayers;
 
 	std::unordered_map<std::string, std::list<Reference<Renderer>>> m_renderers;
