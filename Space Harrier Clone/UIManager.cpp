@@ -47,7 +47,7 @@ void UIManager::awake()
 	Messenger::addListener(this, MessengerEventType::POINTS_100000);
 	Messenger::addListener(this, MessengerEventType::GAME_WON);
 
-	m_sfxCoin = Audio::loadSFX("assets/audio/sfx/SFX - Coin.wav");
+	m_sfxCoin = Audio::loadSFX(ASSET_SFX_COIN);
 	assert(m_sfxCoin);
 
 	m_uiGO = GameObject::createNew();
@@ -64,10 +64,10 @@ void UIManager::awake()
 		m_topLabel = go->addComponent<Sprite>();
 		assert(m_topLabel);
 
-		m_topLabel->setRenderLayer("UI");
+		m_topLabel->setRenderLayer(RENDER_LAYER_5_UI);
 		m_topLabel->setZIndex(1);
 
-		loadSuccess = m_topLabel->loadImage("assets/sprites/UI.png");
+		loadSuccess = m_topLabel->loadImage(ASSET_IMG_UI);
 		assert(loadSuccess);
 		m_topLabel->setAllPivots(Vector2(0, 1));
 		m_topLabel->setClipRect(SDL_Rect{ 16, 104, 30, 12 });
@@ -82,7 +82,7 @@ void UIManager::awake()
 		m_topScoreText = go->addComponent<TextRenderer>();
 		assert(m_topScoreText);
 
-		m_topScoreText->setRenderLayer("UI");
+		m_topScoreText->setRenderLayer(RENDER_LAYER_5_UI);
 		m_topScoreText->setZIndex(1);
 
 		loadSuccess = m_topScoreText->loadFont(getFont("smallPink"));
@@ -100,10 +100,10 @@ void UIManager::awake()
 		m_scoreLabel = go->addComponent<Sprite>();
 		assert(m_scoreLabel);
 
-		m_scoreLabel->setRenderLayer("UI");
+		m_scoreLabel->setRenderLayer(RENDER_LAYER_5_UI);
 		m_scoreLabel->setZIndex(1);
 
-		loadSuccess = m_scoreLabel->loadImage("assets/sprites/UI.png");
+		loadSuccess = m_scoreLabel->loadImage(ASSET_IMG_UI);
 		assert(loadSuccess);
 		m_scoreLabel->setAllPivots(Vector2(1, 1));
 		m_scoreLabel->setClipRect(SDL_Rect{ 46, 104, 48, 12 });
@@ -118,7 +118,7 @@ void UIManager::awake()
 		m_scoreText = go->addComponent<TextRenderer>();
 		assert(m_scoreText);
 
-		m_scoreText->setRenderLayer("UI");
+		m_scoreText->setRenderLayer(RENDER_LAYER_5_UI);
 		m_scoreText->setZIndex(1);
 
 		loadSuccess = m_scoreText->loadFont(getFont("smallGreen"));
@@ -135,7 +135,7 @@ void UIManager::awake()
 		m_livesText = go->addComponent<TextRenderer>();
 		assert(m_livesText);
 
-		m_livesText->setRenderLayer("UI");
+		m_livesText->setRenderLayer(RENDER_LAYER_5_UI);
 		m_livesText->setZIndex(1);
 
 		loadSuccess = m_livesText->loadFont(getFont("lifeIcons"));
@@ -152,7 +152,7 @@ void UIManager::awake()
 		m_stageLabel = go->addComponent<TextRenderer>();
 		assert(m_stageLabel);
 
-		m_stageLabel->setRenderLayer("UI");
+		m_stageLabel->setRenderLayer(RENDER_LAYER_5_UI);
 		m_stageLabel->setZIndex(1);
 
 		loadSuccess = m_stageLabel->loadFont(getFont("smallGray"));
@@ -170,7 +170,7 @@ void UIManager::awake()
 		m_stageText = go->addComponent<TextRenderer>();
 		assert(m_stageText);
 
-		m_stageText->setRenderLayer("UI");
+		m_stageText->setRenderLayer(RENDER_LAYER_5_UI);
 		m_stageText->setZIndex(1);
 
 		loadSuccess = m_stageText->loadFont(getFont("smallGray"));
@@ -187,7 +187,7 @@ void UIManager::awake()
 		m_stageNumberLabel = go->addComponent<TextRenderer>();
 		assert(m_stageNumberLabel);
 
-		m_stageNumberLabel->setRenderLayer("UI");
+		m_stageNumberLabel->setRenderLayer(RENDER_LAYER_5_UI);
 		m_stageNumberLabel->setZIndex(1);
 
 		loadSuccess = m_stageNumberLabel->loadFont(getFont("bigGray"));
@@ -205,7 +205,7 @@ void UIManager::awake()
 		m_stageNameLabel = go->addComponent<TextRenderer>();
 		assert(m_stageNameLabel);
 
-		m_stageNameLabel->setRenderLayer("UI");
+		m_stageNameLabel->setRenderLayer(RENDER_LAYER_5_UI);
 		m_stageNameLabel->setZIndex(1);
 
 		loadSuccess = m_stageNameLabel->loadFont(getFont("bigGray"));
@@ -223,7 +223,7 @@ void UIManager::awake()
 		m_postReviveLabel = go->addComponent<TextRenderer>();
 		assert(m_postReviveLabel);
 
-		m_postReviveLabel->setRenderLayer("UI");
+		m_postReviveLabel->setRenderLayer(RENDER_LAYER_5_UI);
 		m_postReviveLabel->setZIndex(1);
 
 		loadSuccess = m_postReviveLabel->loadFont(getFont("smallGreen"));
@@ -243,7 +243,7 @@ void UIManager::awake()
 		m_insertCoinsLabel = go->addComponent<TextRenderer>();
 		assert(m_insertCoinsLabel);
 
-		m_insertCoinsLabel->setRenderLayer("UI");
+		m_insertCoinsLabel->setRenderLayer(RENDER_LAYER_5_UI);
 		m_insertCoinsLabel->setZIndex(1);
 
 		loadSuccess = m_insertCoinsLabel->loadFont(getFont("smallPink"));
@@ -263,7 +263,7 @@ void UIManager::awake()
 		m_insertCoinsCountdownText = go->addComponent<TextRenderer>();
 		assert(m_insertCoinsCountdownText);
 
-		m_insertCoinsCountdownText->setRenderLayer("UI");
+		m_insertCoinsCountdownText->setRenderLayer(RENDER_LAYER_5_UI);
 		m_insertCoinsCountdownText->setZIndex(1);
 
 		loadSuccess = m_insertCoinsCountdownText->loadFont(getFont("bigPink"));
@@ -283,7 +283,7 @@ void UIManager::awake()
 		m_postCoinsStartLabel = go->addComponent<TextRenderer>();
 		assert(m_postCoinsStartLabel);
 
-		m_postCoinsStartLabel->setRenderLayer("UI");
+		m_postCoinsStartLabel->setRenderLayer(RENDER_LAYER_5_UI);
 		m_postCoinsStartLabel->setZIndex(1);
 
 		loadSuccess = m_postCoinsStartLabel->loadFont(getFont("smallGreen"));
@@ -303,7 +303,7 @@ void UIManager::awake()
 		m_gameWonLabel = go->addComponent<TextRenderer>();
 		assert(m_gameWonLabel);
 
-		m_gameWonLabel->setRenderLayer("UI");
+		m_gameWonLabel->setRenderLayer(RENDER_LAYER_5_UI);
 		m_gameWonLabel->setZIndex(1);
 
 		loadSuccess = m_gameWonLabel->loadFont(getFont("bigPink"));

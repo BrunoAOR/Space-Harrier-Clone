@@ -3,6 +3,7 @@
 #include "Engine/API.h"
 #include "Engine/Collider.h"
 #include "Engine/GameObject.h"
+#include "gameData.h"
 #include "PlayerShot.h"
 
 
@@ -14,7 +15,7 @@ void BulletBouncer::onDestroy()
 
 void BulletBouncer::awake()
 {
-	m_sfxBounce = Audio::loadSFX("assets/audio/sfx/SFX - Bullet_Bounce.wav");
+	m_sfxBounce = Audio::loadSFX(ASSET_SFX_BULLET_BOUNCE);
 }
 
 

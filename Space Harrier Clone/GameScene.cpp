@@ -28,7 +28,7 @@ bool GameScene::load()
 	Audio::setSFXVolume(0.25f);
 
 	{
-		auto go = Prefabs::instantiate(Prefabs::getPrefab("SceneFaderPrefab"));
+		auto go = Prefabs::instantiate(Prefabs::getPrefab(SCENE_FADER_PREFAB));
 		assert(go);
 		auto sceneFader = go->getComponent<SceneFader>();
 		assert(sceneFader);
@@ -52,10 +52,10 @@ bool GameScene::load()
 
 			if (floorManager)
 			{
-				floorManager->init("assets/sprites/FloorGreen.png");
+				floorManager->init(ASSET_IMG_FLOOR_GREEN);
 			}
 
-			auto playerGo = Prefabs::instantiate(Prefabs::getPrefab("PlayerPrefab"));
+			auto playerGo = Prefabs::instantiate(Prefabs::getPrefab(PLAYER_PREFAB));
 			if (playerGo)
 			{
 				playerGo->transform->setParent(worldGO->transform, false);
@@ -97,7 +97,7 @@ bool GameScene::load()
 				auto backgroundScroller = backgroundScrollerGo->addComponent<BackgroundScroller>();
 				if (backgroundScroller)
 				{
-					backgroundScroller->init(floorManager, "assets/sprites/Background_lvl1.png", 0, -3);
+					backgroundScroller->init(floorManager, ASSET_IMG_BACKGROUND, 0, -3);
 				}
 			}
 
@@ -108,7 +108,7 @@ bool GameScene::load()
 				auto backgroundScroller = backgroundScrollerGoMountains->addComponent<BackgroundScroller>();
 				if (backgroundScroller)
 				{
-					backgroundScroller->init(floorManager, "assets/sprites/Background_lvl1_mountains.png", 0.3f, -2);
+					backgroundScroller->init(floorManager, ASSET_IMG_BG_MOUNTAINS, 0.3f, -2);
 				}
 			}
 
@@ -119,7 +119,7 @@ bool GameScene::load()
 				auto backgroundScroller = backgroundScrollerGoTrees->addComponent<BackgroundScroller>();
 				if (backgroundScroller)
 				{
-					backgroundScroller->init(floorManager, "assets/sprites/Background_lvl1_trees.png", 0.6f, -1);
+					backgroundScroller->init(floorManager, ASSET_IMG_BG_TREES, 0.6f, -1);
 				}
 			}
 		}

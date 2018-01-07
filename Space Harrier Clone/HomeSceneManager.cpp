@@ -21,8 +21,7 @@ void HomeSceneManager::onDestroy()
 void HomeSceneManager::awake()
 {
 	m_shouldHandleInput = true;
-	std::string imagePath = "assets/sprites/Home_screen.png";
-	m_sfxCoin = Audio::loadSFX("assets/audio/sfx/SFX - Coin.wav");
+	m_sfxCoin = Audio::loadSFX(ASSET_SFX_COIN);
 	assert(m_sfxCoin);
 
 	gameObject()->transform->setWorldPosition(Vector2(0, 0));
@@ -35,9 +34,9 @@ void HomeSceneManager::awake()
 
 		auto sprite = go->addComponent<Sprite>();
 		assert(sprite);
-		bool success = sprite->loadImage(imagePath);
+		bool success = sprite->loadImage(ASSET_IMG_HOME_SCREEN);
 		assert(success);
-		sprite->setRenderLayer("Background");
+		sprite->setRenderLayer(RENDER_LAYER_0_BACKGROUND);
 		sprite->setZIndex(0);
 		sprite->setAllPivots(Vector2(0, 0));
 		sprite->setClipRect(SDL_Rect{ 0, 225, 320, 224 });
@@ -52,9 +51,9 @@ void HomeSceneManager::awake()
 
 		m_gameTitle = go->addComponent<SpriteSheet>();
 		assert(m_gameTitle);
-		bool success = m_gameTitle->loadImage(imagePath);
+		bool success = m_gameTitle->loadImage(ASSET_IMG_HOME_SCREEN);
 		assert(success);
-		m_gameTitle->setRenderLayer("Main");
+		m_gameTitle->setRenderLayer(RENDER_LAYER_2_MAIN);
 		m_gameTitle->setZIndex(0);
 		m_gameTitle->setAllPivots(Vector2(0.5f, 0.5f));
 		m_gameTitle->addAnimation("anim");
@@ -83,9 +82,9 @@ void HomeSceneManager::awake()
 
 		auto sprite = go->addComponent<Sprite>();
 		assert(sprite);
-		bool success = sprite->loadImage(imagePath);
+		bool success = sprite->loadImage(ASSET_IMG_HOME_SCREEN);
 		assert(success);
-		sprite->setRenderLayer("Main");
+		sprite->setRenderLayer(RENDER_LAYER_2_MAIN);
 		sprite->setZIndex(1);
 		sprite->setAllPivots(Vector2(0, 1));
 		sprite->setClipRect(SDL_Rect{ 285, 110, 35, 17 });
@@ -100,9 +99,9 @@ void HomeSceneManager::awake()
 
 		auto sprite = go->addComponent<Sprite>();
 		assert(sprite);
-		bool success = sprite->loadImage(imagePath);
+		bool success = sprite->loadImage(ASSET_IMG_HOME_SCREEN);
 		assert(success);
-		sprite->setRenderLayer("Main");
+		sprite->setRenderLayer(RENDER_LAYER_2_MAIN);
 		sprite->setZIndex(1);
 		sprite->setAllPivots(Vector2(0, 1));
 		sprite->setClipRect(SDL_Rect{ 285, 80, 30, 28 });
@@ -117,9 +116,9 @@ void HomeSceneManager::awake()
 
 		m_mammoth = go->addComponent<SpriteSheet>();
 		assert(m_mammoth);
-		bool success = m_mammoth->loadImage(imagePath);
+		bool success = m_mammoth->loadImage(ASSET_IMG_HOME_SCREEN);
 		assert(success);
-		m_mammoth->setRenderLayer("Main");
+		m_mammoth->setRenderLayer(RENDER_LAYER_2_MAIN);
 		m_mammoth->setZIndex(1);
 		m_mammoth->setAllPivots(Vector2(0, 1));
 		m_mammoth->addAnimation("anim");
@@ -162,9 +161,9 @@ void HomeSceneManager::awake()
 
 		m_character = go->addComponent<SpriteSheet>();
 		assert(m_character);
-		bool success = m_character->loadImage(imagePath);
+		bool success = m_character->loadImage(ASSET_IMG_HOME_SCREEN);
 		assert(success);
-		m_character->setRenderLayer("Main");
+		m_character->setRenderLayer(RENDER_LAYER_2_MAIN);
 		m_character->setZIndex(1);
 		m_character->setAllPivots(Vector2(0, 1));
 		m_character->addAnimation("anim");
@@ -186,9 +185,9 @@ void HomeSceneManager::awake()
 
 		m_robotHighlights = go->addComponent<SpriteSheet>();
 		assert(m_robotHighlights);
-		bool success = m_robotHighlights->loadImage(imagePath);
+		bool success = m_robotHighlights->loadImage(ASSET_IMG_HOME_SCREEN);
 		assert(success);
-		m_robotHighlights->setRenderLayer("Main");
+		m_robotHighlights->setRenderLayer(RENDER_LAYER_2_MAIN);
 		m_robotHighlights->setZIndex(1);
 		m_robotHighlights->setAllPivots(Vector2(0, 1));
 		m_robotHighlights->addAnimation("anim");
@@ -212,9 +211,9 @@ void HomeSceneManager::awake()
 
 		m_robotEyes = go->addComponent<SpriteSheet>();
 		assert(m_robotEyes);
-		bool success = m_robotEyes->loadImage(imagePath);
+		bool success = m_robotEyes->loadImage(ASSET_IMG_HOME_SCREEN);
 		assert(success);
-		m_robotEyes->setRenderLayer("Main");
+		m_robotEyes->setRenderLayer(RENDER_LAYER_2_MAIN);
 		m_robotEyes->setZIndex(1);
 		m_robotEyes->setAllPivots(Vector2(0, 1));
 		m_robotEyes->addAnimation("anim");
@@ -251,9 +250,9 @@ void HomeSceneManager::awake()
 
 		m_robotShine = go->addComponent<SpriteSheet>();
 		assert(m_robotShine);
-		bool success = m_robotShine->loadImage(imagePath);
+		bool success = m_robotShine->loadImage(ASSET_IMG_HOME_SCREEN);
 		assert(success);
-		m_robotShine->setRenderLayer("Main");
+		m_robotShine->setRenderLayer(RENDER_LAYER_2_MAIN);
 		m_robotShine->setZIndex(1);
 		m_robotShine->setAllPivots(Vector2(0, 1));
 		// Note: This animation should be played twice as fast as the others
@@ -289,7 +288,7 @@ void HomeSceneManager::awake()
 		auto livesLabel = go->addComponent<TextRenderer>();
 		assert(livesLabel);
 
-		livesLabel->setRenderLayer("UI");
+		livesLabel->setRenderLayer(RENDER_LAYER_5_UI);
 		livesLabel->setZIndex(1);
 
 		bool success = livesLabel->loadFont(getFont("smallGray"));
@@ -308,7 +307,7 @@ void HomeSceneManager::awake()
 		m_livesValue = go->addComponent<TextRenderer>();
 		assert(m_livesValue);
 
-		m_livesValue->setRenderLayer("UI");
+		m_livesValue->setRenderLayer(RENDER_LAYER_5_UI);
 		m_livesValue->setZIndex(1);
 
 		bool success = m_livesValue->loadFont(getFont("smallGray"));
@@ -327,10 +326,10 @@ void HomeSceneManager::awake()
 		auto sprite = go->addComponent<Sprite>();
 		assert(sprite);
 
-		sprite->setRenderLayer("UI");
+		sprite->setRenderLayer(RENDER_LAYER_5_UI);
 		sprite->setZIndex(1);
 
-		bool success = sprite->loadImage("assets/sprites/UI.png");
+		bool success = sprite->loadImage(ASSET_IMG_UI);
 		assert(success);
 		sprite->setAllPivots(Vector2(1, 0));
 		sprite->setClipRect(SDL_Rect{ 96, 104, 8, 8 });
@@ -346,7 +345,7 @@ void HomeSceneManager::awake()
 		auto segaLabel = go->addComponent<TextRenderer>();
 		assert(segaLabel);
 
-		segaLabel->setRenderLayer("UI");
+		segaLabel->setRenderLayer(RENDER_LAYER_5_UI);
 		segaLabel->setZIndex(1);
 
 		bool success = segaLabel->loadFont(getFont("smallGray"));
@@ -364,7 +363,7 @@ void HomeSceneManager::awake()
 		
 		m_insertCoinsPrompt = go->addComponent<TextRenderer>();
 		assert(m_insertCoinsPrompt);
-		m_insertCoinsPrompt->setRenderLayer("UI");
+		m_insertCoinsPrompt->setRenderLayer(RENDER_LAYER_5_UI);
 		m_insertCoinsPrompt->setZIndex(1);
 
 		bool success = m_insertCoinsPrompt->loadFont(getFont("smallRed"));
@@ -384,7 +383,7 @@ void HomeSceneManager::awake()
 		m_pushStartPrompt = go->addComponent<TextRenderer>();
 		assert(m_pushStartPrompt);
 
-		m_pushStartPrompt->setRenderLayer("UI");
+		m_pushStartPrompt->setRenderLayer(RENDER_LAYER_5_UI);
 		m_pushStartPrompt->setZIndex(1);
 
 		bool success = m_pushStartPrompt->loadFont(getFont("smallGreen"));

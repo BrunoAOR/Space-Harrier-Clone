@@ -5,6 +5,7 @@
 #include "Engine/GameObject.h"
 #include "Engine/Transform.h"
 #include "Engine/Vector2.h"
+#include "gameData.h"
 #include "HomeSceneManager.h"
 #include "SceneFader.h"
 
@@ -14,7 +15,7 @@ bool HomeScene::load()
 	Audio::setSFXVolume(0.25f);
 	
 	{
-		auto go = Prefabs::instantiate(Prefabs::getPrefab("SceneFaderPrefab"));
+		auto go = Prefabs::instantiate(Prefabs::getPrefab(SCENE_FADER_PREFAB));
 		assert(go);
 		auto sceneFader = go->getComponent<SceneFader>();
 		assert(sceneFader);

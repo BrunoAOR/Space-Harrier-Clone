@@ -7,6 +7,7 @@
 #include "Engine/Sprite.h"
 #include "Engine/API.h"
 #include "Engine/gameConfig.h"
+#include "gameData.h"
 #include "FloorManager.h"
 #include "Explosion.h"
 #include "Messenger.h"
@@ -235,7 +236,7 @@ void Boss1ChainLink::die()
 		Messenger::broadcastEvent(MessengerEventType::POINTS_100000);
 		// EXPLODE!
 		Reference<Transform>& parent = gameObject()->transform->getParent();
-		auto explosionGO = Prefabs::instantiate(Prefabs::getPrefab("Boss1ExplosionPrefab"));
+		auto explosionGO = Prefabs::instantiate(Prefabs::getPrefab(BOSS_1_EXPLOSION_PREFAB));
 		assert(explosionGO);
 
 		explosionGO->transform->setParent(parent);

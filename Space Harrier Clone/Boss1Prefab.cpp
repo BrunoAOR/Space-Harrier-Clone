@@ -5,8 +5,10 @@
 #include "Engine/gameConfig.h"
 #include "Engine/Sprite.h"
 #include "Engine/RectangleCollider.h"
+#include "gameData.h"
 #include "Boss1.h"
 #include "CollisionCallbackForwarder.h"
+
 
 void Boss1Prefab::configureGameObject(Reference<GameObject>& gameObject) const
 {
@@ -22,9 +24,9 @@ void Boss1Prefab::configureGameObject(Reference<GameObject>& gameObject) const
 		auto sprite = childGo->addComponent<Sprite>();
 		if (sprite)
 		{
-			sprite->loadImage("assets/sprites/Boss_lvl1.png");
+			sprite->loadImage(ASSET_IMG_BOSS);
 			sprite->setAllPivots(Vector2(0.5f, 0));
-			sprite->setRenderLayer("Main");
+			sprite->setRenderLayer(RENDER_LAYER_2_MAIN);
 		}
 
 		auto rectCollider = childGo->addComponent<RectangleCollider>();
@@ -33,7 +35,7 @@ void Boss1Prefab::configureGameObject(Reference<GameObject>& gameObject) const
 			rectCollider->isTrigger = true;
 			rectCollider->size = Vector2(68, 109);
 			rectCollider->offset = Vector2(0, 109 / 2.0f);
-			rectCollider->setCollisionLayer("Enemy");
+			rectCollider->setCollisionLayer(COLLISION_LAYER_2_ENEMY);
 		}
 
 		auto ccf = childGo->addComponent<CollisionCallbackForwarder>();
@@ -46,10 +48,10 @@ void Boss1Prefab::configureGameObject(Reference<GameObject>& gameObject) const
 	auto shadow = gameObject->addComponent<Sprite>();
 	if (shadow)
 	{
-		shadow->setRenderLayer("Shadows");
+		shadow->setRenderLayer(RENDER_LAYER_1_SHADOWS);
 		shadow->setZIndex(0);
 
-		shadow->loadImage("assets/sprites/Boss_lvl1.png");
+		shadow->loadImage(ASSET_IMG_BOSS);
 		shadow->setClipRect(SDL_Rect{ 340, 480, 62, 18 });
 		shadow->setAllPivots(Vector2(0.5f, 0));
 	}

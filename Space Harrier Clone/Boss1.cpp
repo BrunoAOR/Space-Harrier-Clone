@@ -60,7 +60,7 @@ void Boss1::awake()
 	Messenger::addListener(this, MessengerEventType::FLOOR_MOTION_STOPPED);
 	Messenger::addListener(this, MessengerEventType::FLOOR_MOTION_RESUMED);
 
-	Reference<Prefab> chainLinkPrefab = Prefabs::getPrefab("Boss1ChainLinkPrefab");
+	Reference<Prefab> chainLinkPrefab = Prefabs::getPrefab(BOSS_1_CHAIN_LINK_PREFAB);
 	assert(chainLinkPrefab);
 	m_chainConfig = getBoss1ChainConfig();
 
@@ -89,7 +89,7 @@ void Boss1::awake()
 		previousChainLink = chainLink;
 	}
 
-	m_sfxBossShot = Audio::loadSFX("assets/audio/sfx/SFX - BossShot.wav");
+	m_sfxBossShot = Audio::loadSFX(ASSET_SFX_BOSS_SHOT);
 	m_collider = gameObject()->getComponentInChildren<Collider>();
 	m_headSprite = m_collider->gameObject()->getComponent<Sprite>();
 	m_shadowSprite = gameObject()->getComponent<Sprite>();

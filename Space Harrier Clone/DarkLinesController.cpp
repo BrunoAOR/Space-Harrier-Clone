@@ -4,6 +4,7 @@
 #include "Engine/gameConfig.h"
 #include "Engine/GameObject.h"
 #include "Engine/API.h"
+#include "gameData.h"
 #include "FloorManager.h"
 #include "DarkLineInfo.h"
 
@@ -28,7 +29,7 @@ void DarkLinesController::init(FloorManager* floorManager, int darkLinesCount, f
 		auto rectangleRenderer = floorManager->gameObject()->addComponent<RectangleRenderer>();
 		if (rectangleRenderer)
 		{
-			rectangleRenderer->setRenderLayer("Background");
+			rectangleRenderer->setRenderLayer(RENDER_LAYER_0_BACKGROUND);
 			rectangleRenderer->setZIndex(2);
 			rectangleRenderer->setAllPivots(Vector2{ 0, 1 });
 			// Dark line color calculated assuming that SDL_BLENDMODE_BLEND will be used.

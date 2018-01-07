@@ -6,6 +6,7 @@
 #include "Engine/API.h"
 #include "Engine/GameObject.h"
 #include "Engine/Transform.h"
+#include "gameData.h"
 #include "FloorManager.h"
 #include "GameObjectPool.h"
 #include "Enemy.h"
@@ -80,12 +81,12 @@ void EnemiesFactory::init(const Reference<Transform>& playerTransform, const Ref
 
 void EnemiesFactory::awake()
 {
-	m_explosionsPool = new GameObjectPool(Prefabs::getPrefab("ExplosionPrefab"), 4);
-	m_enemyShotsPool = new GameObjectPool(Prefabs::getPrefab("EnemyShotPrefab"), 6);
+	m_explosionsPool = new GameObjectPool(Prefabs::getPrefab(EXPLOSION_PREFAB), 4);
+	m_enemyShotsPool = new GameObjectPool(Prefabs::getPrefab(ENEMY_SHOT_PREFAB), 6);
 	assert(m_explosionsPool && m_enemyShotsPool);
 
-	m_sfxExplosion = Audio::loadSFX("assets/audio/sfx/SFX - Explosion.wav");
-	m_sfxEnemyShot = Audio::loadSFX("assets/audio/sfx/SFX - EnemyShot.wav");
+	m_sfxExplosion = Audio::loadSFX(ASSET_SFX_EXPLOSION);
+	m_sfxEnemyShot = Audio::loadSFX(ASSET_SFX_ENEMY_SHOT);
 	assert(m_sfxExplosion && m_sfxEnemyShot);
 
 }
@@ -155,7 +156,7 @@ void EnemiesFactory::spawnEnemy()
 
 void EnemiesFactory::spawnBoss()
 {
-	auto go = Prefabs::instantiate(Prefabs::getPrefab("Boss1Prefab"));
+	auto go = Prefabs::instantiate(Prefabs::getPrefab(BOSS_1_PREFAB));
 	assert(go);
 
 	go->transform->setParent(gameObject()->transform);

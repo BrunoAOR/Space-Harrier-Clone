@@ -66,16 +66,16 @@ void Player::awake()
 	Messenger::addListener(this, MessengerEventType::PLAYER_REVIVED);
 	Messenger::addListener(this, MessengerEventType::GAME_WON);
 
-	m_sfxTrip = Audio::loadSFX("assets/audio/sfx/SFX - Voice - Ouch.wav");
-	m_sfxDie = Audio::loadSFX("assets/audio/sfx/SFX - Voice - Aaaaargh.wav");
-	m_sfxPostDie = Audio::loadSFX("assets/audio/sfx/SFX - Voice - Get ready.wav");
-	m_sfxShot = Audio::loadSFX("assets/audio/sfx/SFX - PlayerShot.wav");
+	m_sfxTrip = Audio::loadSFX(ASSET_SFX_PLAYER_TRIP);
+	m_sfxDie = Audio::loadSFX(ASSET_SFX_PLAYER_DIE);
+	m_sfxPostDie = Audio::loadSFX(ASSET_SFX_PLAYER_REVIVE);
+	m_sfxShot = Audio::loadSFX(ASSET_SFX_PLAYER_SHOT);
 
 	// Die Animation
 	m_dieAnimation = new TimedAnimation(getDieAnimationInfo(), m_spriteSheet);
 
 	// Shooting
-	m_shotsPool = new GameObjectPool(Prefabs::getPrefab("PlayerShotPrefab"), 6);
+	m_shotsPool = new GameObjectPool(Prefabs::getPrefab(PLAYER_SHOT_PREFAB), 6);
 }
 
 

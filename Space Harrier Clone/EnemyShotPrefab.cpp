@@ -5,6 +5,7 @@
 #include "Engine/Sprite.h"
 #include "Engine/SpriteSheet.h"
 #include "Engine/CircleCollider.h"
+#include "gameData.h"
 #include "EnemyShot.h"
 #include "CollisionCallbackForwarder.h"
 
@@ -21,9 +22,9 @@ void EnemyShotPrefab::configureGameObject(Reference<GameObject>& gameObject) con
 		auto spriteSheet = childGo->addComponent<SpriteSheet>();
 		if (spriteSheet)
 		{
-			spriteSheet->loadImage("assets/sprites/Enemies.png");
+			spriteSheet->loadImage(ASSET_IMG_ENEMIES);
 			spriteSheet->setAllPivots(Vector2(0.5f, 0.5f));
-			spriteSheet->setRenderLayer("EnemyShots");
+			spriteSheet->setRenderLayer(RENDER_LAYER_3_ENEMY_SHOTS);
 
 			spriteSheet->addAnimation("shot");
 			spriteSheet->addRectForAnimation("shot", Vector2(5, 5), 68, 68);
@@ -44,7 +45,7 @@ void EnemyShotPrefab::configureGameObject(Reference<GameObject>& gameObject) con
 			// Shot's collider is smaller than the sprite (only the central circle area)
 			circColl->radius = 21;
 			// Note: No need to offset the shot collider, because the sprite's pivot is at the center
-			circColl->setCollisionLayer("EnemyShot");
+			circColl->setCollisionLayer(COLLISION_LAYER_3_ENEMY_SHOT);
 		}
 
 		auto ccf = childGo->addComponent<CollisionCallbackForwarder>();
@@ -62,10 +63,10 @@ void EnemyShotPrefab::configureGameObject(Reference<GameObject>& gameObject) con
 		auto shadow = shadowGo->addComponent<Sprite>();
 		if (shadow)
 		{
-			shadow->setRenderLayer("Shadows");
+			shadow->setRenderLayer(RENDER_LAYER_1_SHADOWS);
 			shadow->setZIndex(0);
 
-			shadow->loadImage("assets/sprites/Enemies.png");
+			shadow->loadImage(ASSET_IMG_ENEMIES);
 			shadow->setClipRect(SDL_Rect{ 235, 150, 62, 18 });
 			shadow->setAllPivots(Vector2(0.5f, 0));
 		}

@@ -6,6 +6,7 @@
 #include "Engine/PrefabsFactory.h"
 #include "Engine/GameObject.h"
 #include "Engine/Transform.h"
+#include "gameData.h"
 #include "FloorManager.h"
 #include "TreePrefab.h"
 #include "FloorObjectMover.h"
@@ -56,10 +57,10 @@ void FloorObjectsFactory::init(const Reference<FloorManager>& floorManager, cons
 
 void FloorObjectsFactory::awake()
 {
-	m_explosionsPool = new GameObjectPool(Prefabs::getPrefab("ExplosionPrefab"), 3);
+	m_explosionsPool = new GameObjectPool(Prefabs::getPrefab(EXPLOSION_PREFAB), 3);
 	assert(m_explosionsPool);
 
-	m_sfxExplosion = Audio::loadSFX("assets/audio/sfx/SFX - Explosion.wav");
+	m_sfxExplosion = Audio::loadSFX(ASSET_SFX_EXPLOSION);
 	assert(m_sfxExplosion);
 }
 

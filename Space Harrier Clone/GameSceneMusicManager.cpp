@@ -2,6 +2,7 @@
 
 #include <assert.h>
 #include "Engine/API.h"
+#include "gameData.h"
 #include "Messenger.h"
 #include "MessengerEventType.h"
 
@@ -23,10 +24,10 @@ void GameSceneMusicManager::awake()
 	Messenger::addListener(this, MessengerEventType::BOSS_SPAWNED);
 	Messenger::addListener(this, MessengerEventType::GAME_WON);
 
-	m_musicLevel = Audio::loadMusic("assets/audio/bgm/Theme.ogg");
-	m_musicBoss = Audio::loadMusic("assets/audio/bgm/S1 MOOT Boss (Skyra).ogg");
-	m_musicGameWon = Audio::loadMusic("assets/audio/bgm/Lake Side Memory (WIN).ogg");
-	m_sfxWelcome = Audio::loadSFX("assets/audio/sfx/SFX - Voice - Welcome to the fantasy zone.wav");
+	m_musicLevel = Audio::loadMusic(ASSET_BGM_MAIN);
+	m_musicBoss = Audio::loadMusic(ASSET_BGM_BOSS);
+	m_musicGameWon = Audio::loadMusic(ASSET_BGM_WIN);
+	m_sfxWelcome = Audio::loadSFX(ASSET_SFX_WELCOME);
 	assert(m_musicLevel && m_musicBoss && m_musicGameWon && m_sfxWelcome);
 }
 

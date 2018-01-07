@@ -5,6 +5,7 @@
 #include "Engine/SpriteSheet.h"
 #include "Engine/Sprite.h"
 #include "Engine/RectangleCollider.h"
+#include "gameData.h"
 #include "EnemyBall.h"
 #include "CollisionCallbackForwarder.h"
 #include "ExplosiveObject.h"
@@ -29,15 +30,15 @@ void EnemyBallPrefab::configureGameObject(Reference<GameObject>& gameObject) con
 				rectColl->isTrigger = true;
 				rectColl->size = Vector2(162, 160);
 				rectColl->offset.y += rectColl->size.y / 2;
-				rectColl->setCollisionLayer("Enemy");
+				rectColl->setCollisionLayer(COLLISION_LAYER_2_ENEMY);
 			}
 
 			auto spriteSheet = characterGo->addComponent<SpriteSheet>();
 			if (spriteSheet)
 			{
-				spriteSheet->loadImage("assets/sprites/Enemies.png");
+				spriteSheet->loadImage(ASSET_IMG_ENEMIES);
 				spriteSheet->setAllPivots(Vector2(0.5f, 0));
-				spriteSheet->setRenderLayer("Main");
+				spriteSheet->setRenderLayer(RENDER_LAYER_2_MAIN);
 
 				spriteSheet->addAnimation("open");
 				spriteSheet->addRectForAnimation("open", Vector2(465, 335), 162, 160);
@@ -78,10 +79,10 @@ void EnemyBallPrefab::configureGameObject(Reference<GameObject>& gameObject) con
 		auto shadow = shadowGo->addComponent<Sprite>();
 		if (shadow)
 		{
-			shadow->setRenderLayer("Shadows");
+			shadow->setRenderLayer(RENDER_LAYER_1_SHADOWS);
 			shadow->setZIndex(0);
 
-			shadow->loadImage("assets/sprites/Enemies.png");
+			shadow->loadImage(ASSET_IMG_ENEMIES);
 			shadow->setClipRect(SDL_Rect{ 235, 150, 62, 18 });
 			shadow->setAllPivots(Vector2(0.5f, 0));
 		}

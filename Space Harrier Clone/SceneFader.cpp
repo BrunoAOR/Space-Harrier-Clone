@@ -4,6 +4,7 @@
 #include "Engine/gameConfig.h"
 #include "Engine/API.h"
 #include "EngineExt/RectangleRenderer.h"
+#include "gameData.h"
 #include "Messenger.h"
 #include "MessengerEventType.h"
 
@@ -17,7 +18,7 @@ void SceneFader::init(int targetSceneIndex, SDL_Color targetColor, int fadeTimeM
 {
 	m_rectRenderer = gameObject()->getComponent<RectangleRenderer>();
 	assert(m_rectRenderer);
-	m_rectRenderer->setRenderLayer("UI");
+	m_rectRenderer->setRenderLayer(RENDER_LAYER_5_UI);
 	m_rectRenderer->setZIndex(100);
 	m_rectRenderer->setAllPivots(Vector2(0, 0));
 

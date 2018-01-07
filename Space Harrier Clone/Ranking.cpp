@@ -22,7 +22,7 @@ void Ranking::onDestroy()
 
 void Ranking::awake()
 {
-	m_musicNameEntry = Audio::loadMusic("assets/audio/bgm/Winners Song (Name Entry).ogg");
+	m_musicNameEntry = Audio::loadMusic(ASSET_BGM_RANKING);
 	assert(m_musicNameEntry);
 
 	m_rankingListEntryDuration = 1733;
@@ -54,7 +54,7 @@ void Ranking::awake()
 		auto tableHeaderLabel = go->addComponent<TextRenderer>();
 		assert(tableHeaderLabel);
 
-		tableHeaderLabel->setRenderLayer("UI");
+		tableHeaderLabel->setRenderLayer(RENDER_LAYER_5_UI);
 		tableHeaderLabel->setZIndex(1);
 
 		bool success = tableHeaderLabel->loadFont(getFont("smallGreen"));
@@ -73,10 +73,10 @@ void Ranking::awake()
 		auto sprite = go->addComponent<Sprite>();
 		assert(sprite);
 
-		sprite->setRenderLayer("UI");
+		sprite->setRenderLayer(RENDER_LAYER_5_UI);
 		sprite->setZIndex(1);
 
-		bool success = sprite->loadImage("assets/sprites/UI.png");
+		bool success = sprite->loadImage(ASSET_IMG_UI);
 		assert(success);
 		sprite->setAllPivots(Vector2(1, 0));
 		sprite->setClipRect(SDL_Rect{ 96, 104, 8, 8 });
@@ -92,7 +92,7 @@ void Ranking::awake()
 		auto segaLabel = go->addComponent<TextRenderer>();
 		assert(segaLabel);
 
-		segaLabel->setRenderLayer("UI");
+		segaLabel->setRenderLayer(RENDER_LAYER_5_UI);
 		segaLabel->setZIndex(1);
 
 		bool success = segaLabel->loadFont(getFont("smallGray"));
@@ -110,7 +110,7 @@ void Ranking::awake()
 		m_showRankingTableLabel = go->addComponent<TextRenderer>();
 		assert(m_showRankingTableLabel);
 
-		m_showRankingTableLabel->setRenderLayer("UI");
+		m_showRankingTableLabel->setRenderLayer(RENDER_LAYER_5_UI);
 		m_showRankingTableLabel->setZIndex(1);
 
 		bool success = m_showRankingTableLabel->loadFont(getFont("smallGreen"));
@@ -129,7 +129,7 @@ void Ranking::awake()
 		m_nameEntryTableLabel = go->addComponent<TextRenderer>();
 		assert(m_nameEntryTableLabel);
 
-		m_nameEntryTableLabel->setRenderLayer("UI");
+		m_nameEntryTableLabel->setRenderLayer(RENDER_LAYER_5_UI);
 		m_nameEntryTableLabel->setZIndex(1);
 
 		bool success = m_nameEntryTableLabel->loadFont(getFont("smallRed"));
@@ -151,7 +151,7 @@ void Ranking::awake()
 		m_livesLabel = go->addComponent<TextRenderer>();
 		assert(m_livesLabel);
 
-		m_livesLabel->setRenderLayer("UI");
+		m_livesLabel->setRenderLayer(RENDER_LAYER_5_UI);
 		m_livesLabel->setZIndex(1);
 
 		bool success = m_livesLabel->loadFont(getFont("smallGray"));
@@ -168,7 +168,7 @@ void Ranking::awake()
 		m_nameEntryTableCounterValue = go->addComponent<TextRenderer>();
 		assert(m_nameEntryTableCounterValue);
 
-		m_nameEntryTableCounterValue->setRenderLayer("UI");
+		m_nameEntryTableCounterValue->setRenderLayer(RENDER_LAYER_5_UI);
 		m_nameEntryTableCounterValue->setZIndex(1);
 
 		bool success = m_nameEntryTableCounterValue->loadFont(getFont("smallGreen"));
@@ -187,7 +187,7 @@ void Ranking::awake()
 		m_topScoreValue = go->addComponent<TextRenderer>();
 		assert(m_topScoreValue);
 
-		m_topScoreValue->setRenderLayer("UI");
+		m_topScoreValue->setRenderLayer(RENDER_LAYER_5_UI);
 		m_topScoreValue->setZIndex(1);
 
 		bool success = m_topScoreValue->loadFont(getFont("smallGray"));
@@ -204,7 +204,7 @@ void Ranking::awake()
 		m_charSelectionLabel = go->addComponent<TextRenderer>();
 		assert(m_charSelectionLabel);
 
-		m_charSelectionLabel->setRenderLayer("UI");
+		m_charSelectionLabel->setRenderLayer(RENDER_LAYER_5_UI);
 		m_charSelectionLabel->setZIndex(1);
 
 		bool success = m_charSelectionLabel->loadFont(getFont("smallYellow"));
@@ -223,7 +223,7 @@ void Ranking::awake()
 		m_selectedCharacterValue = go->addComponent<TextRenderer>();
 		assert(m_selectedCharacterValue);
 
-		m_selectedCharacterValue->setRenderLayer("UI");
+		m_selectedCharacterValue->setRenderLayer(RENDER_LAYER_5_UI);
 		m_selectedCharacterValue->setZIndex(2);
 
 		bool success = m_selectedCharacterValue->loadFont(getFont("smallRed"));
@@ -241,7 +241,7 @@ void Ranking::awake()
 		m_topScoreNameValue = go->addComponent<TextRenderer>();
 		assert(m_topScoreNameValue);
 
-		m_topScoreNameValue->setRenderLayer("UI");
+		m_topScoreNameValue->setRenderLayer(RENDER_LAYER_5_UI);
 		m_topScoreNameValue->setZIndex(1);
 
 		bool success = m_topScoreNameValue->loadFont(getFont("smallGray"));
@@ -405,7 +405,7 @@ void Ranking::setupRankingList()
 		rankAndScoreTR->setRenderRange(0, SCREEN_WIDTH, m_yClipBottom, m_yClipTop);
 		assert(rankAndScoreTR);
 
-		rankAndScoreTR->setRenderLayer("UI");
+		rankAndScoreTR->setRenderLayer(RENDER_LAYER_5_UI);
 		rankAndScoreTR->setZIndex(2);
 
 		if (m_playerRank == i)
@@ -430,7 +430,7 @@ void Ranking::setupRankingList()
 		nameTR->setRenderRange(0, SCREEN_WIDTH, m_yClipBottom, m_yClipTop);
 		assert(nameTR);
 
-		nameTR->setRenderLayer("UI");
+		nameTR->setRenderLayer(RENDER_LAYER_5_UI);
 		nameTR->setZIndex(2);
 
 		if (m_playerRank == i)

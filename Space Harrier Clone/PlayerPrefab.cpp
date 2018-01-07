@@ -6,6 +6,7 @@
 #include "Engine/SpriteSheet.h"
 #include "Engine/Sprite.h"
 #include "Engine/RectangleCollider.h"
+#include "gameData.h"
 #include "Player.h"
 #include "CollisionCallbackForwarder.h"
 
@@ -34,16 +35,16 @@ void PlayerPrefab::configureGameObject(Reference<GameObject>& gameObject) const
 				rectColl->size = Vector2(14, 40);
 				// Offset added to center the collider in the sprite
 				rectColl->offset.y += 25;
-				rectColl->setCollisionLayer("Player");
+				rectColl->setCollisionLayer(COLLISION_LAYER_0_PLAYER);
 				rectColl->zIndex = 95;
 			}
 
 			auto spriteSheet = characterGo->addComponent<SpriteSheet>();
 			if (spriteSheet)
 			{
-				spriteSheet->setRenderLayer("Foreground");
+				spriteSheet->setRenderLayer(RENDER_LAYER_4_FOREGROUND);
 				spriteSheet->setZIndex(2);
-				spriteSheet->loadImage("assets/sprites/Character.png");
+				spriteSheet->loadImage(ASSET_IMG_CHARACTER);
 				spriteSheet->setAllPivots(Vector2(0.5f, 0));
 
 				// Animation: run
@@ -163,10 +164,10 @@ void PlayerPrefab::configureGameObject(Reference<GameObject>& gameObject) const
 			auto shadow = shadowGo->addComponent<Sprite>();
 			if (shadow)
 			{
-				shadow->setRenderLayer("Shadows");
+				shadow->setRenderLayer(RENDER_LAYER_1_SHADOWS);
 				shadow->setZIndex(1);
 
-				shadow->loadImage("assets/sprites/Character.png");
+				shadow->loadImage(ASSET_IMG_CHARACTER);
 				shadow->setClipRect(SDL_Rect{ 300, 50, 62, 18 });
 				shadow->setAllPivots(Vector2(0.5f, 0));
 			}

@@ -4,6 +4,7 @@
 #include "Engine/API.h"
 #include "Engine/GameObject.h"
 #include "Engine/Transform.h"
+#include "gameData.h"
 #include "FloorManager.h"
 #include "utils.h"
 
@@ -26,7 +27,7 @@ void BackgroundScroller::init(const Reference<FloorManager>& floorManager, const
 		if (sprite)
 		{
 			sprite->setAllPivots(Vector2(0, 0));
-			sprite->setRenderLayer("Background");
+			sprite->setRenderLayer(RENDER_LAYER_0_BACKGROUND);
 			sprite->setZIndex(zIndex);
 			success &= sprite->loadImage(texturePath);
 			m_spriteWidth = sprite->getWidth();
@@ -50,7 +51,7 @@ void BackgroundScroller::init(const Reference<FloorManager>& floorManager, const
 		if (sprite)
 		{
 			sprite->setAllPivots(Vector2(0, 0));
-			sprite->setRenderLayer("Background");
+			sprite->setRenderLayer(RENDER_LAYER_0_BACKGROUND);
 			sprite->setZIndex(zIndex);
 			success &= sprite->loadImage(texturePath);
 		}

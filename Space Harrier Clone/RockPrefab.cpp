@@ -5,6 +5,7 @@
 #include "Engine/Transform.h"
 #include "Engine/Sprite.h"
 #include "Engine/RectangleCollider.h"
+#include "gameData.h"
 #include "FloorObjectMover.h"
 #include "ObjectEffectType.h"
 #include "CollisionCallbackForwarder.h"
@@ -17,10 +18,10 @@ void RockPrefab::configureGameObject(Reference<GameObject>& gameObject) const
 	auto shadowSprite = gameObject->addComponent<Sprite>();
 	if (shadowSprite)
 	{
-		shadowSprite->loadImage("assets/sprites/Floor_objects.png");
+		shadowSprite->loadImage(ASSET_IMG_OBSTACLES);
 		shadowSprite->setClipRect(SDL_Rect{ 170, 190, 62, 18 });
 		shadowSprite->setAllPivots(Vector2(0.5f, 0));
-		shadowSprite->setRenderLayer("Shadows");
+		shadowSprite->setRenderLayer(RENDER_LAYER_1_SHADOWS);
 	}
 
 	auto fom = gameObject->addComponent<FloorObjectMover>();
@@ -40,10 +41,10 @@ void RockPrefab::configureGameObject(Reference<GameObject>& gameObject) const
 		auto sprite = childGo->addComponent<Sprite>();
 		if (sprite)
 		{
-			sprite->loadImage("assets/sprites/Floor_objects.png");
+			sprite->loadImage(ASSET_IMG_OBSTACLES);
 			sprite->setClipRect(SDL_Rect{ 5, 5, 113, 76 });
 			sprite->setAllPivots(Vector2(0.5f, 0));
-			sprite->setRenderLayer("Main");
+			sprite->setRenderLayer(RENDER_LAYER_2_MAIN);
 		}
 
 		auto obstaclePoints = childGo->addComponent<ObstaclePoints>();
@@ -58,7 +59,7 @@ void RockPrefab::configureGameObject(Reference<GameObject>& gameObject) const
 			rectColl->isTrigger = true;
 			rectColl->size = Vector2(113, 76);
 			rectColl->offset.y += rectColl->size.y / 2;
-			rectColl->setCollisionLayer("Obstacle");
+			rectColl->setCollisionLayer(COLLISION_LAYER_4_OBSTACLE);
 		}
 
 		auto ccf = childGo->addComponent<CollisionCallbackForwarder>();

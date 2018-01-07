@@ -4,6 +4,7 @@
 #include "Engine/API.h"
 #include "Engine/GameObject.h"
 #include "Engine/Sprite.h"
+#include "gameData.h"
 #include "FloorManager.h"
 
 
@@ -23,7 +24,7 @@ void FloorWarpController::init(FloorManager* floorManager, const std::string& te
 		if (sprite)
 		{
 			sprite->loadImage(texturePath);
-			sprite->setRenderLayer("Background");
+			sprite->setRenderLayer(RENDER_LAYER_0_BACKGROUND);
 			sprite->setZIndex(1);
 			float y = (float)(sprite->getHeight()) / floorLinesCount;
 			sprite->setAllPivots(Vector2(0.5f, 0));
