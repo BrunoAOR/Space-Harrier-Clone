@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<head>
+	<title>Space Harrier Clone - BrunoAOR</title>
+	<meta charset='utf-8'>
+	<meta http-equiv="X-UA-Compatible" content="chrome=1">
+	<link href='https://fonts.googleapis.com/css?family=Chivo:900' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" href="/Space-Harrier-Clone/assets/css/style.css?v=e8e620a00c5db122999d2b158a9552efab2427db">
+	<link rel="stylesheet" type="text/css" href="/Space-Harrier-Clone/assets/css/print.css" media="print">
+
+	<style>
+		#app-releases span {
+			background: transparent url(assets/images/octocat-icon.png) 12px 50% no-repeat;
+		}
+		
+		ul li {
+			padding-left: 0;
+		}
+		
+		ul {
+			padding-left: 20px;
+		}
+		
+		p {
+			text-align: justify;
+		}
+		
+		h2 {
+			margin-top: 20px;
+		}
+		
+		.app-license-content {
+			font-size: 80%;
+		}
+		
+		.app-flex-center {
+			display: flex;
+			justify-content: center;
+		}
+		
+		.app-flex-center * {
+			flex-shrink: 0;
+		}
+		
+		@media only screen and (max-width: 767px) {
+			.button {
+				margin-top: 5px;
+				margin-bottom: 5px;
+			}
+			.inner {
+				min-width: 480px;
+			}
+		}
+
+	</style>
+</head>
+
+<body>
+	<div id="container">
+		<div class="inner">
+
+			<header>
+				<h1>Space Harrier Clone</h1>
+				<h2>A tribute, by Bruno Ortiz</h2>
+			</header>
+			<section id="downloads" class="clearfix">
+				<div class="app-flex-center">
+					<a href="https://github.com/BrunoAOR/Space-Harrier-Clone/releases/latest" id="app-releases" class="button"><span>Release Info</span></a>
+					<a href="https://github.com/BrunoAOR/Space-Harrier-Clone/releases/download/v0.1/Space-Harrier-Clone-v0.1.zip" id="download-zip" class="button"><span>Download Game</span></a>
+					<a href="https://github.com/BrunoAOR/Space-Harrier-Clone" id="view-on-github" class="button"><span>View on GitHub</span></a>
+				</div>
+			</section>
+			<hr>
+			<section id="main_content">
+				<p>Find the full project code at <a href="https://github.com/BrunoAOR/Space-Harrier-Clone">https://github.com/BrunoAOR/Space-Harrier-Clone</a>.</p>
+
+				<h2 id="gameplay-video">Gameplay Video</h2>
+				<div class="app-flex-center">
+					<iframe width="620" height="434" src="https://www.youtube.com/embed/IEfNoqLfxcs" frameborder="0"></iframe>
+				</div>
+
+				<h2 id="what-is-this">What is this?</h2>
+				<p>Space Harrier Clone is a tribute to the old-school Space Harrier arcade game published in 1985 by SEGA. This tribute was built using the SDL library and taking as a base a small SDL-based 2D game engine called the Potato Engine (<a href="https://github.com/BrunoAOR/Potato-Engine">https://github.com/BrunoAOR/Potato-Engine</a>), which I had been working on before.</p>
+
+				<h2 id="how-to-use">How to use?</h2>
+
+				<h3 id="installation">Installation</h3>
+				<p>No installation is required. All you need to do is download the zipped game from the latest release found at <a href="https://github.com/BrunoAOR/Space-Harrier-Clone/releases">https://github.com/BrunoAOR/Space-Harrier-Clone/releases</a>, unzip the folder and run the <em>Space Harrier Clone.exe</em> file found within.</p>
+
+				<h3 id="basic-game-controls">Basic game controls</h3>
+				<p>The following list shows the usable keyboard keys:</p>
+				<ul>
+					<li><strong>Arrow keys</strong>: Used to move the player around the screen and to change letters in the scoreboard if your score is high enough.</li>
+					<li><strong>Left Control</strong>: Used to fire and to accept a selected letter in the scoreboard screen.</li>
+					<li><strong>Space</strong>: Used as the “start button”.</li>
+					<li><strong>Q</strong>: Used to “insert a coin” and get 3 lives (Remember, this is ia tribute to an arcade game).</li>
+				</ul>
+
+				<h3 id="game-objectives">Game objectives</h3>
+				<p>The game is very straight forward. All you need to do is fly throught the level firing at everything that comes your way. Once you reach the end of the level, you will face a powerful snake-dragon. Upon defeating the dragon, you will have won the game. Bear in mind that the original game had 18 different levels but this tribute only includes the first level.</p>
+
+				<h3 id="building-the-game">Building the game</h3>
+				<p>To build the game you just need to clone the repo, open it in the IDE of your preference and compile it. If you intend to play the game from your IDE, make sure to modify the execution folder (called Working Directory in Visual Studio) under the debug settings of the Space Harrier Clone project and make it point to the <strong>Game</strong> folder inside the project directory.</p>
+
+				<h2 id="further-information">Further information</h2>
+
+				<h3 id="author">Author</h3>
+				<ul>
+					<li>Bruno Ortiz Rodriguez (<a href="https://github.com/BrunoAOR">BrunoAOR</a> at https://github.com/BrunoAOR)</li>
+				</ul>
+
+				<h3 id="license">License</h3>
+				<p>The project is licensed under the MIT License.<br /> Find the license document at <a href="https://github.com/BrunoAOR/Space-Harrier-Clone/blob/master/LICENSE">https://github.com/BrunoAOR/Space-Harrier-Clone/blob/master/LICENSE</a>.</p>
+
+				<p>MIT License</p>
+
+				<div class="app-license-content">
+					<p>Copyright (c) 2017 Bruno Ortiz</p>
+
+					<p>Permission is hereby granted, free of charge, to any person obtaining a copy<br /> of this software and associated documentation files (the “Software”), to deal<br /> in the Software without restriction, including without limitation the rights<br /> to use, copy, modify, merge, publish, distribute, sublicense, and/or sell<br /> copies of the Software, and to permit persons to whom the Software is<br /> furnished to do so, subject to the following conditions:</p>
+
+					<p>The above copyright notice and this permission notice shall be included in all<br /> copies or substantial portions of the Software.</p>
+
+					<p>THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR<br /> IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,<br /> FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE<br /> AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER<br /> LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,<br /> OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE<br /> SOFTWARE.
+					</p>
+				</div>
+			</section>
+
+			<footer>
+
+				Space-Harrier-Clone is maintained by <a href="https://github.com/BrunoAOR">BrunoAOR</a><br> This page was generated by <a href="https://pages.github.com">GitHub Pages</a>.
+			</footer>
+
+		</div>
+	</div>
+
+
+</body>
+
+</html>
